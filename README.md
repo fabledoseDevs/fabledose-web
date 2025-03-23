@@ -56,6 +56,7 @@ npm start
 ```
 
 ### Folder structure
+The project follows a modular structure to keep the codebase organized and maintainable. The main directories are as follows:
 <details>
 <summary>Click to expand</summary>
 
@@ -80,16 +81,16 @@ npm start
 │	│	│	│	├── component.hook.ts
 │	│	│	│	├── component.styled.ts
 │	│	│	│	└── component.types.ts
-│	│	│	└──	/…
+│	│	│	└── /…
 │	│	│
 │	│	├── /molecules
-│	│	│	└──	/…
+│	│	│	└── /…
 │	│	│
 │	│	├── /organisms
-│	│	│	└──	/…
+│	│	│	└── /…
 │	│	│
 │	│	└──/templates
-│	│		└──	/…
+│	│		└── /…
 │	│	
 │	├── /lib		# Utility functions
 │	│	├── /api
