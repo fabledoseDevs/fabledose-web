@@ -45,7 +45,7 @@ npm run dev
 ```
 3. Open http://localhost:3000 in your browser to see the application in action.
 
-### Other commands
+### Other Commands
 1. Build the application
 ```
 npm run build
@@ -55,7 +55,7 @@ npm run build
 npm start
 ```
 
-### Folder structure
+### Folder Structure
 The project follows a modular structure to keep the codebase organized and maintainable. The main directories are as follows:
 <details>
 <summary>Click to expand</summary>
