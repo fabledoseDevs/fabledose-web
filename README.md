@@ -56,22 +56,6 @@ npm start
 ```
 
 ### Folder structure
-<style>
-  .readme-textarea {
-    width: 100%;
-    max-width: 440px;
-    height: 800px;
-    background-color: #3d3d3d;
-    color: #d3d3d3;
-    padding: 1rem;
-    font-family: Ubuntu, monospace, sans-serif;
-    line-height: 1.5;
-    border: 0;
-    border-radius: 4px;
-    resize: vertical;
-    overflow: auto;
-  }
-</style>
 <details>
 <summary>Click to expand</summary>
 
