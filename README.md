@@ -73,8 +73,10 @@ npm start
   }
 </style>
 <details>
-<summary>CLICK TO EXPAND</summary>
-<textarea class="readme-textarea" readonly>/fabledose-web
+<summary>Click to expand</summary>
+
+```text
+/fabledose-web
 ├── /public		# Static assets
 ├── /src		# Application source code
 │	├── /app		# App Router
@@ -131,8 +133,7 @@ npm start
 ├── next.config.js		# Next.js configuration
 ├── package.json		# Project dependencies
 └── tsconfig.json		# TypeScript configuration
-</textarea>
-
+```
 </details>
 
 ### License
@@ -146,4 +147,4 @@ This project is licensed under the MIT License.
 - Contentful (CMS)
 
 ### Feedback and Contributions
-We welcome your feedback and contributions! If you encounter any issues or have suggestions for improvements, please feel free to open an issue or submit a pull request.****
+We welcome your feedback and contributions! If you encounter any issues or have suggestions for improvements, please feel free to open an issue or submit a pull request.
