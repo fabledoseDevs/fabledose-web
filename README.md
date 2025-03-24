@@ -1,7 +1,3 @@
-![Node.js version](https://img.shields.io/badge/node-20.11.0-brightgreen)&nbsp;
-![Next.js](https://img.shields.io/badge/next.js-15.2.3-blue)&nbsp;
-![License](https://img.shields.io/badge/react-19.x-orange)
-
 <img src="public/fabledose - logo-green.svg" alt="Fabledose Logo" width="300" />
 
 Welcome to the Fabledose project! This application showcases a library of animated books designed to engage children in reading.
@@ -10,16 +6,16 @@ You’re invited to explore the demo and see the MVP in action:
 
 [🌐 Live Demo → fabledose.com](https://fabledose.com)
 
-### Prerequisites
-Ensure you have the following installed on your machine:
-* Node.js: v20.11.0 (recommended to use [NVM](https://github.com/nvm-sh/nvm))
-* Next.js: v15.2.3
-* React: v19.x
 
 ### Node Version Management
 To manage the Node.js version, use [NVM](https://github.com/nvm-sh/nvm). Run the following command in the root of the project to install the correct Node.js version as specified in the `.nvmrc` file:
 ```
 nvm install
+```
+
+To run correct Node.js version, use the following command:
+```
+nvm use 20
 ```
 
 ### Setting Up the Environment
