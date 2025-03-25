@@ -124,8 +124,6 @@ This project is licensed under the MIT License.
 - Next.js 15
 - React 19
 - TypeScript
-- Styled-components
-- Contentful (CMS)
 
 ### Feedback and Contributions
 We welcome your feedback and contributions! If you encounter any issues or have suggestions for improvements, please feel free to open an issue or submit a pull request.
