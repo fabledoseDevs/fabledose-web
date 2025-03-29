@@ -1,5 +1,19 @@
 /**
  * This component renders a button.
+ * The button can have different sizes, colors, and actions.
+ *
+ * Example usage:
+ * ```tsx
+ * <Button
+ *    actionType={ACTION_TYPE.FUNCTION_TRIGGER}
+ *    variant={BUTTON_SIZE.DEFAULT}
+ *    color={BUTTON_COLOR.BEIGE}
+ *    text="Click me!"
+ *    payload={() => console.log('Button clicked!')}
+ *    isDisabled={false}
+ *    icon="icon.svg"
+ *  />
+ * ```
  */
 
 import type {ReactElement} from 'react';
