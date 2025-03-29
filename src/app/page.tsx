@@ -7,7 +7,7 @@ const Home = () => {
     <Button
       actionType={ACTION_TYPE.FUNCTION_TRIGGER}
       variant={BUTTON_SIZE.DEFAULT}
-      color={BUTTON_COLOR.BEIGE}
+      color={BUTTON_COLOR.WASABI}
       text="Hello World"
       payload={() => console.log('Hello World')}
     />
