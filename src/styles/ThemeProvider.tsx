@@ -1,12 +1,11 @@
+"use client";
+
 import { ThemeProvider as ThemeProviderBase } from '@emotion/react'
 import { theme } from './theme'
-import {ReactElement} from "react";
+import {ReactElement, ReactNode} from "react";
 
 interface ThemeProviderProps {
-  // TODO: FIX NEEDED!
-  // Issue when installing type Children from @/types/general.
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  children: any;
+  children: ReactNode;
 }
 
 const ThemeProvider = ({ children }: ThemeProviderProps): ReactElement => (
