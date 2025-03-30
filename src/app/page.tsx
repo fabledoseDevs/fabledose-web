@@ -8,7 +8,6 @@ const Home = () => {
       actionType={ACTION_TYPE.FUNCTION_TRIGGER}
       variant={BUTTON_SIZE.DEFAULT}
       color={BUTTON_COLOR.CORAL}
-      icon={'/button-icon-placeholder.ico'}
       text="Hello World"
       payload={"#"}
     />

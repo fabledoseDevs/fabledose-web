@@ -67,11 +67,11 @@ const getIconSize = (sizevariant: BUTTON_SIZE) => {
       `;
   }
 };
+
 const buttonStyle = css`
   display: block;
   box-sizing: border-box;
   border: none;
-  padding: 10px 40px;
   text-align: center;
   text-transform: uppercase;
   text-decoration: none;
@@ -79,6 +79,9 @@ const buttonStyle = css`
   cursor: pointer;
   letter-spacing: 1px;
   line-height: 1.25;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 40px;
 `;
 
 export const ButtonWrapper = styled.div`
@@ -97,8 +100,10 @@ export const ButtonIcon = styled.img<{ sizevariant: BUTTON_SIZE }>`
 export const ButtonBody = styled.button<{
   colorvariant: BUTTON_COLOR;
   sizevariant: BUTTON_SIZE;
+  iconispresent: boolean;
 }>`
   ${buttonStyle};
+  padding-right: ${({ iconispresent }) => (iconispresent ? "15px" : "40px")};
   ${({ colorvariant, theme }) => getColorScheme(colorvariant, theme)};
   ${({ sizevariant }) => getSizeStyles(sizevariant)};
 `;
@@ -106,8 +111,10 @@ export const ButtonBody = styled.button<{
 export const LinkButtonBody = styled(Link)<{
   colorvariant: BUTTON_COLOR;
   sizevariant: BUTTON_SIZE;
+  iconispresent: boolean;
 }>`
   ${buttonStyle};
+  padding-right: ${({ iconispresent }) => (iconispresent ? "15px" : "40px")};
   ${({ colorvariant, theme }) => getColorScheme(colorvariant, theme)};
   ${({ sizevariant }) => getSizeStyles(sizevariant)};
 `;

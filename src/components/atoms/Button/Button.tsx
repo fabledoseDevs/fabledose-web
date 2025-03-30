@@ -18,6 +18,7 @@ const actionTypeSelector: actionSelectorType = (
           sizevariant={variant}
           href={payload ? payload as string : '#'}
           aria-label={text}
+          iconispresent={!!icon}
         >
           {icon ? <ButtonIcon src={icon} alt={text} sizevariant={variant} /> : null}
           {text}
@@ -32,6 +33,7 @@ const actionTypeSelector: actionSelectorType = (
           form={payload as string}
           colorvariant={color}
           sizevariant={variant}
+          iconispresent={!!icon}
         >
           {icon ? <ButtonIcon src={icon} alt={text} sizevariant={variant} /> : null}
           {text}
@@ -40,11 +42,12 @@ const actionTypeSelector: actionSelectorType = (
     case ACTION_TYPE.FUNCTION_TRIGGER:
       return (
         <ButtonBody
-          onClick={payload ? payload as () => void : () => {console.info('No action provided')}}
+          onClick={payload as () => void}
           aria-label={text}
           disabled={isDisabled}
           colorvariant={color}
           sizevariant={variant}
+          iconispresent={!!icon}
         >
           {icon ? <ButtonIcon src={icon} alt={text} sizevariant={variant} /> : null}
           {text}
