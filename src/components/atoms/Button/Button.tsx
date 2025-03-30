@@ -14,10 +14,12 @@ const actionTypeSelector: actionSelectorType = (
     case ACTION_TYPE.NAVIGATION:
       return (
         <LinkButtonBody
+          colorvariant={color}
+          sizevariant={variant}
           href={payload ? payload as string : '#'}
           aria-label={text}
         >
-          {icon ? <ButtonIcon src={icon} alt={text} /> : null}
+          {icon ? <ButtonIcon src={icon} alt={text} sizevariant={variant} /> : null}
           {text}
         </LinkButtonBody>
       );
@@ -31,20 +33,20 @@ const actionTypeSelector: actionSelectorType = (
           colorvariant={color}
           sizevariant={variant}
         >
-          {icon ? <ButtonIcon src={icon} alt={text} /> : null}
+          {icon ? <ButtonIcon src={icon} alt={text} sizevariant={variant} /> : null}
           {text}
         </ButtonBody>
       );
     case ACTION_TYPE.FUNCTION_TRIGGER:
       return (
         <ButtonBody
-          onClick={payload as () => void}
+          onClick={payload ? payload as () => void : () => {console.info('No action provided')}}
           aria-label={text}
           disabled={isDisabled}
           colorvariant={color}
           sizevariant={variant}
         >
-          {icon ? <ButtonIcon src={icon} alt={text} /> : null}
+          {icon ? <ButtonIcon src={icon} alt={text} sizevariant={variant} /> : null}
           {text}
         </ButtonBody>
       );
