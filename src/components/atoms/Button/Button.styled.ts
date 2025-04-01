@@ -1,11 +1,13 @@
-import styled from '@emotion/styled'
-import { css } from "@emotion/react";
-import Link from "next/link";
-import {BUTTON_COLOR, BUTTON_SIZE} from "@/atoms/Button/Button.types";
-import { Theme } from "@/styles/types";
+import { css } from '@emotion/react';
+import styled from '@emotion/styled';
+import Link from 'next/link';
 
-const getColorScheme = (colorvariant: BUTTON_COLOR, theme: Theme) => {
-  switch (colorvariant) {
+import type { Theme } from '@/styles/types';
+
+import { BUTTON_COLOR, BUTTON_SIZE } from './Button.types';
+
+const getColorScheme = (colorVariant: BUTTON_COLOR, theme: Theme) => {
+  switch (colorVariant) {
     case BUTTON_COLOR.BEIGE:
       return css`
         background-color: ${theme.palette.basic.beige};
@@ -34,8 +36,8 @@ const getColorScheme = (colorvariant: BUTTON_COLOR, theme: Theme) => {
   }
 };
 
-const getSizeStyles = (sizevariant: BUTTON_SIZE) => {
-  switch (sizevariant) {
+const getSizeStyles = (sizeVariant: BUTTON_SIZE) => {
+  switch (sizeVariant) {
     case BUTTON_SIZE.FLUFFY:
       return css`
         height: 75px;
@@ -52,8 +54,8 @@ const getSizeStyles = (sizevariant: BUTTON_SIZE) => {
   }
 };
 
-const getIconSize = (sizevariant: BUTTON_SIZE) => {
-  switch (sizevariant) {
+const getIconSize = (sizeVariant: BUTTON_SIZE) => {
+  switch (sizeVariant) {
     case BUTTON_SIZE.FLUFFY:
       return css`
         width: 65px;
@@ -75,7 +77,7 @@ const buttonStyle = css`
   text-align: center;
   text-transform: uppercase;
   text-decoration: none;
-  font-family: "Lato", sans-serif;
+  font-family: 'Lato', sans-serif;
   cursor: pointer;
   letter-spacing: 1px;
   line-height: 1.25;
@@ -88,33 +90,33 @@ export const ButtonWrapper = styled.div`
   width: fit-content;
 `;
 
-export const ButtonIcon = styled.img<{ sizevariant: BUTTON_SIZE }>`
+export const ButtonIcon = styled.img<{ sizeVariant: BUTTON_SIZE }>`
   display: inline-block;
   vertical-align: middle;
   overflow: clip;
   border-radius: 50%;
   margin: -5px 10px 0 -34px;
-  ${({ sizevariant }) => getIconSize(sizevariant)};
+  ${({ sizeVariant }) => getIconSize(sizeVariant)};
 `;
 
 export const ButtonBody = styled.button<{
-  colorvariant: BUTTON_COLOR;
-  sizevariant: BUTTON_SIZE;
-  iconispresent: boolean;
+  colorVariant: BUTTON_COLOR;
+  sizeVariant: BUTTON_SIZE;
+  iconIsPresent: boolean;
 }>`
   ${buttonStyle};
-  padding-right: ${({ iconispresent }) => (iconispresent ? "15px" : "40px")};
-  ${({ colorvariant, theme }) => getColorScheme(colorvariant, theme)};
-  ${({ sizevariant }) => getSizeStyles(sizevariant)};
+  padding-right: ${({ iconIsPresent }) => (iconIsPresent ? '15px' : '40px')};
+  ${({ colorVariant, theme }) => getColorScheme(colorVariant, theme)};
+  ${({ sizeVariant }) => getSizeStyles(sizeVariant)};
 `;
 
 export const LinkButtonBody = styled(Link)<{
-  colorvariant: BUTTON_COLOR;
-  sizevariant: BUTTON_SIZE;
-  iconispresent: boolean;
+  colorVariant: BUTTON_COLOR;
+  sizeVariant: BUTTON_SIZE;
+  iconIsPresent: boolean;
 }>`
   ${buttonStyle};
-  padding-right: ${({ iconispresent }) => (iconispresent ? "15px" : "40px")};
-  ${({ colorvariant, theme }) => getColorScheme(colorvariant, theme)};
-  ${({ sizevariant }) => getSizeStyles(sizevariant)};
+  padding-right: ${({ iconIsPresent }) => (iconIsPresent ? '15px' : '40px')};
+  ${({ colorVariant, theme }) => getColorScheme(colorVariant, theme)};
+  ${({ sizeVariant }) => getSizeStyles(sizeVariant)};
 `;

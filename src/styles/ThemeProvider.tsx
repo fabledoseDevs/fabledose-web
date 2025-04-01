@@ -1,8 +1,9 @@
-"use client";
+'use client';
 
-import { ThemeProvider as ThemeProviderBase } from '@emotion/react'
-import { theme } from './theme'
-import {ReactElement, ReactNode} from "react";
+import { ThemeProvider as ThemeProviderBase } from '@emotion/react';
+import type { ReactElement, ReactNode } from 'react';
+
+import { theme } from './theme';
 
 interface ThemeProviderProps {
   children: ReactNode;

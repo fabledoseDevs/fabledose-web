@@ -1,7 +1,16 @@
-import { ACTION_TYPE, actionSelector as actionSelectorType, Button as ButtonType } from './Button.types';
-import { ButtonBody, ButtonIcon, ButtonWrapper, LinkButtonBody } from './Button.styled';
+import {
+  ButtonBody,
+  ButtonIcon,
+  ButtonWrapper,
+  LinkButtonBody,
+} from './Button.styled';
+import type {
+  ActionSelector as ActionSelectorType,
+  Button as ButtonType,
+} from './Button.types';
+import { ACTION_TYPE } from './Button.types';
 
-const actionTypeSelector: actionSelectorType = (
+const actionTypeSelector: ActionSelectorType = ({
   variant,
   color,
   actionType,
@@ -9,18 +18,18 @@ const actionTypeSelector: actionSelectorType = (
   payload,
   isDisabled,
   icon,
-) => {
+}) => {
   switch (actionType) {
     case ACTION_TYPE.NAVIGATION:
       return (
         <LinkButtonBody
-          colorvariant={color}
-          sizevariant={variant}
-          href={payload ? payload as string : '#'}
+          colorVariant={color}
+          sizeVariant={variant}
+          href={payload ? (payload as string) : '#'}
           aria-label={text}
-          iconispresent={!!icon}
+          iconIsPresent={!!icon}
         >
-          {icon ? <ButtonIcon src={icon} alt={text} sizevariant={variant} /> : null}
+          {icon && <ButtonIcon src={icon} alt={text} sizeVariant={variant} />}
           {text}
         </LinkButtonBody>
       );
@@ -31,11 +40,11 @@ const actionTypeSelector: actionSelectorType = (
           aria-label={text}
           disabled={isDisabled}
           form={payload as string}
-          colorvariant={color}
-          sizevariant={variant}
-          iconispresent={!!icon}
+          colorVariant={color}
+          sizeVariant={variant}
+          iconIsPresent={!!icon}
         >
-          {icon ? <ButtonIcon src={icon} alt={text} sizevariant={variant} /> : null}
+          {icon && <ButtonIcon src={icon} alt={text} sizeVariant={variant} />}
           {text}
         </ButtonBody>
       );
@@ -45,33 +54,37 @@ const actionTypeSelector: actionSelectorType = (
           onClick={payload as () => void}
           aria-label={text}
           disabled={isDisabled}
-          colorvariant={color}
-          sizevariant={variant}
-          iconispresent={!!icon}
+          colorVariant={color}
+          sizeVariant={variant}
+          iconIsPresent={!!icon}
         >
-          {icon ? <ButtonIcon src={icon} alt={text} sizevariant={variant} /> : null}
+          {icon && <ButtonIcon src={icon} alt={text} sizeVariant={variant} />}
           {text}
         </ButtonBody>
       );
     default:
-      return null;
+      return <></>;
   }
 };
 
-export const Button: ButtonType = (
-  {
-    variant,
-    color,
-    text,
-    actionType,
-    icon,
-    payload,
-    isDisabled = false,
-  }) => {
-
-  return (
-    <ButtonWrapper>
-      {actionTypeSelector(variant, color, actionType, text, payload, isDisabled, icon)}
-    </ButtonWrapper>
-  );
-}
+export const Button: ButtonType = ({
+  variant,
+  color,
+  text,
+  actionType,
+  icon,
+  payload,
+  isDisabled = false,
+}) => (
+  <ButtonWrapper>
+    {actionTypeSelector({
+      variant,
+      color,
+      actionType,
+      text,
+      payload,
+      isDisabled,
+      icon,
+    })}
+  </ButtonWrapper>
+);

@@ -13,7 +13,7 @@ export interface Palette {
     coral: string;
     white: string;
     black: string;
-  }
+  };
   beigeVariants: {
     lighter: string;
     darker: string;
