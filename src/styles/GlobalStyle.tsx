@@ -1,8 +1,10 @@
-"use client";
-import "@/public/fonts/fonts.css";
-import { css, Global } from "@emotion/react";
+'use client';
+import '@/public/fonts/fonts.css';
 
-const GlobalStyle = () => (
+import { css, Global } from '@emotion/react';
+import type { ReactElement } from 'react';
+
+const GlobalStyle = (): ReactElement => (
   <Global
     styles={css`
       *,
@@ -15,8 +17,7 @@ const GlobalStyle = () => (
       body {
         margin: 0;
         padding: 0;
-        font-family: 'Lato', 'Roboto',
-        'Helvetica Neue', 'Arial', sans-serif;
+        font-family: 'Lato', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif;
         background-color: #ffffff;
         color: #000000;
         line-height: 1.5;
@@ -46,7 +47,9 @@ const GlobalStyle = () => (
         cursor: pointer;
       }
 
-      h1, h2, h3 {
+      h1,
+      h2,
+      h3 {
         font-family: 'Poltawski', serif;
       }
     `}

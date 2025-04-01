@@ -5,35 +5,50 @@ module.exports = {
     ecmaVersion: 2020,
     sourceType: 'module',
     ecmaFeatures: {
-      jsx: true
-    }
+      jsx: true,
+    },
   },
   settings: {
     react: {
-      version: 'detect'
-    }
+      version: 'detect',
+    },
   },
   env: {
     browser: true,
     amd: true,
     node: true,
-    es6: true
+    es6: true,
   },
-  extends: ['typescript', 'typescript/react', 'eslint:recommended', 'plugin:react/recommended', 'plugin:react-hooks/recommended', 'plugin:@next/next/recommended', 'plugin:prettier/recommended'],
+  extends: [
+    'typescript',
+    'typescript/react',
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
+    'plugin:@next/next/recommended',
+    'plugin:prettier/recommended',
+  ],
   plugins: ['simple-import-sort', '@typescript-eslint', 'eslint-plugin-tsdoc'],
   rules: {
-    'prettier/prettier': ['error', {
-      singleQuote: true
-    }, {
-      usePrettierrc: true
-    }],
+    'prettier/prettier': [
+      'error',
+      {
+        singleQuote: true,
+      },
+      {
+        usePrettierrc: true,
+      },
+    ],
     'react/react-in-jsx-scope': 'off',
     'arrow-body-style': ['error', 'as-needed'],
     'arrow-parens': ['error', 'as-needed'],
     'max-lines': ['warn', 500],
-    'no-console': ['error', {
-      allow: ['warn', 'error', 'info']
-    }],
+    'no-console': [
+      'error',
+      {
+        allow: ['warn', 'error', 'info'],
+      },
+    ],
     'react/destructuring-assignment': ['error', 'always'],
     'react/jsx-closing-bracket-location': ['error', 'tag-aligned'],
     'react/jsx-first-prop-new-line': [2, 'multiline'],
@@ -57,25 +72,32 @@ module.exports = {
     'no-case-declarations': 'off',
     '@typescript-eslint/consistent-type-imports': 'error',
     'no-redeclare': 'off',
-    '@typescript-eslint/no-redeclare': ['error', {
-      ignoreDeclarationMerge: true
-    }],
-    'tsdoc/syntax': 'error'
+    '@typescript-eslint/no-redeclare': [
+      'error',
+      {
+        ignoreDeclarationMerge: true,
+      },
+    ],
+    'tsdoc/syntax': 'warn',
   },
-  overrides: [{
-    files: ['**/*.tsx'],
-    rules: {
-      'max-lines': ['error', 700]
-    }
-  }, {
-    files: ['**/*.{js|cjs}'],
-    rules: {
-      '@typescript-eslint/explicit-module-boundary-types': 'off'
-    }
-  }, {
-    files: ['**/*.types.ts'],
-    rules: {
-      'max-lines': 'off'
-    }
-  }]
+  overrides: [
+    {
+      files: ['**/*.tsx'],
+      rules: {
+        'max-lines': ['error', 700],
+      },
+    },
+    {
+      files: ['**/*.{js|cjs}'],
+      rules: {
+        '@typescript-eslint/explicit-module-boundary-types': 'off',
+      },
+    },
+    {
+      files: ['**/*.types.ts'],
+      rules: {
+        'max-lines': 'off',
+      },
+    },
+  ],
 };

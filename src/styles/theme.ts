@@ -66,5 +66,5 @@ export const theme: Theme = {
     overlay: '6',
     modalContent: '7',
     guard: '8',
-  }
+  },
 };

@@ -16,24 +16,24 @@
  * ```
  */
 
-import type {ReactElement} from 'react';
+import type { ReactElement } from 'react';
 
 export enum ACTION_TYPE {
-  FUNCTION_TRIGGER = 'function-trigger',      // Button that performs an action
-  SUBMIT = 'submit',                          // Button that submits a form
-  NAVIGATION = 'navigation',                  // Button that navigates to a different page
+  FUNCTION_TRIGGER = 'function-trigger', // Button that performs an action
+  SUBMIT = 'submit', // Button that submits a form
+  NAVIGATION = 'navigation', // Button that navigates to a different page
 }
 
 export enum BUTTON_SIZE {
-  DEFAULT = 'default',          // Standard size button
-  FLUFFY = 'fluffy',            // Big button with large text
+  DEFAULT = 'default', // Standard size button
+  FLUFFY = 'fluffy', // Big button with large text
 }
 
 export enum BUTTON_COLOR {
-  BEIGE = 'beige',              // #FAF0DD
-  DENIM = 'denim',              // #316372
-  WASABI = 'wasabi',            // #7F8A27
-  CORAL = 'coral',              // #D1504E
+  BEIGE = 'beige', // #FAF0DD
+  DENIM = 'denim', // #316372
+  WASABI = 'wasabi', // #7F8A27
+  CORAL = 'coral', // #D1504E
 }
 
 export interface ButtonProps {
@@ -75,15 +75,7 @@ export interface ButtonProps {
 /**
  * This function selects the button type and performed action.
  */
-export type actionSelector = (
-  variant: BUTTON_SIZE,                          // Button size
-  color: BUTTON_COLOR,                           // Button color
-  actionType: ACTION_TYPE,                       // Button type
-  text: string,                                  // Button text
-  payload: string | (() => void) | undefined,    // Button payload
-  isDisabled: boolean,                           // Button disabled state
-  icon: string | undefined,                      // Button icon
-) => ReactElement | null;
+export type ActionSelector = (props: ButtonProps) => ReactElement;
 
 /**
  * @group Components
