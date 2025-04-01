@@ -100,7 +100,7 @@ The project follows a modular structure to keep the codebase organized and maint
 │	│
 │	├── /hooks		# Custom React hooks
 │	├── /styles		# Global styles and theme
-│	│	├── GlobalStyle.ts
+│	│	├── GlobalStyle.tsx
 │	│	├── theme.ts
 │	│	└── types.ts
 │	│
