@@ -1,4 +1,4 @@
-<img src="public/fabledose - logo-green.svg" alt="Fabledose Logo" width="300" />
+<img src="public/logo-green.svg" alt="Fabledose Logo" width="300" />
 
 Welcome to the Fabledose project! This application showcases a library of animated books designed to engage children in reading.
 
@@ -100,7 +100,7 @@ The project follows a modular structure to keep the codebase organized and maint
 │	│
 │	├── /hooks		# Custom React hooks
 │	├── /styles		# Global styles and theme
-│	│	├── GlobalStyles.ts
+│	│	├── GlobalStyle.tsx
 │	│	├── theme.ts
 │	│	└── types.ts
 │	│
