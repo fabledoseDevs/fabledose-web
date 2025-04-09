@@ -30,10 +30,10 @@ export enum BUTTON_SIZE {
 }
 
 export enum BUTTON_COLOR {
-  BEIGE = 'beige', // #FAF0DD
-  DENIM = 'denim', // #316372
-  WASABI = 'wasabi', // #7F8A27
-  CORAL = 'coral', // #D1504E
+  BEIGE = '#FAF0DD',
+  DENIM = '#316372',
+  WASABI = '#7F8A27',
+  CORAL = '#D1504E',
 }
 
 export interface ButtonProps {
