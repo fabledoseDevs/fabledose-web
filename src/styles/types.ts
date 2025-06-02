@@ -17,6 +17,8 @@ export interface Palette {
       white: string;
       purple: string;
       darkPurple: string;
+      gradientRed: string;
+      gradientRedReverse: string;
     };
   };
   byColor: {

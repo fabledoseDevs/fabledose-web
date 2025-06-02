@@ -22,6 +22,8 @@ export const theme: Theme = {
         white: '#FFFFFF',
         purple: '#261A4F',
         darkPurple: '#1F153E',
+        gradientRed: 'linear-gradient(180deg, #E84528 0%, #B92409 100%)',
+        gradientRedReverse: 'linear-gradient(180deg, #B92409 0%, #E84528 100%)',
       },
     },
     byColor: {
