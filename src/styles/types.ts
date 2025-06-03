@@ -6,37 +6,30 @@ export type ViewportName =
   | 'mobile';
 
 export interface Palette {
-  basic: {
-    beige: string;
-    denim: string;
-    wasabi: string;
-    coral: string;
-    white: string;
-    black: string;
+  byElement: {
+    text: {
+      white: string;
+      ecru: string;
+      purple: string;
+      lightRed: string;
+    };
+    background: {
+      white: string;
+      purple: string;
+      darkPurple: string;
+      gradientRed: string;
+      gradientRedReverse: string;
+    };
   };
-  beigeVariants: {
-    lighter: string;
-    darker: string;
-  };
-  denimVariants: {
-    lighter: string;
-    darker: string;
-  };
-  wasabiVariants: {
-    lighter: string;
-    darker: string;
-  };
-  coralVariants: {
-    lighter: string;
-    darker: string;
-  };
-  whiteVariants: {
-    lighter: string;
-    darker: string;
-  };
-  blackVariants: {
-    lighter: string;
-    darker: string;
+  byColor: {
+    red: {
+      light: string;
+      regular: string;
+    };
+    purple: {
+      regular: string;
+      dark: string;
+    };
   };
 }
 
@@ -59,8 +52,8 @@ export interface Theme {
     [key in ViewportName]: string;
   };
   fonts: {
-    poltawskiNowy: string;
-    lato: string;
+    default: string;
+    headline: string;
   };
   zIndex: Layers;
 }

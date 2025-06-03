@@ -24,18 +24,6 @@ export enum ACTION_TYPE {
   NAVIGATION = 'navigation', // Button that navigates to a different page
 }
 
-export enum BUTTON_SIZE {
-  DEFAULT = 'default', // Standard size button
-  FLUFFY = 'fluffy', // Big button with large text
-}
-
-export enum BUTTON_COLOR {
-  BEIGE = '#FAF0DD',
-  DENIM = '#316372',
-  WASABI = '#7F8A27',
-  CORAL = '#D1504E',
-}
-
 export interface ButtonProps {
   /**
    * Button type: either a button that performs an action,
@@ -43,26 +31,14 @@ export interface ButtonProps {
    */
   actionType: ACTION_TYPE;
   /**
-   * Variant of the button.
-   */
-  variant: BUTTON_SIZE;
-  /**
-   * Color of the button.
-   */
-  color: BUTTON_COLOR;
-  /**
    * Text to display on the button.
    */
   text: string;
   /**
-   * Optional icon to display on left side of the button.
-   */
-  icon?: string;
-  /**
-   * Payload, either a function, url or form id.
-   * For button of type ACTION_TYPE.FUNCTION_TRIGGER the payload should be a function.
-   * For button of type ACTION_TYPE.NAVIGATION the payload should be url.
-   * For button of type ACTION_TYPE.SUBMIT the payload should be form id.
+   * Payload, either a function url or form id.
+   * For the button of type ACTION_TYPE.FUNCTION_TRIGGER the payload should be a function.
+   * For the button of type ACTION_TYPE.NAVIGATION the payload should be url.
+   * For the button of type ACTION_TYPE.SUBMIT the payload should be form id.
    * If no payload is provided, the button will not perform any action.
    */
   payload?: string | (() => void);

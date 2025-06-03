@@ -11,37 +11,30 @@ export const breakpoints = {
 
 export const theme: Theme = {
   palette: {
-    basic: {
-      beige: '#FAF0DD',
-      denim: '#316372',
-      wasabi: '#7F8A27',
-      coral: '#D1504E',
-      white: '#F9F9F9',
-      black: '#222222',
+    byElement: {
+      text: {
+        white: '#FFFFFF',
+        ecru: '#FAF0DD',
+        purple: '#261A4F',
+        lightRed: '#FF684C',
+      },
+      background: {
+        white: '#FFFFFF',
+        purple: '#261A4F',
+        darkPurple: '#1F153E',
+        gradientRed: 'linear-gradient(180deg, #E84528 0%, #B92409 100%)',
+        gradientRedReverse: 'linear-gradient(180deg, #B92409 0%, #E84528 100%)',
+      },
     },
-    beigeVariants: {
-      lighter: '#FDF6ED',
-      darker: '#CBBFB2',
-    },
-    denimVariants: {
-      lighter: '#3E7E91',
-      darker: '#183038',
-    },
-    wasabiVariants: {
-      lighter: '#9AA830',
-      darker: '#4D5417',
-    },
-    coralVariants: {
-      lighter: '#f8615e',
-      darker: '#9a3a38',
-    },
-    whiteVariants: {
-      lighter: '#FFFFFF',
-      darker: '#C9C9C9',
-    },
-    blackVariants: {
-      lighter: '#3B3B3B',
-      darker: '#000000',
+    byColor: {
+      red: {
+        light: '#FF684C',
+        regular: '#BE341B',
+      },
+      purple: {
+        regular: '#261A4F',
+        dark: '#1F153E',
+      },
     },
   },
   interfaceWidth: `${breakpoints.interfaceWidth}px`,
@@ -53,8 +46,8 @@ export const theme: Theme = {
     hdScreen: `screen and (min-width: ${breakpoints.highDef}px)`,
   },
   fonts: {
-    poltawskiNowy: 'Poltawski',
-    lato: 'Lato',
+    default: 'Baloo2',
+    headline: 'YesevaOne',
   },
   zIndex: {
     standard: '0',

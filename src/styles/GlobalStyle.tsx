@@ -17,7 +17,7 @@ const GlobalStyle = (): ReactElement => (
       body {
         margin: 0;
         padding: 0;
-        font-family: 'Lato', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif;
+        font-family: 'Baloo2', sans-serif;
         background-color: #ffffff;
         color: #000000;
         line-height: 1.5;
@@ -48,9 +48,15 @@ const GlobalStyle = (): ReactElement => (
       }
 
       h1,
-      h2,
-      h3 {
-        font-family: 'Poltawski', serif;
+      h2 {
+        font-family: 'YesevaOne', serif;
+      }
+
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: 'Baloo2', sans-serif;
       }
     `}
   />
