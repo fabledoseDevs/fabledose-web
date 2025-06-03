@@ -45,15 +45,35 @@ export interface Layers {
   guard: string;
 }
 
+export interface FontStyles {
+  fontSize: string;
+  fontWeight: string;
+  lineHeight: string;
+  fontFamily: string;
+}
+
+export interface Typography {
+  fonts: {
+    default: string;
+    headline: string;
+  };
+  headlines: {
+    jumbo: FontStyles;
+    big: FontStyles;
+    small: FontStyles;
+    superText: FontStyles;
+  };
+  paragraphs: {
+    default: FontStyles;
+  };
+}
+
 export interface Theme {
   palette: Palette;
   interfaceWidth: string;
   media: {
     [key in ViewportName]: string;
   };
-  fonts: {
-    default: string;
-    headline: string;
-  };
+  typography: Typography;
   zIndex: Layers;
 }

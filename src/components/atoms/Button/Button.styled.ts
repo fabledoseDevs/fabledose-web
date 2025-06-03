@@ -13,7 +13,7 @@ const buttonStyle = css`
   line-height: 1;
   padding: 12px 24px;
   border-radius: 24px;
-  font-size: 18px;
+  font-size: 1.8rem;
   font-weight: 600;
 `;
 
@@ -23,7 +23,7 @@ export const ButtonWrapper = styled.div`
 
 export const ButtonBody = styled.button`
   ${buttonStyle};
-  font-family: ${({ theme }) => theme.fonts.default}, sans-serif;
+  font-family: ${({ theme }) => theme.typography.fonts.default}, sans-serif;
   color: ${({ theme }) => theme.palette.byElement.text.white};
   background: ${({ theme }) => theme.palette.byElement.background.gradientRed};
   border: 1px solid ${({ theme }) => theme.palette.byColor.red.regular};
@@ -50,7 +50,7 @@ export const ButtonBody = styled.button`
 
 export const LinkButtonBody = styled(Link)`
   ${buttonStyle};
-  font-family: ${({ theme }) => theme.fonts.default}, sans-serif;
+  font-family: ${({ theme }) => theme.typography.fonts.default}, sans-serif;
   color: ${({ theme }) => theme.palette.byElement.text.white};
   background: ${({ theme }) => theme.palette.byElement.background.gradientRed};
   border: 1px solid ${({ theme }) => theme.palette.byColor.red.regular};
