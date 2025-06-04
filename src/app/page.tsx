@@ -3,6 +3,8 @@ import type { ReactElement } from 'react';
 
 import Button from '@/atoms/Button';
 import { ACTION_TYPE } from '@/atoms/Button/Button.types';
+import Headline from '@/atoms/Headline';
+import { HEADLINE_TYPE } from '@/atoms/Headline/Headline.types';
 
 const Home = (): ReactElement => (
   <>
@@ -17,6 +19,11 @@ const Home = (): ReactElement => (
       payload={() => alert('Hello World')}
       isDisabled={true}
     />
+    <br />
+    <Headline weight={HEADLINE_TYPE.JUMBO}>Hello world</Headline>
+    <Headline weight={HEADLINE_TYPE.BIG}>Hello world</Headline>
+    <Headline weight={HEADLINE_TYPE.SMALL}>Hello world</Headline>
+    <Headline weight={HEADLINE_TYPE.SUPERTEXT}>Hello world</Headline>
   </>
 );
 

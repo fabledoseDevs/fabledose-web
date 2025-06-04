@@ -5,6 +5,12 @@ export type ViewportName =
   | 'tablet'
   | 'mobile';
 
+export type FontProperty = 'fontSize' | 'fontFamily';
+
+export type FontWeight = 'regular' | 'medium' | 'semibold';
+
+export type Headlines = 'jumbo' | 'big' | 'small' | 'superText';
+
 export interface Palette {
   byElement: {
     text: {
@@ -45,15 +51,32 @@ export interface Layers {
   guard: string;
 }
 
+export type FontStyles = {
+  [key in FontProperty]: string;
+};
+
+export interface Typography {
+  fonts: {
+    default: string;
+    headline: string;
+  };
+  fontWeights: {
+    [key in FontWeight]: number;
+  };
+  headlines: {
+    [key in Headlines]: FontStyles;
+  };
+  paragraphs: {
+    default: FontStyles;
+  };
+}
+
 export interface Theme {
   palette: Palette;
   interfaceWidth: string;
   media: {
     [key in ViewportName]: string;
   };
-  fonts: {
-    default: string;
-    headline: string;
-  };
+  typography: Typography;
   zIndex: Layers;
 }

@@ -45,9 +45,40 @@ export const theme: Theme = {
     desktop: `screen and (min-width: ${breakpoints.desktop}px)`,
     hdScreen: `screen and (min-width: ${breakpoints.highDef}px)`,
   },
-  fonts: {
-    default: 'Baloo2',
-    headline: 'YesevaOne',
+  typography: {
+    fonts: {
+      default: 'Baloo2, sans-serif',
+      headline: 'YesevaOne, serif',
+    },
+    fontWeights: {
+      regular: 400,
+      medium: 500,
+      semibold: 600,
+    },
+    headlines: {
+      jumbo: {
+        fontSize: '6.4rem',
+        fontFamily: 'YesevaOne, serif',
+      },
+      big: {
+        fontSize: '4.8rem',
+        fontFamily: 'YesevaOne, serif',
+      },
+      small: {
+        fontSize: '2.4rem',
+        fontFamily: 'Baloo2, sans-serif',
+      },
+      superText: {
+        fontSize: '1.8rem',
+        fontFamily: 'Baloo2, sans-serif',
+      },
+    },
+    paragraphs: {
+      default: {
+        fontSize: '1.8rem',
+        fontFamily: 'Baloo2, sans-serif',
+      },
+    },
   },
   zIndex: {
     standard: '0',
