@@ -47,41 +47,36 @@ export const theme: Theme = {
   },
   typography: {
     fonts: {
-      default: 'Baloo2',
-      headline: 'YesevaOne',
+      default: 'Baloo2, sans-serif',
+      headline: 'YesevaOne, serif',
+    },
+    fontWeights: {
+      regular: 400,
+      medium: 500,
+      semibold: 600,
     },
     headlines: {
       jumbo: {
         fontSize: '6.4rem',
-        fontWeight: '400',
-        lineHeight: '1.25',
-        fontFamily: 'YesevaOne',
+        fontFamily: 'YesevaOne, serif',
       },
       big: {
         fontSize: '4.8rem',
-        fontWeight: '400',
-        lineHeight: '1.25',
-        fontFamily: 'YesevaOne',
+        fontFamily: 'YesevaOne, serif',
       },
       small: {
         fontSize: '2.4rem',
-        fontWeight: '600',
-        lineHeight: '1.25',
-        fontFamily: 'Baloo2',
+        fontFamily: 'Baloo2, sans-serif',
       },
       superText: {
         fontSize: '1.8rem',
-        fontWeight: '500',
-        lineHeight: '1.25',
-        fontFamily: 'Baloo2',
+        fontFamily: 'Baloo2, sans-serif',
       },
     },
     paragraphs: {
       default: {
         fontSize: '1.8rem',
-        fontWeight: '400',
-        lineHeight: '1.25',
-        fontFamily: 'Baloo2',
+        fontFamily: 'Baloo2, sans-serif',
       },
     },
   },

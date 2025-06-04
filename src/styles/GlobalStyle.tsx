@@ -1,66 +1,78 @@
 'use client';
 import '@/public/fonts/fonts.css';
 
-import { css, Global } from '@emotion/react';
+import { css, Global, useTheme } from '@emotion/react';
 import type { ReactElement } from 'react';
 
-const GlobalStyle = (): ReactElement => (
-  <Global
-    styles={css`
-      *,
-      *::before,
-      *::after {
-        box-sizing: border-box;
-      }
+import type { Theme } from './types';
 
-      html,
-      body {
-        margin: 0;
-        padding: 0;
-        font-size: 10px;
-        font-family: 'Baloo2', sans-serif;
-        background-color: #ffffff;
-        color: #000000;
-        line-height: 1.5;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-      }
+const GlobalStyle = (): ReactElement => {
+  const theme = useTheme() as Theme;
 
-      a {
-        color: inherit;
-        text-decoration: none;
-      }
+  return (
+    <Global
+      styles={css`
+        *,
+        *::before,
+        *::after {
+          box-sizing: border-box;
+        }
 
-      ul,
-      ol {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-      }
+        html,
+        body {
+          margin: 0;
+          padding: 0;
+          font-size: 10px;
+          font-family: ${theme.typography.fonts.default};
+          font-weight: ${theme.typography.fontWeights.regular};
+          background-color: ${theme.palette.byElement.background.white};
+          color: ${theme.palette.byElement.text.purple};
+          line-height: 1.5;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+        }
 
-      img {
-        max-width: 100%;
-        display: block;
-      }
+        a {
+          color: inherit;
+          text-decoration: none;
+        }
 
-      button {
-        font-family: inherit;
-        cursor: pointer;
-      }
+        ul,
+        ol {
+          margin: 0;
+          padding: 0;
+          list-style: none;
+        }
 
-      h1,
-      h2 {
-        font-family: 'YesevaOne', serif;
-      }
+        img {
+          max-width: 100%;
+          display: block;
+        }
 
-      h3,
-      h4,
-      h5,
-      h6 {
-        font-family: 'Baloo2', sans-serif;
-      }
-    `}
-  />
-);
+        button {
+          font-family: inherit;
+          cursor: pointer;
+        }
+
+        h1,
+        h2 {
+          margin: 0;
+          font-family: ${theme.typography.fonts.headline};
+          line-height: 1.25;
+        }
+
+        h3,
+        h4,
+        h5,
+        h6,
+        p {
+          margin: 0;
+          font-family: ${theme.typography.fonts.default};
+          line-height: 1.25;
+        }
+      `}
+    />
+  );
+};
 
 export default GlobalStyle;
