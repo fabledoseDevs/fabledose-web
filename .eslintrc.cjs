@@ -78,7 +78,17 @@ module.exports = {
         ignoreDeclarationMerge: true,
       },
     ],
-    'tsdoc/syntax': 'warn',
+    'tsdoc/syntax': [
+      'warn',
+      {
+        customTags: [
+          '@file',
+          '@property',
+          '@group',
+        ],
+      },
+    ],
+
   },
   overrides: [
     {

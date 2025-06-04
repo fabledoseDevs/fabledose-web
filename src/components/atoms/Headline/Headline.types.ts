@@ -1,6 +1,10 @@
+import type { ReactElement } from 'react';
+
 /**
- * This component renders a headline.
- * The headline can have different styling and tag.
+ * @file
+ * This file defines the types and interfaces for the Headline component.
+ *
+ * The headline can have different styles and weights.
  *
  * Example usage:
  * ```tsx
@@ -10,33 +14,44 @@
  * ```
  */
 
-import type { ReactElement } from 'react';
-
+/**
+ * Possible headline types for the Headline component.
+ *
+ * @remarks
+ * - `JUMBO`: Represents the largest headline, typically used for jumbo banners.
+ * - `BIG`: A large headline, used for main sections. You should use one per section.
+ * - `SMALL`: A smaller headline, usually for subsections.
+ * - `SUPERTEXT`: Represents a supertext, used for captions or smaller supplemental text.
+ */
 export enum HEADLINE_TYPE {
-  JUMBO = 'jumbo', // The largest headline, used for jumbo banner on LP.
-  BIG = 'h1', // A large headline, used for main sections. Use one per section tag!
-  SMALL = 'h2', // A smaller headline, used for subsections.
-  SUPERTEXT = 'p', // A supertext headline, used for overhead captions.
+  JUMBO = 'jumbo',
+  BIG = 'h1',
+  SMALL = 'h2',
+  SUPERTEXT = 'p',
 }
 
+/**
+ * Interface defining the properties for the Headline component.
+ *
+ * @property children - The content of the headline (must be a plain string).
+ * @property weight - The type of headline to render.
+ *  - `HEADLINE_TYPE.JUMBO`
+ *  - `HEADLINE_TYPE.BIG`
+ *  - `HEADLINE_TYPE.SMALL`
+ *  - `HEADLINE_TYPE.SUPERTEXT`
+ */
 export interface HeadlineProps {
-  /**
-   * Children should be a string that will be rendered as the headline content.
-   */
   children: string;
-  /**
-   * The type of headline to render.
-   * Can be one of the following:
-   * - HEADLINE_TYPE.JUMBO
-   * - HEADLINE_TYPE.BIG
-   * - HEADLINE_TYPE.SMALL
-   * - HEADLINE_TYPE.SUPERTEXT
-   */
   weight: HEADLINE_TYPE;
 }
 
 /**
- * This function selects the headline type and renders the content.
+ * This function selects and renders the headline type based on the weight.
+ *
+ * @param weight - The headline type from `HEADLINE_TYPE` used for rendering.
+ * @param content - The text content to display in the headline.
+ *
+ * @returns A ReactElement rendering the specified headline.
  */
 export type HeadlineWeightSelectorType = (
   weight: HEADLINE_TYPE,
