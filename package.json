@@ -13,7 +13,8 @@
     "prepare": "husky install",
     "prepush": "npm run lint && npm run types-check",
     "lint": "next lint",
-    "lint:fix": "npm run lint -- --fix"
+    "lint:fix": "npm run lint -- --fix",
+    "typedoc": "typedoc --entryPoints 'src/components' --out docs --entryPointStrategy expand --includeVersion --exclude 'src/components/**/*.styled.ts' --exclude 'src/components/**/*.tsx' --exclude 'src/components/**/*.stories.ts' --exclude 'src/components/**/index.ts'"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -33,14 +34,15 @@
     "eslint-config-next": "15.2.3",
     "eslint-config-prettier": "^8.10.0",
     "eslint-config-typescript": "^3.0.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.31.8",
+    "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-simple-import-sort": "^8.0.0",
     "eslint-plugin-tsdoc": "^0.4.0",
-    "eslint-plugin-jsx-a11y": "^6.10.2",
-    "eslint-plugin-react-hooks": "^5.2.0",
     "husky": "^8.0.3",
     "prettier": "^2.8.8",
+    "typedoc": "^0.28.5",
     "typescript": "^5"
   }
 }

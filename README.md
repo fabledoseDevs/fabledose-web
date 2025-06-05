@@ -20,7 +20,7 @@ nvm use 20
 
 ### Setting Up the Environment
 You need to create an `.env` file in the root directory and populate it with the necessary environment variables:
-```dotenv
+```
 LOCALE=              # Default language/region (e.g., "en-US")
 APP_ENVIRONMENT=     # "development", "production", etc.
 SPACE_ID=            # Contentful space ID
