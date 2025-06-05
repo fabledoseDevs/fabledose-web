@@ -1,0 +1,16 @@
+import styled from '@emotion/styled';
+
+export const ParagraphBody = styled.p<{
+  foreground: string;
+  textAlign: string;
+}>`
+  width: 100%;
+  max-width: 445px;
+  font-size: ${({ theme }) => theme.typography.paragraphs.default.fontSize};
+  font-family: ${({ theme }) => theme.typography.paragraphs.default.fontFamily};
+  color: ${({ theme, foreground }) =>
+    theme.palette.byElement.text[
+      foreground as keyof typeof theme.palette.byElement.text
+    ]};
+  text-align: ${({ textAlign }) => textAlign};
+`;
