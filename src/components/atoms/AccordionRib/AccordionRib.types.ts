@@ -2,14 +2,18 @@ import type { ReactElement } from 'react';
 
 /**
  * @file
- * This file defines the types and interfaces for AccordionRib component.
+ * This file defines the types and interfaces for the AccordionRib component.
  *
  * The AccordionRib is a component that displays content in an accordion-style layout.
  *
  * Example usage:
  * ```tsx
- * <AccordionRib mainText="Section Title" status="open">
- *   <div>Content goes here</div>
+ * <AccordionRib
+ *   mainText={'Click me and expand'}
+ *   isOpen={false}
+ *   isSelfControlled={false}
+ * >
+ *   Content visible when rib is expanded goes here...
  * </AccordionRib>
  * ```
  */
