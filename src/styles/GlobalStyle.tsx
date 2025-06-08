@@ -58,7 +58,7 @@ const GlobalStyle = (): ReactElement => {
         h2 {
           margin: 0;
           font-family: ${theme.typography.fonts.headline};
-          line-height: 1.25;
+          line-height: 1;
         }
 
         h3,

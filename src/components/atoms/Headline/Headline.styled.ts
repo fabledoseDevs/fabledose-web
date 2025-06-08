@@ -20,4 +20,5 @@ export const SupertextHeadline = styled.p`
   font-weight: ${({ theme }) => theme.typography.fontWeights.medium};
   margin: 0;
   color: ${({ theme }) => theme.palette.byElement.text.lightRed};
+  text-transform: uppercase;
 `;
