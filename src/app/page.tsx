@@ -1,9 +1,10 @@
 'use client';
 import type { ReactElement } from 'react';
 
+import AccordionRib from '@/atoms/AccordionRib';
+import BasicDescription from '@/atoms/BasicDescription';
 import Button from '@/atoms/Button';
 import { ACTION_TYPE } from '@/atoms/Button/Button.types';
-import BasicDescription from "@/atoms/BasicDescription";
 
 const Home = (): ReactElement => (
   <>
@@ -19,11 +20,19 @@ const Home = (): ReactElement => (
       isDisabled={true}
     />
     <br />
-    <BasicDescription
-      superText={'Lorem Ipsum'}
-      headline={'Sit amet sentensula falgahta'}
-      paragraph={'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean id eros a odio hendrerit ultrices ac sed urna. Vivamus sit amet massa sit amet ante dignissim consectetur ac eu mauris. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris sit amet fermentum elit. '}
-    />
+    <AccordionRib
+      mainText={'Click me and expand'}
+      isOpen={true}
+      isSelfControlled={true}
+    >
+      <BasicDescription
+        superText={'Lorem Ipsum'}
+        headline={'Sit amet sentensula falgahta'}
+        paragraph={
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean id eros a odio hendrerit ultrices ac sed urna. Vivamus sit amet massa sit amet ante dignissim consectetur ac eu mauris. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris sit amet fermentum elit. '
+        }
+      />
+    </AccordionRib>
   </>
 );
 
