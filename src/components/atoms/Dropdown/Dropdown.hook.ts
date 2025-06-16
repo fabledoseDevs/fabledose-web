@@ -33,7 +33,7 @@ export const useDropdown: UseDropdown = ({
   const handleChange = useCallback(
     (value: string) => {
       setSelectedValue(value);
-      setIsOpen(false); // Close dropdown after selection
+      setIsOpen(false);
       onChange?.(value);
     },
     [onChange],
