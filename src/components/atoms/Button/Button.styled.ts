@@ -2,6 +2,10 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import Link from 'next/link';
 
+import type { BUTTON_VARIANT as BUTTON_VARIAN_TYPE } from '@/atoms/Button/Button.types';
+import { BUTTON_VARIANT } from '@/atoms/Button/Button.types';
+import type { Theme } from '@/styles/types';
+
 const buttonStyle = css`
   margin: 5px auto;
   display: block;
@@ -17,58 +21,144 @@ const buttonStyle = css`
   font-weight: 600;
 `;
 
+const getBackgroundStyle = (styleVariant: BUTTON_VARIAN_TYPE, theme: Theme) => {
+  switch (styleVariant) {
+    case BUTTON_VARIANT.TRANSPARENT:
+      return 'rgba(255, 255, 255, 0.1)';
+    case BUTTON_VARIANT.RED:
+    default:
+      return theme.palette.byElement.background.gradientRed;
+  }
+};
+
+const getBorderStyle = (styleVariant: BUTTON_VARIAN_TYPE, theme: Theme) => {
+  switch (styleVariant) {
+    case BUTTON_VARIANT.TRANSPARENT:
+      return '2px solid rgba(255, 255, 255, 0.3)';
+    case BUTTON_VARIANT.RED:
+    default:
+      return `1px solid ${theme.palette.byColor.red.regular}`;
+  }
+};
+
+const getBoxShadowStyle = (styleVariant: BUTTON_VARIAN_TYPE, theme: Theme) => {
+  switch (styleVariant) {
+    case BUTTON_VARIANT.TRANSPARENT:
+      return 'none';
+    case BUTTON_VARIANT.RED:
+    default:
+      return `0 8px 8px rgba(29, 10, 50, 0.1), inset 0 3px 4px ${theme.palette.byColor.red.light}`;
+  }
+};
+
+const getActiveBackgroundStyle = (
+  styleVariant: BUTTON_VARIAN_TYPE,
+  theme: Theme,
+) => {
+  switch (styleVariant) {
+    case BUTTON_VARIANT.TRANSPARENT:
+      return 'rgba(255, 255, 255, 0.2)';
+    case BUTTON_VARIANT.RED:
+    default:
+      return theme.palette.byElement.background.gradientRedReverse;
+  }
+};
+
+const getActiveBoxShadowStyle = (
+  styleVariant: BUTTON_VARIAN_TYPE,
+  theme: Theme,
+) => {
+  switch (styleVariant) {
+    case BUTTON_VARIANT.TRANSPARENT:
+      return 'none';
+    case BUTTON_VARIANT.RED:
+    default:
+      return `0 4px 8px rgba(29, 10, 50, 0.2), inset 0 2px 3px ${theme.palette.byColor.red.light}`;
+  }
+};
+
+const getDisabledBackgroundStyle = (
+  styleVariant: BUTTON_VARIAN_TYPE,
+  theme: Theme,
+) => {
+  switch (styleVariant) {
+    case BUTTON_VARIANT.TRANSPARENT:
+      return 'rgba(255, 255, 255, 0.05)';
+    case BUTTON_VARIANT.RED:
+    default:
+      return theme.palette.byElement.background.gradientRedReverse;
+  }
+};
+
+const getDisabledBoxShadowStyle = (
+  styleVariant: BUTTON_VARIAN_TYPE,
+  theme: Theme,
+) => {
+  switch (styleVariant) {
+    case BUTTON_VARIANT.TRANSPARENT:
+      return 'none';
+    case BUTTON_VARIANT.RED:
+    default:
+      return `inset 0 3px 4px ${theme.palette.byColor.red.light}`;
+  }
+};
+
 export const ButtonWrapper = styled.div`
   width: fit-content;
 `;
 
-export const ButtonBody = styled.button`
+export const ButtonBody = styled.button<{ styleVariant: BUTTON_VARIAN_TYPE }>`
   ${buttonStyle};
   font-family: ${({ theme }) => theme.typography.fonts.default}, sans-serif;
   color: ${({ theme }) => theme.palette.byElement.text.white};
-  background: ${({ theme }) => theme.palette.byElement.background.gradientRed};
-  border: 1px solid ${({ theme }) => theme.palette.byColor.red.regular};
-  box-shadow: 0 8px 8px rgba(29, 10, 50, 0.1),
-    inset 0 3px 4px ${({ theme }) => theme.palette.byColor.red.light};
+  background: ${({ styleVariant, theme }) =>
+    getBackgroundStyle(styleVariant, theme)};
+  border: ${({ styleVariant, theme }) => getBorderStyle(styleVariant, theme)};
+  box-shadow: ${({ styleVariant, theme }) =>
+    getBoxShadowStyle(styleVariant, theme)};
 
   &:active {
-    background: ${({ theme }) =>
-      theme.palette.byElement.background.gradientRedReverse};
-    box-shadow: 0 4px 8px rgba(29, 10, 50, 0.2),
-      inset 0 2px 3px ${({ theme }) => theme.palette.byColor.red.light};
+    background: ${({ styleVariant, theme }) =>
+      getActiveBackgroundStyle(styleVariant, theme)};
+    box-shadow: ${({ styleVariant, theme }) =>
+      getActiveBoxShadowStyle(styleVariant, theme)};
   }
 
   &:disabled {
-    background: ${({ theme }) =>
-      theme.palette.byElement.background.gradientRedReverse};
-    box-shadow: inset 0 3px 4px
-      ${({ theme }) => theme.palette.byColor.red.light};
+    background: ${({ styleVariant, theme }) =>
+      getDisabledBackgroundStyle(styleVariant, theme)};
+    box-shadow: ${({ styleVariant, theme }) =>
+      getDisabledBoxShadowStyle(styleVariant, theme)};
     cursor: not-allowed;
     opacity: 0.5;
     filter: grayscale(100%);
   }
 `;
 
-export const LinkButtonBody = styled(Link)`
+export const LinkButtonBody = styled(Link)<{
+  styleVariant: BUTTON_VARIAN_TYPE;
+}>`
   ${buttonStyle};
   font-family: ${({ theme }) => theme.typography.fonts.default}, sans-serif;
   color: ${({ theme }) => theme.palette.byElement.text.white};
-  background: ${({ theme }) => theme.palette.byElement.background.gradientRed};
-  border: 1px solid ${({ theme }) => theme.palette.byColor.red.regular};
-  box-shadow: 0 8px 8px rgba(29, 10, 50, 0.1),
-    inset 0 3px 4px ${({ theme }) => theme.palette.byColor.red.light};
+  background: ${({ styleVariant, theme }) =>
+    getBackgroundStyle(styleVariant, theme)};
+  border: ${({ styleVariant, theme }) => getBorderStyle(styleVariant, theme)};
+  box-shadow: ${({ styleVariant, theme }) =>
+    getBoxShadowStyle(styleVariant, theme)};
 
   &:active {
-    background: ${({ theme }) =>
-      theme.palette.byElement.background.gradientRedReverse};
-    box-shadow: 0 4px 8px rgba(29, 10, 50, 0.2),
-      inset 0 2px 3px ${({ theme }) => theme.palette.byColor.red.light};
+    background: ${({ styleVariant, theme }) =>
+      getActiveBackgroundStyle(styleVariant, theme)};
+    box-shadow: ${({ styleVariant, theme }) =>
+      getActiveBoxShadowStyle(styleVariant, theme)};
   }
 
   &:disabled {
-    background: ${({ theme }) =>
-      theme.palette.byElement.background.gradientRedReverse};
-    box-shadow: inset 0 3px 4px
-      ${({ theme }) => theme.palette.byColor.red.light};
+    background: ${({ styleVariant, theme }) =>
+      getDisabledBackgroundStyle(styleVariant, theme)};
+    box-shadow: ${({ styleVariant, theme }) =>
+      getDisabledBoxShadowStyle(styleVariant, theme)};
     cursor: not-allowed;
     opacity: 0.5;
     filter: grayscale(100%);

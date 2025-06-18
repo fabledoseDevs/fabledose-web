@@ -34,6 +34,18 @@ export enum ACTION_TYPE {
 }
 
 /**
+ * Possible style variants for a button.
+ *
+ * @remarks
+ * - `RED`: BAsic, red variant. Default style.
+ * - `TRANSPARENT`: Secondary button style. For less important buttons.
+ */
+export enum BUTTON_VARIANT {
+  RED = 'red',
+  TRANSPARENT = 'transparent',
+}
+
+/**
  * Interface for button component props.
  *
  * @property actionType - Defines the action type of the button:
@@ -46,6 +58,7 @@ export enum ACTION_TYPE {
  */
 export interface ButtonProps {
   actionType: ACTION_TYPE;
+  variant: BUTTON_VARIANT;
   text: string;
   payload?: string | (() => void);
   isDisabled?: boolean;

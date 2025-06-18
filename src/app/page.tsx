@@ -4,18 +4,34 @@ import type { ReactElement } from 'react';
 import AccordionRib from '@/atoms/AccordionRib';
 import BasicDescription from '@/atoms/BasicDescription';
 import Button from '@/atoms/Button';
-import { ACTION_TYPE } from '@/atoms/Button/Button.types';
+import { ACTION_TYPE, BUTTON_VARIANT } from '@/atoms/Button/Button.types';
 import Dropdown from '@/atoms/Dropdown';
 import { COLOR_SCHEME } from '@/atoms/Dropdown/Dropdown.types';
 
 const Home = (): ReactElement => (
   <>
     <Button
+      variant={BUTTON_VARIANT.RED}
       actionType={ACTION_TYPE.FUNCTION_TRIGGER}
       text="Hello world"
       payload={() => alert('Hello World')}
     />
     <Button
+      variant={BUTTON_VARIANT.RED}
+      actionType={ACTION_TYPE.FUNCTION_TRIGGER}
+      text="Hello world"
+      payload={() => alert('Hello World')}
+      isDisabled={true}
+    />
+    <br />
+    <Button
+      variant={BUTTON_VARIANT.TRANSPARENT}
+      actionType={ACTION_TYPE.FUNCTION_TRIGGER}
+      text="Hello world"
+      payload={() => alert('Hello World')}
+    />
+    <Button
+      variant={BUTTON_VARIANT.TRANSPARENT}
       actionType={ACTION_TYPE.FUNCTION_TRIGGER}
       text="Hello world"
       payload={() => alert('Hello World')}
