@@ -5,6 +5,8 @@ import AccordionRib from '@/atoms/AccordionRib';
 import BasicDescription from '@/atoms/BasicDescription';
 import Button from '@/atoms/Button';
 import { ACTION_TYPE } from '@/atoms/Button/Button.types';
+import Dropdown from '@/atoms/Dropdown';
+import { COLOR_SCHEME } from '@/atoms/Dropdown/Dropdown.types';
 
 const Home = (): ReactElement => (
   <>
@@ -33,6 +35,19 @@ const Home = (): ReactElement => (
         }
       />
     </AccordionRib>
+    <br />
+    <br />
+    <Dropdown
+      options={[
+        { value: 'red', label: 'Red Color' },
+        { value: 'blue', label: 'Blue Color' },
+        { value: 'green', label: 'Green Color' },
+      ]}
+      defaultValue="red"
+      title="Select Color"
+      colorScheme={COLOR_SCHEME.PURPLE}
+      onChange={value => console.info(value)}
+    />
   </>
 );
 

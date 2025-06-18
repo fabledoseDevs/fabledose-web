@@ -26,6 +26,10 @@ export interface Palette {
       gradientRed: string;
       gradientRedReverse: string;
     };
+    highlights: {
+      palePurple: string;
+      darkPurple: string;
+    };
   };
   byColor: {
     red: {
@@ -33,6 +37,7 @@ export interface Palette {
       regular: string;
     };
     purple: {
+      pale: string;
       regular: string;
       dark: string;
     };
