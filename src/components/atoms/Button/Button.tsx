@@ -11,12 +11,14 @@ const actionTypeSelector: ActionSelectorType = ({
   text,
   payload,
   isDisabled,
+  fixedWidth,
 }) => {
   switch (actionType) {
     case ACTION_TYPE.NAVIGATION:
       return (
         <LinkButtonBody
           styleVariant={variant}
+          width={fixedWidth ? `${fixedWidth}px` : 'auto'}
           href={payload ? (payload as string) : '#'}
           aria-label={text}
         >
@@ -27,6 +29,7 @@ const actionTypeSelector: ActionSelectorType = ({
       return (
         <ButtonBody
           styleVariant={variant}
+          width={fixedWidth ? `${fixedWidth}px` : 'auto'}
           type="submit"
           aria-label={text}
           disabled={isDisabled}
@@ -39,6 +42,7 @@ const actionTypeSelector: ActionSelectorType = ({
       return (
         <ButtonBody
           styleVariant={variant}
+          width={fixedWidth ? `${fixedWidth}px` : 'auto'}
           onClick={payload as () => void}
           aria-label={text}
           disabled={isDisabled}
@@ -57,6 +61,7 @@ export const Button: ButtonType = ({
   variant,
   payload,
   isDisabled = false,
+  fixedWidth,
 }) => (
   <ButtonWrapper>
     {actionTypeSelector({
@@ -65,6 +70,7 @@ export const Button: ButtonType = ({
       text,
       payload,
       isDisabled,
+      fixedWidth,
     })}
   </ButtonWrapper>
 );

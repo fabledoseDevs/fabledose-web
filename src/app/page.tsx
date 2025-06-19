@@ -7,6 +7,10 @@ import Button from '@/atoms/Button';
 import { ACTION_TYPE, BUTTON_VARIANT } from '@/atoms/Button/Button.types';
 import Dropdown from '@/atoms/Dropdown';
 import { COLOR_SCHEME } from '@/atoms/Dropdown/Dropdown.types';
+import FableTile from '@/molecules/FableTile';
+import mockImageOne from '@/public/mockImages/mockTile-01.jpg';
+import mockImageTwo from '@/public/mockImages/mockTile-02.jpg';
+import mockImageThree from '@/public/mockImages/mockTile-03.jpg';
 
 const Home = (): ReactElement => (
   <>
@@ -51,6 +55,27 @@ const Home = (): ReactElement => (
         }
       />
     </AccordionRib>
+    <br />
+    <br />
+
+    <div style={{ display: 'flex', flexDirection: 'row', gap: '20px' }}>
+      <FableTile
+        imageUrl={mockImageOne.src}
+        fableTitle={'Złotowłosa'}
+        fableId={'zlotowlosa-i-trzy-misie'}
+      />
+      <FableTile
+        imageUrl={mockImageTwo.src}
+        fableTitle={'Trzy małe świnki'}
+        fableId={'trzy-male-swinki'}
+      />
+      <FableTile
+        imageUrl={mockImageThree.src}
+        fableTitle={'O rybaku i złotej rybce'}
+        fableId={'o-rybaku-i-zlotej-rybce'}
+      />
+    </div>
+
     <br />
     <br />
     <Dropdown
