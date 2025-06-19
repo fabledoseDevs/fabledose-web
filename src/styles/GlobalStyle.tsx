@@ -25,8 +25,8 @@ const GlobalStyle = (): ReactElement => {
           font-size: 10px;
           font-family: ${theme.typography.fonts.default};
           font-weight: ${theme.typography.fontWeights.regular};
-          background-color: ${theme.palette.byElement.background.white};
-          color: ${theme.palette.byElement.text.purple};
+          //background-color: ${theme.palette.byElement.background.purple};
+          color: ${theme.palette.byElement.text.white};
           line-height: 1.5;
           -webkit-font-smoothing: antialiased;
           -moz-osx-font-smoothing: grayscale;

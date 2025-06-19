@@ -7,6 +7,7 @@ import { ACTION_TYPE } from './Button.types';
 
 const actionTypeSelector: ActionSelectorType = ({
   actionType,
+  variant,
   text,
   payload,
   isDisabled,
@@ -15,6 +16,7 @@ const actionTypeSelector: ActionSelectorType = ({
     case ACTION_TYPE.NAVIGATION:
       return (
         <LinkButtonBody
+          styleVariant={variant}
           href={payload ? (payload as string) : '#'}
           aria-label={text}
         >
@@ -24,6 +26,7 @@ const actionTypeSelector: ActionSelectorType = ({
     case ACTION_TYPE.SUBMIT:
       return (
         <ButtonBody
+          styleVariant={variant}
           type="submit"
           aria-label={text}
           disabled={isDisabled}
@@ -35,6 +38,7 @@ const actionTypeSelector: ActionSelectorType = ({
     case ACTION_TYPE.FUNCTION_TRIGGER:
       return (
         <ButtonBody
+          styleVariant={variant}
           onClick={payload as () => void}
           aria-label={text}
           disabled={isDisabled}
@@ -50,12 +54,14 @@ const actionTypeSelector: ActionSelectorType = ({
 export const Button: ButtonType = ({
   text,
   actionType,
+  variant,
   payload,
   isDisabled = false,
 }) => (
   <ButtonWrapper>
     {actionTypeSelector({
       actionType,
+      variant,
       text,
       payload,
       isDisabled,

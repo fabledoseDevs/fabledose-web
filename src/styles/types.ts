@@ -25,10 +25,14 @@ export interface Palette {
       darkPurple: string;
       gradientRed: string;
       gradientRedReverse: string;
+      transparentWhite: { [key in '05' | '10' | '20' | '30']: string };
     };
     highlights: {
       palePurple: string;
       darkPurple: string;
+    };
+    shadows: {
+      purple: { [key in '10' | '20']: string };
     };
   };
   byColor: {
