@@ -24,7 +24,7 @@ const buttonStyle = css`
 const getBackgroundStyle = (styleVariant: BUTTON_VARIAN_TYPE, theme: Theme) => {
   switch (styleVariant) {
     case BUTTON_VARIANT.TRANSPARENT:
-      return 'rgba(255, 255, 255, 0.1)';
+      return theme.palette.byElement.background.transparentWhite['10'];
     case BUTTON_VARIANT.RED:
     default:
       return theme.palette.byElement.background.gradientRed;
@@ -34,7 +34,7 @@ const getBackgroundStyle = (styleVariant: BUTTON_VARIAN_TYPE, theme: Theme) => {
 const getBorderStyle = (styleVariant: BUTTON_VARIAN_TYPE, theme: Theme) => {
   switch (styleVariant) {
     case BUTTON_VARIANT.TRANSPARENT:
-      return '2px solid rgba(255, 255, 255, 0.3)';
+      return `2px solid ${theme.palette.byElement.background.transparentWhite['30']}`;
     case BUTTON_VARIANT.RED:
     default:
       return `1px solid ${theme.palette.byColor.red.regular}`;
@@ -47,7 +47,7 @@ const getBoxShadowStyle = (styleVariant: BUTTON_VARIAN_TYPE, theme: Theme) => {
       return 'none';
     case BUTTON_VARIANT.RED:
     default:
-      return `0 8px 8px rgba(29, 10, 50, 0.1), inset 0 3px 4px ${theme.palette.byColor.red.light}`;
+      return `0 8px 8px ${theme.palette.byElement.shadows.purple['10']}, inset 0 3px 4px ${theme.palette.byColor.red.light}`;
   }
 };
 
@@ -57,7 +57,7 @@ const getActiveBackgroundStyle = (
 ) => {
   switch (styleVariant) {
     case BUTTON_VARIANT.TRANSPARENT:
-      return 'rgba(255, 255, 255, 0.2)';
+      return theme.palette.byElement.background.transparentWhite['20'];
     case BUTTON_VARIANT.RED:
     default:
       return theme.palette.byElement.background.gradientRedReverse;
@@ -73,7 +73,7 @@ const getActiveBoxShadowStyle = (
       return 'none';
     case BUTTON_VARIANT.RED:
     default:
-      return `0 4px 8px rgba(29, 10, 50, 0.2), inset 0 2px 3px ${theme.palette.byColor.red.light}`;
+      return `0 4px 8px ${theme.palette.byElement.shadows.purple['20']}, inset 0 2px 3px ${theme.palette.byColor.red.light}`;
   }
 };
 
@@ -83,7 +83,7 @@ const getDisabledBackgroundStyle = (
 ) => {
   switch (styleVariant) {
     case BUTTON_VARIANT.TRANSPARENT:
-      return 'rgba(255, 255, 255, 0.05)';
+      return theme.palette.byElement.background.transparentWhite['05'];
     case BUTTON_VARIANT.RED:
     default:
       return theme.palette.byElement.background.gradientRedReverse;

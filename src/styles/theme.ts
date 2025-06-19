@@ -24,10 +24,22 @@ export const theme: Theme = {
         darkPurple: '#1F153E',
         gradientRed: 'linear-gradient(180deg, #E84528 0%, #B92409 100%)',
         gradientRedReverse: 'linear-gradient(180deg, #B92409 0%, #E84528 100%)',
+        transparentWhite: {
+          '05': 'rgba(255, 255, 255, 0.05)',
+          '10': 'rgba(255, 255, 255, 0.1)',
+          '20': 'rgba(255, 255, 255, 0.2)',
+          '30': 'rgba(255, 255, 255, 0.3)',
+        },
       },
       highlights: {
         palePurple: '#EFEAFF',
         darkPurple: '#1F153E',
+      },
+      shadows: {
+        purple: {
+          '10': 'rgba(30, 10, 50, 0.1)',
+          '20': 'rgba(30, 10, 50, 0.2)',
+        },
       },
     },
     byColor: {
