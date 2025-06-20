@@ -55,6 +55,7 @@ export enum BUTTON_VARIANT {
  * @property text - Label or text displayed on the button.
  * @property payload - The function, URL, or form ID triggered by the button.
  * @property isDisabled - If true, disables the button.
+ * @property fixedWidht - Optional width of a button in pixels.
  */
 export interface ButtonProps {
   actionType: ACTION_TYPE;
@@ -62,6 +63,7 @@ export interface ButtonProps {
   text: string;
   payload?: string | (() => void);
   isDisabled?: boolean;
+  fixedWidth?: number;
 }
 
 /**

@@ -107,7 +107,10 @@ export const ButtonWrapper = styled.div`
   width: fit-content;
 `;
 
-export const ButtonBody = styled.button<{ styleVariant: BUTTON_VARIAN_TYPE }>`
+export const ButtonBody = styled.button<{
+  styleVariant: BUTTON_VARIAN_TYPE;
+  width: string;
+}>`
   ${buttonStyle};
   font-family: ${({ theme }) => theme.typography.fonts.default}, sans-serif;
   color: ${({ theme }) => theme.palette.byElement.text.white};
@@ -116,6 +119,9 @@ export const ButtonBody = styled.button<{ styleVariant: BUTTON_VARIAN_TYPE }>`
   border: ${({ styleVariant, theme }) => getBorderStyle(styleVariant, theme)};
   box-shadow: ${({ styleVariant, theme }) =>
     getBoxShadowStyle(styleVariant, theme)};
+  backdrop-filter: ${({ styleVariant }) =>
+    styleVariant === BUTTON_VARIANT.TRANSPARENT ? 'blur(8px)' : 'none'};
+  width: ${({ width }) => width};
 
   &:active {
     background: ${({ styleVariant, theme }) =>
@@ -137,6 +143,7 @@ export const ButtonBody = styled.button<{ styleVariant: BUTTON_VARIAN_TYPE }>`
 
 export const LinkButtonBody = styled(Link)<{
   styleVariant: BUTTON_VARIAN_TYPE;
+  width: string;
 }>`
   ${buttonStyle};
   font-family: ${({ theme }) => theme.typography.fonts.default}, sans-serif;
@@ -146,6 +153,9 @@ export const LinkButtonBody = styled(Link)<{
   border: ${({ styleVariant, theme }) => getBorderStyle(styleVariant, theme)};
   box-shadow: ${({ styleVariant, theme }) =>
     getBoxShadowStyle(styleVariant, theme)};
+  backdrop-filter: ${({ styleVariant }) =>
+    styleVariant === BUTTON_VARIANT.TRANSPARENT ? 'blur(8px)' : 'none'};
+  width: ${({ width }) => width};
 
   &:active {
     background: ${({ styleVariant, theme }) =>
