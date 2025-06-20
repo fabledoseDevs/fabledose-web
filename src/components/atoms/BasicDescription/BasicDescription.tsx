@@ -1,5 +1,8 @@
 import Headline from '@/atoms/Headline';
-import { HEADLINE_TYPE } from '@/atoms/Headline/Headline.types';
+import {
+  FOREGROUND_COLOR,
+  HEADLINE_TYPE,
+} from '@/atoms/Headline/Headline.types';
 import Paragraph from '@/atoms/Paragraph';
 
 import { BasicDescriptionBody } from './BasicDescription.styled';
@@ -11,8 +14,12 @@ export const BasicDescription: BasicDescriptionType = ({
   paragraph,
 }) => (
   <BasicDescriptionBody>
-    <Headline weight={HEADLINE_TYPE.SUPERTEXT}>{superText}</Headline>
-    <Headline weight={HEADLINE_TYPE.BIG}>{headline}</Headline>
+    <Headline weight={HEADLINE_TYPE.SUPERTEXT} color={FOREGROUND_COLOR.PURPLE}>
+      {superText}
+    </Headline>
+    <Headline weight={HEADLINE_TYPE.BIG} color={FOREGROUND_COLOR.PURPLE}>
+      {headline}
+    </Headline>
     <Paragraph>{paragraph}</Paragraph>
   </BasicDescriptionBody>
 );

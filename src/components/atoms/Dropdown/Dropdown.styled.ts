@@ -19,6 +19,7 @@ export const DropdownHeader = styled.button<{
   border: none;
   padding: 8px 0;
   margin: 0;
+  min-width: 75px;
   font-family: ${({ theme }) =>
     theme.typography.headlines.superText.fontFamily};
   font-size: ${({ theme }) => theme.typography.headlines.superText.fontSize};

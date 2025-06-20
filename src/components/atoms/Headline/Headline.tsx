@@ -8,7 +8,7 @@ import type {
   HeadlineType,
   HeadlineWeightSelectorType,
 } from './Headline.types';
-import { HEADLINE_TYPE } from './Headline.types';
+import { FOREGROUND_COLOR, HEADLINE_TYPE } from './Headline.types';
 
 const headlineMap = {
   [HEADLINE_TYPE.JUMBO]: JumboHeadline,
@@ -20,10 +20,17 @@ const headlineMap = {
 const headlineWeightSelector: HeadlineWeightSelectorType = (
   weight,
   children,
+  color,
 ) => {
   const Component = headlineMap[weight] || SupertextHeadline;
-  return <Component>{children}</Component>;
+  if (weight === HEADLINE_TYPE.SUPERTEXT) {
+    return <Component>{children}</Component>;
+  }
+  return <Component color={color}>{children}</Component>;
 };
 
-export const Headline: HeadlineType = ({ weight, children }) =>
-  headlineWeightSelector(weight, children);
+export const Headline: HeadlineType = ({
+  weight,
+  children,
+  color = FOREGROUND_COLOR.PURPLE,
+}) => headlineWeightSelector(weight, children, color);

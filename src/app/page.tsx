@@ -8,12 +8,20 @@ import { ACTION_TYPE, BUTTON_VARIANT } from '@/atoms/Button/Button.types';
 import Dropdown from '@/atoms/Dropdown';
 import { COLOR_SCHEME } from '@/atoms/Dropdown/Dropdown.types';
 import FableTile from '@/molecules/FableTile';
+import TopBar from '@/molecules/TopBar';
 import mockImageOne from '@/public/mockImages/mockTile-01.jpg';
 import mockImageTwo from '@/public/mockImages/mockTile-02.jpg';
 import mockImageThree from '@/public/mockImages/mockTile-03.jpg';
 
 const Home = (): ReactElement => (
   <>
+    <TopBar />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
     <Button
       variant={BUTTON_VARIANT.RED}
       actionType={ACTION_TYPE.FUNCTION_TRIGGER}
@@ -41,20 +49,6 @@ const Home = (): ReactElement => (
       payload={() => alert('Hello World')}
       isDisabled={true}
     />
-    <br />
-    <AccordionRib
-      mainText={'Click me and expand'}
-      isOpen={true}
-      isSelfControlled={true}
-    >
-      <BasicDescription
-        superText={'Lorem Ipsum'}
-        headline={'Sit amet sentensula falgahta'}
-        paragraph={
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean id eros a odio hendrerit ultrices ac sed urna. Vivamus sit amet massa sit amet ante dignissim consectetur ac eu mauris. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris sit amet fermentum elit. '
-        }
-      />
-    </AccordionRib>
     <br />
     <br />
 
@@ -89,6 +83,22 @@ const Home = (): ReactElement => (
       colorScheme={COLOR_SCHEME.PURPLE}
       onChange={value => console.info(value)}
     />
+
+    <div style={{ background: 'white' }}>
+      <AccordionRib
+        mainText={'Click me and expand'}
+        isOpen={true}
+        isSelfControlled={true}
+      >
+        <BasicDescription
+          superText={'Lorem Ipsum'}
+          headline={'Sit amet sentensula falgahta'}
+          paragraph={
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean id eros a odio hendrerit ultrices ac sed urna. Vivamus sit amet massa sit amet ante dignissim consectetur ac eu mauris. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris sit amet fermentum elit. '
+          }
+        />
+      </AccordionRib>
+    </div>
   </>
 );
 
