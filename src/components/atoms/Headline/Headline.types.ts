@@ -31,6 +31,18 @@ export enum HEADLINE_TYPE {
 }
 
 /**
+ * Possible colors for headline text.
+ *
+ * @remarks
+ * - `WHITE`: White colored text
+ * - `PURPLE`: Purple colored text
+ */
+export enum FOREGROUND_COLOR {
+  WHITE = 'white',
+  PURPLE = 'purple',
+}
+
+/**
  * Interface defining the properties for the Headline component.
  *
  * @property children - The content of the headline (must be a plain string).
@@ -39,10 +51,14 @@ export enum HEADLINE_TYPE {
  *  - `HEADLINE_TYPE.BIG`
  *  - `HEADLINE_TYPE.SMALL`
  *  - `HEADLINE_TYPE.SUPERTEXT`
+ * @property color - The color of the headline text. NOTE: For `HEADLINE_TYPE.SUPERTEXT` defining color won't make a difference. Its color is fixed.
+ *  - `FOREGROUND_COLOR.WHITE`
+ *  - `FOREGROUND_COLOR.PURPLE`
  */
 export interface HeadlineProps {
   children: string;
   weight: HEADLINE_TYPE;
+  color: FOREGROUND_COLOR;
 }
 
 /**
@@ -50,12 +66,14 @@ export interface HeadlineProps {
  *
  * @param weight - The headline type from `HEADLINE_TYPE` used for rendering.
  * @param content - The text content to display in the headline.
+ * @param color - The color of the headline text from `FOREGROUND_COLOR`.
  *
  * @returns A ReactElement rendering the specified headline.
  */
 export type HeadlineWeightSelectorType = (
   weight: HEADLINE_TYPE,
   content: string,
+  color: FOREGROUND_COLOR,
 ) => ReactElement;
 
 /**
