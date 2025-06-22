@@ -8,7 +8,10 @@ import { ACTION_TYPE, BUTTON_VARIANT } from '@/atoms/Button/Button.types';
 import Dropdown from '@/atoms/Dropdown';
 import { COLOR_SCHEME } from '@/atoms/Dropdown/Dropdown.types';
 import FableTile from '@/molecules/FableTile';
+import InfoBox from '@/molecules/InfoBox';
+import StandaloneStoryCard from '@/molecules/StandaloneStoryCard';
 import TopBar from '@/molecules/TopBar';
+import mockCover from '@/public/mockImages/mockCover.jpg';
 import mockImageOne from '@/public/mockImages/mockTile-01.jpg';
 import mockImageTwo from '@/public/mockImages/mockTile-02.jpg';
 import mockImageThree from '@/public/mockImages/mockTile-03.jpg';
@@ -98,6 +101,38 @@ const Home = (): ReactElement => (
           }
         />
       </AccordionRib>
+    </div>
+
+    <StandaloneStoryCard
+      descriptionData={{
+        superText: 'Przeczytaj bez zakładania konta',
+        headline: 'O Rybaku i Złotej Rybce',
+        paragraph:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean id eros a odio hendrerit ultrices ac sed urna. Mauris sit amet fermentum elit.',
+      }}
+      buttonData={{
+        actionType: ACTION_TYPE.NAVIGATION,
+        variant: BUTTON_VARIANT.RED,
+        text: 'Czytaj bajkę',
+        payload: '/',
+        fixedWidth: 175,
+      }}
+      imageData={{
+        src: mockCover.src,
+        alt: 'Story image description',
+      }}
+    />
+    <div style={{ display: 'flex', flexDirection: 'row', gap: '20px' }}>
+      <InfoBox
+        imageData={{
+          src: mockCover.src,
+          alt: 'Story image description',
+        }}
+        title={'Czym jest Fabledose?'}
+        description={
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean id eros a odio.'
+        }
+      />
     </div>
   </>
 );
