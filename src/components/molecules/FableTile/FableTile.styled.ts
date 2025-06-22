@@ -4,6 +4,7 @@ export const FableTileBody = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
+  width: 276px;
   border: 8px solid transparent;
   border-radius: 24px;
   transition: all 0.4s ease;

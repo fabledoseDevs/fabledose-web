@@ -7,7 +7,7 @@ import type { ReactElement } from 'react';
  *
  * Example usage:
  * ```tsx
- * <BasicDescription />
+ *   <BasicDescription />
  * ```
  */
 
