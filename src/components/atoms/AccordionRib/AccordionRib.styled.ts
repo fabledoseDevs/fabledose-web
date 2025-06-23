@@ -12,7 +12,7 @@ export const StaticBar = styled.button`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 0;
+  padding: 12px 0 12px 12px;
   border: none;
   background: none;
   cursor: pointer;
@@ -47,5 +47,5 @@ export const ExpandableContent = styled.div<{ isOpen: boolean }>`
   overflow: hidden;
   height: ${({ isOpen }) => (isOpen ? 'auto' : '0')};
   transition: height 0.5s ease-in-out;
-  padding: ${({ isOpen }) => (isOpen ? '16px 0' : '0')};
+  padding: ${({ isOpen }) => (isOpen ? '16px 24px 24px' : '0')};
 `;

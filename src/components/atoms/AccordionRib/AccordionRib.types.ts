@@ -31,6 +31,7 @@ export interface AccordionRibProps {
   children: ReactElement | string;
   isOpen: boolean;
   isSelfControlled?: boolean;
+  onToggle?: () => void;
 }
 
 /**
@@ -42,6 +43,7 @@ export interface AccordionRibProps {
 export interface UseAccordionRibProps {
   isOpen: boolean;
   isSelfControlled?: boolean;
+  onToggle?: () => void;
 }
 
 /**

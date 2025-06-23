@@ -5,7 +5,6 @@ export const ParagraphBody = styled.p<{
   textAlign: string;
 }>`
   width: 100%;
-  max-width: 445px;
   font-size: ${({ theme }) => theme.typography.paragraphs.default.fontSize};
   font-family: ${({ theme }) => theme.typography.paragraphs.default.fontFamily};
   color: ${({ theme, foreground }) =>
