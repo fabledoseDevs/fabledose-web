@@ -5,6 +5,8 @@ import Button from '@/atoms/Button';
 import { ACTION_TYPE, BUTTON_VARIANT } from '@/atoms/Button/Button.types';
 import Dropdown from '@/atoms/Dropdown';
 import { COLOR_SCHEME } from '@/atoms/Dropdown/Dropdown.types';
+import InputField from '@/atoms/InputField';
+import { INPUT_TYPE } from '@/atoms/InputField/InputField.types';
 import LinksList from '@/atoms/LinksList';
 import { LINK_VARIANT, LIST_LAYOUT } from '@/atoms/LinksList/LinksList.types';
 import Accordion from '@/molecules/Accordion';
@@ -203,6 +205,29 @@ const Home = (): ReactElement => (
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean id eros a odio.'
         }
       />
+    </div>
+
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '20px',
+        padding: '24px',
+        background: 'white',
+      }}
+    >
+      <InputField
+        type={INPUT_TYPE.TEXT}
+        placeholder={'Lorem...'}
+        fixedWidth={360}
+        errorMessage={'Lorem'}
+      />
+      <InputField
+        type={INPUT_TYPE.PASSWORD}
+        placeholder={'Lorem...'}
+        fixedWidth={560}
+      />
+      <InputField type={INPUT_TYPE.SEARCH} placeholder={'Lorem...'} />
     </div>
 
     <br />

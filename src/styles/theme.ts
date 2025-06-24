@@ -96,6 +96,16 @@ export const theme: Theme = {
         fontFamily: 'Baloo2, sans-serif',
       },
     },
+    inputs: {
+      default: {
+        fontSize: '1.6rem',
+        fontFamily: 'Baloo2, sans-serif',
+      },
+      error: {
+        fontSize: '1.2rem',
+        fontFamily: 'Baloo2, sans-serif',
+      },
+    },
   },
   zIndex: {
     standard: '0',
