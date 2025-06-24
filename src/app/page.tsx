@@ -5,6 +5,8 @@ import Button from '@/atoms/Button';
 import { ACTION_TYPE, BUTTON_VARIANT } from '@/atoms/Button/Button.types';
 import Dropdown from '@/atoms/Dropdown';
 import { COLOR_SCHEME } from '@/atoms/Dropdown/Dropdown.types';
+import LinksList from '@/atoms/LinksList';
+import { LINK_VARIANT, LIST_LAYOUT } from '@/atoms/LinksList/LinksList.types';
 import Accordion from '@/molecules/Accordion';
 import InfoBox from '@/molecules/InfoBox';
 import RegisterBanner from '@/molecules/RegisterBanner';
@@ -200,6 +202,127 @@ const Home = (): ReactElement => (
         description={
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean id eros a odio.'
         }
+      />
+    </div>
+
+    <br />
+    <br />
+    <div style={{ display: 'flex', flexDirection: 'row', gap: '20px' }}>
+      <LinksList
+        variant={LINK_VARIANT.ICON}
+        layout={LIST_LAYOUT.VERTICAL}
+        title="Obserwuj nas na SM"
+        links={[
+          {
+            href: 'https://facebook.com',
+            label: 'Facebook',
+            icon: '/socialIcons/Facebook.svg',
+          },
+          {
+            href: 'https://instagram.com',
+            label: 'Instagram',
+            icon: '/socialIcons/Instagram.svg',
+          },
+          {
+            href: 'https://x.com',
+            label: 'X',
+            icon: '/socialIcons/X.svg',
+          },
+          {
+            href: 'https://linkedin.com',
+            label: 'Linked In',
+            icon: '/socialIcons/LinkedIn.svg',
+          },
+          {
+            href: 'https://youtube.com',
+            label: 'Youtube',
+            icon: '/socialIcons/Youtube.svg',
+          },
+        ]}
+      />
+
+      <LinksList
+        variant={LINK_VARIANT.TEXT}
+        layout={LIST_LAYOUT.VERTICAL}
+        title="Przydatne linki"
+        links={[
+          {
+            href: 'https://facebook.com',
+            label: 'Facebook',
+          },
+          {
+            href: 'https://instagram.com',
+            label: 'Instagram',
+          },
+          {
+            href: 'https://x.com',
+            label: 'X',
+          },
+          {
+            href: 'https://linkedin.com',
+            label: 'Linked In',
+          },
+          {
+            href: 'https://youtube.com',
+            label: 'Youtube',
+          },
+        ]}
+      />
+    </div>
+
+    <br />
+    <br />
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+      <LinksList
+        variant={LINK_VARIANT.ICON}
+        layout={LIST_LAYOUT.HORIZONTAL}
+        title="Obserwuj nas na SM"
+        links={[
+          {
+            href: 'https://facebook.com',
+            label: 'Facebook',
+            icon: '/socialIcons/Facebook.svg',
+          },
+          {
+            href: 'https://instagram.com',
+            label: 'Instagram',
+            icon: '/socialIcons/Instagram.svg',
+          },
+          {
+            href: 'https://x.com',
+            label: 'X',
+            icon: '/socialIcons/X.svg',
+          },
+          {
+            href: 'https://linkedin.com',
+            label: 'Linked In',
+            icon: '/socialIcons/LinkedIn.svg',
+          },
+          {
+            href: 'https://youtube.com',
+            label: 'Youtube',
+            icon: '/socialIcons/Youtube.svg',
+          },
+        ]}
+      />
+
+      <LinksList
+        variant={LINK_VARIANT.TEXT}
+        layout={LIST_LAYOUT.HORIZONTAL}
+        links={[
+          {
+            href: '/about',
+            label: 'O nas',
+          },
+          {
+            href: '/contact',
+            label: 'Kontakt',
+          },
+          {
+            href: '/faq',
+            label: 'FAQ',
+          },
+        ]}
       />
     </div>
   </>
