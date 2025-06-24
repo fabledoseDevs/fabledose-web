@@ -1,12 +1,11 @@
 'use client';
 import type { ReactElement } from 'react';
 
-import AccordionRib from '@/atoms/AccordionRib';
-import BasicDescription from '@/atoms/BasicDescription';
 import Button from '@/atoms/Button';
 import { ACTION_TYPE, BUTTON_VARIANT } from '@/atoms/Button/Button.types';
 import Dropdown from '@/atoms/Dropdown';
 import { COLOR_SCHEME } from '@/atoms/Dropdown/Dropdown.types';
+import Accordion from '@/molecules/Accordion';
 import InfoBox from '@/molecules/InfoBox';
 import RegisterBanner from '@/molecules/RegisterBanner';
 import StandaloneStoryCard from '@/molecules/StandaloneStoryCard';
@@ -19,6 +18,8 @@ import mockImageFour from '@/public/mockImages/mockTile-04.jpg';
 import mockImageFive from '@/public/mockImages/mockTile-05.jpg';
 import mockImageSix from '@/public/mockImages/mockTile-06.jpg';
 import mockImageSeven from '@/public/mockImages/mockTile-07.jpg';
+
+import { Paragraph } from '../components/atoms/Paragraph/Paragraph';
 
 const Home = (): ReactElement => (
   <>
@@ -114,19 +115,60 @@ const Home = (): ReactElement => (
     />
 
     <div style={{ background: 'white' }}>
-      <AccordionRib
-        mainText={'Click me and expand'}
-        isOpen={true}
-        isSelfControlled={true}
-      >
-        <BasicDescription
-          superText={'Lorem Ipsum'}
-          headline={'Sit amet sentensula falgahta'}
-          paragraph={
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean id eros a odio hendrerit ultrices ac sed urna. Vivamus sit amet massa sit amet ante dignissim consectetur ac eu mauris. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris sit amet fermentum elit. '
-          }
-        />
-      </AccordionRib>
+      <Accordion
+        ribsList={[
+          {
+            mainText: 'Lorem ipsum',
+            children: (
+              <Paragraph>
+                Ut lacinia a turpis eget hendrerit. Ut velit quam, pharetra non
+                dapibus et, commodo tincidunt turpis. Etiam eget cursus leo.
+                Integer suscipit arcu est, sed porttitor diam cursus eu. Nunc
+                consequat vel lorem nec auctor. Etiam rhoncus pharetra
+                facilisis. Sed porta, elit fermentum placerat mollis, odio enim
+                gravida nulla, elementum finibus augue nunc nec lacus.
+              </Paragraph>
+            ),
+            isOpen: false,
+            isSelfControlled: false,
+          },
+          {
+            mainText: 'Lorem ipsum',
+            children: (
+              <Paragraph>
+                Morbi nunc lorem, convallis eget cursus et, auctor eget est. Sed
+                nec lectus vitae arcu tincidunt euismod. Praesent porttitor
+                ipsum nec justo pellentesque, non sodales dui fermentum. Proin
+                tristique dolor nec gravida suscipit. In placerat enim lectus,
+                eu tempor lorem sagittis id. Maecenas in mattis lacus, vel
+                condimentum massa.
+              </Paragraph>
+            ),
+            isOpen: false,
+            isSelfControlled: false,
+          },
+          {
+            mainText: 'Lorem ipsum',
+            children: (
+              <Paragraph>
+                Mauris sagittis, felis quis viverra elementum, enim sapien
+                elementum mauris, id feugiat nibh mauris eget magna. Integer
+                nisl nunc, congue nec quam a, tincidunt dignissim massa.
+                Pellentesque lacinia, magna quis euismod sollicitudin, lorem
+                quam suscipit tortor, consectetur eleifend ex erat id lectus.
+                Morbi porttitor eget ipsum eget tincidunt. Nam nec pulvinar
+                risus. Ut vitae dapibus orci. Sed sed vehicula elit, in
+                tincidunt lacus. Quisque et metus et nulla consectetur posuere.
+                Nulla convallis leo quis nulla cursus finibus. Quisque id enim
+                tellus. Phasellus non posuere arcu, a tincidunt leo. Etiam quis
+                nisl eu orci pretium suscipit vitae ac tellus.
+              </Paragraph>
+            ),
+            isOpen: false,
+            isSelfControlled: false,
+          },
+        ]}
+      />
     </div>
 
     <StandaloneStoryCard

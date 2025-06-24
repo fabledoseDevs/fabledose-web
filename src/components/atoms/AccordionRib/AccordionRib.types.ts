@@ -12,6 +12,7 @@ import type { ReactElement } from 'react';
  *   mainText={'Click me and expand'}
  *   isOpen={false}
  *   isSelfControlled={false}
+ *   onToggle={() => handleRibToggle(index)}
  * >
  *   Content visible when rib is expanded goes here...
  * </AccordionRib>
@@ -25,12 +26,14 @@ import type { ReactElement } from 'react';
  * @property children - The content to be displayed when the accordion is expanded
  * @property isOpen - If true, accordion rib will be expanded with extra content.
  * @property isSelfControlled - If true, opening and closing of this rib can be done without a parent component (Accordion).
+ * @property onToggle - Callback function triggered when the accordion rib is toggled (opened or closed)
  */
 export interface AccordionRibProps {
   mainText: string;
   children: ReactElement | string;
   isOpen: boolean;
   isSelfControlled?: boolean;
+  onToggle?: () => void;
 }
 
 /**
@@ -38,10 +41,12 @@ export interface AccordionRibProps {
  *
  * @property isOpen - The current open/closed state of the accordion
  * @property isSelfControlled - If true, the accordion manages its own state internally
+ * @property onToggle - Callback function triggered when the accordion rib is toggled (opened or closed)
  */
 export interface UseAccordionRibProps {
   isOpen: boolean;
   isSelfControlled?: boolean;
+  onToggle?: () => void;
 }
 
 /**

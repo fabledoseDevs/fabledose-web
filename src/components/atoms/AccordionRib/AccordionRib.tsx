@@ -15,10 +15,12 @@ export const AccordionRib: AccordionRibType = ({
   children,
   isOpen: isOpenProp,
   isSelfControlled = false,
+  onToggle,
 }) => {
   const { isOpen, handleToggle } = useAccordionRib({
     isOpen: isOpenProp,
     isSelfControlled,
+    onToggle,
   });
 
   return (

@@ -5,6 +5,7 @@ import type { UseAccordionRib as UseAccordionRibType } from './AccordionRib.type
 export const useAccordionRib: UseAccordionRibType = ({
   isOpen: isOpenProp,
   isSelfControlled = false,
+  onToggle,
 }) => {
   const [internalIsOpen, setInternalIsOpen] = useState(isOpenProp);
 
@@ -13,6 +14,8 @@ export const useAccordionRib: UseAccordionRibType = ({
   const handleToggle = () => {
     if (isSelfControlled) {
       setInternalIsOpen(!internalIsOpen);
+    } else if (onToggle) {
+      onToggle();
     }
   };
 
