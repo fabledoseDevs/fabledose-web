@@ -78,6 +78,10 @@ export interface Typography {
   paragraphs: {
     default: FontStyles;
   };
+  inputs: {
+    default: FontStyles;
+    error: FontStyles;
+  };
 }
 
 export interface Theme {
