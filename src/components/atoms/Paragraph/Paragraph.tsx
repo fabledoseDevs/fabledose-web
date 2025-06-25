@@ -1,5 +1,5 @@
 import { ParagraphBody } from './Paragraph.styled';
-import type { ParagraphType } from './Paragraph.types';
+import type { Paragraph as ParagraphType } from './Paragraph.types';
 import { FOREGROUND_COLOR, TEXT_ALIGNMENT } from './Paragraph.types';
 
 export const Paragraph: ParagraphType = ({

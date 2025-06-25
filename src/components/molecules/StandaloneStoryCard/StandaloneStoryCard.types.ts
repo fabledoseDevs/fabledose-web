@@ -4,13 +4,39 @@ import type { BasicDescriptionProps } from '@/atoms/BasicDescription';
 import type { ButtonProps } from '@/atoms/Button/Button.types';
 
 /**
- * @file
+ * @module
  * This file defines the types and interfaces for the StandaloneStoryCard component.
+ */
+
+/**
+ * Interface for StandaloneStoryCard component props.
  *
- * The StandaloneStoryCard displays a story with a description and an image side by side.
- * On mobile devices, the layout changes to a column.
+ * @property descriptionData - Data for the BasicDescription component, including headline, description, and button properties.
+ * @property buttonData - Data for the Button component, including action type, variant, text, and other button properties.
+ * @property imageData - Properties for the image to be displayed, including the source and alt text.
+ */
+export interface StandaloneStoryCardProps {
+  descriptionData: BasicDescriptionProps;
+  buttonData: ButtonProps;
+  imageData: {
+    src: string;
+    alt: string;
+  };
+}
+
+/**
+ * StandaloneStoryCard component displays a preview of a fable with image and description.
  *
- * Example usage:
+ * @param props - The component properties:
+ *  - `descriptionData`: Data for the text part of the story card. Needs to follow a pattern of {@link BasicDescriptionProps}.
+ *  - `buttonData`: Data for the button displayed below the description. Needs to follow a pattern of {@link ButtonProps}.
+ *  - `imageData`: Data for the image part of the story card.
+ *
+ * @returns A ReactElement showing the rendered story card with description, button, and image.
+ *
+ * @group Component
+ *
+ * @example
  * ```tsx
  * <StandaloneStoryCard
  *   descriptionData={{
@@ -30,35 +56,6 @@ import type { ButtonProps } from '@/atoms/Button/Button.types';
  *   }}
  * />
  * ```
- */
-
-/**
- * Interface for StandaloneStoryCard component props.
- *
- * @property descriptionData - Data for the BasicDescription component, including headline, description, and button properties.
- * @property buttonData - Data for the Button component, including action type, variant, text, and other button properties.
- * @property imageData - Properties for the image to be displayed, including source and alt text.
- */
-export interface StandaloneStoryCardProps {
-  descriptionData: BasicDescriptionProps;
-  buttonData: ButtonProps;
-  imageData: {
-    src: string;
-    alt: string;
-  };
-}
-
-/**
- * StandaloneStoryCard component displays a story with text and image.
- *
- * @param props - The component properties:
- *  - `descriptionData`: Data for the text part of the story card
- *  - `buttonData`: Data for the button displayed below the description
- *  - `imageData`: Data for the image part of the story card
- *
- * @returns A ReactElement showing the rendered story card with description, button, and image.
- *
- * @group Components
  */
 export type StandaloneStoryCard = (
   props: StandaloneStoryCardProps,

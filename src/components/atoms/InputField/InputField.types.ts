@@ -1,20 +1,8 @@
 import type { ReactElement } from 'react';
 
 /**
- * @file
+ * @module
  * This file defines the types and interfaces for the InputField component.
- *
- * The input field can have different types, icons, and validation states.
- *
- * Example usage:
- * ```tsx
- * <InputField
- *    type={INPUT_TYPE.TEXT}
- *    placeholder="Enter text..."
- *    fixedWidth={360}
- *    errorMessage="This field is required"
- * />
- * ```
  */
 
 /**
@@ -80,20 +68,10 @@ export interface InputFieldProps {
 export type RenderIconFunction = () => ReactElement | null;
 
 /**
- * @group Components
+ * Icon type for input field icons.
  *
- * Input field component that renders different types of input fields with optional icons and error messages.
- *
- * @param props - The input field properties.
- * @returns A ReactElement showing the rendered input field.
- */
-export type InputField = (props: InputFieldProps) => ReactElement;
-
-/**
- * Icon type for input field icons
- *
- * @property icon - The icon type to display, or null if no icon should be shown
- * @property onClick - Optional click handler for the icon
+ * @property icon - The icon type to display, or null if no icon should be shown.
+ * @property onClick - Optional click handler for the icon.
  */
 export type InputIcon = {
   icon: INPUT_ICON | null;
@@ -101,18 +79,18 @@ export type InputIcon = {
 };
 
 /**
- * Function to determine the actual input type based on the provided type and password visibility
+ * Function to determine the actual input type based on the provided type and password visibility.
  *
- * @param type - The input type from INPUT_TYPE enum
- * @returns The actual input type to use
+ * @param type - The input type from INPUT_TYPE enum.
+ * @returns The actual input type to use.
  */
 export type GetInputTypeFunction = (type: INPUT_TYPE) => INPUT_TYPE;
 
 /**
- * Function to get the appropriate icon information based on input type
+ * Function to get the appropriate icon information based on input type.
  *
- * @param type - The input type from INPUT_TYPE enum
- * @returns Icon information including icon type and click handler
+ * @param type - The input type from INPUT_TYPE enum.
+ * @returns Icon information including icon type and click handler.
  */
 export type GetIconFunction = (type: INPUT_TYPE) => InputIcon;
 
@@ -133,3 +111,27 @@ export type UseInputText = () => {
   getInputType: GetInputTypeFunction;
   getIcon: GetIconFunction;
 };
+
+/**
+ * Component renders input element.
+ * The input field can have different types, icons, and validation states.
+ *
+ * @param props - The component properties:
+ *  - `type`: The type of input field from {@link INPUT_TYPE} enum.
+ *  - `placeholder`: Optional placeholder text for the input field.
+ *  - `fixedWidth`: Number of pixels used to set width of input. If not provided, width defaults to 100%.
+ *  - `errorMessage`: Message that should be returned from form validation.
+ *
+ * @group Component
+ *
+ * @example
+ * ```tsx
+ * <InputField
+ *    type={INPUT_TYPE.TEXT}
+ *    placeholder="Enter text..."
+ *    fixedWidth={360}
+ *    errorMessage="This field is required"
+ * />
+ * ```
+ */
+export type InputField = (props: InputFieldProps) => ReactElement;

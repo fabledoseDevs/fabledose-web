@@ -6,7 +6,6 @@ You’re invited to explore the demo and see the MVP in action:
 
 [🌐 Live Demo → fabledose.com](https://fabledose.com)
 
-
 ### Node Version Management
 To manage the Node.js version, use [NVM](https://github.com/nvm-sh/nvm). Run the following command in the root of the project to install the correct Node.js version as specified in the `.nvmrc` file:
 ```
@@ -50,6 +49,24 @@ npm run build
 ```
 npm start
 ```
+
+### Documentation
+The project uses TypeDoc to generate documentation from TypeScript source code. The documentation primarily covers
+component types, interfaces, and their usage.
+
+1. Generate documentation:
+```
+typedoc
+```
+2. Generate documentation and open them in browser
+```
+docs:serve
+```
+3. Watches for changes and rebuilds automatically
+```
+docs:watch
+```
+
 
 ### Folder Structure
 The project follows a modular structure to keep the codebase organized and maintainable. The main directories are as follows:

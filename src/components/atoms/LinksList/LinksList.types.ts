@@ -1,25 +1,11 @@
 import type { ReactElement } from 'react';
 
 /**
- * @file
+ * @module
  * This file defines the types and interfaces for the LinksList component.
  *
  * The LinksList component can display links in different variants and layouts,
  * with optional icons and customizable styling.
- *
- * Example usage:
- * ```tsx
- * <LinksList
- *   variant={LINK_VARIANT.ICON}
- *   layout={LIST_LAYOUT.VERTICAL}
- *   title={'Obserwuj nas na SM'}
- *   links={[
- *     {href: 'https://facebook.com', label: 'Facebook', icon: 'path/to/icon/facebook.svg'},
- *     {href: 'https://instagram.com', label: 'Instagram', icon: 'path/to/icon/insta.svg'},
- *     {href: 'https://x.com', label: 'X', icon: 'path/to/icon/x.svg'},
- *   ]}
- * />
- * ```
  */
 
 /**
@@ -79,6 +65,20 @@ export interface LinksListProps {
 }
 
 /**
- * @group Components
+ * @group Component
+ *
+ * @example
+ * ```tsx
+ * <LinksList
+ *   variant={LINK_VARIANT.ICON}
+ *   layout={LIST_LAYOUT.VERTICAL}
+ *   title={'Obserwuj nas na SM'}
+ *   links={[
+ *     {href: 'https://facebook.com', label: 'Facebook', icon: 'path/to/icon/facebook.svg'},
+ *     {href: 'https://instagram.com', label: 'Instagram', icon: 'path/to/icon/insta.svg'},
+ *     {href: 'https://x.com', label: 'X', icon: 'path/to/icon/x.svg'},
+ *   ]}
+ * />
+ * ```
  */
 export type LinksList = (props: LinksListProps) => ReactElement;

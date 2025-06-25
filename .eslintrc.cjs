@@ -97,6 +97,7 @@ module.exports = {
       files: ['**/*.types.ts'],
       rules: {
         'max-lines': 'off',
+        'tsdoc/syntax': 'off',
       },
     },
   ],
