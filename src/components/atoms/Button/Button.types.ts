@@ -1,22 +1,7 @@
 import type { ReactElement } from 'react';
 /**
- * @file
+ * @module
  * This file defines the types and interfaces for the Button component.
- *
- * The button can have different sizes, colors, and actions.
- *
- * Example usage:
- * ```tsx
- * <Button
- *    actionType={ACTION_TYPE.FUNCTION_TRIGGER}
- *    variant={BUTTON_SIZE.DEFAULT}
- *    color={BUTTON_COLOR.BEIGE}
- *    text="Click me!"
- *    payload={() => console.log('Button clicked!')}
- *    isDisabled={false}
- *    icon="icon.svg"
- *  />
- * ```
  */
 
 /**
@@ -52,10 +37,11 @@ export enum BUTTON_VARIANT {
  *  - `ACTION_TYPE.FUNCTION_TRIGGER`
  *  - `ACTION_TYPE.SUBMIT`
  *  - `ACTION_TYPE.NAVIGATION`
+ * @property variant - Possible style variants for a button.
  * @property text - Label or text displayed on the button.
  * @property payload - The function, URL, or form ID triggered by the button.
  * @property isDisabled - If true, disables the button.
- * @property fixedWidht - Optional width of a button in pixels.
+ * @property fixedWidth - Optional width of a button in pixels.
  */
 export interface ButtonProps {
   actionType: ACTION_TYPE;
@@ -80,6 +66,27 @@ export interface ButtonProps {
 export type ActionSelector = (props: ButtonProps) => ReactElement;
 
 /**
- * @group Components
+ * Component renders Button.
+ * The button can have different sizes, colors, and actions.
+ * @param props - The component properties:
+ *  - `actionType`: Defines the action type of the button. Needs to follow a pattern of {@link ACTION_TYPE}.
+ *  - `variant`: Possible style variants for a button. Needs to follow a pattern of {@link BUTTON_VARIANT}.
+ *  - `text`: String to be displayed on the button.
+ *  - `payload`: The function, URL, or form ID triggered by the button.
+ *  - `isDisabled`: If true, disables the button.
+ *  - `fixedWidth`: Optional width of a button in pixels.
+ *
+ * @group Component
+ *
+ * @example
+ * ```tsx
+ * <Button
+ *    actionType={ACTION_TYPE.FUNCTION_TRIGGER}
+ *    variant={BUTTON_SIZE.DEFAULT}
+ *    text="Click me!"
+ *    payload={() => console.log('Button clicked!')}
+ *    isDisabled={false}
+ *  />
+ * ```
  */
 export type Button = (props: ButtonProps) => ReactElement;

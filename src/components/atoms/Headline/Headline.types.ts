@@ -1,17 +1,8 @@
 import type { ReactElement } from 'react';
 
 /**
- * @file
+ * @module
  * This file defines the types and interfaces for the Headline component.
- *
- * The headline can have different styles and weights.
- *
- * Example usage:
- * ```tsx
- * <Headline weight={HEADLINE_TYPE.JUMBO}>
- *   Hello world
- * </Headline>
- * ```
  */
 
 /**
@@ -77,6 +68,19 @@ export type HeadlineWeightSelectorType = (
 ) => ReactElement;
 
 /**
- * @group Components
+ * Component renders styled headline.
+ * The headline can have different styles and weights.
+ *  - `weight`: The headline type from {@link HEADLINE_TYPE} used for rendering.
+ *  - `color`: The color of the headline text taken from {@link FOREGROUND_COLOR}. NOTE: For `HEADLINE_TYPE.SUPERTEXT` defining color won't make a difference. Its color is fixed.
+ *  - `children`: The content of the headline (must be a plain string)
+ *
+ * @group Component
+ *
+ * @example
+ * ```tsx
+ * <Headline weight={HEADLINE_TYPE.JUMBO}>
+ *   Hello world
+ * </Headline>
+ * ```
  */
 export type HeadlineType = (props: HeadlineProps) => ReactElement;

@@ -1,0 +1,23 @@
+{
+  "entryPoints": ["src/components"],
+  "out": "docs",
+  "entryPointStrategy": "expand",
+  "includeVersion": true,
+  "excludeExternals": true,
+  "excludePrivate": false,
+  "excludeProtected": false,
+  "excludeInternal": false,
+  "treatWarningsAsErrors": false,
+  "validation": {
+    "notExported": false,
+    "invalidLink": false,
+    "notDocumented": false
+  },
+  "exclude": [
+    "src/components/**/*.styled.ts",
+    "src/components/**/*.tsx",
+    "src/components/**/*.stories.ts",
+    "src/components/**/index.ts",
+    "src/components/**/*.hook.ts"
+  ]
+}

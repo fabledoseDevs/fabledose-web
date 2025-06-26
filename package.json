@@ -14,7 +14,9 @@
     "prepush": "npm run lint && npm run types-check",
     "lint": "next lint",
     "lint:fix": "npm run lint -- --fix",
-    "typedoc": "typedoc --entryPoints 'src/components' --out docs --entryPointStrategy expand --includeVersion --exclude 'src/components/**/*.styled.ts' --exclude 'src/components/**/*.tsx' --exclude 'src/components/**/*.stories.ts' --exclude 'src/components/**/index.ts'"
+    "typedoc": "typedoc",
+    "docs:serve": "typedoc && npx http-server docs -p 8080 -o",
+    "docs:watch": "typedoc --watch"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",

@@ -1,20 +1,8 @@
 import type { ReactElement } from 'react';
 
 /**
- * @file
+ * @module
  * This file defines the types and interfaces for the Paragraph component.
- *
- * The paragraph can have different font color (foreground color).
- *
- * Example usage:
- * ```tsx
- * <Paragraph
- *   color={FOREGROUND_COLOR.WHITE}
- *   alignment={TEXT_ALIGNMENT.JUSTIFY}
- * >
- *   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
- * </Paragraph>
- * ```
  */
 
 /**
@@ -62,6 +50,24 @@ export interface ParagraphProps {
 }
 
 /**
+ * Paragraph component renders a paragraph with proper styling.
+ * The paragraph can have different font color (foreground color).
+ *
+ * @param props - The component properties:
+ *  - `color`: The color of the text. If not specified, defaults to `PURPLE`. Needs to be part of an enumeration {@link FOREGROUND_COLOR}.
+ *  - `alignment`: The alignment of the text. If not specified, defaults to `LEFT`. Needs to be part of an enumeration {@link TEXT_ALIGNMENT}.
+ *  - `children`: The text content of the paragraph.
+ *
  * @group Components
+ *
+ * @example
+ * ```tsx
+ * <Paragraph
+ *   color={FOREGROUND_COLOR.WHITE}
+ *   alignment={TEXT_ALIGNMENT.JUSTIFY}
+ * >
+ *   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+ * </Paragraph>
+ * ```
  */
-export type ParagraphType = (props: ParagraphProps) => ReactElement;
+export type Paragraph = (props: ParagraphProps) => ReactElement;
