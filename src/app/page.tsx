@@ -14,6 +14,7 @@ import InfoBox from '@/molecules/InfoBox';
 import RegisterBanner from '@/molecules/RegisterBanner';
 import StandaloneStoryCard from '@/molecules/StandaloneStoryCard';
 import TopBar from '@/molecules/TopBar';
+import Jumbotron from '@/organisms/Jumbotron';
 import mockCover from '@/public/mockImages/mockCover.jpg';
 import mockImageOne from '@/public/mockImages/mockTile-01.jpg';
 import mockImageTwo from '@/public/mockImages/mockTile-02.jpg';
@@ -28,7 +29,7 @@ import { Paragraph } from '../components/atoms/Paragraph/Paragraph';
 const Home = (): ReactElement => (
   <>
     <TopBar />
-    <br />
+    <Jumbotron />
     <br />
     <br />
     <br />

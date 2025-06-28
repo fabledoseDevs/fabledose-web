@@ -17,7 +17,7 @@ export const DropdownHeader = styled.button<{
   justify-content: space-between;
   cursor: pointer;
   border: none;
-  padding: 8px 0;
+  padding: 8px;
   margin: 0;
   min-width: 75px;
   font-family: ${({ theme }) =>
@@ -28,10 +28,12 @@ export const DropdownHeader = styled.button<{
     colorScheme === COLOR_SCHEME.PURPLE
       ? theme.palette.byElement.text.white
       : theme.palette.byElement.text.purple};
-  background: ${({ theme, colorScheme }) =>
-    colorScheme === COLOR_SCHEME.PURPLE
-      ? theme.palette.byElement.background.purple
-      : theme.palette.byElement.background.white};
+  background: ${({ theme, colorScheme, isOpen }) =>
+    isOpen
+      ? colorScheme === COLOR_SCHEME.PURPLE
+        ? theme.palette.byElement.background.purple
+        : theme.palette.byElement.background.white
+      : 'transparent'};
 `;
 
 export const DropdownArrow = styled(ChevronDownIcon)<{ isOpen: boolean }>`
@@ -57,7 +59,7 @@ export const Option = styled.div<{
   colorScheme: COLOR_SCHEME;
 }>`
   align-items: center;
-  padding: 8px 0 6px;
+  padding: 8px;
   margin: 0;
   font-family: ${({ theme }) => theme.typography.paragraphs.default.fontFamily};
   font-size: 16px;
