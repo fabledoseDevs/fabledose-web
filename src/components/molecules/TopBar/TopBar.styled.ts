@@ -1,6 +1,10 @@
 import styled from '@emotion/styled';
 
-export const TopBarBody = styled.div`
+interface TopBarBodyProps {
+  isTransparent: boolean;
+}
+
+export const TopBarBody = styled.div<TopBarBodyProps>`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -11,7 +15,9 @@ export const TopBarBody = styled.div`
   left: 0;
   z-index: 100;
   padding: 1rem 2rem;
-  background-color: ${({ theme }) => theme.palette.byElement.background.purple};
+  background-color: ${({ theme, isTransparent }) =>
+    isTransparent ? 'transparent' : theme.palette.byElement.background.purple};
+  transition: background-color 0.3s ease;
 `;
 
 export const LogoContainer = styled.div`
