@@ -63,6 +63,22 @@ const Home = (): ReactElement => (
       isDisabled={true}
     />
     <br />
+    <Button
+      variant={BUTTON_VARIANT.WHITE}
+      actionType={ACTION_TYPE.FUNCTION_TRIGGER}
+      text="Hello world"
+      iconUrl="/icons/substack.png"
+      payload={() => alert('Hello World')}
+    />
+    <Button
+      variant={BUTTON_VARIANT.WHITE}
+      actionType={ACTION_TYPE.FUNCTION_TRIGGER}
+      text="Hello world"
+      iconUrl="/icons/substack.png"
+      payload={() => alert('Hello World')}
+      isDisabled={true}
+    />
+    <br />
     <br />
     <RegisterBanner
       title={`Zyskaj dostęp do bajek<br/>za darmo, już teraz`}

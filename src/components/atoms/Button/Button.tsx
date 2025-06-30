@@ -1,4 +1,10 @@
-import { ButtonBody, ButtonWrapper, LinkButtonBody } from './Button.styled';
+import {
+  ButtonBody,
+  ButtonContent,
+  ButtonIcon,
+  ButtonWrapper,
+  LinkButtonBody,
+} from './Button.styled';
 import type {
   ActionSelector as ActionSelectorType,
   Button as ButtonType,
@@ -12,7 +18,15 @@ const actionTypeSelector: ActionSelectorType = ({
   payload,
   isDisabled,
   fixedWidth,
+  iconUrl,
 }) => {
+  const renderContent = () => (
+    <ButtonContent>
+      {iconUrl && <ButtonIcon src={iconUrl} alt="" />}
+      {text}
+    </ButtonContent>
+  );
+
   switch (actionType) {
     case ACTION_TYPE.NAVIGATION:
       return (
@@ -22,7 +36,7 @@ const actionTypeSelector: ActionSelectorType = ({
           href={payload ? (payload as string) : '#'}
           aria-label={text}
         >
-          {text}
+          {renderContent()}
         </LinkButtonBody>
       );
     case ACTION_TYPE.SUBMIT:
@@ -35,7 +49,7 @@ const actionTypeSelector: ActionSelectorType = ({
           disabled={isDisabled}
           form={payload as string}
         >
-          {text}
+          {renderContent()}
         </ButtonBody>
       );
     case ACTION_TYPE.FUNCTION_TRIGGER:
@@ -47,7 +61,7 @@ const actionTypeSelector: ActionSelectorType = ({
           aria-label={text}
           disabled={isDisabled}
         >
-          {text}
+          {renderContent()}
         </ButtonBody>
       );
     default:
@@ -62,6 +76,7 @@ export const Button: ButtonType = ({
   payload,
   isDisabled = false,
   fixedWidth,
+  iconUrl,
 }) => (
   <ButtonWrapper>
     {actionTypeSelector({
@@ -71,6 +86,7 @@ export const Button: ButtonType = ({
       payload,
       isDisabled,
       fixedWidth,
+      iconUrl,
     })}
   </ButtonWrapper>
 );
