@@ -24,10 +24,12 @@ export enum ACTION_TYPE {
  * @remarks
  * - `RED`: BAsic, red variant. Default style.
  * - `TRANSPARENT`: Secondary button style. For less important buttons.
+ * - `WHITE`: Whiteish gradient background from #FFFFFF to #FAF0DD.
  */
 export enum BUTTON_VARIANT {
   RED = 'red',
   TRANSPARENT = 'transparent',
+  WHITE = 'white',
 }
 
 /**
@@ -42,6 +44,7 @@ export enum BUTTON_VARIANT {
  * @property payload - The function, URL, or form ID triggered by the button.
  * @property isDisabled - If true, disables the button.
  * @property fixedWidth - Optional width of a button in pixels.
+ * @property iconUrl - Optional URL for an icon to display next to the text.
  */
 export interface ButtonProps {
   actionType: ACTION_TYPE;
@@ -50,6 +53,7 @@ export interface ButtonProps {
   payload?: string | (() => void);
   isDisabled?: boolean;
   fixedWidth?: number;
+  iconUrl?: string;
 }
 
 /**
@@ -60,6 +64,7 @@ export interface ButtonProps {
  *  - `payload`: The function, form ID, or URL associated with the action.
  *  - `text`: Label text for the button.
  *  - `isDisabled`: Optionally disables the button.
+ *  - `iconUrl`: Optional URL for an icon to display next to the text.
  *
  * @returns A ReactElement showing the rendered button.
  */
@@ -75,6 +80,7 @@ export type ActionSelector = (props: ButtonProps) => ReactElement;
  *  - `payload`: The function, URL, or form ID triggered by the button.
  *  - `isDisabled`: If true, disables the button.
  *  - `fixedWidth`: Optional width of a button in pixels.
+ *  - `iconUrl`: Optional URL for an icon to display next to the text in 24x24 format.
  *
  * @group Component
  *
@@ -86,6 +92,7 @@ export type ActionSelector = (props: ButtonProps) => ReactElement;
  *    text="Click me!"
  *    payload={() => console.log('Button clicked!')}
  *    isDisabled={false}
+ *    iconUrl="/path/to/icon.svg"
  *  />
  * ```
  */

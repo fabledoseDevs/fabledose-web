@@ -24,6 +24,9 @@ export const theme: Theme = {
         darkPurple: '#1F153E',
         gradientRed: 'linear-gradient(180deg, #E84528 0%, #B92409 100%)',
         gradientRedReverse: 'linear-gradient(180deg, #B92409 0%, #E84528 100%)',
+        gradientWhite: 'linear-gradient(180deg, #FFFFFF 0%, #FAF0DD 100%)',
+        gradientWhiteReversed:
+          'linear-gradient(180deg, #FAF0DD 0%, #FFFFFF 100%)',
         transparentWhite: {
           '05': 'rgba(255, 255, 255, 0.05)',
           '10': 'rgba(255, 255, 255, 0.1)',
@@ -51,6 +54,10 @@ export const theme: Theme = {
         pale: '#C9B6FA',
         regular: '#261A4F',
         dark: '#1F153E',
+      },
+      white: {
+        full: '#FFFFFF',
+        ecru: '#FAF0DD',
       },
     },
   },

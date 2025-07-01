@@ -25,6 +25,8 @@ export interface Palette {
       darkPurple: string;
       gradientRed: string;
       gradientRedReverse: string;
+      gradientWhite: string;
+      gradientWhiteReversed: string;
       transparentWhite: { [key in '05' | '10' | '20' | '30']: string };
     };
     highlights: {
@@ -44,6 +46,10 @@ export interface Palette {
       pale: string;
       regular: string;
       dark: string;
+    };
+    white: {
+      full: string;
+      ecru: string;
     };
   };
 }
