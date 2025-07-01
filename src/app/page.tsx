@@ -11,6 +11,7 @@ import LinksList from '@/atoms/LinksList';
 import { LINK_VARIANT, LIST_LAYOUT } from '@/atoms/LinksList/LinksList.types';
 import Accordion from '@/molecules/Accordion';
 import InfoBox from '@/molecules/InfoBox';
+import NewsletterForm from '@/molecules/NewsletterForm';
 import RegisterBanner from '@/molecules/RegisterBanner';
 import StandaloneStoryCard from '@/molecules/StandaloneStoryCard';
 import TopBar from '@/molecules/TopBar';
@@ -367,6 +368,7 @@ const Home = (): ReactElement => (
         ]}
       />
     </div>
+    <NewsletterForm />
   </>
 );
 

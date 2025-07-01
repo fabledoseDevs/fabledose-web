@@ -187,7 +187,7 @@ export const LinkButtonBody = styled(Link)<{
 }>`
   ${buttonStyle};
   font-family: ${({ theme }) => theme.typography.fonts.default}, sans-serif;
-  color: ${({ theme }) => theme.palette.byElement.text.white};
+  color: ${({ styleVariant, theme }) => getTextColorStyle(styleVariant, theme)};
   background: ${({ styleVariant, theme }) =>
     getBackgroundStyle(styleVariant, theme)};
   border: ${({ styleVariant, theme }) => getBorderStyle(styleVariant, theme)};
