@@ -12,8 +12,8 @@ import {
 import { Disclaimer, Logo, NewsletterFormBody } from './NewsletterForm.styled';
 import type { NewsletterForm as NewsletterFormType } from './NewsletterForm.types';
 
-export const NewsletterForm: NewsletterFormType = ({ className }) => (
-  <NewsletterFormBody className={className}>
+export const NewsletterForm: NewsletterFormType = () => (
+  <NewsletterFormBody>
     <Logo src="/logo-white.svg" alt="Fabledose" />
 
     <Paragraph color={FOREGROUND_COLOR.WHITE} alignment={TEXT_ALIGNMENT.LEFT}>

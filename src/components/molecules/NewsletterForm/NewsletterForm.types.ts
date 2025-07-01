@@ -6,15 +6,6 @@ import type { ReactElement } from 'react';
  */
 
 /**
- * Interface for newsletter form component props.
- *
- * @property className - Optional CSS class name for additional styling.
- */
-export interface NewsletterFormProps {
-  className?: string;
-}
-
-/**
  * NewsletterForm component renders a footer element with newsletter subscription information.
  * It displays the Fabledose logo, a short description, a Substack button, and a disclaimer.
  *
@@ -28,4 +19,4 @@ export interface NewsletterFormProps {
  * <NewsletterForm />
  * ```
  */
-export type NewsletterForm = (props: NewsletterFormProps) => ReactElement;
+export type NewsletterForm = () => ReactElement;
