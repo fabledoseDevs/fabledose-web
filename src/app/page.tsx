@@ -30,7 +30,17 @@ import { Paragraph } from '../components/atoms/Paragraph/Paragraph';
 const Home = (): ReactElement => (
   <>
     <TopBar />
-    <Jumbotron />
+    <Jumbotron
+      logo={true}
+      headline={`Planowana premiera<br />Q4 2025`}
+      paragraph={`Nasza nowa strona jest obecnie w budowie.<br />Do tego czasu zapraszamy do zapoznania się z naszymi<br />baśniami na stronie demonstracyjnej.`}
+      button={{
+        text: 'Zobacz DEMO',
+        actionType: ACTION_TYPE.NAVIGATION,
+        variant: BUTTON_VARIANT.RED,
+        payload: 'https://fabledose.com',
+      }}
+    />
     <br />
     <br />
     <br />

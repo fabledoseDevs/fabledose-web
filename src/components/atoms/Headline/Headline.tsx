@@ -24,9 +24,16 @@ const headlineWeightSelector: HeadlineWeightSelectorType = (
 ) => {
   const Component = headlineMap[weight] || SupertextHeadline;
   if (weight === HEADLINE_TYPE.SUPERTEXT) {
-    return <Component>{children}</Component>;
+    return (
+      <Component dangerouslySetInnerHTML={{ __html: children as string }} />
+    );
   }
-  return <Component color={color}>{children}</Component>;
+  return (
+    <Component
+      color={color}
+      dangerouslySetInnerHTML={{ __html: children as string }}
+    />
+  );
 };
 
 export const Headline: HeadlineType = ({

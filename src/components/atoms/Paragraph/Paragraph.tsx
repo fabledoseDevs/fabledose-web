@@ -7,7 +7,9 @@ export const Paragraph: ParagraphType = ({
   alignment = TEXT_ALIGNMENT.LEFT,
   children,
 }) => (
-  <ParagraphBody foreground={color} textAlign={alignment}>
-    {children}
-  </ParagraphBody>
+  <ParagraphBody
+    foreground={color}
+    textAlign={alignment}
+    dangerouslySetInnerHTML={{ __html: children as string }}
+  />
 );
