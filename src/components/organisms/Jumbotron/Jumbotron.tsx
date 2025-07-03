@@ -1,7 +1,6 @@
 import Image from 'next/image';
 
 import Button from '@/atoms/Button';
-import { ACTION_TYPE, BUTTON_VARIANT } from '@/atoms/Button/Button.types';
 import Headline from '@/atoms/Headline';
 import {
   FOREGROUND_COLOR as HEADLINE_COLOR,
@@ -16,7 +15,12 @@ import {
 import { JumbotronBody, JumbotronContent } from './Jumbotron.styled';
 import type { Jumbotron as JumbotronType } from './Jumbotron.types';
 
-export const Jumbotron: JumbotronType = () => (
+export const Jumbotron: JumbotronType = ({
+  logo = false,
+  headline,
+  paragraph,
+  button,
+}) => (
   <JumbotronBody>
     <Image
       src="/jumbo-static.jpg"
@@ -26,24 +30,19 @@ export const Jumbotron: JumbotronType = () => (
       priority
     />
     <JumbotronContent>
+      {logo && (
+        <Image src="logo-white.svg" alt="Fabledose" width={298} height={58} />
+      )}
       <Headline weight={HEADLINE_TYPE.JUMBO} color={HEADLINE_COLOR.WHITE}>
-        Miejsce, w którym baśnie ożywają podczas czytania
+        {headline}
       </Headline>
       <Paragraph
         color={PARAGRAPH_COLOR.WHITE}
         alignment={TEXT_ALIGNMENT.CENTER}
       >
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat.
+        {paragraph}
       </Paragraph>
-      <Button
-        actionType={ACTION_TYPE.NAVIGATION}
-        variant={BUTTON_VARIANT.RED}
-        text="Wejdź do świata bajek"
-        payload="#"
-      />
+      <Button {...button} />
     </JumbotronContent>
   </JumbotronBody>
 );
