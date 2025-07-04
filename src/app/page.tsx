@@ -3,6 +3,14 @@ import type { ReactElement } from 'react';
 
 import Button from '@/atoms/Button';
 import { ACTION_TYPE, BUTTON_VARIANT } from '@/atoms/Button/Button.types';
+import Container from '@/atoms/Container';
+import {
+  BACKGROUND_COLOR,
+  CONTAINER_ELEMENT,
+  FLEX_ALIGNMENT,
+  FLEX_DIRECTION,
+  VERTICAL_PADDING,
+} from '@/atoms/Container/Container.types';
 import Dropdown from '@/atoms/Dropdown';
 import { COLOR_SCHEME } from '@/atoms/Dropdown/Dropdown.types';
 import InputField from '@/atoms/InputField';
@@ -253,6 +261,19 @@ const Home = (): ReactElement => (
 
     <br />
     <br />
+
+    <Container
+      containerType={CONTAINER_ELEMENT.ASIDE}
+      maxWidth={1440}
+      flexDirection={FLEX_DIRECTION.ROW}
+      justifyContent={FLEX_ALIGNMENT.CENTER}
+      alignItems={FLEX_ALIGNMENT.CENTER}
+      verticalPadding={VERTICAL_PADDING.DOUBLE}
+      gap={true}
+      backgroundColor={BACKGROUND_COLOR.DARK_PURPLE}
+    >
+      kontener do testów
+    </Container>
 
     <Footer />
   </>
