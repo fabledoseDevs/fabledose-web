@@ -7,14 +7,12 @@ import Dropdown from '@/atoms/Dropdown';
 import { COLOR_SCHEME } from '@/atoms/Dropdown/Dropdown.types';
 import InputField from '@/atoms/InputField';
 import { INPUT_TYPE } from '@/atoms/InputField/InputField.types';
-import LinksList from '@/atoms/LinksList';
-import { LINK_VARIANT, LIST_LAYOUT } from '@/atoms/LinksList/LinksList.types';
 import Accordion from '@/molecules/Accordion';
 import InfoBox from '@/molecules/InfoBox';
-import NewsletterForm from '@/molecules/NewsletterForm';
 import RegisterBanner from '@/molecules/RegisterBanner';
 import StandaloneStoryCard from '@/molecules/StandaloneStoryCard';
 import TopBar from '@/molecules/TopBar';
+import Footer from '@/organisms/Footer';
 import Jumbotron from '@/organisms/Jumbotron';
 import mockCover from '@/public/mockImages/mockCover.jpg';
 import mockImageOne from '@/public/mockImages/mockTile-01.jpg';
@@ -247,138 +245,16 @@ const Home = (): ReactElement => (
       <InputField
         type={INPUT_TYPE.TEXT}
         placeholder={'Lorem...'}
-        fixedWidth={360}
         errorMessage={'Lorem'}
       />
-      <InputField
-        type={INPUT_TYPE.PASSWORD}
-        placeholder={'Lorem...'}
-        fixedWidth={560}
-      />
+      <InputField type={INPUT_TYPE.PASSWORD} placeholder={'Lorem...'} />
       <InputField type={INPUT_TYPE.SEARCH} placeholder={'Lorem...'} />
     </div>
 
     <br />
     <br />
-    <div style={{ display: 'flex', flexDirection: 'row', gap: '20px' }}>
-      <LinksList
-        variant={LINK_VARIANT.ICON}
-        layout={LIST_LAYOUT.VERTICAL}
-        title="Obserwuj nas na SM"
-        links={[
-          {
-            href: 'https://facebook.com',
-            label: 'Facebook',
-            icon: '/socialIcons/Facebook.svg',
-          },
-          {
-            href: 'https://instagram.com',
-            label: 'Instagram',
-            icon: '/socialIcons/Instagram.svg',
-          },
-          {
-            href: 'https://x.com',
-            label: 'X',
-            icon: '/socialIcons/X.svg',
-          },
-          {
-            href: 'https://linkedin.com',
-            label: 'Linked In',
-            icon: '/socialIcons/LinkedIn.svg',
-          },
-          {
-            href: 'https://youtube.com',
-            label: 'Youtube',
-            icon: '/socialIcons/Youtube.svg',
-          },
-        ]}
-      />
 
-      <LinksList
-        variant={LINK_VARIANT.TEXT}
-        layout={LIST_LAYOUT.VERTICAL}
-        title="Przydatne linki"
-        links={[
-          {
-            href: 'https://facebook.com',
-            label: 'Facebook',
-          },
-          {
-            href: 'https://instagram.com',
-            label: 'Instagram',
-          },
-          {
-            href: 'https://x.com',
-            label: 'X',
-          },
-          {
-            href: 'https://linkedin.com',
-            label: 'Linked In',
-          },
-          {
-            href: 'https://youtube.com',
-            label: 'Youtube',
-          },
-        ]}
-      />
-    </div>
-
-    <br />
-    <br />
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-      <LinksList
-        variant={LINK_VARIANT.ICON}
-        layout={LIST_LAYOUT.HORIZONTAL}
-        title="Obserwuj nas na SM"
-        links={[
-          {
-            href: 'https://facebook.com',
-            label: 'Facebook',
-            icon: '/socialIcons/Facebook.svg',
-          },
-          {
-            href: 'https://instagram.com',
-            label: 'Instagram',
-            icon: '/socialIcons/Instagram.svg',
-          },
-          {
-            href: 'https://x.com',
-            label: 'X',
-            icon: '/socialIcons/X.svg',
-          },
-          {
-            href: 'https://linkedin.com',
-            label: 'Linked In',
-            icon: '/socialIcons/LinkedIn.svg',
-          },
-          {
-            href: 'https://youtube.com',
-            label: 'Youtube',
-            icon: '/socialIcons/Youtube.svg',
-          },
-        ]}
-      />
-
-      <LinksList
-        variant={LINK_VARIANT.TEXT}
-        layout={LIST_LAYOUT.HORIZONTAL}
-        links={[
-          {
-            href: '/about',
-            label: 'O nas',
-          },
-          {
-            href: '/contact',
-            label: 'Kontakt',
-          },
-          {
-            href: '/faq',
-            label: 'FAQ',
-          },
-        ]}
-      />
-    </div>
-    <NewsletterForm />
+    <Footer />
   </>
 );
 

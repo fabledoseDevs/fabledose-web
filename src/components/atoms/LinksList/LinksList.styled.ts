@@ -4,9 +4,7 @@ import Link from 'next/link';
 import type { LINK_VARIANT, LIST_LAYOUT } from './LinksList.types';
 
 export const LinksListWrapper = styled.div`
-  background-color: ${({ theme }) => theme.palette.byElement.background.purple};
-  padding: 16px;
-  border-radius: 8px;
+  padding: 1.6rem;
 `;
 
 export const LinksListTitle = styled.h3`
@@ -14,7 +12,12 @@ export const LinksListTitle = styled.h3`
   font-size: 2rem;
   font-weight: ${({ theme }) => theme.typography.fontWeights.semibold};
   color: ${({ theme }) => theme.palette.byElement.text.white};
-  margin: 0 0 16px 0;
+  margin: 0 0 1.6rem 0;
+  text-align: center;
+
+  @media ${({ theme }) => theme.media.laptop} {
+    text-align: left;
+  }
 `;
 
 export const LinksListBody = styled.div<{
@@ -36,6 +39,11 @@ export const LinkItem = styled(Link)<{
   font-family: ${({ theme }) => theme.typography.fonts.default};
   font-size: 1.6rem;
   font-weight: ${({ theme }) => theme.typography.fontWeights.regular};
+  justify-content: center;
+
+  @media ${({ theme }) => theme.media.laptop} {
+    justify-content: flex-start;
+  }
 
   &:hover {
     text-decoration: underline;
