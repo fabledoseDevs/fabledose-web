@@ -12,7 +12,7 @@ import {
   TEXT_ALIGNMENT,
 } from '@/atoms/Paragraph/Paragraph.types';
 
-import { JumbotronBody, JumbotronContent } from './Jumbotron.styled';
+import { Gradient, JumbotronBody, JumbotronContent } from './Jumbotron.styled';
 import type { Jumbotron as JumbotronType } from './Jumbotron.types';
 
 export const Jumbotron: JumbotronType = ({
@@ -29,6 +29,7 @@ export const Jumbotron: JumbotronType = ({
       style={{ objectFit: 'cover', objectPosition: 'center' }}
       priority
     />
+    <Gradient />
     <JumbotronContent>
       {logo && (
         <Image src="logo-white.svg" alt="Fabledose" width={298} height={58} />

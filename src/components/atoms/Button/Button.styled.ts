@@ -6,7 +6,7 @@ import type { BUTTON_VARIANT as BUTTON_VARIANT_TYPE } from '@/atoms/Button/Butto
 import { BUTTON_VARIANT } from '@/atoms/Button/Button.types';
 import type { Theme } from '@/styles/types';
 
-const buttonStyle = css`
+const buttonStyle = (theme: Theme) => css`
   margin: 5px auto;
   display: block;
   box-sizing: border-box;
@@ -15,10 +15,14 @@ const buttonStyle = css`
   cursor: pointer;
   letter-spacing: 1px;
   line-height: 1;
-  padding: 12px 24px;
+  padding: 1rem 1.2rem;
   border-radius: 24px;
-  font-size: 1.8rem;
+  font-size: clamp(1.25rem, 2vw, 1.8rem);
   font-weight: 600;
+
+  @media ${theme.media.laptop} {
+    padding: 1.2rem 2.4rem;
+  }
 `;
 
 const getBackgroundStyle = (
@@ -151,7 +155,7 @@ export const ButtonBody = styled.button<{
   styleVariant: BUTTON_VARIANT_TYPE;
   width: string;
 }>`
-  ${buttonStyle};
+  ${({ theme }) => buttonStyle(theme)};
   font-family: ${({ theme }) => theme.typography.fonts.default}, sans-serif;
   color: ${({ styleVariant, theme }) => getTextColorStyle(styleVariant, theme)};
   background: ${({ styleVariant, theme }) =>
@@ -185,7 +189,7 @@ export const LinkButtonBody = styled(Link)<{
   styleVariant: BUTTON_VARIANT_TYPE;
   width: string;
 }>`
-  ${buttonStyle};
+  ${({ theme }) => buttonStyle(theme)};
   font-family: ${({ theme }) => theme.typography.fonts.default}, sans-serif;
   color: ${({ styleVariant, theme }) => getTextColorStyle(styleVariant, theme)};
   background: ${({ styleVariant, theme }) =>

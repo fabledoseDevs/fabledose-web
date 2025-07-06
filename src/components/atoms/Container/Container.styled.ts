@@ -5,20 +5,16 @@ import type { JSX } from 'react';
 import type { Theme } from '@/styles/types';
 
 import type { StyledContainerProps } from './Container.types';
-import {
-  BACKGROUND_COLOR,
-  FLEX_ALIGNMENT,
-  VERTICAL_PADDING,
-} from './Container.types';
+import { BACKGROUND_COLOR, FLEX_ALIGNMENT, PADDING } from './Container.types';
 
-const getVerticalPadding = (verticalPadding: VERTICAL_PADDING | undefined) => {
-  switch (verticalPadding) {
-    case VERTICAL_PADDING.NONE:
+const getPadding = (padding: PADDING | undefined) => {
+  switch (padding) {
+    case PADDING.NONE:
       return `0`;
-    case VERTICAL_PADDING.STANDARD:
-      return `2.4rem 0`;
-    case VERTICAL_PADDING.DOUBLE:
-      return `4.8rem 0`;
+    case PADDING.STANDARD:
+      return `2.4rem`;
+    case PADDING.DOUBLE:
+      return `4.8rem`;
     default:
       return `0`;
   }
@@ -60,16 +56,29 @@ const sharedStyles = ({
   ...props
 }: StyledContainerProps & { theme: Theme }) => css`
   display: flex;
-  flex-direction: ${props.flexDirection ?? 'column'};
+  flex-direction: column;
   justify-content: ${getFlexAlignment(props.justifyContent)};
   align-items: ${getFlexAlignment(props.alignItems)};
-  padding: ${getVerticalPadding(props.verticalPadding)};
+  padding-top: ${getPadding(props.verticalPadding)};
+  padding-bottom: ${getPadding(props.verticalPadding)};
+  padding-left: ${props.mobilePadding ? '2.4rem' : '0'};
+  padding-right: ${props.mobilePadding ? '2.4rem' : '0'};
   gap: ${props.gap ? '2.4rem' : '0'};
-  margin: auto;
+  margin: 0 auto;
   width: 100%;
   max-width: ${props.maxWidth ? `${props.maxWidth}px` : '100%'};
   background-color: ${getBackgroundColor(theme, props.backgroundColor)};
   box-sizing: border-box;
+  overflow-x: clip;
+
+  @media ${theme.media.desktop} {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  @media ${theme.media.laptop} {
+    flex-direction: ${props.flexDirection ?? 'column'};
+  }
 `;
 
 const createStyledContainer = <Tag extends keyof JSX.IntrinsicElements>(

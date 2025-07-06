@@ -59,7 +59,7 @@ export enum FLEX_ALIGNMENT {
  * - `STANDARD`: Standard vertical padding (2.4rem 0).
  * - `DOUBLE`: Double vertical padding (4.8rem 0).
  */
-export enum VERTICAL_PADDING {
+export enum PADDING {
   NONE = 'none',
   STANDARD = 'standard',
   DOUBLE = 'double',
@@ -88,6 +88,7 @@ export enum BACKGROUND_COLOR {
  * @property justifyContent - Optional justification of flex items along the main axis.
  * @property alignItems - Optional alignment of flex items along the cross-axis.
  * @property verticalPadding - Optional vertical padding size.
+ * @property mobilePadding - Optional horizontal padding for mobile devices.
  * @property gap - If true, adds a standard gap (2.4rem) between flex items.
  * @property backgroundColor - Optional background color of the container.
  * @property children - The content to be rendered inside the container.
@@ -98,7 +99,8 @@ export type ContainerProps = {
   flexDirection?: FLEX_DIRECTION;
   justifyContent?: FLEX_ALIGNMENT;
   alignItems?: FLEX_ALIGNMENT;
-  verticalPadding?: VERTICAL_PADDING;
+  verticalPadding?: PADDING;
+  mobilePadding?: boolean;
   gap?: boolean;
   backgroundColor?: BACKGROUND_COLOR;
   children: ReactElement | ReactElement[] | string;
@@ -127,7 +129,8 @@ export type ContainerSelector = (props: ContainerProps) => ReactElement;
  *  - `flexDirection`: Optional flex direction for the container's children. Follows {@link FLEX_DIRECTION}.
  *  - `justifyContent`: Optional justification of flex items along the main axis. Follows {@link FLEX_ALIGNMENT}.
  *  - `alignItems`: Optional alignment of flex items along the cross-axis. Follows {@link FLEX_ALIGNMENT}.
- *  - `verticalPadding`: Optional vertical padding size. Follows {@link VERTICAL_PADDING}.
+ *  - `verticalPadding`: Optional vertical padding size. Follows {@link PADDING}.
+ *  - `mobilePadding`: Optional horizontal padding for mobile devices.
  *  - `gap`: If true, adds a standard gap (2.4rem) between flex items.
  *  - `backgroundColor`: Optional background color of the container. Follows {@link BACKGROUND_COLOR}.
  *  - `children`: The content to be rendered inside the container.
@@ -142,7 +145,8 @@ export type ContainerSelector = (props: ContainerProps) => ReactElement;
  *   flexDirection={FLEX_DIRECTION.ROW}
  *   justifyContent={FLEX_ALIGNMENT.CENTER}
  *   alignItems={FLEX_ALIGNMENT.CENTER}
- *   verticalPadding={VERTICAL_PADDING.STANDARD}
+ *   verticalPadding={PADDING.STANDARD}
+ *   mobilePadding={true}
  *   gap={true}
  *   backgroundColor={BACKGROUND_COLOR.WHITE}
  * >

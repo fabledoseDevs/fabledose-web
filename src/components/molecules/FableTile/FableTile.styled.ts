@@ -13,8 +13,8 @@ export const FableTileBody = styled.div`
   margin-bottom: 0;
 
   &:hover {
-    box-shadow: 0px 24px 64px 0px
-      ${({ theme }) => theme.palette.byElement.background.darkPurple};
+    box-shadow: 0 14px 24px 0
+      ${({ theme }) => theme.palette.byElement.shadows.purple[20]};
     border: 8px solid ${({ theme }) => theme.palette.byElement.background.white};
     margin-top: -24px;
     margin-bottom: 24px;
