@@ -17,7 +17,7 @@ export const AccordionRib: AccordionRibType = ({
   isSelfControlled = false,
   onToggle,
 }) => {
-  const { isOpen, handleToggle } = useAccordionRib({
+  const { isOpen, handleToggle, contentRef } = useAccordionRib({
     isOpen: isOpenProp,
     isSelfControlled,
     onToggle,
@@ -31,7 +31,9 @@ export const AccordionRib: AccordionRibType = ({
           {isOpen ? <MinusCircleIcon /> : <PlusCircleIcon />}
         </ExpandButton>
       </StaticBar>
-      <ExpandableContent isOpen={isOpen}>{children}</ExpandableContent>
+      <ExpandableContent ref={contentRef} isOpen={isOpen}>
+        {children}
+      </ExpandableContent>
     </AccordionRibBody>
   );
 };

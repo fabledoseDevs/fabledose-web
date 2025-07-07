@@ -17,8 +17,8 @@ export const NewsletterForm: NewsletterFormType = () => (
     <Logo src="/logo-white.svg" alt="Fabledose" />
 
     <Paragraph color={FOREGROUND_COLOR.WHITE} alignment={TEXT_ALIGNMENT.LEFT}>
-      Join us on Substack to receive newsletter and update on features and
-      releases.
+      Dołącz do nas na Substack aby otrzymywać newsletter lub śledzić nasz blog
+      z informacjami o nowościach.
     </Paragraph>
 
     <Button
@@ -30,8 +30,8 @@ export const NewsletterForm: NewsletterFormType = () => (
     />
 
     <Disclaimer>
-      By subscribing you agree to our Privacy Policy and provide consent to
-      receive updates from our company.
+      Zapisujac się akceptujesza zasady naszej Polityki Prywatności oraz
+      wyrażasz zgodę na otrzymywanie informacji marketingowych drogą mailową.
     </Disclaimer>
   </NewsletterFormBody>
 );

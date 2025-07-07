@@ -187,9 +187,10 @@ export const LandingPage: LandingPageType = () => (
           <BasicDescription
             superText={'FAQ'}
             headline={'Najczęściej zadawane pytania'}
-            paragraph={
-              'Lorem ipsum dolor sit amet consectetur. Ac senectus duis et gravida vestibulum morbi. Proin ultrices egestas amet non cursus consequat.'
-            }
+            paragraph={[
+              'Każda historia to podróż – przez animowane ilustracje, baśniowe dźwięki i ciepły głos narratora. Wiemy, że możesz mieć pytania, zanim wyruszysz w pierwszą przygodę. Dlatego przygotowaliśmy odpowiedzi na najczęściej zadawane pytania – by rozwiać wątpliwości i zostawić miejsce tylko na... wyobraźnię.',
+              'W tej sekcji znajdziesz odpowiedzi na pytania o funkcje portalu, dostępność materiałów, urządzenia i bezpieczeństwo najmłodszych. A jeśli nie znajdziesz tu odpowiedzi – napisz do nas! Jesteśmy jak dobra wróżka: zawsze chętni do pomocy.',
+            ]}
           />
           <Button
             actionType={ACTION_TYPE.NAVIGATION}
@@ -200,102 +201,84 @@ export const LandingPage: LandingPageType = () => (
         <Accordion
           ribsList={[
             {
-              mainText: 'Lorem ipsum',
+              mainText: 'Czym jest Fabledose?',
               children: (
                 <Paragraph>
-                  Ut lacinia a turpis eget hendrerit. Ut velit quam, pharetra
-                  non dapibus et, commodo tincidunt turpis. Etiam eget cursus
-                  leo. Integer suscipit arcu est, sed porttitor diam cursus eu.
-                  Nunc consequat vel lorem nec auctor. Etiam rhoncus pharetra
-                  facilisis. Sed porta, elit fermentum placerat mollis, odio
-                  enim gravida nulla, elementum finibus augue nunc nec lacus.
+                  Fabledose to cyfrowa biblioteka baśni dla dzieci, która łączy
+                  tekst z animowanymi ilustracjami, audiobookami i ebookami.
+                  Każda opowieść to nie tylko historia – to pełne zanurzenie w
+                  świecie magii, pięknych dźwięków i wizualnych emocji.
                 </Paragraph>
               ),
               isOpen: false,
               isSelfControlled: false,
             },
             {
-              mainText: 'Lorem ipsum',
+              mainText: 'Na jakich urządzeniach mogę korzystać z Fabledose?',
               children: (
                 <Paragraph>
-                  Morbi nunc lorem, convallis eget cursus et, auctor eget est.
-                  Sed nec lectus vitae arcu tincidunt euismod. Praesent
-                  porttitor ipsum nec justo pellentesque, non sodales dui
-                  fermentum. Proin tristique dolor nec gravida suscipit. In
-                  placerat enim lectus, eu tempor lorem sagittis id. Maecenas in
-                  mattis lacus, vel condimentum massa.
+                  Z Fabledose możesz korzystać na większości nowoczesnych
+                  urządzeń: komputerach, tabletach i smartfonach (Android i
+                  iOS). Nie musisz instalować żadnej aplikacji – wystarczy
+                  przeglądarka internetowa i dostęp do Internetu.
                 </Paragraph>
               ),
               isOpen: false,
               isSelfControlled: false,
             },
             {
-              mainText: 'Lorem ipsum',
+              mainText: 'Czy muszę płacić za dostęp do treści?',
               children: (
                 <Paragraph>
-                  Mauris sagittis, felis quis viverra elementum, enim sapien
-                  elementum mauris, id feugiat nibh mauris eget magna. Integer
-                  nisl nunc, congue nec quam a, tincidunt dignissim massa.
-                  Pellentesque lacinia, magna quis euismod sollicitudin, lorem
-                  quam suscipit tortor, consectetur eleifend ex erat id lectus.
-                  Morbi porttitor eget ipsum eget tincidunt. Nam nec pulvinar
-                  risus. Ut vitae dapibus orci. Sed sed vehicula elit, in
-                  tincidunt lacus. Quisque et metus et nulla consectetur
-                  posuere. Nulla convallis leo quis nulla cursus finibus.
-                  Quisque id enim tellus. Phasellus non posuere arcu, a
-                  tincidunt leo. Etiam quis nisl eu orci pretium suscipit vitae
-                  ac tellus.
+                  Fabledose oferuje zarówno darmowe, jak i płatne treści.
+                  Darmowe bajki zawierają krótkie reklamy przed rozpoczęciem
+                  animacji. W ramach płatnej subskrypcji otrzymujesz pełny
+                  dostęp do całej biblioteki bez reklam – w tym do animowanych
+                  baśni, audiobooków i ebooków. Abonamenty zaczynają się już od
+                  14,99 PLN miesięcznie.
                 </Paragraph>
               ),
               isOpen: false,
               isSelfControlled: false,
             },
             {
-              mainText: 'Lorem ipsum',
+              mainText: 'Czy bajki są odpowiednie dla różnych grup wiekowych?',
               children: (
                 <Paragraph>
-                  Ut lacinia a turpis eget hendrerit. Ut velit quam, pharetra
-                  non dapibus et, commodo tincidunt turpis. Etiam eget cursus
-                  leo. Integer suscipit arcu est, sed porttitor diam cursus eu.
-                  Nunc consequat vel lorem nec auctor. Etiam rhoncus pharetra
-                  facilisis. Sed porta, elit fermentum placerat mollis, odio
-                  enim gravida nulla, elementum finibus augue nunc nec lacus.
+                  Tak! Bajki w Fabledose są podzielone na kategorie wiekowe, a
+                  każda z nich została zaprojektowana z myślą o rozwoju
+                  emocjonalnym i poznawczym dziecka. Znajdziesz tu bajki dla
+                  maluchów, przedszkolaków i starszaków.
                 </Paragraph>
               ),
               isOpen: false,
               isSelfControlled: false,
             },
             {
-              mainText: 'Lorem ipsum',
+              mainText: 'Czy mogę korzystać z Fabledose offline?',
               children: (
                 <Paragraph>
-                  Morbi nunc lorem, convallis eget cursus et, auctor eget est.
-                  Sed nec lectus vitae arcu tincidunt euismod. Praesent
-                  porttitor ipsum nec justo pellentesque, non sodales dui
-                  fermentum. Proin tristique dolor nec gravida suscipit. In
-                  placerat enim lectus, eu tempor lorem sagittis id. Maecenas in
-                  mattis lacus, vel condimentum massa.
+                  Tak – ale tylko z wybranych formatów. W ramach nawet
+                  najtańszej subskrypcji możesz pobierać audiobooki i ebooki, by
+                  słuchać i czytać bajki także wtedy, gdy nie masz dostępu do
+                  Internetu. Animowane baśnie są dostępne wyłącznie online ze
+                  względu na interaktywny charakter treści.
                 </Paragraph>
               ),
               isOpen: false,
               isSelfControlled: false,
             },
             {
-              mainText: 'Lorem ipsum',
+              mainText: 'Czy Fabledose jest bezpieczne dla dzieci?',
               children: (
                 <Paragraph>
-                  Mauris sagittis, felis quis viverra elementum, enim sapien
-                  elementum mauris, id feugiat nibh mauris eget magna. Integer
-                  nisl nunc, congue nec quam a, tincidunt dignissim massa.
-                  Pellentesque lacinia, magna quis euismod sollicitudin, lorem
-                  quam suscipit tortor, consectetur eleifend ex erat id lectus.
-                  Morbi porttitor eget ipsum eget tincidunt. Nam nec pulvinar
-                  risus. Ut vitae dapibus orci. Sed sed vehicula elit, in
-                  tincidunt lacus. Quisque et metus et nulla consectetur
-                  posuere. Nulla convallis leo quis nulla cursus finibus.
-                  Quisque id enim tellus. Phasellus non posuere arcu, a
-                  tincidunt leo. Etiam quis nisl eu orci pretium suscipit vitae
-                  ac tellus.
+                  Tak – bezpieczeństwo dzieci to dla nas priorytet. Wszystkie
+                  treści tworzone są przez pedagogów i pisarzy z pasją do
+                  dziecięcej literatury. Oprócz wartości rozrywkowej, każda
+                  bajka ma także charakter edukacyjny. Ilustracje i animacje
+                  powstają z wyjątkową dbałością o detale – a kolory i dynamika
+                  ruchu są dobierane tak, aby nie powodować nadmiernego
+                  pobudzenia u najmłodszych. To bezpieczna przestrzeń do marzeń.
                 </Paragraph>
               ),
               isOpen: false,

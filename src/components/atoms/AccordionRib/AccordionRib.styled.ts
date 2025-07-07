@@ -5,6 +5,8 @@ export const AccordionRibBody = styled.div`
   flex-direction: column;
   border-bottom: 2px solid
     ${({ theme }) => theme.palette.byElement.background.purple};
+  transition: all 0.3s ease-in-out;
+  will-change: height;
 `;
 
 export const StaticBar = styled.button`
@@ -45,7 +47,8 @@ export const ExpandButton = styled.button`
 
 export const ExpandableContent = styled.div<{ isOpen: boolean }>`
   overflow: hidden;
-  height: ${({ isOpen }) => (isOpen ? 'auto' : '0')};
-  transition: height 0.5s ease-in-out;
-  padding: ${({ isOpen }) => (isOpen ? '16px 24px 24px' : '0')};
+  height: 0;
+  transition: height 0.3s ease-in-out, padding 0.3s ease-in-out;
+  padding: ${({ isOpen }) => (isOpen ? '16px 24px 24px' : '0 24px 0')};
+  will-change: height, padding;
 `;
