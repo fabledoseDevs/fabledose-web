@@ -60,11 +60,3 @@ export const Title = styled.h2`
   color: ${({ theme }) => theme.palette.byElement.text.white};
   margin: 16px 0 8px;
 `;
-
-export const Description = styled.p`
-  font-family: ${({ theme }) => theme.typography.fonts.default};
-  font-size: 18px;
-  font-weight: 400;
-  color: ${({ theme }) => theme.palette.byElement.text.white};
-  margin: 0;
-`;

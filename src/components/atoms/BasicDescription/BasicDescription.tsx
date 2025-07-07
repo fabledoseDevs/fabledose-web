@@ -20,6 +20,10 @@ export const BasicDescription: BasicDescriptionType = ({
     <Headline weight={HEADLINE_TYPE.BIG} color={FOREGROUND_COLOR.PURPLE}>
       {headline}
     </Headline>
-    <Paragraph>{paragraph}</Paragraph>
+    {Array.isArray(paragraph) ? (
+      paragraph.map((p, index) => <Paragraph key={index}>{p}</Paragraph>)
+    ) : (
+      <Paragraph>{paragraph}</Paragraph>
+    )}
   </BasicDescriptionBody>
 );

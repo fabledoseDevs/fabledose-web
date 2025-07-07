@@ -8,6 +8,7 @@ import {
   Slider,
   TilesGroup,
   Title,
+  WhiteBackground,
 } from './RegisterBanner.styled';
 import type { RegisterBanner as RegisterBannerType } from './RegisterBanner.types';
 
@@ -22,6 +23,7 @@ export const RegisterBanner: RegisterBannerType = ({ title, covers }) => (
       />
     </CtaContainer>
     <Slider>
+      <WhiteBackground />
       <TilesGroup>
         {covers.map(cover => (
           <FableTile key={cover.fableId} {...cover} />

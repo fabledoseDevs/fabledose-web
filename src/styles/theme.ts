@@ -22,6 +22,8 @@ export const theme: Theme = {
         white: '#FFFFFF',
         purple: '#261A4F',
         darkPurple: '#1F153E',
+        gradientPurpleFade:
+          'linear-gradient(0deg, rgba(38, 26, 79, 1) 0%, rgba(38, 26, 79, 0) 100%)',
         gradientRed: 'linear-gradient(180deg, #E84528 0%, #B92409 100%)',
         gradientRedReverse: 'linear-gradient(180deg, #B92409 0%, #E84528 100%)',
         gradientWhite: 'linear-gradient(180deg, #FFFFFF 0%, #FAF0DD 100%)',
@@ -81,31 +83,31 @@ export const theme: Theme = {
     },
     headlines: {
       jumbo: {
-        fontSize: '6.4rem',
+        fontSize: 'clamp(3.4rem, 8vw, 6.4rem)',
         fontFamily: 'YesevaOne, serif',
       },
       big: {
-        fontSize: '4.8rem',
+        fontSize: 'clamp(2.4rem, 6vw, 4.8rem)',
         fontFamily: 'YesevaOne, serif',
       },
       small: {
-        fontSize: '2.4rem',
+        fontSize: 'clamp(1.8rem, 3vw, 2.4rem)',
         fontFamily: 'Baloo2, sans-serif',
       },
       superText: {
-        fontSize: '1.8rem',
+        fontSize: 'clamp(1.4rem, 2.5vw, 1.8rem)',
         fontFamily: 'Baloo2, sans-serif',
       },
     },
     paragraphs: {
       default: {
-        fontSize: '1.8rem',
+        fontSize: 'clamp(1.4rem, 2.5vw, 1.8rem)',
         fontFamily: 'Baloo2, sans-serif',
       },
     },
     inputs: {
       default: {
-        fontSize: '1.6rem',
+        fontSize: 'clamp(1.4rem, 2.25vw, 1.6rem)',
         fontFamily: 'Baloo2, sans-serif',
       },
       error: {

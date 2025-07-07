@@ -1,10 +1,10 @@
+import Paragraph from '@/atoms/Paragraph';
 import {
-  Description,
-  Image,
-  ImageContainer,
-  InfoBoxBody,
-  Title,
-} from './InfoBox.styled';
+  FOREGROUND_COLOR,
+  TEXT_ALIGNMENT,
+} from '@/atoms/Paragraph/Paragraph.types';
+
+import { Image, ImageContainer, InfoBoxBody, Title } from './InfoBox.styled';
 import type { InfoBox as InfoBoxType } from './InfoBox.types';
 
 export const InfoBox: InfoBoxType = ({ imageData, title, description }) => (
@@ -13,6 +13,8 @@ export const InfoBox: InfoBoxType = ({ imageData, title, description }) => (
       <Image src={imageData.src} alt={imageData.alt} />
     </ImageContainer>
     <Title>{title}</Title>
-    <Description>{description}</Description>
+    <Paragraph color={FOREGROUND_COLOR.WHITE} alignment={TEXT_ALIGNMENT.CENTER}>
+      {description}
+    </Paragraph>
   </InfoBoxBody>
 );

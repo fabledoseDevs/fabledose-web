@@ -19,40 +19,40 @@ export const Footer: FooterType = () => (
       <NewsletterForm />
       <LinksContainer>
         <LinksList
-          title={'Group One'}
+          title={'Portal'}
           variant={LINK_VARIANT.TEXT}
           layout={LIST_LAYOUT.VERTICAL}
           links={[
             {
               href: '#',
-              label: 'Link ',
+              label: 'Konto',
             },
             {
               href: '#',
-              label: 'Link long name',
+              label: 'Płatności',
             },
             {
               href: '#',
-              label: 'Link super long name',
+              label: 'Centrum pomocy',
             },
           ]}
         />
         <LinksList
-          title={'Group Two'}
+          title={'Firma'}
           variant={LINK_VARIANT.TEXT}
           layout={LIST_LAYOUT.VERTICAL}
           links={[
             {
               href: '#',
-              label: 'Link ',
+              label: 'O nas',
             },
             {
               href: '#',
-              label: 'Link long name',
+              label: 'Współpraca',
             },
             {
               href: '#',
-              label: 'Link super long name',
+              label: 'Kontakt',
             },
           ]}
         />
@@ -93,9 +93,9 @@ export const Footer: FooterType = () => (
     <BottomRow>
       <Legal>© 2025 Zespół Fabledose. Wszelkie prawa zastrzeżone.</Legal>
       <LegalLinksContainer>
-        <LegalLink href={'#'}>Privacy Policy</LegalLink>
-        <LegalLink href={'#'}>Terms of Service</LegalLink>
-        <LegalLink href={'#'}>Cookies Settings</LegalLink>
+        <LegalLink href={'#'}>Polityka Prywatności</LegalLink>
+        <LegalLink href={'#'}>Warunki Korzystania</LegalLink>
+        <LegalLink href={'#'}>Ustawienia Ciasteczek</LegalLink>
       </LegalLinksContainer>
     </BottomRow>
   </FooterBody>

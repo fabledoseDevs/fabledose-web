@@ -23,6 +23,7 @@ export interface Palette {
       white: string;
       purple: string;
       darkPurple: string;
+      gradientPurpleFade: string;
       gradientRed: string;
       gradientRedReverse: string;
       gradientWhite: string;

@@ -10,8 +10,8 @@ export const FableTile: FableTileType = ({ imageUrl, fableTitle, fableId }) => (
   <FableTileBody>
     <Image
       src={imageUrl}
-      width={260}
-      height={405}
+      width={265}
+      height={410}
       alt={fableTitle}
       loading="lazy"
     />
