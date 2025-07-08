@@ -1,4 +1,3 @@
-import anime from 'animejs/lib/anime.es.js';
 import { useEffect, useRef, useState } from 'react';
 
 import type {
@@ -10,32 +9,33 @@ export const useAccordionRibAnimation = (
   isOpen: boolean,
 ): UseAccordionRibAnimationReturn => {
   const contentRef = useRef<HTMLDivElement>(null);
+  const contentHeight = useRef<number>(0);
+  const isInitialRender = useRef(true);
 
   useEffect(() => {
-    const el = contentRef.current;
-    if (!el) return;
+    if (!contentRef.current) return;
 
-    const contentHeight = el.scrollHeight;
+    if (isInitialRender.current) {
+      if (isOpen) {
+        contentRef.current.style.height = 'auto';
+        contentHeight.current = contentRef.current.scrollHeight + 30;
+      }
+      isInitialRender.current = false;
+      return;
+    }
 
     if (isOpen) {
-      el.style.overflow = 'hidden';
-      anime({
-        targets: el,
-        height: [0, contentHeight],
-        easing: 'easeOutCubic',
-        duration: 400,
-        complete: () => {
-          el.style.height = 'auto';
-          el.style.overflow = 'visible';
-        },
-      });
+      if (contentHeight.current === 0) {
+        contentRef.current.style.height = '0';
+      }
+
+      contentRef.current.style.height = 'auto';
+      contentHeight.current = contentRef.current.scrollHeight + 30;
+      contentRef.current.style.height = `${contentHeight.current}px`;
     } else {
-      anime({
-        targets: el,
-        height: [contentHeight, 0],
-        easing: 'easeInCubic',
-        duration: 400,
-      });
+      contentRef.current.style.height = `${contentHeight.current}px`;
+      void contentRef.current.offsetHeight;
+      contentRef.current.style.height = '0';
     }
   }, [isOpen]);
 

@@ -130,37 +130,37 @@ export const LandingPage: LandingPageType = () => (
           {
             imageUrl: mockImageOne.src,
             fableTitle: 'Złotowłosa',
-            fableId: 'zlotowlosa-i-trzy-misie',
+            fableId: 'zlotowlosa-i-trzy-misie-1',
           },
           {
             imageUrl: mockImageTwo.src,
             fableTitle: 'Trzy małe świnki',
-            fableId: 'trzy-male-swinki',
+            fableId: 'trzy-male-swinki-1',
           },
           {
             imageUrl: mockImageThree.src,
             fableTitle: 'O rybaku i złotej rybce',
-            fableId: 'o-rybaku-i-zlotej-rybce',
+            fableId: 'o-rybaku-i-zlotej-rybce-1',
           },
           {
             imageUrl: mockImageFour.src,
             fableTitle: 'Złotowłosa',
-            fableId: 'zlotowlosa-i-trzy-misie',
+            fableId: 'zlotowlosa-i-trzy-misie-2',
           },
           {
             imageUrl: mockImageFive.src,
             fableTitle: 'Trzy małe świnki',
-            fableId: 'trzy-male-swinki',
+            fableId: 'trzy-male-swinki-2',
           },
           {
             imageUrl: mockImageSix.src,
             fableTitle: 'O rybaku i złotej rybce',
-            fableId: 'o-rybaku-i-zlotej-rybce',
+            fableId: 'o-rybaku-i-zlotej-rybce-2',
           },
           {
             imageUrl: mockImageSeven.src,
             fableTitle: 'Trzy małe świnki',
-            fableId: 'trzy-male-swinki',
+            fableId: 'trzy-male-swinki-3',
           },
         ]}
       />

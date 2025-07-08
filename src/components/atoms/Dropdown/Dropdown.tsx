@@ -44,17 +44,17 @@ export const Dropdown: DropdownTypes = ({
     <DropdownBody ref={dropdownRef}>
       <DropdownHeader
         colorScheme={colorScheme}
-        isOpen={isOpen}
+        isopen={isOpen}
         onClick={toggleOpen}
         type="button"
         aria-expanded={isOpen}
         aria-haspopup="listbox"
       >
         {displayValue}
-        <DropdownArrow isOpen={isOpen} />
+        <DropdownArrow isopen={isOpen} />
       </DropdownHeader>
 
-      <DropdownOptions isOpen={isOpen}>
+      <DropdownOptions isopen={isOpen}>
         {normalizedOptions.map(option => (
           <Option
             key={option.value}
