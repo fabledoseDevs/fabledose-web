@@ -204,10 +204,12 @@ export const LandingPage: LandingPageType = () => (
               mainText: 'Czym jest Fabledose?',
               children: (
                 <Paragraph>
-                  Fabledose to cyfrowa biblioteka baśni dla dzieci, która łączy
-                  tekst z animowanymi ilustracjami, audiobookami i ebookami.
-                  Każda opowieść to nie tylko historia – to pełne zanurzenie w
-                  świecie magii, pięknych dźwięków i wizualnych emocji.
+                  Fabledose to cyfrowa biblioteka baśni dla dzieci – miejsce,
+                  gdzie tekst spotyka się z animacją, dźwiękiem i wyobraźnią.
+                  Oferujemy opowieści w trzech formach: animowanych baśni,
+                  audiobooków i ebooków. Każda historia to doświadczenie
+                  zaprojektowane z myślą o zmysłach dziecka. Łączymy przyjemność
+                  z czytania ze światem ruchomych obrazów i narracji.
                 </Paragraph>
               ),
               isOpen: false,
@@ -217,10 +219,12 @@ export const LandingPage: LandingPageType = () => (
               mainText: 'Na jakich urządzeniach mogę korzystać z Fabledose?',
               children: (
                 <Paragraph>
-                  Z Fabledose możesz korzystać na większości nowoczesnych
-                  urządzeń: komputerach, tabletach i smartfonach (Android i
-                  iOS). Nie musisz instalować żadnej aplikacji – wystarczy
-                  przeglądarka internetowa i dostęp do Internetu.
+                  Fabledose działa na większości współczesnych urządzeń:
+                  komputerach, tabletach i smartfonach z systemem Android lub
+                  iOS. Korzystanie nie wymaga instalowania aplikacji – wystarczy
+                  dostęp do przeglądarki i Internetu. Wszystkie bajki odtwarzasz
+                  bezpośrednio na stronie. To wygodne rozwiązanie zarówno w
+                  domu, jak i w podróży.
                 </Paragraph>
               ),
               isOpen: false,
@@ -230,12 +234,12 @@ export const LandingPage: LandingPageType = () => (
               mainText: 'Czy muszę płacić za dostęp do treści?',
               children: (
                 <Paragraph>
-                  Fabledose oferuje zarówno darmowe, jak i płatne treści.
-                  Darmowe bajki zawierają krótkie reklamy przed rozpoczęciem
-                  animacji. W ramach płatnej subskrypcji otrzymujesz pełny
-                  dostęp do całej biblioteki bez reklam – w tym do animowanych
-                  baśni, audiobooków i ebooków. Abonamenty zaczynają się już od
-                  14,99 PLN miesięcznie.
+                  Fabledose oferuje zarówno darmowe bajki z reklamami, jak i
+                  pełny dostęp bez reklam w ramach płatnej subskrypcji. Wersja
+                  premium obejmuje animowane baśnie, audiobooki oraz ebooki.
+                  Najtańszy abonament kosztuje 14,99 PLN miesięcznie. Dzięki
+                  temu masz nieograniczony dostęp do całej biblioteki, bez
+                  przerywników.
                 </Paragraph>
               ),
               isOpen: false,
@@ -245,10 +249,11 @@ export const LandingPage: LandingPageType = () => (
               mainText: 'Czy bajki są odpowiednie dla różnych grup wiekowych?',
               children: (
                 <Paragraph>
-                  Tak! Bajki w Fabledose są podzielone na kategorie wiekowe, a
-                  każda z nich została zaprojektowana z myślą o rozwoju
-                  emocjonalnym i poznawczym dziecka. Znajdziesz tu bajki dla
-                  maluchów, przedszkolaków i starszaków.
+                  Tak – nasze historie są starannie podzielone według wieku i
+                  poziomu rozwoju dziecka. Znajdziesz bajki dla maluchów,
+                  przedszkolaków i starszych dzieci. Każda opowieść rozwija inne
+                  kompetencje: emocjonalne, językowe czy społeczne. To
+                  bezpieczna przestrzeń do odkrywania świata przez opowieści.
                 </Paragraph>
               ),
               isOpen: false,
@@ -258,11 +263,12 @@ export const LandingPage: LandingPageType = () => (
               mainText: 'Czy mogę korzystać z Fabledose offline?',
               children: (
                 <Paragraph>
-                  Tak – ale tylko z wybranych formatów. W ramach nawet
-                  najtańszej subskrypcji możesz pobierać audiobooki i ebooki, by
-                  słuchać i czytać bajki także wtedy, gdy nie masz dostępu do
-                  Internetu. Animowane baśnie są dostępne wyłącznie online ze
-                  względu na interaktywny charakter treści.
+                  Tak, ale dotyczy to tylko audiobooków i ebooków dostępnych w
+                  ramach subskrypcji. Można je pobrać i odtwarzać bez dostępu do
+                  Internetu, np. w podróży lub wieczorem przed snem. Animowane
+                  baśnie ze względu na swój charakter są dostępne wyłącznie
+                  online. Już najtańszy plan abonamentowy umożliwia korzystanie
+                  offline.
                 </Paragraph>
               ),
               isOpen: false,
@@ -272,13 +278,12 @@ export const LandingPage: LandingPageType = () => (
               mainText: 'Czy Fabledose jest bezpieczne dla dzieci?',
               children: (
                 <Paragraph>
-                  Tak – bezpieczeństwo dzieci to dla nas priorytet. Wszystkie
-                  treści tworzone są przez pedagogów i pisarzy z pasją do
-                  dziecięcej literatury. Oprócz wartości rozrywkowej, każda
-                  bajka ma także charakter edukacyjny. Ilustracje i animacje
-                  powstają z wyjątkową dbałością o detale – a kolory i dynamika
-                  ruchu są dobierane tak, aby nie powodować nadmiernego
-                  pobudzenia u najmłodszych. To bezpieczna przestrzeń do marzeń.
+                  Tak – wszystkie treści powstają we współpracy z pedagogami i
+                  autorami specjalizującymi się w literaturze dziecięcej.
+                  Historie mają nie tylko rozrywkowy, ale i edukacyjny
+                  charakter. Ilustratorzy dbają o każdy detal, a palety kolorów
+                  oraz tempo animacji są dostosowane do dziecięcej wrażliwości.
+                  Tworzymy przestrzeń przyjazną i bezpieczną.
                 </Paragraph>
               ),
               isOpen: false,

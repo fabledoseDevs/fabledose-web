@@ -44,16 +44,6 @@ export interface UseAccordionRibProps {
 export interface UseAccordionRibReturn {
   isOpen: boolean;
   handleToggle: () => void;
-  contentRef: RefObject<HTMLDivElement | null>;
-}
-
-/**
- * Interface for the return value of useAccordionRibAnimation hook.
- *
- * @property contentRef - Reference to the content element for animation.
- */
-export interface UseAccordionRibAnimationReturn {
-  contentRef: RefObject<HTMLDivElement | null>;
 }
 
 /**
