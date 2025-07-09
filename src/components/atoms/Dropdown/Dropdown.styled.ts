@@ -36,7 +36,9 @@ export const DropdownHeader = styled.button<{
       : 'transparent'};
 `;
 
-export const DropdownArrow = styled(ChevronDownIcon)<{ isopen: boolean }>`
+export const DropdownArrow = styled(ChevronDownIcon, {
+  shouldForwardProp: prop => prop !== 'isopen',
+})<{ isopen: boolean }>`
   display: inline-block;
   margin-left: 8px;
   width: 16px;
