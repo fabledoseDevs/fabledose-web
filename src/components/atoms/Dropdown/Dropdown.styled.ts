@@ -9,7 +9,7 @@ export const DropdownBody = styled.div`
 `;
 
 export const DropdownHeader = styled.button<{
-  isOpen: boolean;
+  isopen: boolean;
   colorScheme: COLOR_SCHEME;
 }>`
   display: flex;
@@ -28,30 +28,30 @@ export const DropdownHeader = styled.button<{
     colorScheme === COLOR_SCHEME.PURPLE
       ? theme.palette.byElement.text.white
       : theme.palette.byElement.text.purple};
-  background: ${({ theme, colorScheme, isOpen }) =>
-    isOpen
+  background: ${({ theme, colorScheme, isopen }) =>
+    isopen
       ? colorScheme === COLOR_SCHEME.PURPLE
         ? theme.palette.byElement.background.purple
         : theme.palette.byElement.background.white
       : 'transparent'};
 `;
 
-export const DropdownArrow = styled(ChevronDownIcon)<{ isOpen: boolean }>`
+export const DropdownArrow = styled(ChevronDownIcon)<{ isopen: boolean }>`
   display: inline-block;
   margin-left: 8px;
   width: 16px;
   height: 16px;
   stroke-width: 3;
-  transform: ${({ isOpen }) => (isOpen ? 'rotate(180deg)' : 'rotate(0deg)')};
+  transform: ${({ isopen }) => (isopen ? 'rotate(180deg)' : 'rotate(0deg)')};
   transition: transform 0.2s ease;
 `;
 
-export const DropdownOptions = styled.div<{ isOpen: boolean }>`
+export const DropdownOptions = styled.div<{ isopen: boolean }>`
   position: absolute;
   top: 100%;
   left: 0;
   right: 0;
-  display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
+  display: ${({ isopen }) => (isopen ? 'flex' : 'none')};
   flex-direction: column;
 `;
 

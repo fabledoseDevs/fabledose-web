@@ -152,33 +152,31 @@ export const ButtonIcon = styled.img`
 `;
 
 export const ButtonBody = styled.button<{
-  styleVariant: BUTTON_VARIANT_TYPE;
+  variant: BUTTON_VARIANT_TYPE;
   width: string;
 }>`
   ${({ theme }) => buttonStyle(theme)};
   font-family: ${({ theme }) => theme.typography.fonts.default}, sans-serif;
-  color: ${({ styleVariant, theme }) => getTextColorStyle(styleVariant, theme)};
-  background: ${({ styleVariant, theme }) =>
-    getBackgroundStyle(styleVariant, theme)};
-  border: ${({ styleVariant, theme }) => getBorderStyle(styleVariant, theme)};
-  box-shadow: ${({ styleVariant, theme }) =>
-    getBoxShadowStyle(styleVariant, theme)};
-  backdrop-filter: ${({ styleVariant }) =>
-    styleVariant === BUTTON_VARIANT.TRANSPARENT ? 'blur(8px)' : 'none'};
+  color: ${({ variant, theme }) => getTextColorStyle(variant, theme)};
+  background: ${({ variant, theme }) => getBackgroundStyle(variant, theme)};
+  border: ${({ variant, theme }) => getBorderStyle(variant, theme)};
+  box-shadow: ${({ variant, theme }) => getBoxShadowStyle(variant, theme)};
+  backdrop-filter: ${({ variant }) =>
+    variant === BUTTON_VARIANT.TRANSPARENT ? 'blur(8px)' : 'none'};
   width: ${({ width }) => width};
 
   &:active {
-    background: ${({ styleVariant, theme }) =>
-      getActiveBackgroundStyle(styleVariant, theme)};
-    box-shadow: ${({ styleVariant, theme }) =>
-      getActiveBoxShadowStyle(styleVariant, theme)};
+    background: ${({ variant, theme }) =>
+      getActiveBackgroundStyle(variant, theme)};
+    box-shadow: ${({ variant, theme }) =>
+      getActiveBoxShadowStyle(variant, theme)};
   }
 
   &:disabled {
-    background: ${({ styleVariant, theme }) =>
-      getDisabledBackgroundStyle(styleVariant, theme)};
-    box-shadow: ${({ styleVariant, theme }) =>
-      getDisabledBoxShadowStyle(styleVariant, theme)};
+    background: ${({ variant, theme }) =>
+      getDisabledBackgroundStyle(variant, theme)};
+    box-shadow: ${({ variant, theme }) =>
+      getDisabledBoxShadowStyle(variant, theme)};
     cursor: not-allowed;
     opacity: 0.5;
     filter: grayscale(100%);
@@ -186,33 +184,31 @@ export const ButtonBody = styled.button<{
 `;
 
 export const LinkButtonBody = styled(Link)<{
-  styleVariant: BUTTON_VARIANT_TYPE;
+  variant: BUTTON_VARIANT_TYPE;
   width: string;
 }>`
   ${({ theme }) => buttonStyle(theme)};
   font-family: ${({ theme }) => theme.typography.fonts.default}, sans-serif;
-  color: ${({ styleVariant, theme }) => getTextColorStyle(styleVariant, theme)};
-  background: ${({ styleVariant, theme }) =>
-    getBackgroundStyle(styleVariant, theme)};
-  border: ${({ styleVariant, theme }) => getBorderStyle(styleVariant, theme)};
-  box-shadow: ${({ styleVariant, theme }) =>
-    getBoxShadowStyle(styleVariant, theme)};
-  backdrop-filter: ${({ styleVariant }) =>
-    styleVariant === BUTTON_VARIANT.TRANSPARENT ? 'blur(8px)' : 'none'};
+  color: ${({ variant, theme }) => getTextColorStyle(variant, theme)};
+  background: ${({ variant, theme }) => getBackgroundStyle(variant, theme)};
+  border: ${({ variant, theme }) => getBorderStyle(variant, theme)};
+  box-shadow: ${({ variant, theme }) => getBoxShadowStyle(variant, theme)};
+  backdrop-filter: ${({ variant }) =>
+    variant === BUTTON_VARIANT.TRANSPARENT ? 'blur(8px)' : 'none'};
   width: ${({ width }) => width};
 
   &:active {
-    background: ${({ styleVariant, theme }) =>
-      getActiveBackgroundStyle(styleVariant, theme)};
-    box-shadow: ${({ styleVariant, theme }) =>
-      getActiveBoxShadowStyle(styleVariant, theme)};
+    background: ${({ variant, theme }) =>
+      getActiveBackgroundStyle(variant, theme)};
+    box-shadow: ${({ variant, theme }) =>
+      getActiveBoxShadowStyle(variant, theme)};
   }
 
   &:disabled {
-    background: ${({ styleVariant, theme }) =>
-      getDisabledBackgroundStyle(styleVariant, theme)};
-    box-shadow: ${({ styleVariant, theme }) =>
-      getDisabledBoxShadowStyle(styleVariant, theme)};
+    background: ${({ variant, theme }) =>
+      getDisabledBackgroundStyle(variant, theme)};
+    box-shadow: ${({ variant, theme }) =>
+      getDisabledBoxShadowStyle(variant, theme)};
     cursor: not-allowed;
     opacity: 0.5;
     filter: grayscale(100%);

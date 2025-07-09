@@ -31,7 +31,7 @@ const actionTypeSelector: ActionSelectorType = ({
     case ACTION_TYPE.NAVIGATION:
       return (
         <LinkButtonBody
-          styleVariant={variant}
+          variant={variant}
           width={fixedWidth ? `${fixedWidth}px` : 'auto'}
           href={payload ? (payload as string) : '#'}
           aria-label={text}
@@ -42,7 +42,7 @@ const actionTypeSelector: ActionSelectorType = ({
     case ACTION_TYPE.SUBMIT:
       return (
         <ButtonBody
-          styleVariant={variant}
+          variant={variant}
           width={fixedWidth ? `${fixedWidth}px` : 'auto'}
           type="submit"
           aria-label={text}
@@ -55,7 +55,7 @@ const actionTypeSelector: ActionSelectorType = ({
     case ACTION_TYPE.FUNCTION_TRIGGER:
       return (
         <ButtonBody
-          styleVariant={variant}
+          variant={variant}
           width={fixedWidth ? `${fixedWidth}px` : 'auto'}
           onClick={payload as () => void}
           aria-label={text}
