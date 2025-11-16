@@ -1,4 +1,4 @@
-import type { ReactElement, RefObject } from 'react';
+import type { ReactElement } from 'react';
 /**
  * @module
  * This file defines the types and interfaces for the AccordionRib component.
@@ -39,7 +39,6 @@ export interface UseAccordionRibProps {
  *
  * @property isOpen - The current open/closed state of the accordion.
  * @property handleToggle - Function to toggle the accordion's open/closed state.
- * @property contentRef - Reference to the content element for animation.
  */
 export interface UseAccordionRibReturn {
   isOpen: boolean;
