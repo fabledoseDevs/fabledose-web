@@ -25,7 +25,7 @@ export const Maintenance: MaintenanceType = () => (
           actionType: ACTION_TYPE.NAVIGATION,
           variant: BUTTON_VARIANT.RED,
           text: 'Zobacz DEMO',
-          payload: 'https://fabledose.com',
+          payload: 'https://demo.fabledose.com',
         }}
       />
     </Container>
