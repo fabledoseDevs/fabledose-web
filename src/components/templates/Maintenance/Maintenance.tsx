@@ -17,7 +17,7 @@ export const Maintenance: MaintenanceType = () => (
     >
       <Jumbotron
         logo={true}
-        headline={'Planowana premiera Q4 2025'}
+        headline={'Planowana premiera Q2 2026'}
         paragraph={
           'Nasza nowa strona jest obecnie w budowie.<br />Do czasu premiery zapraszamy do zapoznania się z naszymi baśniami<br />na stronie demonstracyjnej.'
         }
