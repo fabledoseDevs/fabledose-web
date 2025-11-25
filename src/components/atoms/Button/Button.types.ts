@@ -33,6 +33,29 @@ export enum BUTTON_VARIANT {
 }
 
 /**
+ * Possible width types for the button sizing.
+ * - PX: width in pixels
+ * - PERCENT: width in percentage
+ * - AUTO: automatic width based on content
+ */
+export enum WIDTH_TYPE {
+  PX = 'px',
+  PERCENT = 'percent',
+  AUTO = 'auto',
+}
+
+/**
+ * Width specification object used by Button to determine its CSS width.
+ *
+ * @property widthType - One of WIDTH_TYPE.PX, WIDTH_TYPE.PERCENT, WIDTH_TYPE.AUTO
+ * @property widthValue - Numeric value for PX or PERCENT types (ignored for AUTO)
+ */
+export interface WidthSpec {
+  widthType: WIDTH_TYPE;
+  widthValue?: number;
+}
+
+/**
  * Interface for button component props.
  *
  * @property actionType - Defines the action type of the button:
@@ -43,7 +66,7 @@ export enum BUTTON_VARIANT {
  * @property text - Label or text displayed on the button.
  * @property payload - The function, URL, or form ID triggered by the button.
  * @property isDisabled - If true, disables the button.
- * @property fixedWidth - Optional width of a button in pixels.
+ * @property width - Optional width specification object controlling the CSS width.
  * @property iconUrl - Optional URL for an icon to display next to the text.
  */
 export interface ButtonProps {
@@ -52,7 +75,7 @@ export interface ButtonProps {
   text: string;
   payload?: string | (() => void);
   isDisabled?: boolean;
-  fixedWidth?: number;
+  width: WidthSpec;
   iconUrl?: string;
 }
 
