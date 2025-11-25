@@ -1,7 +1,11 @@
 import Image from 'next/image';
 
 import Button from '@/atoms/Button';
-import { ACTION_TYPE, BUTTON_VARIANT } from '@/atoms/Button/Button.types';
+import {
+  ACTION_TYPE,
+  BUTTON_VARIANT,
+  WIDTH_TYPE,
+} from '@/atoms/Button/Button.types';
 import Dropdown from '@/atoms/Dropdown';
 import { COLOR_SCHEME } from '@/atoms/Dropdown/Dropdown.types';
 
@@ -28,6 +32,9 @@ export const TopBar: TopBarType = () => {
           text="Zaloguj się"
           actionType={ACTION_TYPE.NAVIGATION}
           variant={BUTTON_VARIANT.RED}
+          width={{
+            widthType: WIDTH_TYPE.AUTO,
+          }}
           payload="/login"
         />
       </ActionsContainer>

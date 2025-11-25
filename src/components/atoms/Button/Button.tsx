@@ -9,6 +9,7 @@ import type {
   ActionSelector as ActionSelectorType,
   Button as ButtonType,
 } from './Button.types';
+import { WIDTH_TYPE } from './Button.types';
 import { ACTION_TYPE } from './Button.types';
 
 const actionTypeSelector: ActionSelectorType = ({
@@ -17,7 +18,7 @@ const actionTypeSelector: ActionSelectorType = ({
   text,
   payload,
   isDisabled,
-  fixedWidth,
+  width = { widthType: WIDTH_TYPE.AUTO },
   iconUrl,
 }) => {
   const renderContent = () => (
@@ -32,7 +33,7 @@ const actionTypeSelector: ActionSelectorType = ({
       return (
         <LinkButtonBody
           variant={variant}
-          width={fixedWidth ? `${fixedWidth}px` : 'auto'}
+          width={width}
           href={payload ? (payload as string) : '#'}
           aria-label={text}
         >
@@ -43,7 +44,7 @@ const actionTypeSelector: ActionSelectorType = ({
       return (
         <ButtonBody
           variant={variant}
-          width={fixedWidth ? `${fixedWidth}px` : 'auto'}
+          width={width}
           type="submit"
           aria-label={text}
           disabled={isDisabled}
@@ -56,7 +57,7 @@ const actionTypeSelector: ActionSelectorType = ({
       return (
         <ButtonBody
           variant={variant}
-          width={fixedWidth ? `${fixedWidth}px` : 'auto'}
+          width={width}
           onClick={payload as () => void}
           aria-label={text}
           disabled={isDisabled}
@@ -75,17 +76,17 @@ export const Button: ButtonType = ({
   variant,
   payload,
   isDisabled = false,
-  fixedWidth,
+  width,
   iconUrl,
 }) => (
-  <ButtonWrapper>
+  <ButtonWrapper width={width}>
     {actionTypeSelector({
       actionType,
       variant,
       text,
       payload,
       isDisabled,
-      fixedWidth,
+      width,
       iconUrl,
     })}
   </ButtonWrapper>

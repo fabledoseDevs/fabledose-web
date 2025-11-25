@@ -2,6 +2,7 @@ import { Button } from '@/components/atoms/Button/Button';
 import {
   ACTION_TYPE,
   BUTTON_VARIANT,
+  WIDTH_TYPE,
 } from '@/components/atoms/Button/Button.types';
 import Paragraph from '@/components/atoms/Paragraph';
 import {
@@ -24,6 +25,9 @@ export const NewsletterForm: NewsletterFormType = () => (
     <Button
       actionType={ACTION_TYPE.NAVIGATION}
       variant={BUTTON_VARIANT.WHITE}
+      width={{
+        widthType: WIDTH_TYPE.AUTO,
+      }}
       text="Substack"
       payload="#"
       iconUrl="/icons/substack.png"

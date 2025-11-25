@@ -2,8 +2,11 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import Link from 'next/link';
 
-import type { BUTTON_VARIANT as BUTTON_VARIANT_TYPE } from '@/atoms/Button/Button.types';
-import { BUTTON_VARIANT } from '@/atoms/Button/Button.types';
+import type {
+  BUTTON_VARIANT as BUTTON_VARIANT_TYPE,
+  WidthSpec,
+} from '@/atoms/Button/Button.types';
+import { BUTTON_VARIANT, WIDTH_TYPE } from '@/atoms/Button/Button.types';
 import type { Theme } from '@/styles/types';
 
 const buttonStyle = (theme: Theme) => css`
@@ -135,8 +138,27 @@ const getTextColorStyle = (styleVariant: BUTTON_VARIANT_TYPE, theme: Theme) => {
   }
 };
 
-export const ButtonWrapper = styled.div`
-  width: fit-content;
+const getWidthStyle = (width: WidthSpec) => {
+  switch (width.widthType) {
+    case WIDTH_TYPE.AUTO:
+      return 'auto';
+    case WIDTH_TYPE.PX:
+      return typeof width.widthValue === 'number'
+        ? `${width.widthValue}px`
+        : 'auto';
+    case WIDTH_TYPE.PERCENT:
+      return typeof width.widthValue === 'number'
+        ? `${width.widthValue}%`
+        : 'auto';
+    default:
+      return 'auto';
+  }
+};
+
+export const ButtonWrapper = styled.div<{
+  width: WidthSpec;
+}>`
+  width: ${({ width }) => getWidthStyle(width)};
 `;
 
 export const ButtonContent = styled.div`
@@ -153,29 +175,29 @@ export const ButtonIcon = styled.img`
 
 export const ButtonBody = styled.button<{
   variant: BUTTON_VARIANT_TYPE;
-  width: string;
+  width: WidthSpec;
 }>`
   ${({ theme }) => buttonStyle(theme)};
   font-family: ${({ theme }) => theme.typography.fonts.default}, sans-serif;
   color: ${({ variant, theme }) => getTextColorStyle(variant, theme)};
   background: ${({ variant, theme }) => getBackgroundStyle(variant, theme)};
   border: ${({ variant, theme }) => getBorderStyle(variant, theme)};
-  box-shadow: ${({ variant, theme }) => getBoxShadowStyle(variant, theme)};
+  //box-shadow: ${({ variant, theme }) => getBoxShadowStyle(variant, theme)};
   backdrop-filter: ${({ variant }) =>
     variant === BUTTON_VARIANT.TRANSPARENT ? 'blur(8px)' : 'none'};
-  width: ${({ width }) => width};
+  width: ${({ width }) => getWidthStyle(width)};
 
   &:active {
     background: ${({ variant, theme }) =>
       getActiveBackgroundStyle(variant, theme)};
-    box-shadow: ${({ variant, theme }) =>
+    //box-shadow: ${({ variant, theme }) =>
       getActiveBoxShadowStyle(variant, theme)};
   }
 
   &:disabled {
     background: ${({ variant, theme }) =>
       getDisabledBackgroundStyle(variant, theme)};
-    box-shadow: ${({ variant, theme }) =>
+    //box-shadow: ${({ variant, theme }) =>
       getDisabledBoxShadowStyle(variant, theme)};
     cursor: not-allowed;
     opacity: 0.5;
@@ -185,29 +207,29 @@ export const ButtonBody = styled.button<{
 
 export const LinkButtonBody = styled(Link)<{
   variant: BUTTON_VARIANT_TYPE;
-  width: string;
+  width: WidthSpec;
 }>`
   ${({ theme }) => buttonStyle(theme)};
   font-family: ${({ theme }) => theme.typography.fonts.default}, sans-serif;
   color: ${({ variant, theme }) => getTextColorStyle(variant, theme)};
   background: ${({ variant, theme }) => getBackgroundStyle(variant, theme)};
   border: ${({ variant, theme }) => getBorderStyle(variant, theme)};
-  box-shadow: ${({ variant, theme }) => getBoxShadowStyle(variant, theme)};
+  //box-shadow: ${({ variant, theme }) => getBoxShadowStyle(variant, theme)};
   backdrop-filter: ${({ variant }) =>
     variant === BUTTON_VARIANT.TRANSPARENT ? 'blur(8px)' : 'none'};
-  width: ${({ width }) => width};
+  width: ${({ width }) => getWidthStyle(width)};
 
   &:active {
     background: ${({ variant, theme }) =>
       getActiveBackgroundStyle(variant, theme)};
-    box-shadow: ${({ variant, theme }) =>
+    //box-shadow: ${({ variant, theme }) =>
       getActiveBoxShadowStyle(variant, theme)};
   }
 
   &:disabled {
     background: ${({ variant, theme }) =>
       getDisabledBackgroundStyle(variant, theme)};
-    box-shadow: ${({ variant, theme }) =>
+    //box-shadow: ${({ variant, theme }) =>
       getDisabledBoxShadowStyle(variant, theme)};
     cursor: not-allowed;
     opacity: 0.5;

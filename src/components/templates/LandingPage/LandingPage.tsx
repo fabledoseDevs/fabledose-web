@@ -1,6 +1,10 @@
 import BasicDescription from '@/atoms/BasicDescription';
 import Button from '@/atoms/Button';
-import { ACTION_TYPE, BUTTON_VARIANT } from '@/atoms/Button/Button.types';
+import {
+  ACTION_TYPE,
+  BUTTON_VARIANT,
+  WIDTH_TYPE,
+} from '@/atoms/Button/Button.types';
 import Container from '@/atoms/Container';
 import {
   BACKGROUND_COLOR,
@@ -49,6 +53,9 @@ export const LandingPage: LandingPageType = () => (
           actionType: ACTION_TYPE.NAVIGATION,
           variant: BUTTON_VARIANT.RED,
           payload: '#',
+          width: {
+            widthType: WIDTH_TYPE.AUTO,
+          },
         }}
       />
     </Container>
@@ -72,7 +79,10 @@ export const LandingPage: LandingPageType = () => (
           variant: BUTTON_VARIANT.RED,
           text: 'Czytaj bajkę',
           payload: '/',
-          fixedWidth: 175,
+          width: {
+            widthType: WIDTH_TYPE.PX,
+            widthValue: 175,
+          },
         }}
         imageData={{
           src: mockCover.src,
@@ -196,6 +206,9 @@ export const LandingPage: LandingPageType = () => (
             actionType={ACTION_TYPE.NAVIGATION}
             variant={BUTTON_VARIANT.RED}
             text={'Kontakt'}
+            width={{
+              widthType: WIDTH_TYPE.AUTO,
+            }}
           />
         </Container>
         <Accordion

@@ -23,4 +23,4 @@ import type { ReactElement } from 'react';
 /**
  * LoginPage component type definition
  */
-export type Maintenance = () => ReactElement;
+export type LoginPage = () => ReactElement;

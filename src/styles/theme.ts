@@ -26,9 +26,9 @@ export const theme: Theme = {
           'linear-gradient(0deg, rgba(38, 26, 79, 1) 0%, rgba(38, 26, 79, 0) 100%)',
         gradientRed: 'linear-gradient(180deg, #E84528 0%, #B92409 100%)',
         gradientRedReverse: 'linear-gradient(180deg, #B92409 0%, #E84528 100%)',
-        gradientWhite: 'linear-gradient(180deg, #FFFFFF 0%, #FAF0DD 100%)',
+        gradientWhite: 'linear-gradient(180deg, #FDFAF8 0%, #FAF0DD 100%)',
         gradientWhiteReversed:
-          'linear-gradient(180deg, #FAF0DD 0%, #FFFFFF 100%)',
+          'linear-gradient(180deg, #FAF0DD 0%, #FDFAF8 100%)',
         transparentWhite: {
           '05': 'rgba(255, 255, 255, 0.05)',
           '10': 'rgba(255, 255, 255, 0.1)',
