@@ -2,7 +2,7 @@ import type { ReactElement } from 'react';
 
 /**
  * @module
- * This file defines the types and interfaces for the Maintenance component.
+ * This file defines the types and interfaces for the LoginPage component.
  */
 
 /**
@@ -16,11 +16,11 @@ import type { ReactElement } from 'react';
  *
  * @example
  * ```tsx
- * <Maintenance />
+ * <LoginPage />
  * ```
  */
 
 /**
- * Maintenance component type definition
+ * LoginPage component type definition
  */
 export type Maintenance = () => ReactElement;

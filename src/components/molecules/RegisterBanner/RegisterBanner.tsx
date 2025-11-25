@@ -1,5 +1,9 @@
 import Button from '@/atoms/Button';
-import { ACTION_TYPE, BUTTON_VARIANT } from '@/atoms/Button/Button.types';
+import {
+  ACTION_TYPE,
+  BUTTON_VARIANT,
+  WIDTH_TYPE,
+} from '@/atoms/Button/Button.types';
 import FableTile from '@/molecules/FableTile';
 
 import {
@@ -19,6 +23,9 @@ export const RegisterBanner: RegisterBannerType = ({ title, covers }) => (
       <Button
         actionType={ACTION_TYPE.NAVIGATION}
         variant={BUTTON_VARIANT.RED}
+        width={{
+          widthType: WIDTH_TYPE.AUTO,
+        }}
         text={'Zarejestruj się'}
       />
     </CtaContainer>
