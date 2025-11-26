@@ -2,7 +2,6 @@
 import { type ReactElement, useState } from 'react';
 
 import LandingPage from '@/components/templates/LandingPage';
-// import LoginPage from '@/components/templates/LoginPage';
 import Maintenance from '@/components/templates/Maintenance';
 
 const Home = (): ReactElement => {

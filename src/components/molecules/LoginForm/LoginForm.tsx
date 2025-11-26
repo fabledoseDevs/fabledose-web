@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 
 import Button from '@/atoms/Button';
@@ -15,6 +16,7 @@ import InputField from '@/atoms/InputField';
 import { INPUT_TYPE } from '@/atoms/InputField/InputField.types';
 import Separator from '@/atoms/Separator';
 import { SEPARATOR_COLOR } from '@/atoms/Separator/Separator.types';
+import { Gradient } from '@/organisms/Jumbotron/Jumbotron.styled';
 
 import {
   Form,
@@ -29,6 +31,15 @@ import type { LoginForm as LoginFormType } from './LoginForm.types';
 
 export const LoginForm: LoginFormType = () => (
   <LoginFormBody>
+    <Image
+      src="/jumbo-static.jpg"
+      alt="Jumbotron background"
+      fill
+      style={{ objectFit: 'cover', objectPosition: 'center' }}
+      priority
+    />
+    <Gradient />
+
     <FormCard>
       <Headline weight={HEADLINE_TYPE.BIG} color={FOREGROUND_COLOR.PURPLE}>
         Zaloguj się
