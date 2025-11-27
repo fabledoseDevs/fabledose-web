@@ -3,7 +3,6 @@ import type { ReactElement } from 'react';
 /**
  * @module
  * This file defines the types and interfaces for the PriceTag component.
- *
  */
 
 /**
@@ -55,7 +54,7 @@ export type PeriodSelector = (period: PERIOD) => string;
 
 /**
  * PriceTag component renders a price tag.
- * It ahs properties defining price value, settlement period and currency.
+ * It has properties defining price value, settlement period and currency.
  *
  * @param props - The component properties:
  *  - `period`: Settlement period for price tag.
