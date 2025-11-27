@@ -2,7 +2,7 @@ import type { ReactElement } from 'react';
 
 /**
  * @module
- * This file defines the types and interfaces for the LoginPage component.
+ * This file defines the types and interfaces for the RegisterPage component.
  */
 
 /**
@@ -16,11 +16,11 @@ import type { ReactElement } from 'react';
  *
  * @example
  * ```tsx
- * <LoginPage />
+ * <RegisterPage />
  * ```
  */
 
 /**
- * LoginPage component type definition
+ * RegisterPage component type definition
  */
 export type LoginPage = () => ReactElement;
