@@ -46,6 +46,7 @@ export enum TEXT_ALIGNMENT {
 export interface ParagraphProps {
   color?: FOREGROUND_COLOR;
   alignment?: TEXT_ALIGNMENT;
+  boldText?: boolean;
   children: string;
 }
 

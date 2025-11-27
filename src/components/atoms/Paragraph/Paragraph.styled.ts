@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 export const ParagraphBody = styled.p<{
   foreground: string;
   textAlign: string;
+  boldText: boolean;
 }>`
   width: 100%;
   font-size: ${({ theme }) => theme.typography.paragraphs.default.fontSize};
@@ -12,4 +13,5 @@ export const ParagraphBody = styled.p<{
       foreground as keyof typeof theme.palette.byElement.text
     ]};
   text-align: ${({ textAlign }) => textAlign};
+  font-weight: ${({ boldText }) => (boldText ? 'bold' : 'normal')};
 `;

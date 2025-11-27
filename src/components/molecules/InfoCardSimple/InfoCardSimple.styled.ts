@@ -8,7 +8,7 @@ export const InfoCardSimpleBody = styled.div`
   background-color: ${({ theme }) => theme.palette.byElement.background.white};
   border: 2px solid ${({ theme }) => theme.palette.byElement.background.purple};
   border-radius: 16px;
-  gap: 96px;
+  gap: 84px;
 `;
 
 export const InfoContainer = styled.div`

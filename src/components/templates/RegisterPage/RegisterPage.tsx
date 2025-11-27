@@ -10,6 +10,7 @@ import {
   FLEX_ALIGNMENT,
 } from '@/atoms/Container/Container.types';
 import { CURRENCY, PERIOD } from '@/atoms/PriceTag/PriceTag.types';
+import { InfoCardExtended } from '@/molecules/InfoCardExtended/InfoCardExtended';
 import InfoCardSimple from '@/molecules/InfoCardSimple';
 
 import { RegisterPageBody } from './RegisterPage.styled';
@@ -45,6 +46,29 @@ export const RegisterPage: LoginPageType = () => (
             widthType: WIDTH_TYPE.PERCENT,
             widthValue: 100,
           },
+        }}
+      />
+
+      <InfoCardExtended
+        title={'Family'}
+        sectionContent={{
+          title: 'Content access',
+          paragraph: 'Full access to titles in the following formats:',
+          list: ['Animated book', 'Audiobook', 'E-book'],
+        }}
+        sectionQuality={{ title: 'Quality', list: ['SD (720p)', 'HD (1080p)'] }}
+        sectionChildrenAccounts={{
+          title: 'Children accounts',
+          paragraph: 'Three.',
+        }}
+        sectionLicensing={{
+          title: 'Licensing',
+          paragraph:
+            'The account includes a license for private viewing, limited to immediate family only.',
+        }}
+        price={{
+          currency: CURRENCY.EUR,
+          value: 14.99,
         }}
       />
     </Container>
