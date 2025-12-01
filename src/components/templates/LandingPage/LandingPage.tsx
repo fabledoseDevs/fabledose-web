@@ -47,7 +47,14 @@ export const LandingPage: LandingPageType = () => (
       <Jumbotron
         logo={false}
         headline={`Miejsce, w którym baśnie ożywają podczas czytania`}
-        paragraph={`Uzyskaj dostęp do&nbsp;wysokiej jakości treści dla&nbsp;najmłodszych <strong>za&nbsp;darmo</strong><br />lub&nbsp;w&nbsp;pakiecie premium za&nbsp;jedyne&nbsp;19,99&nbsp;PLN.`}
+        paragraph={
+          <>
+            Uzyskaj dostęp do&nbsp;wysokiej jakości treści dla&nbsp;najmłodszych{' '}
+            <strong>za&nbsp;darmo</strong>
+            <br />
+            lub&nbsp;w&nbsp;pakiecie premium za&nbsp;jedyne&nbsp;19,99&nbsp;PLN.
+          </>
+        }
         button={{
           text: 'Wejdź do świata bajek',
           actionType: ACTION_TYPE.NAVIGATION,

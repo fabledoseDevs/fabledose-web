@@ -1,4 +1,4 @@
-import type { ReactElement } from 'react';
+import type { ReactElement, ReactNode } from 'react';
 
 /**
  * @module
@@ -47,7 +47,7 @@ export interface ParagraphProps {
   color?: FOREGROUND_COLOR;
   alignment?: TEXT_ALIGNMENT;
   boldText?: boolean;
-  children: string;
+  children: ReactNode;
 }
 
 /**
