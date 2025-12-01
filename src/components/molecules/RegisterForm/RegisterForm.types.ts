@@ -10,7 +10,6 @@ import type { ReactElement } from 'react';
  *
  * Currently, the component does not accept any external props.
  */
-// export interface LoginFormProps {}
 
 /**
  * Return values of the internal useLoginForm hook.
@@ -20,7 +19,7 @@ import type { ReactElement } from 'react';
  * RegisterForm. It is documented here to keep typings centralized even if the
  * hook is not yet publicly used.
  */
-export interface UseLoginFormReturnValues {
+export interface UseRegisterFormReturnValues {
   /** Example default state flag maintained by the form hook. */
   defaultState: boolean;
 }
@@ -28,7 +27,7 @@ export interface UseLoginFormReturnValues {
 /**
  * Type signature of the internal useLoginForm hook.
  */
-export type UseLoginForm = () => UseLoginFormReturnValues;
+export type UseRegisterForm = () => UseRegisterFormReturnValues;
 
 /**
  * Component renders a login form with third‑party sign‑in buttons, a separator,
@@ -43,4 +42,4 @@ export type UseLoginForm = () => UseLoginFormReturnValues;
  * <RegisterForm />
  * ```
  */
-export type LoginForm = () => ReactElement;
+export type RegisterForm = () => ReactElement;

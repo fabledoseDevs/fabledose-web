@@ -1,4 +1,4 @@
-import type { ReactElement } from 'react';
+import type { ReactElement, ReactNode } from 'react';
 
 import type { ButtonProps } from '@/atoms/Button/Button.types';
 
@@ -21,7 +21,7 @@ import type { ButtonProps } from '@/atoms/Button/Button.types';
 export interface JumbotronProps {
   logo?: boolean;
   headline: string;
-  paragraph: string;
+  paragraph: ReactNode;
   button: ButtonProps;
 }
 
@@ -41,7 +41,7 @@ export interface JumbotronProps {
  * <Jumbotron
  *   logo={true}
  *   headline="Welcome to our platform"
- *   paragraph="Discover amazing content and features designed just for you."
+ *   paragraph={<>Discover amazing content<br />and features designed just for you.</>}
  *   button={{
  *     text: "Get Started",
  *     variant: BUTTON_VARIANT.RED,

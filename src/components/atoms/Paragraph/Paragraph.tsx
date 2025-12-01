@@ -8,10 +8,7 @@ export const Paragraph: ParagraphType = ({
   boldText = false,
   children,
 }) => (
-  <ParagraphBody
-    foreground={color}
-    textAlign={alignment}
-    boldText={boldText}
-    dangerouslySetInnerHTML={{ __html: children as string }}
-  />
+  <ParagraphBody foreground={color} textAlign={alignment} boldText={boldText}>
+    {children}
+  </ParagraphBody>
 );

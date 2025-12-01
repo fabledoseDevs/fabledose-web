@@ -23,7 +23,13 @@ export const Maintenance: MaintenanceType = () => (
         logo={true}
         headline={'Planowana premiera Q2 2026'}
         paragraph={
-          'Nasza nowa strona jest obecnie w budowie.<br />Do czasu premiery zapraszamy do zapoznania się z naszymi baśniami<br />na stronie demonstracyjnej.'
+          <>
+            Nasza nowa strona jest obecnie w budowie.
+            <br />
+            Do czasu premiery zapraszamy do zapoznania się z naszymi baśniami
+            <br />
+            na stronie demonstracyjnej.
+          </>
         }
         button={{
           actionType: ACTION_TYPE.NAVIGATION,
