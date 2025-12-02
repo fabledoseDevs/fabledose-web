@@ -88,7 +88,7 @@ export const LoginForm: LoginFormType = () => (
         />
       </Form>
       <NewAccount>
-        Nie masz konta? <Link href={'/'}>Zarejestru się</Link>.
+        Nie masz konta? <Link href={'/register'}>Zarejestru się</Link>.
       </NewAccount>
     </FormCard>
   </LoginFormBody>

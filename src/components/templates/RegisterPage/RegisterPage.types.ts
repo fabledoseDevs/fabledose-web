@@ -6,11 +6,35 @@ import type { ReactElement } from 'react';
  */
 
 /**
- * Component renders a maintenance page for the application.
- * The maintenance page includes:
- * - Jumbotron with headline about planned release
- * - Informational paragraph about the site being under construction
- * - Button linking to a demo site
+ * Possible registration steps.
+ * - STEP_1_REGISTER: Registration form stage.
+ * - STEP_2_PLAN: Subscription plan stage.
+ */
+export enum REGISTRATION_STEP {
+  STEP_1_REGISTER,
+  STEP_2_PLAN,
+}
+
+/**
+ * useRegistrationStep hook return values
+ * @param registrationStep - Current registration step.
+ * @param setRegistrationStep - Function to change the current registration step. It is passed
+ * down to the child components <RegisterForm /> to change the step via onSuccess prop.
+ */
+export type useRegistrationStepReturnValues = {
+  registrationStep: REGISTRATION_STEP;
+  setRegistrationStep: (step: REGISTRATION_STEP) => void;
+};
+/**
+ * useRegisterPage hook type definition
+ */
+export type useRegisterPage = () => useRegistrationStepReturnValues;
+
+/**
+ * This component renders registration page for the application.
+ * The registration page includes:
+ * - A registration form with registration steps
+ * - Subscription plan selection
  *
  * @group Component
  *
@@ -18,9 +42,5 @@ import type { ReactElement } from 'react';
  * ```tsx
  * <RegisterPage />
  * ```
- */
-
-/**
- * RegisterPage component type definition
  */
 export type LoginPage = () => ReactElement;

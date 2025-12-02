@@ -7,6 +7,7 @@ export const PlanSelectorBody = styled.div`
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  min-height: 100vh;
 `;
 
 export const SelectorCard = styled.div`

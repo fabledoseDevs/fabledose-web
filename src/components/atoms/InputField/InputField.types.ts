@@ -1,4 +1,5 @@
 import type { ReactElement } from 'react';
+import type React from 'react';
 
 /**
  * @module
@@ -52,12 +53,18 @@ export enum INPUT_ICON {
  * @property fixedWidth - Optional width of the input field in pixels.
  * @property placeholder - Optional placeholder text for the input field.
  * @property errorMessage - Optional error message to display below the input field.
+ * @property value - Optional controlled value of the input.
+ * @property onChange - Optional change handler for controlled inputs.
+ * @property name - Optional name attribute for form integrations.
  */
 export interface InputFieldProps {
   type: INPUT_TYPE;
   fixedWidth?: number;
   placeholder?: string;
   errorMessage?: string;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  name?: string;
 }
 
 /**
@@ -121,6 +128,9 @@ export type UseInputText = () => {
  *  - `placeholder`: Optional placeholder text for the input field.
  *  - `fixedWidth`: Number of pixels used to set width of input. If not provided, width defaults to 100%.
  *  - `errorMessage`: Message that should be returned from form validation.
+ *  - `value`: Optional controlled value of the input.
+ *  - `onChange`: Optional change handler for controlled inputs.
+ *  - `name`: Optional name attribute for form integrations.
  *
  * @group Component
  *
