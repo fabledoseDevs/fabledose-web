@@ -22,5 +22,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 // Initialize Firebase services
-export const analytics = getAnalytics(app);
+// Guard analytics to avoid SSR errors in Next.js
+export const analytics =
+  typeof window !== 'undefined' ? getAnalytics(app) : null;
 export const auth = getAuth(app);

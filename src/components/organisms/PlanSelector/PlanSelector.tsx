@@ -11,7 +11,6 @@ import {
 } from '@/atoms/Headline/Headline.types';
 import Paragraph from '@/atoms/Paragraph';
 import { TEXT_ALIGNMENT } from '@/atoms/Paragraph/Paragraph.types';
-import { RedText } from '@/molecules/RegisterForm/RegisterForm.styled';
 import PlanComparisonExtended from '@/organisms/PlanComparisonExtended';
 import PlanComparisonSimple from '@/organisms/PlanComparisonSimple';
 import { usePlanSelector } from '@/organisms/PlanSelector/PlanSelector.hook';
@@ -19,6 +18,7 @@ import { usePlanSelector } from '@/organisms/PlanSelector/PlanSelector.hook';
 import { CARDS_EXTENDED, CARDS_SIMPLE } from './PlanSelector.data';
 import {
   PlanSelectorBody,
+  RedText,
   SelectorCard,
   SelectorContainer,
 } from './PlanSelector.styled';

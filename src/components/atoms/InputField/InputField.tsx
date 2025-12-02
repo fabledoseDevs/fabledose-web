@@ -23,6 +23,9 @@ export const InputField: InputFieldType = ({
   placeholder,
   fixedWidth,
   errorMessage,
+  value,
+  onChange,
+  name,
 }) => {
   const { getInputType, getIcon } = useInputText();
   const inputType = getInputType(type);
@@ -61,6 +64,9 @@ export const InputField: InputFieldType = ({
           placeholder={placeholder}
           width={fixedWidth}
           hasError={!!errorMessage}
+          value={value}
+          onChange={onChange}
+          name={name}
         />
         {renderIcon()}
         {errorMessage && (
