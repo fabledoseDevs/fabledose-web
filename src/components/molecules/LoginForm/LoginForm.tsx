@@ -1,3 +1,4 @@
+'use client';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -18,6 +19,7 @@ import Separator from '@/atoms/Separator';
 import { SEPARATOR_COLOR } from '@/atoms/Separator/Separator.types';
 import { Gradient } from '@/organisms/Jumbotron/Jumbotron.styled';
 
+import { useLoginForm } from './LoginForm.hook';
 import {
   Form,
   FormCard,
@@ -29,67 +31,98 @@ import {
 } from './LoginForm.styled';
 import type { LoginForm as LoginFormType } from './LoginForm.types';
 
-export const LoginForm: LoginFormType = () => (
-  <LoginFormBody>
-    <Image
-      src="/jumbo-static.jpg"
-      alt="Jumbotron background"
-      fill
-      style={{ objectFit: 'cover', objectPosition: 'center' }}
-      priority
-    />
-    <Gradient />
+export const LoginForm: LoginFormType = ({ onSuccess }) => {
+  const {
+    email,
+    password,
+    loading,
+    error,
+    setEmail,
+    setPassword,
+    handleGoogleSignIn,
+    handleSubmit,
+  } = useLoginForm({ onSuccess });
 
-    <FormCard>
-      <Headline weight={HEADLINE_TYPE.BIG} color={FOREGROUND_COLOR.PURPLE}>
-        Zaloguj się
-      </Headline>
-      <Form>
-        <Button
-          actionType={ACTION_TYPE.FUNCTION_TRIGGER}
-          variant={BUTTON_VARIANT.WHITE}
-          text={'Zaloguj się przez Google'}
-          width={{
-            widthType: WIDTH_TYPE.PERCENT,
-            widthValue: 100,
-          }}
-          iconUrl={'/icons/google.png'}
-        />
-        <Button
-          actionType={ACTION_TYPE.FUNCTION_TRIGGER}
-          variant={BUTTON_VARIANT.WHITE}
-          text={'Zaloguj się przez Apple'}
-          width={{
-            widthType: WIDTH_TYPE.PERCENT,
-            widthValue: 100,
-          }}
-          iconUrl={'/icons/apple.png'}
-        />
-        <Separator color={SEPARATOR_COLOR.GRAY} label={'lub'} />
-        <Label>
-          <LabelText>Adres email:</LabelText>
-          <InputField type={INPUT_TYPE.TEXT} placeholder={'twoj@adres.email'} />
-        </Label>
-        <Label>
-          <LabelText>Hasło:</LabelText>
-          <InputField type={INPUT_TYPE.PASSWORD} />
-        </Label>
-        <ResetPassword>
-          <Link href={'/'}>Nie pamiętam hasła</Link>
-        </ResetPassword>
-        <Button
-          actionType={ACTION_TYPE.SUBMIT}
-          variant={BUTTON_VARIANT.RED}
-          width={{
-            widthType: WIDTH_TYPE.PERCENT,
-            widthValue: 100,
-          }}
-          text={'Zaloguj'}
-        />
-      </Form>
-      <NewAccount>
-        Nie masz konta? <Link href={'/register'}>Zarejestru się</Link>.
-      </NewAccount>
-    </FormCard>
-  </LoginFormBody>
-);
+  return (
+    <LoginFormBody>
+      <Image
+        src="/jumbo-static.jpg"
+        alt="Jumbotron background"
+        fill
+        style={{ objectFit: 'cover', objectPosition: 'center' }}
+        priority
+      />
+      <Gradient />
+
+      <FormCard>
+        <Headline weight={HEADLINE_TYPE.BIG} color={FOREGROUND_COLOR.PURPLE}>
+          Zaloguj się
+        </Headline>
+        <Form onSubmit={handleSubmit}>
+          <Button
+            actionType={ACTION_TYPE.FUNCTION_TRIGGER}
+            variant={BUTTON_VARIANT.WHITE}
+            text={'Zaloguj się przez Google'}
+            width={{
+              widthType: WIDTH_TYPE.PERCENT,
+              widthValue: 100,
+            }}
+            iconUrl={'/icons/google.png'}
+            payload={handleGoogleSignIn}
+            isDisabled={loading}
+          />
+          <Button
+            actionType={ACTION_TYPE.FUNCTION_TRIGGER}
+            variant={BUTTON_VARIANT.WHITE}
+            text={'Zaloguj się przez Apple'}
+            width={{
+              widthType: WIDTH_TYPE.PERCENT,
+              widthValue: 100,
+            }}
+            iconUrl={'/icons/apple.png'}
+            isDisabled
+          />
+          <Separator color={SEPARATOR_COLOR.GRAY} label={'lub'} />
+          <Label>
+            <LabelText>Adres email:</LabelText>
+            <InputField
+              type={INPUT_TYPE.TEXT}
+              placeholder={'twoj@adres.email'}
+              name="email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+            />
+          </Label>
+          <Label>
+            <LabelText>Hasło:</LabelText>
+            <InputField
+              type={INPUT_TYPE.PASSWORD}
+              name="password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+            />
+          </Label>
+          <ResetPassword>
+            <Link href={'/'}>Nie pamiętam hasła</Link>
+          </ResetPassword>
+          <Button
+            actionType={ACTION_TYPE.SUBMIT}
+            variant={BUTTON_VARIANT.RED}
+            width={{
+              widthType: WIDTH_TYPE.PERCENT,
+              widthValue: 100,
+            }}
+            text={loading ? 'Logowanie...' : 'Zaloguj'}
+            isDisabled={loading}
+          />
+        </Form>
+        {error ? (
+          <p style={{ color: '#ff6b6b', marginTop: '8px' }}>{error}</p>
+        ) : null}
+        <NewAccount>
+          Nie masz konta? <Link href={'/register'}>Zarejestru się</Link>.
+        </NewAccount>
+      </FormCard>
+    </LoginFormBody>
+  );
+};
