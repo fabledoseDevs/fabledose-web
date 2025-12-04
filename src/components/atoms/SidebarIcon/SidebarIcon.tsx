@@ -1,0 +1,35 @@
+import { ArrowLeftStartOnRectangleIcon } from '@heroicons/react/24/outline';
+import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import { BookOpenIcon } from '@heroicons/react/24/outline';
+import { HeartIcon } from '@heroicons/react/24/outline';
+import { CogIcon } from '@heroicons/react/24/outline';
+import { UserIcon } from '@heroicons/react/24/outline';
+
+import { SidebarIconBody } from './SidebarIcon.styled';
+import type { SidebarIcon as SidebarIconType } from './SidebarIcon.types';
+import type { IconSwitch as IconSwitchType } from './SidebarIcon.types';
+import { SIDEBAR_ICON } from './SidebarIcon.types';
+
+const IconSwitch: IconSwitchType = icon => {
+  switch (icon) {
+    case SIDEBAR_ICON.SEARCH:
+      return <MagnifyingGlassIcon />;
+    case SIDEBAR_ICON.LIBRARY:
+      return <BookOpenIcon />;
+    case SIDEBAR_ICON.FAVORITES:
+      return <HeartIcon />;
+    case SIDEBAR_ICON.SETTINGS:
+      return <CogIcon />;
+    case SIDEBAR_ICON.USER:
+      return <UserIcon />;
+    case SIDEBAR_ICON.EXIT:
+      return <ArrowLeftStartOnRectangleIcon />;
+    default:
+      return <QuestionMarkCircleIcon />;
+  }
+};
+
+export const SidebarIcon: SidebarIconType = ({ icon, isActive = false }) => (
+  <SidebarIconBody styleVariant={isActive}>{IconSwitch(icon)}</SidebarIconBody>
+);

@@ -13,6 +13,8 @@ import {
   FLEX_DIRECTION,
   PADDING,
 } from '@/atoms/Container/Container.types';
+import SidebarIcon from '@/atoms/SidebarIcon';
+import { SIDEBAR_ICON } from '@/atoms/SidebarIcon/SidebarIcon.types';
 import Accordion from '@/molecules/Accordion';
 import InfoBox from '@/molecules/InfoBox';
 import RegisterBanner from '@/molecules/RegisterBanner';
@@ -65,6 +67,14 @@ export const LandingPage: LandingPageType = () => (
           },
         }}
       />
+    </Container>
+
+    <Container
+      containerType={CONTAINER_ELEMENT.HEADER}
+      backgroundColor={BACKGROUND_COLOR.PURPLE}
+    >
+      <SidebarIcon icon={SIDEBAR_ICON.FAVORITES} isActive={true} />
+      <SidebarIcon icon={SIDEBAR_ICON.EXIT} isActive={false} />
     </Container>
 
     <Container
