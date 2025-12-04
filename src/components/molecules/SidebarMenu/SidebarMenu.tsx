@@ -1,3 +1,4 @@
+'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -6,11 +7,11 @@ import SidebarIcon from '@/atoms/SidebarIcon';
 import { SidebarMenuBody } from './SidebarMenu.styled';
 import type { SidebarMenu as SidebarMenuType } from './SidebarMenu.types';
 
-export const SidebarMenu: SidebarMenuType = ({ menuItems }) => {
+export const SidebarMenu: SidebarMenuType = ({ menuItems, direction }) => {
   const pathname = usePathname();
 
   return (
-    <SidebarMenuBody>
+    <SidebarMenuBody direction={direction}>
       {menuItems.map(item => {
         const isActive = pathname === item.href;
 
@@ -27,3 +28,5 @@ export const SidebarMenu: SidebarMenuType = ({ menuItems }) => {
     </SidebarMenuBody>
   );
 };
+
+export default SidebarMenu;

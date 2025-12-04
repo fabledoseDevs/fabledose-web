@@ -1,7 +1,9 @@
 import styled from '@emotion/styled';
 
-export const SidebarMenuBody = styled.div`
+export const SidebarMenuBody = styled.div<{ direction?: 'row' | 'column' }>`
   display: flex;
-  flex-direction: column;
-  background-color: ${({ theme }) => theme.palette.byElement.background.purple};
+  flex-direction: ${({ direction }) => direction || 'column'};
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 `;

@@ -5,6 +5,7 @@ import { type ReactElement, useEffect, useState } from 'react';
 
 import UserDesktop from '@/components/templates/UserDesktop';
 import { auth } from '@/config/firebase';
+import Sidebar from '@/organisms/Sidebar';
 
 const Home = (): ReactElement => {
   const router = useRouter();
@@ -27,7 +28,12 @@ const Home = (): ReactElement => {
 
   if (!authChecked || !isLoggedIn) return <></>;
 
-  return <UserDesktop />;
+  return (
+    <>
+      <Sidebar />
+      <UserDesktop />
+    </>
+  );
 };
 
 export default Home;

@@ -25,6 +25,12 @@ export interface SidebarMenuItemConfig {
  */
 export interface SidebarMenuProps {
   menuItems: SidebarMenuItemConfig[];
+  /**
+   * Layout direction for the menu items. Defaults to 'column'.
+   * - Use 'column' for vertical stacks (desktop sidebar)
+   * - Use 'row' for horizontal layout (mobile bottom bar)
+   */
+  direction?: 'row' | 'column';
 }
 
 /**
