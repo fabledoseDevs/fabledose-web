@@ -1,13 +1,14 @@
 'use client';
 import { onAuthStateChanged } from 'firebase/auth';
+import { useRouter } from 'next/navigation';
 import { type ReactElement, useEffect, useState } from 'react';
 
 import LandingPage from '@/components/templates/LandingPage';
 import Maintenance from '@/components/templates/Maintenance';
-import UserDesktop from '@/components/templates/UserDesktop';
 import { auth } from '@/config/firebase';
 
 const Home = (): ReactElement => {
+  const router = useRouter();
   const [showMaintenance, setShowMaintenance] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
@@ -18,15 +19,15 @@ const Home = (): ReactElement => {
     return () => unsub();
   }, []);
 
+  useEffect(() => {
+    if (isLoggedIn) {
+      router.replace('/library');
+    }
+  }, [isLoggedIn, router]);
+
   return (
     <>
-      {showMaintenance ? (
-        <Maintenance />
-      ) : isLoggedIn ? (
-        <UserDesktop />
-      ) : (
-        <LandingPage />
-      )}
+      {showMaintenance ? <Maintenance /> : <LandingPage />}
       <div
         style={{
           position: 'fixed',
