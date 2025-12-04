@@ -32,7 +32,7 @@ export const useLoginForm: UseLoginForm = options => {
       if (options?.onSuccess) {
         options.onSuccess();
       } else {
-        router.push('/');
+        router.push('/library');
       }
     } catch (e: unknown) {
       const message = e instanceof Error ? e.message : 'Google sign-in failed';
@@ -52,7 +52,7 @@ export const useLoginForm: UseLoginForm = options => {
         if (options?.onSuccess) {
           options.onSuccess();
         } else {
-          router.push('/');
+          router.push('/library');
         }
       } catch (e: unknown) {
         const message =

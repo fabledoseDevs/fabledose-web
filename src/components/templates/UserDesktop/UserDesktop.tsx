@@ -23,13 +23,11 @@ export const UserDesktop: UserDesktopType = () => {
   const [userName, setUserName] = useState<string | null>(null);
 
   useEffect(() => {
-    // Subscribe to auth changes to reliably get the user on client
     const unsub = onAuthStateChanged(auth, user => {
       if (!user) {
         setUserName(null);
         return;
       }
-      // Prefer displayName, then email, then phoneNumber, then provider data, finally uid
       const fromProvider = user.providerData?.find(
         p => p.displayName || p.email,
       );
@@ -58,7 +56,7 @@ export const UserDesktop: UserDesktopType = () => {
             <>
               Zalogowałeś się jako {userName ?? '...'}
               <br />
-              Kontent w przygotowaniu. Możesz się wylogować.
+              Kontent bibliteki w przygotowaniu. Możesz się wylogować.
             </>
           }
           button={{
