@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
-import type { ReactElement, ReactNode } from 'react';
+import type { ReactNode } from 'react';
+import React from 'react';
 
 import { ThemeProvider } from '@/styles';
 import GlobalStyle from '@/styles/GlobalStyle';
@@ -10,13 +11,17 @@ export const metadata: Metadata = {
     'Biblioteka bajek zawierająca animowane książki, audiobooki i ebooki dla dzieci oraz dorosłych.',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: ReactNode;
-}>): ReactElement {
+  params: { lang: string };
+}>): Promise<React.JSX.Element> {
+  const { lang } = await params;
+
   return (
-    <html lang="en" suppressHydrationWarning={true}>
+    <html lang={lang || 'pl'}>
       <body>
         <ThemeProvider>
           <GlobalStyle />

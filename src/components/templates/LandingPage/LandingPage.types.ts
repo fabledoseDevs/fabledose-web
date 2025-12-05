@@ -1,5 +1,11 @@
 import type { ReactElement } from 'react';
 
+import type { DictionaryType } from '@/lang/lang.types';
+
+export interface LandingPageProps {
+  dict: DictionaryType;
+}
+
 /**
  * @module
  * This file defines the types and interfaces for the LandingPage component.
@@ -23,4 +29,4 @@ import type { ReactElement } from 'react';
  * <LandingPage />
  * ```
  */
-export type LandingPage = () => ReactElement;
+export type LandingPage = (props: LandingPageProps) => ReactElement;

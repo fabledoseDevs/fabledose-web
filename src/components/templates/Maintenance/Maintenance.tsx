@@ -13,7 +13,7 @@ import Jumbotron from '@/organisms/Jumbotron';
 import { MaintenanceBody } from './Maintenance.styled';
 import type { Maintenance as MaintenanceType } from './Maintenance.types';
 
-export const Maintenance: MaintenanceType = () => (
+export const Maintenance: MaintenanceType = ({ dict }) => (
   <MaintenanceBody>
     <Container
       containerType={CONTAINER_ELEMENT.SECTION}
@@ -21,15 +21,9 @@ export const Maintenance: MaintenanceType = () => (
     >
       <Jumbotron
         logo={true}
-        headline={'Planowana premiera Q2 2026'}
+        headline={dict.headline}
         paragraph={
-          <>
-            Nasza nowa strona jest obecnie w budowie.
-            <br />
-            Do czasu premiery zapraszamy do zapoznania się z naszymi baśniami
-            <br />
-            na stronie demonstracyjnej.
-          </>
+          <span dangerouslySetInnerHTML={{ __html: dict.paragraph }} />
         }
         button={{
           actionType: ACTION_TYPE.NAVIGATION,
@@ -37,7 +31,7 @@ export const Maintenance: MaintenanceType = () => (
           width: {
             widthType: WIDTH_TYPE.AUTO,
           },
-          text: 'Zobacz DEMO',
+          text: dict.button,
           payload: 'https://demo.fabledose.com',
         }}
       />

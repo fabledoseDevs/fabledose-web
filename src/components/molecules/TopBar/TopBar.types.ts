@@ -1,9 +1,19 @@
 import type { ReactElement } from 'react';
 
+import type { DictionaryType } from '@/lang/lang.types';
+
 /**
  * @module
  * This file defines the types and interfaces for the TopBar component.
  */
+
+/**
+ * Interface for TopBar component props.
+ * @property dict - Dictionary object containing translations for the TopBar.
+ */
+export interface TopBarProps {
+  dict: DictionaryType['common'];
+}
 
 /**
  * Interface for the return value of useTopBarScroll hook.
@@ -37,4 +47,4 @@ export type UseTopBarScroll = () => UseTopBarScrollReturnValues;
  * <TopBar />
  * ```
  */
-export type TopBar = () => ReactElement;
+export type TopBar = (props: TopBarProps) => ReactElement;

@@ -1,4 +1,5 @@
 'use client';
+
 import { onAuthStateChanged } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 import { type ReactElement, useEffect, useState } from 'react';
@@ -6,8 +7,13 @@ import { type ReactElement, useEffect, useState } from 'react';
 import LandingPage from '@/components/templates/LandingPage';
 import Maintenance from '@/components/templates/Maintenance';
 import { auth } from '@/config/firebase';
+import type { DictionaryType } from '@/lang/lang.types';
 
-const Home = (): ReactElement => {
+interface HomeClientProps {
+  dict: DictionaryType;
+}
+
+export const LandingPageClient = ({ dict }: HomeClientProps): ReactElement => {
   const router = useRouter();
   const [showMaintenance, setShowMaintenance] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
@@ -27,7 +33,11 @@ const Home = (): ReactElement => {
 
   return (
     <>
-      {showMaintenance ? <Maintenance /> : <LandingPage />}
+      {showMaintenance ? (
+        <Maintenance dict={dict.maintenance} />
+      ) : (
+        <LandingPage dict={dict} />
+      )}
       <div
         style={{
           position: 'fixed',
@@ -44,5 +54,3 @@ const Home = (): ReactElement => {
     </>
   );
 };
-
-export default Home;
