@@ -1,5 +1,7 @@
 import type { ReactElement } from 'react';
 
+import type { DictionaryType } from '@/lang/lang.types';
+
 /**
  * @module
  * This file defines the types and interfaces for the RegisterPage component.
@@ -21,6 +23,13 @@ import type { ReactElement } from 'react';
  */
 
 /**
+ * Props for Maintenance component
+ */
+export interface MaintenanceProps {
+  dict: DictionaryType['maintenance'];
+}
+
+/**
  * RegisterPage component type definition
  */
-export type Maintenance = () => ReactElement;
+export type Maintenance = (props: MaintenanceProps) => ReactElement;

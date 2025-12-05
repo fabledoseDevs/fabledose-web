@@ -36,9 +36,9 @@ import { Paragraph } from '../../atoms/Paragraph/Paragraph';
 import { LandingPageBody } from './LandingPage.styled';
 import type { LandingPage as LandingPageType } from './LandingPage.types';
 
-export const LandingPage: LandingPageType = () => (
+export const LandingPage: LandingPageType = ({ dict }) => (
   <LandingPageBody>
-    <TopBar />
+    <TopBar dict={dict.common} />
 
     <Container
       containerType={CONTAINER_ELEMENT.HEADER}
