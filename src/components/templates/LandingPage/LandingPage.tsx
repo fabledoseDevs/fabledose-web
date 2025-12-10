@@ -46,17 +46,14 @@ export const LandingPage: LandingPageType = ({ dict }) => (
     >
       <Jumbotron
         logo={false}
-        headline={`Miejsce, w którym baśnie ożywają podczas czytania`}
+        headline={dict.lpJumbotron.headline}
         paragraph={
-          <>
-            Uzyskaj dostęp do&nbsp;wysokiej jakości treści dla&nbsp;najmłodszych{' '}
-            <strong>za&nbsp;darmo</strong>
-            <br />
-            lub&nbsp;w&nbsp;pakiecie premium za&nbsp;jedyne&nbsp;19,99&nbsp;PLN.
-          </>
+          <span
+            dangerouslySetInnerHTML={{ __html: dict.lpJumbotron.paragraph }}
+          />
         }
         button={{
-          text: 'Wejdź do świata bajek',
+          text: dict.lpJumbotron.button,
           actionType: ACTION_TYPE.NAVIGATION,
           variant: BUTTON_VARIANT.RED,
           payload: '#',
@@ -76,15 +73,14 @@ export const LandingPage: LandingPageType = ({ dict }) => (
     >
       <StandaloneStoryCard
         descriptionData={{
-          superText: 'Przeczytaj bez zakładania konta',
-          headline: 'O Rybaku i Złotej Rybce',
-          paragraph:
-            'Życie rybaka wywraca się do góry nogami za sprawą złotej rybki. Czy uda mu się powstrzymać nadchodzącą katastrofę i ocalić siebie oraz swoją żonę?',
+          superText: dict.freeStory.superText,
+          headline: dict.freeStory.title,
+          paragraph: dict.freeStory.paragraph,
         }}
         buttonData={{
           actionType: ACTION_TYPE.NAVIGATION,
           variant: BUTTON_VARIANT.RED,
-          text: 'Czytaj bajkę',
+          text: dict.freeStory.button,
           payload: '/',
           width: {
             widthType: WIDTH_TYPE.PX,
@@ -93,7 +89,7 @@ export const LandingPage: LandingPageType = ({ dict }) => (
         }}
         imageData={{
           src: mockCover.src,
-          alt: 'Story image description',
+          alt: 'Free story!',
         }}
       />
     </Container>
