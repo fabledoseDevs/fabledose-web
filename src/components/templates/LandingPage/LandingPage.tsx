@@ -13,6 +13,7 @@ import {
   FLEX_DIRECTION,
   PADDING,
 } from '@/atoms/Container/Container.types';
+import { useDictionary } from '@/lang/DictionaryProvider';
 import Accordion from '@/molecules/Accordion';
 import InfoBox from '@/molecules/InfoBox';
 import RegisterBanner from '@/molecules/RegisterBanner';
@@ -36,221 +37,223 @@ import { Paragraph } from '../../atoms/Paragraph/Paragraph';
 import { LandingPageBody } from './LandingPage.styled';
 import type { LandingPage as LandingPageType } from './LandingPage.types';
 
-export const LandingPage: LandingPageType = ({
-  dict,
-  dictCommon,
-  dictFooter,
-}) => (
-  <LandingPageBody>
-    <TopBar dict={dictCommon} />
+export const LandingPage: LandingPageType = () => {
+  const { landingPage } = useDictionary();
 
-    <Container
-      containerType={CONTAINER_ELEMENT.HEADER}
-      backgroundColor={BACKGROUND_COLOR.PURPLE}
-    >
-      <Jumbotron
-        logo={false}
-        headline={dict.jumbotron.headline}
-        paragraph={
-          <span
-            dangerouslySetInnerHTML={{ __html: dict.jumbotron.paragraph }}
-          />
-        }
-        button={{
-          text: dict.jumbotron.button,
-          actionType: ACTION_TYPE.NAVIGATION,
-          variant: BUTTON_VARIANT.RED,
-          payload: '#',
-          width: {
-            widthType: WIDTH_TYPE.AUTO,
-          },
-        }}
-      />
-    </Container>
+  return (
+    <LandingPageBody>
+      <TopBar />
 
-    <Container
-      containerType={CONTAINER_ELEMENT.SECTION}
-      backgroundColor={BACKGROUND_COLOR.PURPLE}
-      maxWidth={1440}
-      verticalPadding={PADDING.DOUBLE}
-      mobilePadding={true}
-    >
-      <StandaloneStoryCard
-        descriptionData={{
-          superText: dict.freeStory.superText,
-          headline: dict.freeStory.title,
-          paragraph: dict.freeStory.paragraph,
-        }}
-        buttonData={{
-          actionType: ACTION_TYPE.NAVIGATION,
-          variant: BUTTON_VARIANT.RED,
-          text: dict.freeStory.button,
-          payload: '/',
-          width: {
-            widthType: WIDTH_TYPE.PX,
-            widthValue: 175,
-          },
-        }}
-        imageData={{
-          src: mockCover.src,
-          alt: 'Free story!',
-        }}
-      />
-    </Container>
-
-    <Container
-      containerType={CONTAINER_ELEMENT.SECTION}
-      backgroundColor={BACKGROUND_COLOR.PURPLE}
-      flexDirection={FLEX_DIRECTION.ROW}
-      maxWidth={1440}
-      verticalPadding={PADDING.DOUBLE}
-    >
-      {[
-        { img: infoBoxImgOne, data: dict.infoBox.one },
-        { img: infoBoxImgTwo, data: dict.infoBox.two },
-        { img: infoBoxImgThree, data: dict.infoBox.three },
-      ].map(({ img, data }, idx) => (
-        <InfoBox
-          key={`info-box-${idx}`}
-          imageData={{
-            src: img.src,
-            alt: data.picAlt,
-          }}
-          title={data.title}
-          description={data.description}
-        />
-      ))}
-    </Container>
-
-    <Container
-      containerType={CONTAINER_ELEMENT.SECTION}
-      backgroundColor={BACKGROUND_COLOR.PURPLE}
-    >
-      <RegisterBanner
-        title={dict.registerBanner.title}
-        covers={[
-          {
-            imageUrl: mockImageOne.src,
-            fableTitle: 'Złotowłosa',
-            fableId: 'zlotowlosa-i-trzy-misie-1',
-          },
-          {
-            imageUrl: mockImageTwo.src,
-            fableTitle: 'Trzy małe świnki',
-            fableId: 'trzy-male-swinki-1',
-          },
-          {
-            imageUrl: mockImageThree.src,
-            fableTitle: 'O rybaku i złotej rybce',
-            fableId: 'o-rybaku-i-zlotej-rybce-1',
-          },
-          {
-            imageUrl: mockImageFour.src,
-            fableTitle: 'Złotowłosa',
-            fableId: 'zlotowlosa-i-trzy-misie-2',
-          },
-          {
-            imageUrl: mockImageFive.src,
-            fableTitle: 'Trzy małe świnki',
-            fableId: 'trzy-male-swinki-2',
-          },
-          {
-            imageUrl: mockImageSix.src,
-            fableTitle: 'O rybaku i złotej rybce',
-            fableId: 'o-rybaku-i-zlotej-rybce-2',
-          },
-          {
-            imageUrl: mockImageSeven.src,
-            fableTitle: 'Trzy małe świnki',
-            fableId: 'trzy-male-swinki-3',
-          },
-        ]}
-      />
-    </Container>
-
-    <Container
-      containerType={CONTAINER_ELEMENT.SECTION}
-      backgroundColor={BACKGROUND_COLOR.WHITE}
-      flexDirection={FLEX_DIRECTION.ROW}
-      mobilePadding={true}
-    >
       <Container
-        containerType={CONTAINER_ELEMENT.DIV}
-        maxWidth={1440}
-        flexDirection={FLEX_DIRECTION.ROW}
-        verticalPadding={PADDING.DOUBLE}
-        justifyContent={FLEX_ALIGNMENT.START}
+        containerType={CONTAINER_ELEMENT.HEADER}
+        backgroundColor={BACKGROUND_COLOR.PURPLE}
       >
-        <Container
-          containerType={CONTAINER_ELEMENT.DIV}
-          gap={true}
-          justifyContent={FLEX_ALIGNMENT.START}
-        >
-          <BasicDescription
-            superText={dict.faqSection.superText}
-            headline={dict.faqSection.headline}
-            paragraph={[
-              dict.faqSection.paragraph[0],
-              dict.faqSection.paragraph[1],
-            ]}
-          />
-          <Button
-            actionType={ACTION_TYPE.NAVIGATION}
-            variant={BUTTON_VARIANT.RED}
-            text={dict.faqSection.button}
-            width={{
+        <Jumbotron
+          logo={false}
+          headline={landingPage.jumbotron.headline}
+          paragraph={
+            <span
+              dangerouslySetInnerHTML={{
+                __html: landingPage.jumbotron.paragraph,
+              }}
+            />
+          }
+          button={{
+            text: landingPage.jumbotron.button,
+            actionType: ACTION_TYPE.NAVIGATION,
+            variant: BUTTON_VARIANT.RED,
+            payload: '#',
+            width: {
               widthType: WIDTH_TYPE.AUTO,
+            },
+          }}
+        />
+      </Container>
+
+      <Container
+        containerType={CONTAINER_ELEMENT.SECTION}
+        backgroundColor={BACKGROUND_COLOR.PURPLE}
+        maxWidth={1440}
+        verticalPadding={PADDING.DOUBLE}
+        mobilePadding={true}
+      >
+        <StandaloneStoryCard
+          descriptionData={{
+            superText: landingPage.freeStory.superText,
+            headline: landingPage.freeStory.title,
+            paragraph: landingPage.freeStory.paragraph,
+          }}
+          buttonData={{
+            actionType: ACTION_TYPE.NAVIGATION,
+            variant: BUTTON_VARIANT.RED,
+            text: landingPage.freeStory.button,
+            payload: '/',
+            width: {
+              widthType: WIDTH_TYPE.PX,
+              widthValue: 175,
+            },
+          }}
+          imageData={{
+            src: mockCover.src,
+            alt: 'Free story!',
+          }}
+        />
+      </Container>
+
+      <Container
+        containerType={CONTAINER_ELEMENT.SECTION}
+        backgroundColor={BACKGROUND_COLOR.PURPLE}
+        flexDirection={FLEX_DIRECTION.ROW}
+        maxWidth={1440}
+        verticalPadding={PADDING.DOUBLE}
+      >
+        {[
+          { img: infoBoxImgOne, data: landingPage.infoBox.one },
+          { img: infoBoxImgTwo, data: landingPage.infoBox.two },
+          { img: infoBoxImgThree, data: landingPage.infoBox.three },
+        ].map(({ img, data }, idx) => (
+          <InfoBox
+            key={`info-box-${idx}`}
+            imageData={{
+              src: img.src,
+              alt: data.picAlt,
             }}
+            title={data.title}
+            description={data.description}
           />
-        </Container>
-        <Accordion
-          ribsList={[
+        ))}
+      </Container>
+
+      <Container
+        containerType={CONTAINER_ELEMENT.SECTION}
+        backgroundColor={BACKGROUND_COLOR.PURPLE}
+      >
+        <RegisterBanner
+          title={landingPage.registerBanner.title}
+          covers={[
             {
-              mainText: dict.faq[0].question,
-              children: <Paragraph>{dict.faq[1].answer}</Paragraph>,
-              isOpen: false,
-              isSelfControlled: false,
+              imageUrl: mockImageOne.src,
+              fableTitle: 'Złotowłosa',
+              fableId: 'zlotowlosa-i-trzy-misie-1',
             },
             {
-              mainText: dict.faq[1].question,
-              children: <Paragraph>{dict.faq[1].answer}</Paragraph>,
-              isOpen: false,
-              isSelfControlled: false,
+              imageUrl: mockImageTwo.src,
+              fableTitle: 'Trzy małe świnki',
+              fableId: 'trzy-male-swinki-1',
             },
             {
-              mainText: dict.faq[2].question,
-              children: <Paragraph>{dict.faq[2].answer}</Paragraph>,
-              isOpen: false,
-              isSelfControlled: false,
+              imageUrl: mockImageThree.src,
+              fableTitle: 'O rybaku i złotej rybce',
+              fableId: 'o-rybaku-i-zlotej-rybce-1',
             },
             {
-              mainText: dict.faq[3].question,
-              children: <Paragraph>{dict.faq[3].answer}</Paragraph>,
-              isOpen: false,
-              isSelfControlled: false,
+              imageUrl: mockImageFour.src,
+              fableTitle: 'Złotowłosa',
+              fableId: 'zlotowlosa-i-trzy-misie-2',
             },
             {
-              mainText: dict.faq[4].question,
-              children: <Paragraph>{dict.faq[4].answer}</Paragraph>,
-              isOpen: false,
-              isSelfControlled: false,
+              imageUrl: mockImageFive.src,
+              fableTitle: 'Trzy małe świnki',
+              fableId: 'trzy-male-swinki-2',
             },
             {
-              mainText: dict.faq[5].question,
-              children: <Paragraph>{dict.faq[5].answer}</Paragraph>,
-              isOpen: false,
-              isSelfControlled: false,
+              imageUrl: mockImageSix.src,
+              fableTitle: 'O rybaku i złotej rybce',
+              fableId: 'o-rybaku-i-zlotej-rybce-2',
+            },
+            {
+              imageUrl: mockImageSeven.src,
+              fableTitle: 'Trzy małe świnki',
+              fableId: 'trzy-male-swinki-3',
             },
           ]}
         />
       </Container>
-    </Container>
 
-    <Container
-      containerType={CONTAINER_ELEMENT.FOOTER}
-      backgroundColor={BACKGROUND_COLOR.DARK_PURPLE}
-    >
-      <Footer dict={dictFooter} />
-    </Container>
-  </LandingPageBody>
-);
+      <Container
+        containerType={CONTAINER_ELEMENT.SECTION}
+        backgroundColor={BACKGROUND_COLOR.WHITE}
+        flexDirection={FLEX_DIRECTION.ROW}
+        mobilePadding={true}
+      >
+        <Container
+          containerType={CONTAINER_ELEMENT.DIV}
+          maxWidth={1440}
+          flexDirection={FLEX_DIRECTION.ROW}
+          verticalPadding={PADDING.DOUBLE}
+          justifyContent={FLEX_ALIGNMENT.START}
+        >
+          <Container
+            containerType={CONTAINER_ELEMENT.DIV}
+            gap={true}
+            justifyContent={FLEX_ALIGNMENT.START}
+          >
+            <BasicDescription
+              superText={landingPage.faqSection.superText}
+              headline={landingPage.faqSection.headline}
+              paragraph={[
+                landingPage.faqSection.paragraph[0],
+                landingPage.faqSection.paragraph[1],
+              ]}
+            />
+            <Button
+              actionType={ACTION_TYPE.NAVIGATION}
+              variant={BUTTON_VARIANT.RED}
+              text={landingPage.faqSection.button}
+              width={{
+                widthType: WIDTH_TYPE.AUTO,
+              }}
+            />
+          </Container>
+          <Accordion
+            ribsList={[
+              {
+                mainText: landingPage.faq[0].question,
+                children: <Paragraph>{landingPage.faq[1].answer}</Paragraph>,
+                isOpen: false,
+                isSelfControlled: false,
+              },
+              {
+                mainText: landingPage.faq[1].question,
+                children: <Paragraph>{landingPage.faq[1].answer}</Paragraph>,
+                isOpen: false,
+                isSelfControlled: false,
+              },
+              {
+                mainText: landingPage.faq[2].question,
+                children: <Paragraph>{landingPage.faq[2].answer}</Paragraph>,
+                isOpen: false,
+                isSelfControlled: false,
+              },
+              {
+                mainText: landingPage.faq[3].question,
+                children: <Paragraph>{landingPage.faq[3].answer}</Paragraph>,
+                isOpen: false,
+                isSelfControlled: false,
+              },
+              {
+                mainText: landingPage.faq[4].question,
+                children: <Paragraph>{landingPage.faq[4].answer}</Paragraph>,
+                isOpen: false,
+                isSelfControlled: false,
+              },
+              {
+                mainText: landingPage.faq[5].question,
+                children: <Paragraph>{landingPage.faq[5].answer}</Paragraph>,
+                isOpen: false,
+                isSelfControlled: false,
+              },
+            ]}
+          />
+        </Container>
+      </Container>
+
+      <Container
+        containerType={CONTAINER_ELEMENT.FOOTER}
+        backgroundColor={BACKGROUND_COLOR.DARK_PURPLE}
+      >
+        <Footer />
+      </Container>
+    </LandingPageBody>
+  );
+};

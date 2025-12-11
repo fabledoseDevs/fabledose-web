@@ -9,17 +9,18 @@ import {
 } from '@/atoms/Button/Button.types';
 import Dropdown from '@/atoms/Dropdown';
 import { COLOR_SCHEME } from '@/atoms/Dropdown/Dropdown.types';
+import { useDictionary } from '@/lang/DictionaryProvider';
 
 import { useTopBarScroll } from './TopBar.hook';
 import { ActionsContainer, LogoContainer, TopBarBody } from './TopBar.styled';
 import type { TopBar as TopBarType } from './TopBar.types';
 
-export const TopBar: TopBarType = ({ dict }) => {
+export const TopBar: TopBarType = () => {
   const { isTransparent } = useTopBarScroll();
   const router = useRouter();
   const pathname = usePathname();
   const params = useParams();
-
+  const { common } = useDictionary();
   const currentLang = (params?.lang as string) || 'en';
 
   const getDisplayLanguage = (lang: string) => {
@@ -69,7 +70,7 @@ export const TopBar: TopBarType = ({ dict }) => {
           onChange={handleLanguageChange}
         />
         <Button
-          text={dict.login}
+          text={common.login}
           actionType={ACTION_TYPE.NAVIGATION}
           variant={BUTTON_VARIANT.RED}
           width={{

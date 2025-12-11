@@ -1,14 +1,9 @@
 import type { ReactElement } from 'react';
 
-import type { DictionaryType } from '@/lang/lang.types';
 /**
  * @module
  * This file defines the types and interfaces for the Footer component.
  */
-
-export interface FooterProps {
-  dict: DictionaryType['footer'];
-}
 
 /**
  * Component renders Footer.
@@ -22,4 +17,4 @@ export interface FooterProps {
  * <Footer />
  * ```
  */
-export type Footer = (props: FooterProps) => ReactElement;
+export type Footer = () => ReactElement;

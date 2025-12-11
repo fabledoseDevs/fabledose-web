@@ -59,7 +59,10 @@ export type DictionaryType = {
       answer: string;
     }[];
   };
-
+  newsletterForm: {
+    paragraph: string;
+    disclaimer: string;
+  };
   footer: {
     linkList: {
       title: string;

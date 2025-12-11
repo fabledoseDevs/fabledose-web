@@ -1,4 +1,4 @@
-import type { DictionaryType } from '../lang.types';
+import type { DictionaryType } from './lang.types';
 
 export const DictionaryEn: DictionaryType = {
   common: {
@@ -89,6 +89,12 @@ export const DictionaryEn: DictionaryType = {
           "Yes — all content is created in collaboration with educators and authors specializing in children's literature. The stories are not only entertaining but also educational. Our illustrators take care of every detail, and the color palettes and animation pacing are adapted to children's sensitivity. We create a friendly and safe space.",
       },
     ],
+  },
+  newsletterForm: {
+    paragraph:
+      'Join our Substack to receive our newsletter or follow our blog for updates on new content.',
+    disclaimer:
+      'Signing up accepts our Privacy Policy and acknowledges that we will send you marketing emails by mail.',
   },
   footer: {
     linkList: [

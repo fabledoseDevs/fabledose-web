@@ -1,4 +1,4 @@
-import type { DictionaryType } from '../lang.types';
+import type { DictionaryType } from './lang.types';
 
 export const DictionaryPL: DictionaryType = {
   common: {
@@ -89,6 +89,12 @@ export const DictionaryPL: DictionaryType = {
           'Tak – wszystkie treści powstają we współpracy z pedagogami autorami specjalizującymi się w literaturze dziecięcej. Historie mają nie tylko rozrywkowy, ale i edukacyjny charakter. Ilustratorzy dbają o każdy detal, a palety kolorów oraz tempo animacji są dostosowane do dziecięcej wrażliwości. Tworzymy przestrzeń przyjazną i bezpieczną.',
       },
     ],
+  },
+  newsletterForm: {
+    paragraph:
+      'Dołącz do nas na Substack aby otrzymywać newsletter lub śledzić nasz blog z informacjami o nowościach.',
+    disclaimer:
+      'Zapisujac się akceptujesza zasady naszej Polityki Prywatności oraz wyrażasz zgodę na otrzymywanie informacji marketingowych drogą mailową.',
   },
   footer: {
     linkList: [

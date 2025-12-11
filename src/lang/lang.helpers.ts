@@ -1,6 +1,6 @@
 import { DictionaryEn } from './dictionaries/en';
+import type { DictionaryType } from './dictionaries/lang.types';
 import { DictionaryPL } from './dictionaries/pl';
-import type { DictionaryType } from './lang.types';
 
 export const getDictionary = (lang: string): DictionaryType => {
   switch (lang) {
