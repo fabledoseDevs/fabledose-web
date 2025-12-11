@@ -1,4 +1,5 @@
 import type { ReactElement } from 'react';
+
 /**
  * @module
  * This file defines the types and interfaces for the Footer component.

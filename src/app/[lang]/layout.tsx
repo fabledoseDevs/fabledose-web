@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import React from 'react';
 
+import { DictionaryProvider } from '@/lang/DictionaryProvider';
+import { getDictionary } from '@/lang/lang.helpers';
 import { ThemeProvider } from '@/styles';
 import GlobalStyle from '@/styles/GlobalStyle';
 
@@ -16,17 +18,20 @@ export default async function RootLayout({
   params,
 }: Readonly<{
   children: ReactNode;
-  params: { lang: string };
+  params: Promise<{ lang: string }>;
 }>): Promise<React.JSX.Element> {
   const { lang } = await params;
+  const dict = getDictionary(lang);
 
   return (
     <html lang={lang || 'pl'}>
       <body>
-        <ThemeProvider>
-          <GlobalStyle />
-          {children}
-        </ThemeProvider>
+        <DictionaryProvider dictionary={dict}>
+          <ThemeProvider>
+            <GlobalStyle />
+            {children}
+          </ThemeProvider>
+        </DictionaryProvider>
       </body>
     </html>
   );
