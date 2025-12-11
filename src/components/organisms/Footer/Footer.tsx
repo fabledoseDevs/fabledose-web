@@ -13,51 +13,51 @@ import {
 } from './Footer.styled';
 import type { Footer as FooterType } from './Footer.types';
 
-export const Footer: FooterType = () => (
+export const Footer: FooterType = ({ dict }) => (
   <FooterBody>
     <TopRow>
       <NewsletterForm />
       <LinksContainer>
         <LinksList
-          title={'Portal'}
+          title={dict.linkList[0].title}
           variant={LINK_VARIANT.TEXT}
           layout={LIST_LAYOUT.VERTICAL}
           links={[
             {
               href: '#',
-              label: 'Konto',
+              label: dict.linkList[0].links[0].title,
             },
             {
               href: '#',
-              label: 'Płatności',
+              label: dict.linkList[0].links[1].title,
             },
             {
               href: '#',
-              label: 'Centrum pomocy',
+              label: dict.linkList[0].links[2].title,
             },
           ]}
         />
         <LinksList
-          title={'Firma'}
+          title={dict.linkList[1].title}
           variant={LINK_VARIANT.TEXT}
           layout={LIST_LAYOUT.VERTICAL}
           links={[
             {
               href: '#',
-              label: 'O nas',
+              label: dict.linkList[1].links[0].title,
             },
             {
               href: '#',
-              label: 'Współpraca',
+              label: dict.linkList[1].links[1].title,
             },
             {
               href: '#',
-              label: 'Kontakt',
+              label: dict.linkList[1].links[2].title,
             },
           ]}
         />
         <LinksList
-          title="Obserwuj nas"
+          title={dict.linkList[2].title}
           variant={LINK_VARIANT.ICON}
           layout={LIST_LAYOUT.HORIZONTAL}
           links={[
@@ -91,11 +91,17 @@ export const Footer: FooterType = () => (
       </LinksContainer>
     </TopRow>
     <BottomRow>
-      <Legal>© 2025 Zespół Fabledose. Wszelkie prawa zastrzeżone.</Legal>
+      <Legal>{dict.legalText}</Legal>
       <LegalLinksContainer>
-        <LegalLink href={'#'}>Polityka Prywatności</LegalLink>
-        <LegalLink href={'#'}>Warunki Korzystania</LegalLink>
-        <LegalLink href={'#'}>Ustawienia Ciasteczek</LegalLink>
+        {[
+          { href: '#', title: dict.legalLinks[0].title },
+          { href: '#', title: dict.legalLinks[1].title },
+          { href: '#', title: dict.legalLinks[2].title },
+        ].map(({ href, title }, idx) => (
+          <LegalLink key={`legal-link-${idx}`} href={href}>
+            {title}
+          </LegalLink>
+        ))}
       </LegalLinksContainer>
     </BottomRow>
   </FooterBody>

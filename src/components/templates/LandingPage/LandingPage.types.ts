@@ -3,7 +3,9 @@ import type { ReactElement } from 'react';
 import type { DictionaryType } from '@/lang/lang.types';
 
 export interface LandingPageProps {
-  dict: DictionaryType;
+  dict: DictionaryType['landingPage'];
+  dictCommon: DictionaryType['common'];
+  dictFooter: DictionaryType['footer'];
 }
 
 /**

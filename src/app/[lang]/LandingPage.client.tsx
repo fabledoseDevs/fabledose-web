@@ -36,7 +36,11 @@ export const LandingPageClient = ({ dict }: HomeClientProps): ReactElement => {
       {showMaintenance ? (
         <Maintenance dict={dict.maintenance} />
       ) : (
-        <LandingPage dict={dict} />
+        <LandingPage
+          dict={dict.landingPage}
+          dictCommon={dict.common}
+          dictFooter={dict.footer}
+        />
       )}
       <div
         style={{

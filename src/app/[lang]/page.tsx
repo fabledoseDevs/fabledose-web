@@ -1,6 +1,6 @@
 import type { ReactElement } from 'react';
 
-import { getDictionary } from '@/lang/lang';
+import { getDictionary } from '@/lang/lang.helpers';
 
 import { LandingPageClient } from './LandingPage.client';
 

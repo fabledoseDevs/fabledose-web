@@ -36,9 +36,13 @@ import { Paragraph } from '../../atoms/Paragraph/Paragraph';
 import { LandingPageBody } from './LandingPage.styled';
 import type { LandingPage as LandingPageType } from './LandingPage.types';
 
-export const LandingPage: LandingPageType = ({ dict }) => (
+export const LandingPage: LandingPageType = ({
+  dict,
+  dictCommon,
+  dictFooter,
+}) => (
   <LandingPageBody>
-    <TopBar dict={dict.common} />
+    <TopBar dict={dictCommon} />
 
     <Container
       containerType={CONTAINER_ELEMENT.HEADER}
@@ -46,14 +50,14 @@ export const LandingPage: LandingPageType = ({ dict }) => (
     >
       <Jumbotron
         logo={false}
-        headline={dict.lpJumbotron.headline}
+        headline={dict.jumbotron.headline}
         paragraph={
           <span
-            dangerouslySetInnerHTML={{ __html: dict.lpJumbotron.paragraph }}
+            dangerouslySetInnerHTML={{ __html: dict.jumbotron.paragraph }}
           />
         }
         button={{
-          text: dict.lpJumbotron.button,
+          text: dict.jumbotron.button,
           actionType: ACTION_TYPE.NAVIGATION,
           variant: BUTTON_VARIANT.RED,
           payload: '#',
@@ -101,36 +105,21 @@ export const LandingPage: LandingPageType = ({ dict }) => (
       maxWidth={1440}
       verticalPadding={PADDING.DOUBLE}
     >
-      <InfoBox
-        imageData={{
-          src: infoBoxImgOne.src,
-          alt: 'Story image description',
-        }}
-        title={'Czym jest Fabledose?'}
-        description={
-          'Fabledose jest biblioteką bajek zawierająca animowane książki, audiobooki i ebooki dla dzieci oraz dorosłych. Możesz je czytać, oglądać i słuchać za pomocą naszej strony internetowej lub aplikacji mobilnej.'
-        }
-      />
-      <InfoBox
-        imageData={{
-          src: infoBoxImgTwo.src,
-          alt: 'Story image description',
-        }}
-        title={'Edukacja i rozrywka'}
-        description={
-          'Wszystkie treści mają wartości edykacyjne oraz rozrywkowe. Pomagają dzieciom wdrożyć się w czytelictwo i rozwijać. Są także świetnym medium do towrzenia więzi pomiędzy opiekunem a dzieckiem.'
-        }
-      />
-      <InfoBox
-        imageData={{
-          src: infoBoxImgThree.src,
-          alt: 'Story image description',
-        }}
-        title={'Na przeciw potrzebom'}
-        description={
-          'Fabledose jest tym, czego potrzebujesz aby dostarczyć dzieciom bezpiecznych treści, dopasowanych do potrzeb rozwojowych i oferujących świetną zabawę. Wszystko to w przystępnej cenie.'
-        }
-      />
+      {[
+        { img: infoBoxImgOne, data: dict.infoBox.one },
+        { img: infoBoxImgTwo, data: dict.infoBox.two },
+        { img: infoBoxImgThree, data: dict.infoBox.three },
+      ].map(({ img, data }, idx) => (
+        <InfoBox
+          key={`info-box-${idx}`}
+          imageData={{
+            src: img.src,
+            alt: data.picAlt,
+          }}
+          title={data.title}
+          description={data.description}
+        />
+      ))}
     </Container>
 
     <Container
@@ -138,7 +127,7 @@ export const LandingPage: LandingPageType = ({ dict }) => (
       backgroundColor={BACKGROUND_COLOR.PURPLE}
     >
       <RegisterBanner
-        title={`Zyskaj dostęp do bajek<br/>za darmo, już teraz`}
+        title={dict.registerBanner.title}
         covers={[
           {
             imageUrl: mockImageOne.src,
@@ -198,17 +187,17 @@ export const LandingPage: LandingPageType = ({ dict }) => (
           justifyContent={FLEX_ALIGNMENT.START}
         >
           <BasicDescription
-            superText={'FAQ'}
-            headline={'Najczęściej zadawane pytania'}
+            superText={dict.faqSection.superText}
+            headline={dict.faqSection.headline}
             paragraph={[
-              'Każda historia to podróż – przez animowane ilustracje, baśniowe dźwięki i ciepły głos narratora. Wiemy, że możesz mieć pytania, zanim wyruszysz w pierwszą przygodę. Dlatego przygotowaliśmy odpowiedzi na najczęściej zadawane pytania – by rozwiać wątpliwości i zostawić miejsce tylko na... wyobraźnię.',
-              'W tej sekcji znajdziesz odpowiedzi na pytania o funkcje portalu, dostępność materiałów, urządzenia i bezpieczeństwo najmłodszych. A jeśli nie znajdziesz tu odpowiedzi – napisz do nas! Jesteśmy jak dobra wróżka: zawsze chętni do pomocy.',
+              dict.faqSection.paragraph[0],
+              dict.faqSection.paragraph[1],
             ]}
           />
           <Button
             actionType={ACTION_TYPE.NAVIGATION}
             variant={BUTTON_VARIANT.RED}
-            text={'Kontakt'}
+            text={dict.faqSection.button}
             width={{
               widthType: WIDTH_TYPE.AUTO,
             }}
@@ -217,91 +206,38 @@ export const LandingPage: LandingPageType = ({ dict }) => (
         <Accordion
           ribsList={[
             {
-              mainText: 'Czym jest Fabledose?',
-              children: (
-                <Paragraph>
-                  Fabledose to cyfrowa biblioteka baśni dla dzieci – miejsce,
-                  gdzie tekst spotyka się z animacją, dźwiękiem i wyobraźnią.
-                  Oferujemy opowieści w trzech formach: animowanych baśni,
-                  audiobooków i ebooków. Każda historia to doświadczenie
-                  zaprojektowane z myślą o zmysłach dziecka. Łączymy przyjemność
-                  z czytania ze światem ruchomych obrazów i narracji.
-                </Paragraph>
-              ),
+              mainText: dict.faq[0].question,
+              children: <Paragraph>{dict.faq[1].answer}</Paragraph>,
               isOpen: false,
               isSelfControlled: false,
             },
             {
-              mainText: 'Na jakich urządzeniach mogę korzystać z Fabledose?',
-              children: (
-                <Paragraph>
-                  Fabledose działa na większości współczesnych urządzeń:
-                  komputerach, tabletach i smartfonach z systemem Android lub
-                  iOS. Korzystanie nie wymaga instalowania aplikacji – wystarczy
-                  dostęp do przeglądarki i Internetu. Wszystkie bajki odtwarzasz
-                  bezpośrednio na stronie. To wygodne rozwiązanie zarówno w
-                  domu, jak i w podróży.
-                </Paragraph>
-              ),
+              mainText: dict.faq[1].question,
+              children: <Paragraph>{dict.faq[1].answer}</Paragraph>,
               isOpen: false,
               isSelfControlled: false,
             },
             {
-              mainText: 'Czy muszę płacić za dostęp do treści?',
-              children: (
-                <Paragraph>
-                  Fabledose oferuje zarówno darmowe bajki z reklamami, jak i
-                  pełny dostęp bez reklam w ramach płatnej subskrypcji. Wersja
-                  premium obejmuje animowane baśnie, audiobooki oraz ebooki.
-                  Najtańszy abonament kosztuje 14,99 PLN miesięcznie. Dzięki
-                  temu masz nieograniczony dostęp do całej biblioteki, bez
-                  przerywników.
-                </Paragraph>
-              ),
+              mainText: dict.faq[2].question,
+              children: <Paragraph>{dict.faq[2].answer}</Paragraph>,
               isOpen: false,
               isSelfControlled: false,
             },
             {
-              mainText: 'Czy bajki są odpowiednie dla różnych grup wiekowych?',
-              children: (
-                <Paragraph>
-                  Tak – nasze historie są starannie podzielone według wieku i
-                  poziomu rozwoju dziecka. Znajdziesz bajki dla maluchów,
-                  przedszkolaków i starszych dzieci. Każda opowieść rozwija inne
-                  kompetencje: emocjonalne, językowe czy społeczne. To
-                  bezpieczna przestrzeń do odkrywania świata przez opowieści.
-                </Paragraph>
-              ),
+              mainText: dict.faq[3].question,
+              children: <Paragraph>{dict.faq[3].answer}</Paragraph>,
               isOpen: false,
               isSelfControlled: false,
             },
             {
-              mainText: 'Czy mogę korzystać z Fabledose offline?',
-              children: (
-                <Paragraph>
-                  Tak, ale dotyczy to tylko audiobooków i ebooków dostępnych w
-                  ramach subskrypcji. Można je pobrać i odtwarzać bez dostępu do
-                  Internetu, np. w podróży lub wieczorem przed snem. Animowane
-                  baśnie ze względu na swój charakter są dostępne wyłącznie
-                  online. Już najtańszy plan abonamentowy umożliwia korzystanie
-                  offline.
-                </Paragraph>
-              ),
+              mainText: dict.faq[4].question,
+              children: <Paragraph>{dict.faq[4].answer}</Paragraph>,
               isOpen: false,
               isSelfControlled: false,
             },
             {
-              mainText: 'Czy Fabledose jest bezpieczne dla dzieci?',
-              children: (
-                <Paragraph>
-                  Tak – wszystkie treści powstają we współpracy z pedagogami i
-                  autorami specjalizującymi się w literaturze dziecięcej.
-                  Historie mają nie tylko rozrywkowy, ale i edukacyjny
-                  charakter. Ilustratorzy dbają o każdy detal, a palety kolorów
-                  oraz tempo animacji są dostosowane do dziecięcej wrażliwości.
-                  Tworzymy przestrzeń przyjazną i bezpieczną.
-                </Paragraph>
-              ),
+              mainText: dict.faq[5].question,
+              children: <Paragraph>{dict.faq[5].answer}</Paragraph>,
               isOpen: false,
               isSelfControlled: false,
             },
@@ -314,7 +250,7 @@ export const LandingPage: LandingPageType = ({ dict }) => (
       containerType={CONTAINER_ELEMENT.FOOTER}
       backgroundColor={BACKGROUND_COLOR.DARK_PURPLE}
     >
-      <Footer />
+      <Footer dict={dictFooter} />
     </Container>
   </LandingPageBody>
 );
