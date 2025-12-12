@@ -15,10 +15,11 @@ import {
   FLEX_ALIGNMENT,
   FLEX_DIRECTION,
 } from '@/atoms/Container/Container.types';
-import TagIcon from '@/atoms/TagIcon';
-import { TAG_NAME } from '@/atoms/TagIcon/TagIcon.types';
 import { auth } from '@/config/firebase';
 import Jumbotron from '@/organisms/Jumbotron';
+import StoryCard from '@/organisms/StoryCard';
+import StoryMock from '@/organisms/StoryCard/StoryCard.mock';
+import { STORY_CARD_VARIANT } from '@/organisms/StoryCard/StoryCard.types';
 
 import { UserDesktopBody } from './UserDesktop.styled';
 import type { UserDesktop as UserDesktopType } from './UserDesktop.types';
@@ -88,11 +89,11 @@ export const UserDesktop: UserDesktopType = () => {
         flexDirection={FLEX_DIRECTION.ROW}
         gap
       >
-        <TagIcon icon={TAG_NAME.AGE_3} />
-        <TagIcon icon={TAG_NAME.HELPFULNESS} />
-        <TagIcon icon={TAG_NAME.MODERATION} />
-        <TagIcon icon={TAG_NAME.REPARATION} isWarning={true} />
-        <TagIcon icon={TAG_NAME.COOPERATION} />
+        <StoryCard
+          variant={STORY_CARD_VARIANT.FULLSCREEN}
+          unlockedAccount={false}
+          data={StoryMock}
+        />
       </Container>
     </UserDesktopBody>
   );
