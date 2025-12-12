@@ -3,9 +3,9 @@ import type { NextFetchEvent } from 'next/server';
 
 /**
  * @module Middleware Types
- * Typed contracts and documentation for the Next.js middleware used to handle locale-aware routing.
+ * Typed contracts and documentation for the Next.js proxy used to handle locale-aware routing.
  *
- * The middleware detects the user preferred locale (cookie > Accept-Language header)
+ * The proxy detects the user preferred locale (cookie > Accept-Language header)
  * and enforces locale prefixes in paths (e.g., "/pl" or "/en").
  */
 
@@ -14,7 +14,7 @@ import type { NextFetchEvent } from 'next/server';
  *
  * @remarks
  * Extend this union when new locales are introduced, and ensure that the
- * LOCALES constant in middleware.ts is updated accordingly.
+ * LOCALES constant in proxy.ts is updated accordingly.
  */
 export type SupportedLocale = 'pl' | 'en';
 
@@ -34,7 +34,7 @@ export type Locales = readonly SupportedLocale[];
 export type LocaleDetector = (request: NextRequest) => SupportedLocale;
 
 /**
- * Shape of the exported Next.js middleware function.
+ * Shape of the exported Next.js proxy function.
  */
 export type MiddlewareHandler = (
   request: NextRequest,
@@ -42,7 +42,7 @@ export type MiddlewareHandler = (
 ) => Response | void | Promise<Response | void>;
 
 /**
- * Configuration object for Next.js middleware export.
+ * Configuration object for Next.js proxy export.
  *
  * @see https://nextjs.org/docs/app/building-your-application/routing/middleware#matcher
  */

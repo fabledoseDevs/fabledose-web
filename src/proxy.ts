@@ -5,7 +5,7 @@ import type {
   MiddlewareConfig,
   MiddlewareHandler,
   SupportedLocale,
-} from './middleware.types';
+} from './proxy.types';
 
 const LOCALES: readonly SupportedLocale[] = ['pl', 'en'] as const;
 const DEFAULT_LOCALE: SupportedLocale = 'pl';
@@ -31,7 +31,7 @@ const getLocale = (request: NextRequest): SupportedLocale => {
   return DEFAULT_LOCALE;
 };
 
-export const middleware: MiddlewareHandler = (request: NextRequest) => {
+export const proxy: MiddlewareHandler = (request: NextRequest) => {
   const { pathname } = request.nextUrl;
   const hasLocale = LOCALES.some(
     locale => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`,
