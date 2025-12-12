@@ -12,7 +12,11 @@ import Container from '@/atoms/Container';
 import {
   BACKGROUND_COLOR,
   CONTAINER_ELEMENT,
+  FLEX_ALIGNMENT,
+  FLEX_DIRECTION,
 } from '@/atoms/Container/Container.types';
+import TagIcon from '@/atoms/TagIcon';
+import { TAG_NAME } from '@/atoms/TagIcon/TagIcon.types';
 import { auth } from '@/config/firebase';
 import Jumbotron from '@/organisms/Jumbotron';
 
@@ -75,6 +79,20 @@ export const UserDesktop: UserDesktopType = () => {
             },
           }}
         />
+      </Container>
+      <Container
+        containerType={CONTAINER_ELEMENT.SECTION}
+        backgroundColor={BACKGROUND_COLOR.PURPLE}
+        alignItems={FLEX_ALIGNMENT.CENTER}
+        justifyContent={FLEX_ALIGNMENT.CENTER}
+        flexDirection={FLEX_DIRECTION.ROW}
+        gap
+      >
+        <TagIcon icon={TAG_NAME.AGE_3} />
+        <TagIcon icon={TAG_NAME.HELPFULNESS} />
+        <TagIcon icon={TAG_NAME.MODERATION} />
+        <TagIcon icon={TAG_NAME.REPARATION} isWarning={true} />
+        <TagIcon icon={TAG_NAME.COOPERATION} />
       </Container>
     </UserDesktopBody>
   );
