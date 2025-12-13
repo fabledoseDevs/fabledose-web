@@ -13,7 +13,7 @@
     "prepare": "husky install",
     "prepush": "npm run lint && npm run types-check",
     "lint": "eslint src",
-    "lint:fix": "eslint src --fix",
+    "lint:fix": "eslint --fix",
     "typedoc": "typedoc",
     "docs:serve": "typedoc && npx http-server docs -p 8080 -o",
     "docs:watch": "typedoc --watch"

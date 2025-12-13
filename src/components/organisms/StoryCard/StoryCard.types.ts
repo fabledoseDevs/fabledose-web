@@ -1,10 +1,11 @@
 import type { ReactElement } from 'react';
 
+import type { TAG_NAME } from '@/atoms/TagIcon/TagIcon.types';
+
 import type {
   FOREGROUND_COLOR as HEADLINE_COLOR,
   HEADLINE_TYPE,
 } from '../../atoms/Headline/Headline.types';
-import type { TAG_NAME } from '@/atoms/TagIcon/TagIcon.types';
 
 /**
  * @file

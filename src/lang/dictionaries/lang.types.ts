@@ -77,4 +77,32 @@ export type DictionaryType = {
       href?: string;
     }[];
   };
+  tagIcon: {
+    'age-3': { title: string; description: string };
+    'age-5': { title: string; description: string };
+    'classic-fable': { title: string; description: string };
+    'contemporary-fable': { title: string; description: string };
+    responsibility: { title: string; description: string };
+    carefulness: { title: string; description: string };
+    helpfulness: { title: string; description: string };
+    diligence: { title: string; description: string };
+    privacy: { title: string; description: string };
+    family: { title: string; description: string };
+    death: { title: string; description: string };
+    'toxic-relations': { title: string; description: string };
+    moderation: { title: string; description: string };
+    cooperation: { title: string; description: string };
+    reparation: { title: string; description: string };
+  };
+  storyCard: {
+    readButton: string;
+    audiobookButton: string;
+    downloadCta: string;
+    pdfButton: string;
+    epubButton: string;
+    unlockCta: string;
+    unlockButton: string;
+    infoDisclaimer: string;
+    moreInfoButton: string;
+  };
 };

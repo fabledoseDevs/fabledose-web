@@ -1,4 +1,6 @@
 import type { ReactElement } from 'react';
+
+import type { DictionaryType } from '@/lang/dictionaries/lang.types';
 /**
  * @module
  * This file defines the types and interfaces for the TagIcon component.
@@ -95,6 +97,33 @@ export interface UseTagIconReturnValues {
  * @returns Object with metadata, tooltip state, and helper handlers.
  */
 export type UseTagIcon = (args: UseTagIconArgs) => UseTagIconReturnValues;
+
+/**
+ * A dictionary subset that contains all TagIcon-related translations.
+ * It mirrors the `tagIcon` section from the main {@link DictionaryType}.
+ *
+ * @group i18n
+ */
+export type TagIconDictionary = DictionaryType['tagIcon'];
+
+/**
+ * Mapping between {@link TAG_NAME} and the corresponding static icon URL.
+ *
+ * @remarks
+ * Texts (title and description) should come from the translations, while the URL
+ * is a static asset path bundled with the app.
+ */
+export type IconUrlsMap = Record<TAG_NAME, string>;
+
+/**
+ * Function signature for a helper that composes {@link TagMeta} from a tag name
+ * and the TagIcon dictionary.
+ *
+ * @param tag - One of {@link TAG_NAME} values.
+ * @param t - TagIcon translations dictionary.
+ * @returns Fully built {@link TagMeta} object with localized texts and icon URL.
+ */
+export type GetTagMeta = (tag: TAG_NAME, t: TagIconDictionary) => TagMeta;
 
 /**
  * Component renders a circular tag icon with an optional tooltip.

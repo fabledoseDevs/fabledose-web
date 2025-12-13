@@ -126,4 +126,82 @@ export const DictionaryPL: DictionaryType = {
       { title: 'Ustawienia Ciasteczek' },
     ],
   },
+  tagIcon: {
+    'age-3': {
+      title: 'Wiek 3+',
+      description: 'Ta bajka jest odpowiednia dla dzieci w wieku od 3 lat.',
+    },
+    'age-5': {
+      title: 'Wiek 5+',
+      description: 'Ta bajka jest odpowiednia dla dzieci w wieku od 5 lat.',
+    },
+    'classic-fable': {
+      title: 'Klasyczna baśń',
+      description: 'Ponadczasowa, tradycyjna opowieść z mądrym przesłaniem.',
+    },
+    'contemporary-fable': {
+      title: 'Współczesna baśń',
+      description: 'Nowoczesna opowieść odzwierciedlająca dzisiejsze tematy.',
+    },
+    responsibility: {
+      title: 'Odpowiedzialność',
+      description:
+        'Podkreśla branie odpowiedzialności za swoje czyny i obowiązki.',
+    },
+    carefulness: {
+      title: 'Ostrożność',
+      description: 'Zachęca do bycia uważnym, ostrożnym i życzliwym.',
+    },
+    helpfulness: {
+      title: 'Pomocność',
+      description: 'Promuje życzliwość i niesienie pomocy innym w potrzebie.',
+    },
+    diligence: {
+      title: 'Wytrwałość',
+      description: 'Docenia konsekwencję, ciężką pracę i zaangażowanie.',
+    },
+    privacy: {
+      title: 'Prywatność',
+      description: 'Uczy szacunku do prywatnej przestrzeni i sekretów.',
+    },
+    family: {
+      title: 'Rodzina',
+      description: 'Skupia się na więziach, miłości i wsparciu w rodzinie.',
+    },
+    death: {
+      title: 'Śmierć',
+      description: 'Wprowadza pojęcie cyklu życia i straty.',
+    },
+    'toxic-relations': {
+      title: 'Toksyczne relacje',
+      description:
+        'Ostrzega przed krzywdzącymi relacjami i uczy stawiania granic.',
+    },
+    moderation: {
+      title: 'Umiar',
+      description: 'Zachęca do równowagi i unikania skrajności.',
+    },
+    cooperation: {
+      title: 'Współpraca',
+      description: 'Pokazuje siłę pracy zespołowej i działania razem.',
+    },
+    reparation: {
+      title: 'Naprawa szkód',
+      description:
+        'Skupia się na zadośćuczynieniu i przywracaniu tego, co zostało naruszone.',
+    },
+  },
+  storyCard: {
+    readButton: 'Czytaj',
+    audiobookButton: 'Audiobook',
+    downloadCta: 'Pobierz ebook',
+    pdfButton: 'Ilustrowany PDF',
+    epubButton: 'ePUB',
+    unlockCta:
+      'Ulepsz konto i uzyskaj dostęp do bajek w formie audiobooków oraz ebooków.',
+    unlockButton: 'Zmień typ konta',
+    infoDisclaimer:
+      'Sprawdź ikony poniżej lub naciśnij przycisk "Więcej infomacji" aby upewnić się, czy ta historyjka jest odpowiednia dla twojego dziecka',
+    moreInfoButton: 'Więcej informacji',
+  },
 };

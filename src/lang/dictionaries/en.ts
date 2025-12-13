@@ -122,4 +122,79 @@ export const DictionaryEn: DictionaryType = {
       { title: 'Cookies' },
     ],
   },
+  tagIcon: {
+    'age-3': {
+      title: 'Age 3',
+      description: 'This fairy tale is suitable for children aged 3 and up.',
+    },
+    'age-5': {
+      title: 'Age 5',
+      description: 'This fairy tale is suitable for children aged 5 and up.',
+    },
+    'classic-fable': {
+      title: 'Classic Fable',
+      description: 'A timeless, traditional fable with enduring lessons.',
+    },
+    'contemporary-fable': {
+      title: 'Contemporary Fable',
+      description: 'A modern fable reflecting today’s themes and settings.',
+    },
+    responsibility: {
+      title: 'Responsibility',
+      description: 'Highlights taking ownership for actions and duties.',
+    },
+    carefulness: {
+      title: 'Carefulness',
+      description: 'Encourages being cautious, attentive, and considerate.',
+    },
+    helpfulness: {
+      title: 'Helpfulness',
+      description: 'Promotes kindness and lending a hand to others in need.',
+    },
+    diligence: {
+      title: 'Diligence',
+      description: 'Celebrates persistence, hard work, and dedication.',
+    },
+    privacy: {
+      title: 'Privacy',
+      description: 'Teaches respect for personal spaces and secrets.',
+    },
+    family: {
+      title: 'Family',
+      description: 'Focuses on bonds, love, and support within a family.',
+    },
+    death: {
+      title: 'Death',
+      description: 'Introduces the concept of life cycles and loss.',
+    },
+    'toxic-relations': {
+      title: 'Toxic Relations',
+      description: 'Warns against harmful relationships and sets boundaries.',
+    },
+    moderation: {
+      title: 'Moderation',
+      description: 'Encourages balance and avoiding excess in all things.',
+    },
+    cooperation: {
+      title: 'Cooperation',
+      description: 'Shows the power of teamwork and working together.',
+    },
+    reparation: {
+      title: 'Reparation',
+      description: 'Focuses on making amends and restoring what was harmed.',
+    },
+  },
+  storyCard: {
+    readButton: 'Read',
+    audiobookButton: 'Audiobook',
+    downloadCta: 'Download ebook',
+    pdfButton: 'Illustrated PDF',
+    epubButton: 'ePUB',
+    unlockCta:
+      'Upgrade your subscription to grant access to audiobooks and ebooks',
+    unlockButton: 'Manage subscription',
+    infoDisclaimer:
+      'Check tag icons below or press the "More info" button to confirm that this story is suitable for your child.',
+    moreInfoButton: 'More info',
+  },
 };

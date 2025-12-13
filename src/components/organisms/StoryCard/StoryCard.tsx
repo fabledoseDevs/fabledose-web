@@ -15,6 +15,8 @@ import {
   TEXT_ALIGNMENT,
 } from '@/atoms/Paragraph/Paragraph.types';
 import { TagIcon } from '@/atoms/TagIcon/TagIcon';
+import { useDictionary } from '@/lang/DictionaryProvider';
+
 import useStoryCard from './StoryCard.hook';
 import {
   BackgroundVideo,
@@ -38,6 +40,7 @@ export const StoryCard: StoryCardType = ({
   data,
 }) => {
   const { isVideoReady, handleVideoCanPlay } = useStoryCard();
+  const { storyCard } = useDictionary();
 
   return (
     <StoryCardBody variant={variant} data-video-ready={isVideoReady}>
@@ -75,14 +78,14 @@ export const StoryCard: StoryCardType = ({
                     <Button
                       actionType={ACTION_TYPE.NAVIGATION}
                       variant={BUTTON_VARIANT.RED}
-                      text="Czytaj"
+                      text={storyCard.readButton}
                       payload="#"
                       width={{ widthType: WIDTH_TYPE.AUTO }}
                     />
                     <Button
                       actionType={ACTION_TYPE.NAVIGATION}
                       variant={BUTTON_VARIANT.TRANSPARENT}
-                      text="Audiobook"
+                      text={storyCard.audiobookButton}
                       payload="#"
                       width={{ widthType: WIDTH_TYPE.AUTO }}
                     />
@@ -91,20 +94,20 @@ export const StoryCard: StoryCardType = ({
                     color={PAR_COLOR.WHITE}
                     alignment={TEXT_ALIGNMENT.LEFT}
                   >
-                    Pobierz ebook
+                    {storyCard.downloadCta}
                   </Paragraph>
                   <SingleButtonRow>
                     <Button
                       actionType={ACTION_TYPE.NAVIGATION}
                       variant={BUTTON_VARIANT.TRANSPARENT}
-                      text="Ilustrowany PDF"
+                      text={storyCard.pdfButton}
                       payload="#"
                       width={{ widthType: WIDTH_TYPE.AUTO }}
                     />
                     <Button
                       actionType={ACTION_TYPE.NAVIGATION}
                       variant={BUTTON_VARIANT.TRANSPARENT}
-                      text="ePUB"
+                      text={storyCard.epubButton}
                       payload="#"
                       width={{ widthType: WIDTH_TYPE.AUTO }}
                     />
@@ -116,7 +119,7 @@ export const StoryCard: StoryCardType = ({
                     <Button
                       actionType={ACTION_TYPE.NAVIGATION}
                       variant={BUTTON_VARIANT.RED}
-                      text="Czytaj"
+                      text={storyCard.readButton}
                       payload="#"
                       width={{ widthType: WIDTH_TYPE.AUTO }}
                     />
@@ -125,14 +128,13 @@ export const StoryCard: StoryCardType = ({
                     color={PAR_COLOR.WHITE}
                     alignment={TEXT_ALIGNMENT.LEFT}
                   >
-                    Ulepsz konto i uzyskaj dostęp do bajek w formie audiobooków
-                    oraz ebooków.
+                    {storyCard.unlockCta}
                   </Paragraph>
                   <SingleButtonRow>
                     <Button
                       actionType={ACTION_TYPE.NAVIGATION}
                       variant={BUTTON_VARIANT.TRANSPARENT}
-                      text="Zmień typ konta"
+                      text={storyCard.unlockButton}
                       payload="#"
                       width={{ widthType: WIDTH_TYPE.AUTO }}
                     />
@@ -144,9 +146,7 @@ export const StoryCard: StoryCardType = ({
 
           <BottomSection>
             <Paragraph color={PAR_COLOR.WHITE} alignment={TEXT_ALIGNMENT.LEFT}>
-              Lorem ipsum dolor sit amet consectetur. Ac senectus duis et
-              gravida vestibulum morbi. Proin ultrices egestas amet non cursus
-              consequat.
+              {storyCard.infoDisclaimer}
             </Paragraph>
             <TagsRow>
               {data.tags.map(tag => (
@@ -155,7 +155,7 @@ export const StoryCard: StoryCardType = ({
               <Button
                 actionType={ACTION_TYPE.NAVIGATION}
                 variant={BUTTON_VARIANT.TRANSPARENT}
-                text="Więcej informacji"
+                text={storyCard.moreInfoButton}
                 payload="#"
                 width={{ widthType: WIDTH_TYPE.AUTO }}
               />
