@@ -3,6 +3,7 @@ import {
   HEADLINE_TYPE,
 } from '@/atoms/Headline/Headline.types';
 import { TAG_NAME } from '@/atoms/TagIcon/TagIcon.types';
+
 import type { StoryCardData } from './StoryCard.types';
 
 /**

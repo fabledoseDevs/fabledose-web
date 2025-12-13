@@ -1,115 +1,78 @@
 import { useCallback, useMemo, useState } from 'react';
 
+import { useDictionary } from '@/lang/DictionaryProvider';
+
 import type {
+  GetTagMeta,
+  IconUrlsMap,
+  TagIconDictionary,
   UseTagIcon as UseTagIconType,
   UseTagIconArgs,
 } from './TagIcon.types';
 import { type TagMeta, TAG_NAME } from './TagIcon.types';
 
-export const getTagMeta = (tag: TAG_NAME): TagMeta => {
-  switch (tag) {
-    case TAG_NAME.AGE_3:
-      return {
-        title: 'Age 3',
-        description: 'This fairy tale is suitable for kids age 3 and above.',
-        iconUrl: '/icons/tags/age3.svg',
-      };
-    case TAG_NAME.AGE_5:
-      return {
-        title: 'Age 5',
-        description: 'This fairy tale is suitable for kids age 5 and above.',
-        iconUrl: '',
-      };
-    case TAG_NAME.CLASSIC_FABLE:
-      return {
-        title: 'Classic Fable',
-        description: 'A timeless, traditional fable with enduring lessons.',
-        iconUrl: '',
-      };
-    case TAG_NAME.CONTEMPORARY_FABLE:
-      return {
-        title: 'Contemporary Fable',
-        description: 'A modern fable reflecting today’s themes and settings.',
-        iconUrl: '',
-      };
-    case TAG_NAME.RESPONSIBILITY:
-      return {
-        title: 'Responsibility',
-        description: 'Highlights taking ownership for actions and duties.',
-        iconUrl: '',
-      };
-    case TAG_NAME.CAREFULNESS:
-      return {
-        title: 'Carefulness',
-        description: 'Encourages being cautious, attentive, and considerate.',
-        iconUrl: '',
-      };
-    case TAG_NAME.HELPFULNESS:
-      return {
-        title: 'Helpfulness',
-        description: 'Promotes kindness and lending a hand to others in need.',
-        iconUrl: '/icons/tags/helpfulness.svg',
-      };
-    case TAG_NAME.DILIGENCE:
-      return {
-        title: 'Diligence',
-        description: 'Celebrates persistence, hard work, and dedication.',
-        iconUrl: '',
-      };
-    case TAG_NAME.PRIVACY:
-      return {
-        title: 'Privacy',
-        description: 'Teaches respect for personal spaces and secrets.',
-        iconUrl: '',
-      };
-    case TAG_NAME.FAMILY:
-      return {
-        title: 'Family',
-        description: 'Focuses on bonds, love, and support within a family.',
-        iconUrl: '',
-      };
-    case TAG_NAME.DEATH:
-      return {
-        title: 'Death',
-        description: 'Introduces the concept of life cycles and loss.',
-        iconUrl: '',
-      };
-    case TAG_NAME.TOXIC_RELATIONS:
-      return {
-        title: 'Toxic Relations',
-        description:
-          'Warns against harmful relationships and setting boundaries.',
-        iconUrl: '',
-      };
-    case TAG_NAME.MODERATION:
-      return {
-        title: 'Moderation',
-        description: 'Encourages balance and avoiding excess in all things.',
-        iconUrl: '/icons/tags/moderation.svg',
-      };
-    case TAG_NAME.COOPERATION:
-      return {
-        title: 'Cooperation',
-        description: 'Shows the power of teamwork and working together.',
-        iconUrl: '/icons/tags/cooperation.svg',
-      };
-    case TAG_NAME.REPARATION:
-      return {
-        title: 'Reparation',
-        description: 'Focuses on making amends and restoring what was harmed.',
-        iconUrl: '/icons/tags/reparation.svg',
-      };
-    default:
-      return {
-        title: 'Tag',
-        description: 'A helpful categorization for the fairy tale.',
-        iconUrl: '',
-      };
+const ICON_URLS: IconUrlsMap = {
+  [TAG_NAME.AGE_3]: '/icons/tags/age3.svg',
+  [TAG_NAME.AGE_5]: '',
+  [TAG_NAME.CLASSIC_FABLE]: '',
+  [TAG_NAME.CONTEMPORARY_FABLE]: '',
+  [TAG_NAME.RESPONSIBILITY]: '',
+  [TAG_NAME.CAREFULNESS]: '',
+  [TAG_NAME.HELPFULNESS]: '/icons/tags/helpfulness.svg',
+  [TAG_NAME.DILIGENCE]: '',
+  [TAG_NAME.PRIVACY]: '',
+  [TAG_NAME.FAMILY]: '',
+  [TAG_NAME.DEATH]: '',
+  [TAG_NAME.TOXIC_RELATIONS]: '',
+  [TAG_NAME.MODERATION]: '/icons/tags/moderation.svg',
+  [TAG_NAME.COOPERATION]: '/icons/tags/cooperation.svg',
+  [TAG_NAME.REPARATION]: '/icons/tags/reparation.svg',
+};
+
+export const getTagMeta: GetTagMeta = (
+  tag: TAG_NAME,
+  t: TagIconDictionary,
+): TagMeta => {
+  const keyMap: Record<TAG_NAME, keyof typeof t> = {
+    [TAG_NAME.AGE_3]: 'age-3',
+    [TAG_NAME.AGE_5]: 'age-5',
+    [TAG_NAME.CLASSIC_FABLE]: 'classic-fable',
+    [TAG_NAME.CONTEMPORARY_FABLE]: 'contemporary-fable',
+    [TAG_NAME.RESPONSIBILITY]: 'responsibility',
+    [TAG_NAME.CAREFULNESS]: 'carefulness',
+    [TAG_NAME.HELPFULNESS]: 'helpfulness',
+    [TAG_NAME.DILIGENCE]: 'diligence',
+    [TAG_NAME.PRIVACY]: 'privacy',
+    [TAG_NAME.FAMILY]: 'family',
+    [TAG_NAME.DEATH]: 'death',
+    [TAG_NAME.TOXIC_RELATIONS]: 'toxic-relations',
+    [TAG_NAME.MODERATION]: 'moderation',
+    [TAG_NAME.COOPERATION]: 'cooperation',
+    [TAG_NAME.REPARATION]: 'reparation',
+  } as const;
+
+  const dictKey = keyMap[tag];
+  const fromDict = t[dictKey];
+
+  if (fromDict) {
+    return {
+      title: fromDict.title,
+      description: fromDict.description,
+      iconUrl: ICON_URLS[tag] ?? '',
+    };
   }
+
+  return {
+    title: 'Missing Tag?',
+    description:
+      'This tag is missing from the dictionary. Please contact us about this.',
+    iconUrl: ICON_URLS[tag] ?? '',
+  };
 };
 
 const useTagIcon: UseTagIconType = ({ icon, isWarning }: UseTagIconArgs) => {
-  const meta = useMemo(() => getTagMeta(icon), [icon]);
+  const { tagIcon } = useDictionary();
+  const meta = useMemo(() => getTagMeta(icon, tagIcon), [icon, tagIcon]);
   const [isTooltipVisible, setIsTooltipVisible] = useState<boolean>(false);
 
   const showTooltip = useCallback(() => setIsTooltipVisible(true), []);

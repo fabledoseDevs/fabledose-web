@@ -40,7 +40,6 @@ export const TagIcon: TagIconType = ({ icon, isWarning }) => {
         tabIndex={0}
       >
         {meta.iconUrl ? (
-          // Use mask so we can color monochrome SVGs from theme
           <IconMask src={meta.iconUrl} isWarning={warning} />
         ) : (
           <FallbackGlyph isWarning={warning}>

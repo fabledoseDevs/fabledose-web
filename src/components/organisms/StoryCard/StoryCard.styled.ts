@@ -2,6 +2,7 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import { theme } from '@/styles/theme';
+
 import type { STORY_CARD_VARIANT } from './StoryCard.types';
 
 export const StoryCardBody = styled.section<{ variant: STORY_CARD_VARIANT }>`
