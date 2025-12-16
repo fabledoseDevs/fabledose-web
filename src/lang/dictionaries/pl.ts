@@ -5,6 +5,7 @@ export const DictionaryPL: DictionaryType = {
     login: 'Zaloguj się',
     logout: 'Wyloguj się',
     register: 'Załóż konto',
+    cancel: 'Anuluj',
   },
   maintenance: {
     headline: 'Planowana premiera Q2 2026',
@@ -89,6 +90,10 @@ export const DictionaryPL: DictionaryType = {
           'Tak – wszystkie treści powstają we współpracy z pedagogami autorami specjalizującymi się w literaturze dziecięcej. Historie mają nie tylko rozrywkowy, ale i edukacyjny charakter. Ilustratorzy dbają o każdy detal, a palety kolorów oraz tempo animacji są dostosowane do dziecięcej wrażliwości. Tworzymy przestrzeń przyjazną i bezpieczną.',
       },
     ],
+  },
+  logoutPage: {
+    headline: 'Czy na pewno chcesz się wylogować?',
+    onSuccess: 'Nastąpiło wylogowanie.',
   },
   newsletterForm: {
     paragraph:

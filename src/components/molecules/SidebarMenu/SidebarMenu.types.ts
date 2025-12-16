@@ -4,7 +4,8 @@ import type { SIDEBAR_ICON } from '@/atoms/SidebarIcon/SidebarIcon.types';
 
 /**
  * @module
- * This file defines the types and interfaces for the SidebarMenu component.
+ * This file defines the types and interfaces for the SidebarMenu component and
+ * its companion hook responsible for locale-agnostic path normalization.
  */
 
 /**
@@ -32,6 +33,36 @@ export interface SidebarMenuProps {
    */
   direction?: 'row' | 'column';
 }
+
+/**
+ * Normalizes a path to be locale-agnostic and consistent for comparisons.
+ *
+ * @remarks
+ * - Strips a leading two-letter locale segment (e.g., "/pl", "/en").
+ * - Removes trailing slashes except for the root path "/".
+ *
+ * @param path - A route path to normalize. Can be absolute or relative.
+ * @returns Normalized path string starting with "/".
+ */
+export type NormalizePath = (path: string) => string;
+
+/**
+ * Hook returning data and helpers used by the SidebarMenu component.
+ *
+ * @returns Object with:
+ *  - `pathname`: Current pathname from Next.js router.
+ *  - `normalizePath`: {@link NormalizePath} helper to compare paths reliably across locales.
+ *
+ * @example
+ * ```ts
+ * const { pathname, normalizePath } = useSidebarMenu();
+ * const isActive = normalizePath(pathname) === normalizePath('/library');
+ * ```
+ */
+export type useSidebarMenu = () => {
+  pathname: string;
+  normalizePath: NormalizePath;
+};
 
 /**
  * Component renders SidebarMenu.

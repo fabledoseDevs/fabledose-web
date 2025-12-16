@@ -1,19 +1,19 @@
 'use client';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 
 import SidebarIcon from '@/atoms/SidebarIcon';
 
+import { useSidebarMenu } from './SidebarMenu.hook';
 import { SidebarMenuBody } from './SidebarMenu.styled';
 import type { SidebarMenu as SidebarMenuType } from './SidebarMenu.types';
 
 export const SidebarMenu: SidebarMenuType = ({ menuItems, direction }) => {
-  const pathname = usePathname();
+  const { pathname, normalizePath } = useSidebarMenu();
 
   return (
     <SidebarMenuBody direction={direction}>
       {menuItems.map(item => {
-        const isActive = pathname === item.href;
+        const isActive = normalizePath(pathname) === normalizePath(item.href);
 
         return (
           <Link

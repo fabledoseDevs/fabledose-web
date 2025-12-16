@@ -12,11 +12,11 @@ import type { ReactElement } from 'react';
  *
  * @example
  * ```tsx
- * <UserDesktop />
+ * <LogoutPage />
  * ```
  */
 
 /**
- * UserDesktop component type definition
+ * LogoutPage component type definition
  */
 export type UserDesktop = () => ReactElement;
