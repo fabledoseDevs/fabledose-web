@@ -150,7 +150,11 @@ export const StoryCard: StoryCardType = ({
             </Paragraph>
             <TagsRow>
               {data.tags.map(tag => (
-                <TagIcon key={tag} icon={tag} />
+                <TagIcon
+                  key={tag.name}
+                  icon={tag.name}
+                  isWarning={tag.warning}
+                />
               ))}
               <Button
                 actionType={ACTION_TYPE.NAVIGATION}

@@ -11,7 +11,7 @@ export const SidebarIconBody = styled.div<{ styleVariant: boolean }>`
   background-color: ${({ theme, styleVariant }) =>
     styleVariant
       ? theme.palette.byElement.background.white
-      : theme.palette.byElement.background.purple};
+      : theme.palette.byElement.background.darkPurple};
 
   &:hover {
     cursor: pointer;
@@ -22,7 +22,7 @@ export const SidebarIconBody = styled.div<{ styleVariant: boolean }>`
     height: 24px;
     color: ${({ theme, styleVariant }) =>
       styleVariant
-        ? theme.palette.byElement.background.purple
+        ? theme.palette.byElement.background.darkPurple
         : theme.palette.byElement.background.white};
 
     &:hover {

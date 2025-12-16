@@ -40,8 +40,8 @@ export const IconCircle = styled.div<{
 `;
 
 export const IconImg = styled.img`
-  width: 32px;
-  height: auto;
+  width: 52px;
+  height: 52px;
   object-fit: contain;
 `;
 
@@ -49,8 +49,8 @@ export const IconMask = styled.div<{
   src: string;
   isWarning: boolean;
 }>`
-  width: 32px;
-  height: 32px;
+  width: 52px;
+  height: 52px;
   background-color: ${({ theme, isWarning }) =>
     isWarning
       ? theme.palette.byColor.red.regular

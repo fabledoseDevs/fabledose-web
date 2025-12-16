@@ -22,7 +22,7 @@ export enum TAG_NAME {
   CONTEMPORARY_FABLE = 'contemporary-fable',
   RESPONSIBILITY = 'responsibility',
   CAREFULNESS = 'carefulness',
-  HELPFULNESS = 'helpfulness',
+  SUBSIDIARITY = 'subsidiarity',
   DILIGENCE = 'diligence',
   PRIVACY = 'privacy',
   FAMILY = 'family',

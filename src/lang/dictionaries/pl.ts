@@ -146,7 +146,7 @@ export const DictionaryPL: DictionaryType = {
     },
     'contemporary-fable': {
       title: 'Współczesna baśń',
-      description: 'Nowoczesna opowieść odzwierciedlająca dzisiejsze tematy.',
+      description: 'Nowoczesna opowieść poruszająca dzisiejsze tematy.',
     },
     responsibility: {
       title: 'Odpowiedzialność',
@@ -157,7 +157,7 @@ export const DictionaryPL: DictionaryType = {
       title: 'Ostrożność',
       description: 'Zachęca do bycia uważnym, ostrożnym i życzliwym.',
     },
-    helpfulness: {
+    subsidiarity: {
       title: 'Pomocność',
       description: 'Promuje życzliwość i niesienie pomocy innym w potrzebie.',
     },
