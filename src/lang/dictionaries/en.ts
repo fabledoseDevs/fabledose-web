@@ -5,6 +5,7 @@ export const DictionaryEn: DictionaryType = {
     login: 'Login',
     logout: 'Logout',
     register: 'Create account',
+    cancel: 'Cancel',
   },
   maintenance: {
     headline: 'Q2 2026 premier',
@@ -89,6 +90,10 @@ export const DictionaryEn: DictionaryType = {
           "Yes — all content is created in collaboration with educators and authors specializing in children's literature. The stories are not only entertaining but also educational. Our illustrators take care of every detail, and the color palettes and animation pacing are adapted to children's sensitivity. We create a friendly and safe space.",
       },
     ],
+  },
+  logoutPage: {
+    headline: 'Are you sure you want to log out?',
+    onSuccess: 'You have been logged out successfully.',
   },
   newsletterForm: {
     paragraph:

@@ -13,7 +13,7 @@ import type { ReactElement } from 'react';
  * - `FAVORITES`: Heart/star icon for favorites.
  * - `SETTINGS`: Cog icon for application settings.
  * - `USER`: Profile/user icon.
- * - `EXIT`: Logout/exit icon.
+ * - `EXIT`: LogoutPage/exit icon.
  */
 export enum SIDEBAR_ICON {
   SEARCH = 'search',

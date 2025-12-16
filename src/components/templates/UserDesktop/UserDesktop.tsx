@@ -1,13 +1,5 @@
 'use client';
 
-import { onAuthStateChanged, signOut } from 'firebase/auth';
-import { useEffect, useState } from 'react';
-
-import {
-  ACTION_TYPE,
-  BUTTON_VARIANT,
-  WIDTH_TYPE,
-} from '@/atoms/Button/Button.types';
 import Container from '@/atoms/Container';
 import {
   BACKGROUND_COLOR,
@@ -15,8 +7,6 @@ import {
   FLEX_ALIGNMENT,
   FLEX_DIRECTION,
 } from '@/atoms/Container/Container.types';
-import { auth } from '@/config/firebase';
-import Jumbotron from '@/organisms/Jumbotron';
 import StoryCard from '@/organisms/StoryCard';
 import StoryMock from '@/organisms/StoryCard/StoryCard.mock';
 import { STORY_CARD_VARIANT } from '@/organisms/StoryCard/StoryCard.types';
@@ -24,77 +14,21 @@ import { STORY_CARD_VARIANT } from '@/organisms/StoryCard/StoryCard.types';
 import { UserDesktopBody } from './UserDesktop.styled';
 import type { UserDesktop as UserDesktopType } from './UserDesktop.types';
 
-export const UserDesktop: UserDesktopType = () => {
-  const [userName, setUserName] = useState<string | null>(null);
-
-  useEffect(() => {
-    const unsub = onAuthStateChanged(auth, user => {
-      if (!user) {
-        setUserName(null);
-        return;
-      }
-      const fromProvider = user.providerData?.find(
-        p => p.displayName || p.email,
-      );
-      const name =
-        user.displayName ||
-        user.email ||
-        user.phoneNumber ||
-        fromProvider?.displayName ||
-        fromProvider?.email ||
-        user.uid;
-      setUserName(name ?? null);
-    });
-    return () => unsub();
-  }, []);
-
-  return (
-    <UserDesktopBody>
-      <Container
-        containerType={CONTAINER_ELEMENT.SECTION}
-        backgroundColor={BACKGROUND_COLOR.PURPLE}
-      >
-        <Jumbotron
-          logo={true}
-          headline={'Udane logowanie!'}
-          paragraph={
-            <>
-              Zalogowałeś się jako {userName ?? '...'}
-              <br />
-              Kontent bibliteki w przygotowaniu. Możesz się wylogować.
-            </>
-          }
-          button={{
-            actionType: ACTION_TYPE.FUNCTION_TRIGGER,
-            variant: BUTTON_VARIANT.RED,
-            width: {
-              widthType: WIDTH_TYPE.AUTO,
-            },
-            text: 'Wyloguj Się',
-            payload: async () => {
-              try {
-                await signOut(auth);
-              } catch (e) {
-                console.error('Sign out failed', e);
-              }
-            },
-          }}
-        />
-      </Container>
-      <Container
-        containerType={CONTAINER_ELEMENT.SECTION}
-        backgroundColor={BACKGROUND_COLOR.PURPLE}
-        alignItems={FLEX_ALIGNMENT.CENTER}
-        justifyContent={FLEX_ALIGNMENT.CENTER}
-        flexDirection={FLEX_DIRECTION.ROW}
-        gap
-      >
-        <StoryCard
-          variant={STORY_CARD_VARIANT.FULLSCREEN}
-          unlockedAccount={false}
-          data={StoryMock}
-        />
-      </Container>
-    </UserDesktopBody>
-  );
-};
+export const UserDesktop: UserDesktopType = () => (
+  <UserDesktopBody>
+    <Container
+      containerType={CONTAINER_ELEMENT.SECTION}
+      backgroundColor={BACKGROUND_COLOR.PURPLE}
+      alignItems={FLEX_ALIGNMENT.CENTER}
+      justifyContent={FLEX_ALIGNMENT.CENTER}
+      flexDirection={FLEX_DIRECTION.ROW}
+      gap
+    >
+      <StoryCard
+        variant={STORY_CARD_VARIANT.COMPACT}
+        unlockedAccount={false}
+        data={StoryMock}
+      />
+    </Container>
+  </UserDesktopBody>
+);

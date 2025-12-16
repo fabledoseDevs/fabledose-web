@@ -3,6 +3,7 @@ export type DictionaryType = {
     login: string;
     logout: string;
     register: string;
+    cancel: string;
   };
   maintenance: {
     headline: string;
@@ -58,6 +59,10 @@ export type DictionaryType = {
       question: string;
       answer: string;
     }[];
+  };
+  logoutPage: {
+    headline: string;
+    onSuccess: string;
   };
   newsletterForm: {
     paragraph: string;
