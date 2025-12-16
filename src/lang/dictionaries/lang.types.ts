@@ -89,7 +89,7 @@ export type DictionaryType = {
     'contemporary-fable': { title: string; description: string };
     responsibility: { title: string; description: string };
     carefulness: { title: string; description: string };
-    helpfulness: { title: string; description: string };
+    subsidiarity: { title: string; description: string };
     diligence: { title: string; description: string };
     privacy: { title: string; description: string };
     family: { title: string; description: string };

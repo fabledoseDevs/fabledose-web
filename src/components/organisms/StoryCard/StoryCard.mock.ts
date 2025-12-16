@@ -18,11 +18,11 @@ export const StoryMock: StoryCardData = {
   description:
     'Życie skromnego rybaka oraz jego żony zmienia się na lepsze, gdy w jego sieć zaplątuje się złota rybka. Jednak pragnienia wymykają się spod kontroli, a ich codzienność zaczyna przepełniać chaos. Czy rybak i jego żona odnajdą w sobie umiar i powstrzymają wiszącą nad nimi groźbę?',
   tags: [
-    TAG_NAME.CLASSIC_FABLE,
-    TAG_NAME.RESPONSIBILITY,
-    TAG_NAME.COOPERATION,
-    TAG_NAME.MODERATION,
-    TAG_NAME.FAMILY,
+    { name: TAG_NAME.AGE_5, warning: false },
+    { name: TAG_NAME.CLASSIC_FABLE, warning: false },
+    { name: TAG_NAME.MODERATION, warning: false },
+    { name: TAG_NAME.CAREFULNESS, warning: false },
+    { name: TAG_NAME.DEATH, warning: true },
   ],
 };
 

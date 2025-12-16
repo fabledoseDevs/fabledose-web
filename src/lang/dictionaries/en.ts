@@ -152,8 +152,8 @@ export const DictionaryEn: DictionaryType = {
       title: 'Carefulness',
       description: 'Encourages being cautious, attentive, and considerate.',
     },
-    helpfulness: {
-      title: 'Helpfulness',
+    subsidiarity: {
+      title: 'Subsidiarity',
       description: 'Promotes kindness and lending a hand to others in need.',
     },
     diligence: {

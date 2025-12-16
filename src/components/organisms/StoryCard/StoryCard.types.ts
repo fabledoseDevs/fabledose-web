@@ -56,7 +56,10 @@ export interface StoryCardData {
   headlineType?: HEADLINE_TYPE;
   headlineColor?: HEADLINE_COLOR;
   description: string;
-  tags: TAG_NAME[];
+  tags: {
+    name: TAG_NAME;
+    warning: boolean;
+  }[];
 }
 
 /**
