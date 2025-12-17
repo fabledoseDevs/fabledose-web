@@ -4,7 +4,6 @@ export const FableTileBody = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  width: 276px;
   height: 410px;
   border: 8px solid transparent;
   border-radius: 24px;
@@ -12,16 +11,22 @@ export const FableTileBody = styled.div`
   overflow: clip;
   margin-top: 0;
   margin-bottom: 0;
+  transform-origin: center center;
+  will-change: transform, box-shadow, border, margin;
+  width: 260px;
+  max-width: 300px;
 
   &:hover,
   &.active {
     box-shadow: 0 14px 24px 0
       ${({ theme }) => theme.palette.byElement.shadows.purple[20]};
     border: 8px solid ${({ theme }) => theme.palette.byElement.background.white};
+    /* Raise the tile visually and scale from center without changing layout width */
     margin-top: -24px;
     margin-bottom: 24px;
-    width: 310px;
+    transform: translateY(-6px) scale(1.08);
     height: 420px;
+    z-index: 2;
 
     div[data-overlay] {
       transform: translateY(0);
