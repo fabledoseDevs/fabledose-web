@@ -135,36 +135,50 @@ export const LandingPage: LandingPageType = () => {
               imageUrl: mockImageOne.src,
               fableTitle: 'Złotowłosa',
               fableId: 'zlotowlosa-i-trzy-misie-1',
+              fableDescription:
+                'Lorem ipsum dolor sit amet consectetur. Ac senectus duis et gravida vestibulum morbi. Proin ultrices egestas amet non cursus consequat.',
             },
             {
               imageUrl: mockImageTwo.src,
               fableTitle: 'Trzy małe świnki',
               fableId: 'trzy-male-swinki-1',
+              fableDescription:
+                'Lorem ipsum dolor sit amet consectetur. Ac senectus duis et gravida vestibulum morbi. Proin ultrices egestas amet non cursus consequat.',
             },
             {
               imageUrl: mockImageThree.src,
               fableTitle: 'O rybaku i złotej rybce',
               fableId: 'o-rybaku-i-zlotej-rybce-1',
+              fableDescription:
+                'Lorem ipsum dolor sit amet consectetur. Ac senectus duis et gravida vestibulum morbi. Proin ultrices egestas amet non cursus consequat.',
             },
             {
               imageUrl: mockImageFour.src,
               fableTitle: 'Złotowłosa',
               fableId: 'zlotowlosa-i-trzy-misie-2',
+              fableDescription:
+                'Lorem ipsum dolor sit amet consectetur. Ac senectus duis et gravida vestibulum morbi. Proin ultrices egestas amet non cursus consequat.',
             },
             {
               imageUrl: mockImageFive.src,
               fableTitle: 'Trzy małe świnki',
               fableId: 'trzy-male-swinki-2',
+              fableDescription:
+                'Lorem ipsum dolor sit amet consectetur. Ac senectus duis et gravida vestibulum morbi. Proin ultrices egestas amet non cursus consequat.',
             },
             {
               imageUrl: mockImageSix.src,
               fableTitle: 'O rybaku i złotej rybce',
               fableId: 'o-rybaku-i-zlotej-rybce-2',
+              fableDescription:
+                'Lorem ipsum dolor sit amet consectetur. Ac senectus duis et gravida vestibulum morbi. Proin ultrices egestas amet non cursus consequat.',
             },
             {
               imageUrl: mockImageSeven.src,
               fableTitle: 'Trzy małe świnki',
               fableId: 'trzy-male-swinki-3',
+              fableDescription:
+                'Lorem ipsum dolor sit amet consectetur. Ac senectus duis et gravida vestibulum morbi. Proin ultrices egestas amet non cursus consequat.',
             },
           ]}
         />
