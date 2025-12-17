@@ -43,7 +43,7 @@ export const ArrowButton = styled.button<{ disabled?: boolean }>`
 
 export const EmblaViewport = styled.div`
   overflow: hidden;
-  padding: 24px 0;
+  padding: 48px 0 0 0;
 `;
 
 export const EmblaContainer = styled.div`
