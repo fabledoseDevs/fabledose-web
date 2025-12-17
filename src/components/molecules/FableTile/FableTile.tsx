@@ -6,41 +6,51 @@ import {
   BUTTON_VARIANT,
   WIDTH_TYPE,
 } from '@/atoms/Button/Button.types';
+import { Paragraph } from '@/atoms/Paragraph/Paragraph';
+import { FOREGROUND_COLOR } from '@/atoms/Paragraph/Paragraph.types';
 
+import { useFableTileInteraction } from './FableTile.hook';
 import { ButtonsDrawer, FableTileBody } from './FableTile.styled';
 import type { FableTile as FableTileType } from './FableTile.types';
 
-export const FableTile: FableTileType = ({ imageUrl, fableTitle, fableId }) => (
-  <FableTileBody>
-    <Image
-      src={imageUrl}
-      width={265}
-      height={410}
-      alt={fableTitle}
-      loading="lazy"
-    />
-    <ButtonsDrawer>
-      <Button
-        actionType={ACTION_TYPE.NAVIGATION}
-        variant={BUTTON_VARIANT.RED}
-        width={{
-          widthType: WIDTH_TYPE.PX,
-          widthValue: 207,
-        }}
-        text={'Czytaj bajkę'}
-        payload={`/${fableId}`}
+export const FableTile: FableTileType = ({
+  imageUrl,
+  fableTitle,
+  fableId,
+  fableDescription,
+}) => {
+  const { isActive, onMouseEnter, onMouseLeave, onTouchStart, onTouchEnd } =
+    useFableTileInteraction();
+
+  return (
+    <FableTileBody
+      className={isActive ? 'active' : ''}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
+    >
+      <Image
+        src={imageUrl}
+        alt={fableTitle}
+        loading="lazy"
+        fill
+        style={{ objectFit: 'cover' }}
+        sizes="(max-width: 310px) 100vw, 310px"
       />
-      <Button
-        actionType={ACTION_TYPE.FUNCTION_TRIGGER}
-        variant={BUTTON_VARIANT.TRANSPARENT}
-        width={{
-          widthType: WIDTH_TYPE.PX,
-          widthValue: 207,
-        }}
-        text={'Więcej informacji'}
-        //TODO: Replace payload when info modal is ready
-        payload={() => console.info(fableId)}
-      />
-    </ButtonsDrawer>
-  </FableTileBody>
-);
+      <ButtonsDrawer data-overlay>
+        <Paragraph color={FOREGROUND_COLOR.WHITE}>{fableDescription}</Paragraph>
+        <Button
+          actionType={ACTION_TYPE.NAVIGATION}
+          variant={BUTTON_VARIANT.RED}
+          width={{
+            widthType: WIDTH_TYPE.PX,
+            widthValue: 207,
+          }}
+          text={'Czytaj bajkę'}
+          payload={`/${fableId}`}
+        />
+      </ButtonsDrawer>
+    </FableTileBody>
+  );
+};
