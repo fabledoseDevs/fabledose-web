@@ -7,9 +7,44 @@ import { TAG_NAME } from '@/atoms/TagIcon/TagIcon.types';
 import type { StoryCardData } from './StoryCard.types';
 
 /**
- * Mock content for StoryCard. Replace with real data once backend is connected.
+ * Mock content for StoryCard. Replace it with real data once the backend is connected.
  */
-export const StoryMock: StoryCardData = {
+
+export const StoryOneMock: StoryCardData = {
+  backgroundVideoUrl: '/mockImages/animCover-goldilock.webm',
+  backgroundPosterUrl: undefined,
+  headline: 'Złotowłosa',
+  headlineType: HEADLINE_TYPE.JUMBO,
+  headlineColor: HEADLINE_COLOR.WHITE,
+  description:
+    'Złotowłosa dziewczynka natrafia na chatkę niedźwiadków i zaczyna tam psocić, w konsekwencji czego otrzymuje lekcję na temat znaczenia odpowiedzialności.',
+  tags: [
+    { name: TAG_NAME.AGE_3, warning: false },
+    { name: TAG_NAME.CLASSIC_FABLE, warning: false },
+    { name: TAG_NAME.RESPONSIBILITY, warning: false },
+    { name: TAG_NAME.PRIVACY, warning: false },
+    { name: TAG_NAME.REPARATION, warning: false },
+  ],
+};
+
+export const StoryTwoMock: StoryCardData = {
+  backgroundVideoUrl: '/mockImages/animCover-three-pigs.webm',
+  backgroundPosterUrl: undefined,
+  headline: 'Trzy małe świnki',
+  headlineType: HEADLINE_TYPE.JUMBO,
+  headlineColor: HEADLINE_COLOR.WHITE,
+  description:
+    'Trzy świnki wyruszają w wielki świat aby rozpocząć samodzielne życie. Ich historia nabiera dramatycznych barw, gdy muszą się skonfrontować z wilkiem.',
+  tags: [
+    { name: TAG_NAME.AGE_3, warning: false },
+    { name: TAG_NAME.CLASSIC_FABLE, warning: false },
+    { name: TAG_NAME.SUBSIDIARITY, warning: false },
+    { name: TAG_NAME.RESPONSIBILITY, warning: false },
+    { name: TAG_NAME.DILIGENCE, warning: false },
+  ],
+};
+
+export const StoryThreeMock: StoryCardData = {
   backgroundVideoUrl: '/mockImages/animCover-fisherman.webm',
   backgroundPosterUrl: undefined,
   headline: 'O rybaku i złotej rybce',
@@ -22,8 +57,6 @@ export const StoryMock: StoryCardData = {
     { name: TAG_NAME.CLASSIC_FABLE, warning: false },
     { name: TAG_NAME.MODERATION, warning: false },
     { name: TAG_NAME.CAREFULNESS, warning: false },
-    { name: TAG_NAME.DEATH, warning: true },
+    { name: TAG_NAME.RESPONSIBILITY, warning: false },
   ],
 };
-
-export default StoryMock;
