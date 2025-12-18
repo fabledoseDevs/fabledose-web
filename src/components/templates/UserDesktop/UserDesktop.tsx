@@ -10,45 +10,92 @@ import {
 import DesktopTilesSlider from '@/organisms/DesktopTilesSlider';
 import desktopTilesSliderMock from '@/organisms/DesktopTilesSlider/DesktopTilesSlider.mock';
 import StoryCard from '@/organisms/StoryCard';
-import StoryMock from '@/organisms/StoryCard/StoryCard.mock';
+import {
+  StoryOneMock,
+  StoryThreeMock,
+  StoryTwoMock,
+} from '@/organisms/StoryCard/StoryCard.mock';
 import { STORY_CARD_VARIANT } from '@/organisms/StoryCard/StoryCard.types';
 
-import { UserDesktopBody } from './UserDesktop.styled';
+import useUserDesktop from './UserDesktop.hook';
+import {
+  Dot,
+  EmblaContainer,
+  EmblaSlide,
+  EmblaViewport,
+  Pagination,
+  UserDesktopBody,
+} from './UserDesktop.styled';
 import type { UserDesktop as UserDesktopType } from './UserDesktop.types';
 
-export const UserDesktop: UserDesktopType = () => (
-  <UserDesktopBody>
-    <Container
-      containerType={CONTAINER_ELEMENT.SECTION}
-      backgroundColor={BACKGROUND_COLOR.PURPLE}
-      alignItems={FLEX_ALIGNMENT.CENTER}
-      justifyContent={FLEX_ALIGNMENT.CENTER}
-      flexDirection={FLEX_DIRECTION.ROW}
-      gap
-    >
-      <StoryCard
-        variant={STORY_CARD_VARIANT.COMPACT}
-        unlockedAccount={false}
-        data={StoryMock}
-      />
-    </Container>
-    <br />
-    <br />
-    <Container
-      containerType={CONTAINER_ELEMENT.SECTION}
-      backgroundColor={BACKGROUND_COLOR.PURPLE}
-      alignItems={FLEX_ALIGNMENT.CENTER}
-      justifyContent={FLEX_ALIGNMENT.CENTER}
-      flexDirection={FLEX_DIRECTION.COLUMN}
-    >
-      <DesktopTilesSlider
-        title={desktopTilesSliderMock.title}
-        tiles={desktopTilesSliderMock.tiles}
-      />
-      <DesktopTilesSlider
-        title={'Edukacyjne'}
-        tiles={desktopTilesSliderMock.tiles}
-      />
-    </Container>
-  </UserDesktopBody>
-);
+export const UserDesktop: UserDesktopType = () => {
+  const { viewportRef, selectedIndex, slideCount, scrollTo } = useUserDesktop();
+
+  return (
+    <UserDesktopBody>
+      <Container
+        containerType={CONTAINER_ELEMENT.SECTION}
+        backgroundColor={BACKGROUND_COLOR.PURPLE}
+        alignItems={FLEX_ALIGNMENT.CENTER}
+        justifyContent={FLEX_ALIGNMENT.CENTER}
+        flexDirection={FLEX_DIRECTION.ROW}
+        gap
+      >
+        <EmblaViewport ref={viewportRef}>
+          <EmblaContainer>
+            <EmblaSlide>
+              <StoryCard
+                variant={STORY_CARD_VARIANT.COMPACT}
+                unlockedAccount={false}
+                data={StoryOneMock}
+              />
+            </EmblaSlide>
+            <EmblaSlide>
+              <StoryCard
+                variant={STORY_CARD_VARIANT.COMPACT}
+                unlockedAccount={false}
+                data={StoryTwoMock}
+              />
+            </EmblaSlide>
+            <EmblaSlide>
+              <StoryCard
+                variant={STORY_CARD_VARIANT.COMPACT}
+                unlockedAccount={false}
+                data={StoryThreeMock}
+              />
+            </EmblaSlide>
+          </EmblaContainer>
+
+          <Pagination aria-label="Slider pagination">
+            {Array.from({ length: slideCount }).map((_, idx) => (
+              <Dot
+                key={`user-desktop-dot-${idx}`}
+                active={selectedIndex === idx}
+                aria-label={`Go to slide ${idx + 1}`}
+                aria-current={selectedIndex === idx}
+                onClick={() => scrollTo(idx)}
+              />
+            ))}
+          </Pagination>
+        </EmblaViewport>
+      </Container>
+
+      <Container
+        containerType={CONTAINER_ELEMENT.SECTION}
+        backgroundColor={BACKGROUND_COLOR.PURPLE}
+        alignItems={FLEX_ALIGNMENT.CENTER}
+        justifyContent={FLEX_ALIGNMENT.CENTER}
+        flexDirection={FLEX_DIRECTION.COLUMN}
+      >
+        <DesktopTilesSlider
+          title={desktopTilesSliderMock.title}
+          tiles={desktopTilesSliderMock.tiles}
+        />
+        <DesktopTilesSlider
+          title={'Edukacyjne'}
+          tiles={desktopTilesSliderMock.tiles}
+        />
+      </Container>
+    </UserDesktopBody>
+  );
+};
