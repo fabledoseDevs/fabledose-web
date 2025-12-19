@@ -48,8 +48,8 @@ export const DesktopTilesSlider: DesktopTilesSliderType = ({
         <EmblaContainer>
           {tiles.map((tile, idx) => (
             <EmblaSlide
-              key={`fable-slide-${tile.fableId}-${idx}`}
-              id={`fable-slide-${tile.fableId}-${idx}`}
+              key={`fable-slide-${tile.fableUrl}-${idx}`}
+              id={`fable-slide-${tile.fableUrl}-${idx}`}
             >
               <FableTile {...tile} />
             </EmblaSlide>

@@ -6,6 +6,8 @@ export const DictionaryPL: DictionaryType = {
     logout: 'Wyloguj się',
     register: 'Załóż konto',
     cancel: 'Anuluj',
+    read: 'Czytaj',
+    readFable: 'Czytaj bajkę',
   },
   maintenance: {
     headline: 'Planowana premiera Q2 2026',
@@ -124,7 +126,7 @@ export const DictionaryPL: DictionaryType = {
         links: [],
       },
     ],
-    legalText: '© 2025 Zespół Fabledose. Wszelkie prawa zastrzeżone.',
+    legalText: `© ${new Date().getFullYear()} Zespół Fabledose. Wszelkie prawa zastrzeżone.`,
     legalLinks: [
       { title: 'Polityka Prywatności' },
       { title: 'Warunki Korzystania' },

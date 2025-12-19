@@ -62,7 +62,7 @@ export const LandingPage: LandingPageType = () => {
             text: landingPage.jumbotron.button,
             actionType: ACTION_TYPE.NAVIGATION,
             variant: BUTTON_VARIANT.RED,
-            payload: '#',
+            payload: '/register',
             width: {
               widthType: WIDTH_TYPE.AUTO,
             },
@@ -95,7 +95,7 @@ export const LandingPage: LandingPageType = () => {
           }}
           imageData={{
             src: mockCover.src,
-            alt: 'Free story!',
+            alt: landingPage.freeStory.title,
           }}
         />
       </Container>
@@ -134,51 +134,58 @@ export const LandingPage: LandingPageType = () => {
             {
               imageUrl: mockImageOne.src,
               fableTitle: 'Złotowłosa',
-              fableId: 'zlotowlosa-i-trzy-misie-1',
               fableDescription:
                 'Lorem ipsum dolor sit amet consectetur. Ac senectus duis et gravida vestibulum morbi. Proin ultrices egestas amet non cursus consequat.',
+              fableUrl: 'zlotowlosa-i-trzy-misie-1',
+              registerTile: true,
             },
             {
               imageUrl: mockImageTwo.src,
               fableTitle: 'Trzy małe świnki',
-              fableId: 'trzy-male-swinki-1',
+              fableUrl: 'trzy-male-swinki-1',
               fableDescription:
                 'Lorem ipsum dolor sit amet consectetur. Ac senectus duis et gravida vestibulum morbi. Proin ultrices egestas amet non cursus consequat.',
+              registerTile: true,
             },
             {
               imageUrl: mockImageThree.src,
               fableTitle: 'O rybaku i złotej rybce',
-              fableId: 'o-rybaku-i-zlotej-rybce-1',
+              fableUrl: 'o-rybaku-i-zlotej-rybce-1',
               fableDescription:
                 'Lorem ipsum dolor sit amet consectetur. Ac senectus duis et gravida vestibulum morbi. Proin ultrices egestas amet non cursus consequat.',
+              registerTile: true,
             },
             {
               imageUrl: mockImageFour.src,
               fableTitle: 'Złotowłosa',
-              fableId: 'zlotowlosa-i-trzy-misie-2',
+              fableUrl: 'zlotowlosa-i-trzy-misie-2',
               fableDescription:
                 'Lorem ipsum dolor sit amet consectetur. Ac senectus duis et gravida vestibulum morbi. Proin ultrices egestas amet non cursus consequat.',
+              registerTile: true,
             },
             {
               imageUrl: mockImageFive.src,
               fableTitle: 'Trzy małe świnki',
-              fableId: 'trzy-male-swinki-2',
+              fableUrl: 'trzy-male-swinki-2',
               fableDescription:
                 'Lorem ipsum dolor sit amet consectetur. Ac senectus duis et gravida vestibulum morbi. Proin ultrices egestas amet non cursus consequat.',
+              registerTile: true,
             },
             {
               imageUrl: mockImageSix.src,
               fableTitle: 'O rybaku i złotej rybce',
-              fableId: 'o-rybaku-i-zlotej-rybce-2',
+              fableUrl: 'o-rybaku-i-zlotej-rybce-2',
               fableDescription:
                 'Lorem ipsum dolor sit amet consectetur. Ac senectus duis et gravida vestibulum morbi. Proin ultrices egestas amet non cursus consequat.',
+              registerTile: true,
             },
             {
               imageUrl: mockImageSeven.src,
               fableTitle: 'Trzy małe świnki',
-              fableId: 'trzy-male-swinki-3',
+              fableUrl: 'trzy-male-swinki-3',
               fableDescription:
                 'Lorem ipsum dolor sit amet consectetur. Ac senectus duis et gravida vestibulum morbi. Proin ultrices egestas amet non cursus consequat.',
+              registerTile: true,
             },
           ]}
         />

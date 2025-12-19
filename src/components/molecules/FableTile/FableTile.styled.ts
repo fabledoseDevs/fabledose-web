@@ -9,10 +9,8 @@ export const FableTileBody = styled.div`
   border-radius: 24px;
   transition: all 0.4s ease;
   overflow: clip;
-  margin-top: 0;
-  margin-bottom: 0;
   transform-origin: center center;
-  will-change: transform, box-shadow, border, margin;
+  will-change: transform, box-shadow, border;
   width: 260px;
   max-width: 300px;
 
@@ -22,10 +20,7 @@ export const FableTileBody = styled.div`
       ${({ theme }) => theme.palette.byElement.shadows.purple[20]};
     border: 8px solid ${({ theme }) => theme.palette.byElement.background.white};
     /* Raise the tile visually and scale from center without changing layout width */
-    margin-top: -24px;
-    margin-bottom: 24px;
-    transform: translateY(-6px) scale(1.08);
-    height: 420px;
+    transform: translateY(-12px) scale(1.08);
     z-index: 2;
 
     div[data-overlay] {

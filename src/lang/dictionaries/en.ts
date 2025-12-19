@@ -6,6 +6,8 @@ export const DictionaryEn: DictionaryType = {
     logout: 'Logout',
     register: 'Create account',
     cancel: 'Cancel',
+    read: 'Read',
+    readFable: 'Read fable',
   },
   maintenance: {
     headline: 'Q2 2026 premier',
@@ -120,7 +122,7 @@ export const DictionaryEn: DictionaryType = {
         links: [],
       },
     ],
-    legalText: '© 2025 Fabledose Team. All rights reserved.',
+    legalText: `© ${new Date().getFullYear()} Fabledose Team. All rights reserved.`,
     legalLinks: [
       { title: 'Privacy Policy' },
       { title: 'Terms of Use' },

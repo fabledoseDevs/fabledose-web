@@ -18,6 +18,7 @@ export const Header = styled.div`
 
 export const Title = styled.h3`
   margin: 0;
+  padding-left: 20px;
   color: ${({ theme }) => theme.palette.byElement.text.white};
   font-family: ${({ theme }) => theme.typography.headlines.small.fontFamily};
   font-size: ${({ theme }) => theme.typography.headlines.small.fontSize};
@@ -43,7 +44,7 @@ export const ArrowButton = styled.button<{ disabled?: boolean }>`
 
 export const EmblaViewport = styled.div`
   overflow: hidden;
-  padding: 48px 0 0 0;
+  padding: 48px 0 12px 12px;
 `;
 
 export const EmblaContainer = styled.div`
