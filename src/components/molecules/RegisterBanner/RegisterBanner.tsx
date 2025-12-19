@@ -27,18 +27,19 @@ export const RegisterBanner: RegisterBannerType = ({ title, covers }) => (
           widthType: WIDTH_TYPE.AUTO,
         }}
         text={'Zarejestruj się'}
+        payload={'/register'}
       />
     </CtaContainer>
     <Slider>
       <WhiteBackground />
       <TilesGroup>
         {covers.map(cover => (
-          <FableTile key={cover.fableId} {...cover} />
+          <FableTile key={cover.fableUrl} {...cover} />
         ))}
       </TilesGroup>
       <TilesGroup>
         {covers.map(cover => (
-          <FableTile key={`${cover.fableId}-bis`} {...cover} />
+          <FableTile key={`${cover.fableUrl}-bis`} {...cover} />
         ))}
       </TilesGroup>
     </Slider>

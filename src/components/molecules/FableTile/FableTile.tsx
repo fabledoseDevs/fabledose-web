@@ -8,6 +8,7 @@ import {
 } from '@/atoms/Button/Button.types';
 import { Paragraph } from '@/atoms/Paragraph/Paragraph';
 import { FOREGROUND_COLOR } from '@/atoms/Paragraph/Paragraph.types';
+import { useDictionary } from '@/lang/DictionaryProvider';
 
 import { useFableTileInteraction } from './FableTile.hook';
 import { ButtonsDrawer, FableTileBody } from './FableTile.styled';
@@ -16,11 +17,13 @@ import type { FableTile as FableTileType } from './FableTile.types';
 export const FableTile: FableTileType = ({
   imageUrl,
   fableTitle,
-  fableId,
   fableDescription,
+  fableUrl,
+  registerTile,
 }) => {
   const { isActive, onMouseEnter, onMouseLeave, onTouchStart, onTouchEnd } =
     useFableTileInteraction();
+  const { common } = useDictionary();
 
   return (
     <FableTileBody
@@ -47,8 +50,8 @@ export const FableTile: FableTileType = ({
             widthType: WIDTH_TYPE.PX,
             widthValue: 207,
           }}
-          text={'Czytaj bajkę'}
-          payload={`/${fableId}`}
+          text={registerTile ? common.register : common.readFable}
+          payload={registerTile ? '/register' : fableUrl}
         />
       </ButtonsDrawer>
     </FableTileBody>

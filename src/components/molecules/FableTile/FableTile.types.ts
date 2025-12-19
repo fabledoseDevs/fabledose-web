@@ -10,14 +10,16 @@ import type { ReactElement } from 'react';
  *
  * @property imageUrl - Source (url address) for fable cover image.
  * @property fableTitle - Title of fable for alts and other purposes.
- * @property fableId - ID string to construct url leading to fable content.
  * @property fableDescription - Short description of fable displayed on hover.
+ * @property fableUrl - URL leading to fable content.
+ * @property registerTile - Flag indicating if tile is for registration purpose.
  */
 export interface FableTileProps {
   imageUrl: string;
   fableTitle: string;
-  fableId: string;
   fableDescription: string;
+  fableUrl: string;
+  registerTile?: boolean;
 }
 
 /**

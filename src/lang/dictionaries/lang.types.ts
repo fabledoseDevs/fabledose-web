@@ -4,6 +4,8 @@ export type DictionaryType = {
     logout: string;
     register: string;
     cancel: string;
+    read: string;
+    readFable: string;
   };
   maintenance: {
     headline: string;
