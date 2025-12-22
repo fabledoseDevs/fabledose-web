@@ -4,11 +4,11 @@ import type { Theme } from '@/styles/types';
 
 import type { SEPARATOR_COLOR } from './Separator.types';
 
-export const SeparatorBody = styled.div`
+export const SeparatorBody = styled.div<{ $margin: boolean }>`
   display: flex;
   align-items: center;
   width: 98%;
-  margin: 12px auto;
+  margin: ${({ $margin }) => ($margin ? '0 12px' : '0')};
 `;
 
 const mapColor = (theme: Theme, variant: SEPARATOR_COLOR): string => {

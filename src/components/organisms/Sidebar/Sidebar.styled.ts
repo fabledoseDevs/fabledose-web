@@ -8,7 +8,7 @@ export const SidebarBody = styled.aside`
   height: 50px;
   padding: 0;
   background-color: ${({ theme }) =>
-    theme.palette.byElement.background.darkPurple};
+    theme.palette.byElement.background.extraDarkPurple};
   z-index: ${({ theme }) => theme.zIndex.top};
 
   display: flex;

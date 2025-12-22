@@ -23,10 +23,12 @@ export enum SEPARATOR_COLOR {
  * Props for the Separator component.
  *
  * @property color - Color variant of the separator line. One of {@link SEPARATOR_COLOR}.
+ * @property margin - Optional boolean to control margin around the separator. Defaults to true.
  * @property label - Optional text label displayed centered between two lines.
  */
 export interface SeparatorProps {
   color: SEPARATOR_COLOR;
+  margin?: boolean;
   label?: string;
 }
 

@@ -112,4 +112,10 @@ export type DictionaryType = {
     infoDisclaimer: string;
     moreInfoButton: string;
   };
+  settingsPage: {
+    title: string;
+    tabs: {
+      [key: string]: string;
+    };
+  };
 };

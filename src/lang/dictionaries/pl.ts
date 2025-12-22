@@ -211,4 +211,16 @@ export const DictionaryPL: DictionaryType = {
       'Sprawdź ikony poniżej lub naciśnij przycisk "Więcej infomacji" aby upewnić się, czy ta historyjka jest odpowiednia dla twojego dziecka',
     moreInfoButton: 'Więcej informacji',
   },
+  settingsPage: {
+    title: 'Ustawienia',
+    tabs: {
+      profile_n_account: 'Profil i konto',
+      parental_control: 'Kontrola rodzicielska',
+      display_n_audio: 'Ekran i dźwięk',
+      notifications: 'Powiadomienia',
+      privacy_n_data: 'Prywatność i dane',
+      support_n_feedback: 'Pomoc i opinie',
+      info: 'Informacje',
+    },
+  },
 };

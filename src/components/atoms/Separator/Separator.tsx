@@ -1,8 +1,8 @@
 import { Label, Line, SeparatorBody } from './Separator.styled';
 import type { Separator as SeparatorType } from './Separator.types';
 
-export const Separator: SeparatorType = ({ color, label }) => (
-  <SeparatorBody>
+export const Separator: SeparatorType = ({ color, margin = true, label }) => (
+  <SeparatorBody $margin={margin}>
     {label ? (
       <>
         <Line $variant={color} />

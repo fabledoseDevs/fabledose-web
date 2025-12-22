@@ -204,4 +204,16 @@ export const DictionaryEn: DictionaryType = {
       'Check tag icons below or press the "More info" button to confirm that this story is suitable for your child.',
     moreInfoButton: 'More info',
   },
+  settingsPage: {
+    title: 'Settings',
+    tabs: {
+      profile_n_account: 'Profile and account',
+      parental_control: 'Parental control',
+      display_n_audio: 'Display and audio',
+      notifications: 'Notifications',
+      privacy_n_data: 'Privacy and data',
+      support_n_feedback: 'Support and feedback',
+      info: 'Information',
+    },
+  },
 };
