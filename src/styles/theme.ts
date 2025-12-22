@@ -22,6 +22,7 @@ export const theme: Theme = {
         white: '#FFFFFF',
         purple: '#261A4F',
         darkPurple: '#1F153E',
+        extraDarkPurple: '#170F2F',
         gradientPurpleFade:
           'linear-gradient(0deg, rgba(38, 26, 79, 1) 0%, rgba(38, 26, 79, 0) 100%)',
         gradientRed: 'linear-gradient(180deg, #E84528 0%, #B92409 100%)',
@@ -56,6 +57,7 @@ export const theme: Theme = {
         pale: '#C9B6FA',
         regular: '#261A4F',
         dark: '#1F153E',
+        extraDark: '#170F2F',
       },
       white: {
         full: '#FFFFFF',
