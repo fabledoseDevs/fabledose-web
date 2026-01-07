@@ -4,6 +4,7 @@ import {
 } from '@/atoms/Headline/Headline.types';
 import Separator from '@/atoms/Separator';
 import { SEPARATOR_COLOR } from '@/atoms/Separator/Separator.types';
+import SettingsInputField from '@/atoms/SettingsInputField';
 import { useDictionary } from '@/lang/DictionaryProvider';
 
 import { Headline } from '../../atoms/Headline/Headline';
@@ -44,6 +45,15 @@ export const SettingsPage: SettingsPageType = () => {
           {settingsPage.tabs[activeTab]}
         </Headline>
         <Separator color={SEPARATOR_COLOR.WHITE} margin={false} />
+        <>
+          <SettingsInputField
+            label={'Nazwa wyświetlana:'}
+            info={{
+              title: 'Nazwa wyświetlana',
+              description: 'Jak powinniśmy się do Ciebie zwracać?',
+            }}
+          />
+        </>
       </SettingsContentColumn>
     </SettingsPageBody>
   );
