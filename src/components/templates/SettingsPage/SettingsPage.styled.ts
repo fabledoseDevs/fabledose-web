@@ -52,6 +52,10 @@ export const SettingsContentColumn = styled.div`
   }
 `;
 
+export const Content = styled.div`
+  max-width: 660px;
+`;
+
 export const TabButton = styled.button<{ isActive: boolean }>`
   background: none;
   border: none;
