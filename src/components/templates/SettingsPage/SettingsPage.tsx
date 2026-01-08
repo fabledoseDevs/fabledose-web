@@ -5,11 +5,14 @@ import {
 import Separator from '@/atoms/Separator';
 import { SEPARATOR_COLOR } from '@/atoms/Separator/Separator.types';
 import SettingsInputField from '@/atoms/SettingsInputField';
+import SettingsRangeField from '@/atoms/SettingsRangeField';
+import SettingsSwitch from '@/atoms/SettingsSwitch';
 import { useDictionary } from '@/lang/DictionaryProvider';
 
 import { Headline } from '../../atoms/Headline/Headline';
 import { useSettingsPage } from './SettingsPage.hook';
 import {
+  Content,
   SettingsContentColumn,
   SettingsMenuColumn,
   SettingsPageBody,
@@ -45,7 +48,7 @@ export const SettingsPage: SettingsPageType = () => {
           {settingsPage.tabs[activeTab]}
         </Headline>
         <Separator color={SEPARATOR_COLOR.WHITE} margin={false} />
-        <>
+        <Content>
           <SettingsInputField
             label={'Nazwa wyświetlana:'}
             info={{
@@ -53,7 +56,24 @@ export const SettingsPage: SettingsPageType = () => {
               description: 'Jak powinniśmy się do Ciebie zwracać?',
             }}
           />
-        </>
+          <SettingsRangeField
+            label={'Rozmiar czcionki'}
+            info={{
+              title: 'Rozmiar czcionki',
+              description: 'Dostosuj wielkość czcionki czytanych bajek.',
+            }}
+            min={10}
+            max={36}
+            unit="px"
+          />
+          <SettingsSwitch
+            label={'Lorem ispum'}
+            info={{
+              title: 'Lorem ispum',
+              description: 'Lorem ipsum dolor sit amet.',
+            }}
+          />
+        </Content>
       </SettingsContentColumn>
     </SettingsPageBody>
   );

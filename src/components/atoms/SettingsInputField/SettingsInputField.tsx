@@ -38,6 +38,11 @@ export const SettingsInputField: SettingsInputFieldType = ({ label, info }) => {
             value={value}
             onChange={handleInputChange}
             autoFocus
+            onKeyDown={e => {
+              if (e.key === 'Enter') {
+                e.currentTarget.blur();
+              }
+            }}
             onBlur={e => {
               // Only toggle back if we're not clicking the edit button itself
               if (
