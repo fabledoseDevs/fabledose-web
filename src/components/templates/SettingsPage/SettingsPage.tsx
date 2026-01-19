@@ -5,6 +5,7 @@ import {
 import Separator from '@/atoms/Separator';
 import { SEPARATOR_COLOR } from '@/atoms/Separator/Separator.types';
 import SettingsInputField from '@/atoms/SettingsInputField';
+import SettingsRadio from '@/atoms/SettingsRadio';
 import SettingsRangeField from '@/atoms/SettingsRangeField';
 import SettingsSwitch from '@/atoms/SettingsSwitch';
 import { useDictionary } from '@/lang/DictionaryProvider';
@@ -71,6 +72,20 @@ export const SettingsPage: SettingsPageType = () => {
             info={{
               title: 'Lorem ispum',
               description: 'Lorem ipsum dolor sit amet.',
+            }}
+          />
+          <SettingsRadio
+            label={'Jakość animacji'}
+            options={[
+              { label: 'AUTO', value: 'auto' },
+              { label: 'SD', value: 'sd' },
+              { label: 'HD', value: 'hd' },
+              { label: '2K', value: '2k', isDisabled: true },
+              { label: '4K', value: '4k', isDisabled: true },
+            ]}
+            info={{
+              title: 'Jakość animacji',
+              description: 'Wybierz jakość animacji.',
             }}
           />
         </Content>
