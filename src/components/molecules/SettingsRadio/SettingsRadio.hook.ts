@@ -10,7 +10,6 @@ const useSettingsRadio: UseSettingsRadioType = (
   options: SettingsRadioOption[],
 ) => {
   const [selectedValue, setSelectedValue] = useState<string | null>(null);
-  const [isTooltipVisible, setIsTooltipVisible] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchValue = async () => {
@@ -31,17 +30,9 @@ const useSettingsRadio: UseSettingsRadioType = (
     updateValueOnBackend(value);
   };
 
-  const showTooltip = () => setIsTooltipVisible(true);
-  const hideTooltip = () => setIsTooltipVisible(false);
-  const toggleTooltip = () => setIsTooltipVisible(prev => !prev);
-
   return {
     selectedValue,
     selectOption,
-    isTooltipVisible,
-    showTooltip,
-    hideTooltip,
-    toggleTooltip,
   } as UseSettingsRadioReturnValues;
 };
 

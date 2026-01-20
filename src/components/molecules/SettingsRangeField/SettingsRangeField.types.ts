@@ -1,20 +1,11 @@
 import type { ChangeEvent, ReactElement } from 'react';
 
+import type { InfoTooltipContent } from '@/atoms/InfoTooltip';
+
 /**
  * @module
  * This file defines the types and interfaces for SettingsRangeField component.
  */
-
-/**
- * Interface for the info tooltip content.
- *
- * @property title - The title of the tooltip.
- * @property description - The description or body text of the tooltip.
- */
-export interface SettingsRangeFieldInfo {
-  title: string;
-  description: string;
-}
 
 /**
  * Interface for SettingsRangeField component props.
@@ -28,7 +19,7 @@ export interface SettingsRangeFieldInfo {
  */
 export interface SettingsRangeFieldProps {
   label: string;
-  info: SettingsRangeFieldInfo;
+  info: InfoTooltipContent;
   min?: number;
   max?: number;
   step?: number;
@@ -40,18 +31,10 @@ export interface SettingsRangeFieldProps {
  *
  * @property value - The current numeric value of the range field.
  * @property handleRangeChange - Event handler for range input changes.
- * @property isTooltipVisible - Boolean flag for tooltip visibility.
- * @property showTooltip - Function to show the tooltip.
- * @property hideTooltip - Function to hide the tooltip.
- * @property toggleTooltip - Function to toggle the tooltip visibility.
  */
 export interface UseSettingsRangeFieldReturnValues {
   value: number;
   handleRangeChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  isTooltipVisible: boolean;
-  showTooltip: () => void;
-  hideTooltip: () => void;
-  toggleTooltip: () => void;
 }
 
 /**

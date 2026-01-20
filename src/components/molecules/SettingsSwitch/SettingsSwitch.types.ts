@@ -1,20 +1,11 @@
 import type { ReactElement } from 'react';
 
+import type { InfoTooltipContent } from '@/atoms/InfoTooltip';
+
 /**
  * @module
  * This file defines the types and interfaces for SettingsSwitch component.
  */
-
-/**
- * Interface for the info tooltip content.
- *
- * @property title - The title of the tooltip.
- * @property description - The description or body text of the tooltip.
- */
-export interface SettingsSwitchInfo {
-  title: string;
-  description: string;
-}
 
 /**
  * Interface for SettingsSwitch component props.
@@ -24,7 +15,7 @@ export interface SettingsSwitchInfo {
  */
 export interface SettingsSwitchProps {
   label: string;
-  info: SettingsSwitchInfo;
+  info: InfoTooltipContent;
 }
 
 /**
@@ -32,18 +23,10 @@ export interface SettingsSwitchProps {
  *
  * @property isActive - Boolean flag indicating if the switch is active.
  * @property toggleSwitch - Function to toggle the switch state.
- * @property isTooltipVisible - Boolean flag for tooltip visibility.
- * @property showTooltip - Function to show the tooltip.
- * @property hideTooltip - Function to hide the tooltip.
- * @property toggleTooltip - Function to toggle the tooltip visibility.
  */
 export interface UseSettingsSwitchReturnValues {
   isActive: boolean;
   toggleSwitch: () => void;
-  isTooltipVisible: boolean;
-  showTooltip: () => void;
-  hideTooltip: () => void;
-  toggleTooltip: () => void;
 }
 
 /**
