@@ -7,7 +7,6 @@ import type {
 
 const useSettingsRangeField: UseSettingsRangeFieldType = () => {
   const [value, setValue] = useState<number>(18);
-  const [isTooltipVisible, setIsTooltipVisible] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchValue = async () => {
@@ -31,17 +30,9 @@ const useSettingsRangeField: UseSettingsRangeFieldType = () => {
     updateValueOnBackend(newValue);
   };
 
-  const showTooltip = () => setIsTooltipVisible(true);
-  const hideTooltip = () => setIsTooltipVisible(false);
-  const toggleTooltip = () => setIsTooltipVisible(prev => !prev);
-
   return {
     value,
     handleRangeChange,
-    isTooltipVisible,
-    showTooltip,
-    hideTooltip,
-    toggleTooltip,
   } as UseSettingsRangeFieldReturnValues;
 };
 

@@ -1,19 +1,16 @@
 import type { ChangeEvent, ReactElement } from 'react';
 
-/**
- * @module
- * This file defines the types and interfaces for SettingsInputField component.
- */
+import type { InfoTooltipContent } from '@/atoms/InfoTooltip';
 
 /**
- * Interface for the info tooltip content.
- *
- * @property title - The title of the tooltip.
- * @property description - The description or body text of the tooltip.
+ * @module
+ * This file defines the types and interfaces for the SettingsInputField component.
  */
-export interface SettingsInputFieldInfo {
-  title: string;
-  description: string;
+
+export enum FIELD_VARIANT {
+  TEXT = 'TEXT',
+  PASSWORD = 'PASSWORD',
+  CREDIT_CARD = 'CREDIT_CARD',
 }
 
 /**
@@ -21,10 +18,12 @@ export interface SettingsInputFieldInfo {
  *
  * @property label - The label of the input field.
  * @property info - The content for the info tooltip.
+ * @property variant - The variant of the input field.
  */
 export interface SettingsInputFieldProps {
   label: string;
-  info: SettingsInputFieldInfo;
+  info: InfoTooltipContent;
+  variant?: FIELD_VARIANT;
 }
 
 /**
@@ -34,28 +33,26 @@ export interface SettingsInputFieldProps {
  * @property value - The current string value of the input field.
  * @property toggleEditMode - Function to switch between edit and display modes.
  * @property handleInputChange - Event handler for input changes.
- * @property isTooltipVisible - Boolean flag for tooltip visibility.
- * @property showTooltip - Function to show the tooltip.
- * @property hideTooltip - Function to hide the tooltip.
- * @property toggleTooltip - Function to toggle the tooltip visibility.
  */
 export interface UseSettingsInputFieldReturnValues {
   isEditMode: boolean;
   value: string;
   toggleEditMode: () => void;
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  isTooltipVisible: boolean;
-  showTooltip: () => void;
-  hideTooltip: () => void;
-  toggleTooltip: () => void;
+  isPopupOpen: boolean;
+  closePopup: () => void;
+  handleCardSave: (cardNumber: string) => void;
 }
 
 /**
  * Hook to manage the state and logic for the SettingsInputField component.
  *
+ * @param variant - The variant of the input field.
  * @returns An object containing the state and handlers for the input field.
  */
-export type UseSettingsInputField = () => UseSettingsInputFieldReturnValues;
+export type UseSettingsInputField = (
+  variant: FIELD_VARIANT,
+) => UseSettingsInputFieldReturnValues;
 
 /**
  * Component renders a settings input field with display and edit modes.

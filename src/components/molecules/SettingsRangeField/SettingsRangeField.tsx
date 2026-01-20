@@ -1,18 +1,13 @@
-import { InformationCircleIcon } from '@heroicons/react/24/outline';
+import InfoTooltip from '@/atoms/InfoTooltip';
 
 import useSettingsRangeField from './SettingsRangeField.hook';
 import {
   ActionsWrapper,
   ContentWrapper,
-  IconButton,
-  InfoWrapper,
   Label,
   RangeWrapper,
   SettingsRangeFieldBody,
   Slider,
-  Tooltip,
-  TooltipDesc,
-  TooltipTitle,
   ValueDisplay,
 } from './SettingsRangeField.styled';
 import type { SettingsRangeField as SettingsRangeFieldType } from './SettingsRangeField.types';
@@ -25,14 +20,7 @@ export const SettingsRangeField: SettingsRangeFieldType = ({
   step = 1,
   unit = '',
 }) => {
-  const {
-    value,
-    handleRangeChange,
-    isTooltipVisible,
-    showTooltip,
-    hideTooltip,
-    toggleTooltip,
-  } = useSettingsRangeField();
+  const { value, handleRangeChange } = useSettingsRangeField();
 
   return (
     <SettingsRangeFieldBody>
@@ -53,22 +41,7 @@ export const SettingsRangeField: SettingsRangeFieldType = ({
           </ValueDisplay>
         </RangeWrapper>
         <ActionsWrapper>
-          <InfoWrapper>
-            <IconButton
-              onMouseEnter={showTooltip}
-              onMouseLeave={hideTooltip}
-              onClick={toggleTooltip}
-              aria-label="Info"
-            >
-              <InformationCircleIcon />
-            </IconButton>
-            {isTooltipVisible && (
-              <Tooltip role="tooltip">
-                <TooltipTitle>{info.title}</TooltipTitle>
-                <TooltipDesc>{info.description}</TooltipDesc>
-              </Tooltip>
-            )}
-          </InfoWrapper>
+          <InfoTooltip content={info} />
         </ActionsWrapper>
       </ContentWrapper>
     </SettingsRangeFieldBody>

@@ -1,15 +1,12 @@
 import type { ReactElement } from 'react';
 
+import type { InfoTooltipContent } from '@/atoms/InfoTooltip';
+
 /**
  * @file
  * This file defines the types and interfaces for SettingsRadio component.
  *
  * The SettingsRadio have following properites.
- *
- * Example usage:
- * ```tsx
- * <SettingsRadio />
- * ```
  */
 
 /**
@@ -26,17 +23,6 @@ export interface SettingsRadioOption {
 }
 
 /**
- * Interface for the info tooltip content.
- *
- * @property title - The title of the tooltip.
- * @property description - The description or body text of the tooltip.
- */
-export interface SettingsRadioInfo {
-  title: string;
-  description: string;
-}
-
-/**
  * Interface for SettingsRadio component props.
  *
  * @property label - The label of the radio group field.
@@ -46,7 +32,7 @@ export interface SettingsRadioInfo {
 export interface SettingsRadioProps {
   label: string;
   options: SettingsRadioOption[];
-  info: SettingsRadioInfo;
+  info: InfoTooltipContent;
 }
 
 /**
@@ -54,18 +40,10 @@ export interface SettingsRadioProps {
  *
  * @property selectedValue - The currently selected option value.
  * @property selectOption - Function to select an option.
- * @property isTooltipVisible - Boolean flag for tooltip visibility.
- * @property showTooltip - Function to show the tooltip.
- * @property hideTooltip - Function to hide the tooltip.
- * @property toggleTooltip - Function to toggle the tooltip visibility.
  */
 export interface UseSettingsRadioReturnValues {
   selectedValue: string | null;
   selectOption: (value: string) => void;
-  isTooltipVisible: boolean;
-  showTooltip: () => void;
-  hideTooltip: () => void;
-  toggleTooltip: () => void;
 }
 
 /**

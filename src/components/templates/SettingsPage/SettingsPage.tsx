@@ -4,11 +4,12 @@ import {
 } from '@/atoms/Headline/Headline.types';
 import Separator from '@/atoms/Separator';
 import { SEPARATOR_COLOR } from '@/atoms/Separator/Separator.types';
-import SettingsInputField from '@/atoms/SettingsInputField';
-import SettingsRadio from '@/atoms/SettingsRadio';
-import SettingsRangeField from '@/atoms/SettingsRangeField';
-import SettingsSwitch from '@/atoms/SettingsSwitch';
 import { useDictionary } from '@/lang/DictionaryProvider';
+import SettingsInputField from '@/molecules/SettingsInputField';
+import { FIELD_VARIANT } from '@/molecules/SettingsInputField/SettingsInputField.types';
+import SettingsRadio from '@/molecules/SettingsRadio';
+import SettingsRangeField from '@/molecules/SettingsRangeField';
+import SettingsSwitch from '@/molecules/SettingsSwitch';
 
 import { Headline } from '../../atoms/Headline/Headline';
 import { useSettingsPage } from './SettingsPage.hook';
@@ -56,7 +57,25 @@ export const SettingsPage: SettingsPageType = () => {
               title: 'Nazwa wyświetlana',
               description: 'Jak powinniśmy się do Ciebie zwracać?',
             }}
+            variant={FIELD_VARIANT.TEXT}
           />
+          <SettingsInputField
+            label={'Hasło:'}
+            info={{
+              title: 'Hasło',
+              description: 'Zmmień hasło do konta.',
+            }}
+            variant={FIELD_VARIANT.PASSWORD}
+          />
+          <SettingsInputField
+            label={'Karta płatnicza:'}
+            info={{
+              title: 'Karta płatnicza',
+              description: 'Zmień informacje dot. karty płatniczej.',
+            }}
+            variant={FIELD_VARIANT.CREDIT_CARD}
+          />
+
           <SettingsRangeField
             label={'Rozmiar czcionki'}
             info={{

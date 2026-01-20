@@ -7,7 +7,6 @@ import type {
 
 const useSettingsSwitch: UseSettingsSwitchType = () => {
   const [isActive, setIsActive] = useState<boolean>(true);
-  const [isTooltipVisible, setIsTooltipVisible] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchValue = async () => {
@@ -31,17 +30,9 @@ const useSettingsSwitch: UseSettingsSwitchType = () => {
     updateValueOnBackend(newValue);
   };
 
-  const showTooltip = () => setIsTooltipVisible(true);
-  const hideTooltip = () => setIsTooltipVisible(false);
-  const toggleTooltip = () => setIsTooltipVisible(prev => !prev);
-
   return {
     isActive,
     toggleSwitch,
-    isTooltipVisible,
-    showTooltip,
-    hideTooltip,
-    toggleTooltip,
   } as UseSettingsSwitchReturnValues;
 };
 
