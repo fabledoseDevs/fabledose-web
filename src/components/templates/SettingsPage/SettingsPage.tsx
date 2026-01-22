@@ -12,6 +12,7 @@ import { SEPARATOR_COLOR } from '@/atoms/Separator/Separator.types';
 import { useDictionary } from '@/lang/DictionaryProvider';
 import ModalWindow from '@/molecules/ModalWindow';
 import SettingsButton from '@/molecules/SettingsButton';
+import SettingsDropdown from '@/molecules/SettingsDropdown';
 import SettingsInputField from '@/molecules/SettingsInputField';
 import { FIELD_VARIANT } from '@/molecules/SettingsInputField/SettingsInputField.types';
 import SettingsRadio from '@/molecules/SettingsRadio';
@@ -139,6 +140,14 @@ export const SettingsPage: SettingsPageType = () => {
               width: { widthType: WIDTH_TYPE.PERCENT, widthValue: 100 },
               payload: () => console.info('Delete account'),
             }}
+          />
+          <SettingsDropdown
+            label={'Język bajek'}
+            options={[
+              { label: 'Polski', value: 'pl' },
+              { label: 'Angielski', value: 'en' },
+            ]}
+            info={{ title: 'Język bajek', description: 'Wybierz język bajek.' }}
           />
         </Content>
       </SettingsContentColumn>
