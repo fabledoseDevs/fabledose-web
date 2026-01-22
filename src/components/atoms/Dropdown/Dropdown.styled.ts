@@ -17,23 +17,44 @@ export const DropdownHeader = styled.button<{
   justify-content: space-between;
   cursor: pointer;
   border: none;
-  padding: 8px;
+  padding: 8px 12px;
   margin: 0;
-  min-width: 75px;
+  min-width: 100px;
+  border-radius: ${({ isopen }) => (isopen ? '8px 8px 0 0' : '8px')};
+  transition: background 0.2s ease, color 0.2s ease;
   font-family: ${({ theme }) =>
     theme.typography.headlines.superText.fontFamily};
   font-size: ${({ theme }) => theme.typography.headlines.superText.fontSize};
   font-weight: ${({ theme }) => theme.typography.fontWeights.semibold};
-  color: ${({ theme, colorScheme }) =>
-    colorScheme === COLOR_SCHEME.PURPLE
-      ? theme.palette.byElement.text.white
-      : theme.palette.byElement.text.purple};
-  background: ${({ theme, colorScheme, isopen }) =>
-    isopen
-      ? colorScheme === COLOR_SCHEME.PURPLE
-        ? theme.palette.byElement.background.purple
-        : theme.palette.byElement.background.white
-      : 'transparent'};
+  color: ${({ theme, colorScheme, isopen }) => {
+    if (isopen && colorScheme === COLOR_SCHEME.WHITE) {
+      return theme.palette.byElement.text.purple;
+    }
+    return theme.palette.byElement.text.white;
+  }};
+  background: ${({ theme, colorScheme, isopen }) => {
+    if (isopen) {
+      return colorScheme === COLOR_SCHEME.WHITE
+        ? theme.palette.byElement.background.white
+        : theme.palette.byElement.background.purple;
+    }
+    return 'transparent';
+  }};
+
+  &:hover {
+    background: ${({ theme, colorScheme }) => {
+      if (colorScheme === COLOR_SCHEME.WHITE) {
+        return theme.palette.byElement.background.white;
+      }
+      return theme.palette.byElement.background.purple;
+    }};
+    color: ${({ theme, colorScheme }) => {
+      if (colorScheme === COLOR_SCHEME.WHITE) {
+        return theme.palette.byElement.text.purple;
+      }
+      return theme.palette.byElement.text.white;
+    }};
+  }
 `;
 
 export const DropdownArrow = styled(ChevronDownIcon, {
@@ -52,40 +73,41 @@ export const DropdownOptions = styled.div<{ isopen: boolean }>`
   position: absolute;
   top: 100%;
   left: 0;
-  right: 0;
+  min-width: 100%;
   display: ${({ isopen }) => (isopen ? 'flex' : 'none')};
   flex-direction: column;
+  background: ${({ theme }) => theme.palette.byElement.background.white};
+  box-shadow: 0px 10px 20px
+    ${({ theme }) => theme.palette.byElement.shadows.purple['20']};
+  z-index: ${({ theme }) => theme.zIndex.higher};
+  border-radius: 0 0 8px 8px;
+  overflow: hidden;
+  border: 1px solid ${({ theme }) => theme.palette.byElement.background.white};
+  border-top: none;
 `;
 
 export const Option = styled.div<{
   colorScheme: COLOR_SCHEME;
 }>`
+  display: flex;
   align-items: center;
-  padding: 8px;
+  padding: 10px 12px;
   margin: 0;
   font-family: ${({ theme }) => theme.typography.paragraphs.default.fontFamily};
-  font-size: 16px;
+  font-size: 14px;
   font-weight: ${({ theme }) => theme.typography.fontWeights.regular};
-  border-bottom: 2px solid
-    ${({ theme, colorScheme }) =>
-      colorScheme === COLOR_SCHEME.PURPLE
-        ? theme.palette.byElement.background.white
-        : theme.palette.byElement.background.purple};
-  color: ${({ theme, colorScheme }) =>
-    colorScheme === COLOR_SCHEME.PURPLE
-      ? theme.palette.byElement.text.white
-      : theme.palette.byElement.text.purple};
-  background: ${({ theme, colorScheme }) =>
-    colorScheme === COLOR_SCHEME.PURPLE
-      ? theme.palette.byElement.background.purple
-      : theme.palette.byElement.background.white};
+  color: ${({ theme }) => theme.palette.byElement.text.purple};
+  background: ${({ theme }) => theme.palette.byElement.background.white};
   cursor: pointer;
+  transition: background 0.2s ease;
+
+  &:last-child {
+    border-bottom: none;
+  }
 
   &:hover {
-    background: ${({ theme, colorScheme }) =>
-      colorScheme === COLOR_SCHEME.PURPLE
-        ? theme.palette.byElement.highlights.darkPurple
-        : theme.palette.byElement.highlights.palePurple};
+    background: ${({ theme }) => theme.palette.byElement.highlights.palePurple};
+  }
 `;
 
 export const Input = styled.input`

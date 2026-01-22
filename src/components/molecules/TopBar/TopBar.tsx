@@ -66,7 +66,7 @@ export const TopBar: TopBarType = () => {
           options={['Polski', 'English']}
           title="Language"
           defaultValue={getDisplayLanguage(currentLang)}
-          colorScheme={COLOR_SCHEME.PURPLE}
+          colorScheme={COLOR_SCHEME.WHITE}
           onChange={handleLanguageChange}
         />
         <Button
