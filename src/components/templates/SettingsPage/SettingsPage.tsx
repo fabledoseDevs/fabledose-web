@@ -15,6 +15,7 @@ import SettingsButton from '@/molecules/SettingsButton';
 import SettingsDropdown from '@/molecules/SettingsDropdown';
 import SettingsInputField from '@/molecules/SettingsInputField';
 import { FIELD_VARIANT } from '@/molecules/SettingsInputField/SettingsInputField.types';
+import SettingsProfiles from '@/molecules/SettingsProfiles';
 import SettingsRadio from '@/molecules/SettingsRadio';
 import SettingsRangeField from '@/molecules/SettingsRangeField';
 import SettingsSwitch from '@/molecules/SettingsSwitch';
@@ -149,6 +150,7 @@ export const SettingsPage: SettingsPageType = () => {
             ]}
             info={{ title: 'Język bajek', description: 'Wybierz język bajek.' }}
           />
+          <SettingsProfiles />
         </Content>
       </SettingsContentColumn>
       <ModalWindow
