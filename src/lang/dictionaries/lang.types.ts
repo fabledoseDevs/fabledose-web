@@ -117,5 +117,46 @@ export type DictionaryType = {
     tabs: {
       [key: string]: string;
     };
+    profile_n_account: {
+      displayName: {
+        label: string;
+        infoTitle: string;
+        infoDescription: string;
+      };
+      email: {
+        label: string;
+        infoTitle: string;
+        infoDescription: string;
+      };
+      password: {
+        label: string;
+        infoTitle: string;
+        infoDescription: string;
+      };
+      plan: {
+        label: string;
+        infoTitle: string;
+        infoDescription: string;
+        tier0: string;
+        tier1: string;
+        tier2: string;
+      };
+      creditCard: {
+        label: string;
+        infoTitle: string;
+        infoDescription: string;
+      };
+      language: {
+        label: string;
+        infoTitle: string;
+        infoDescription: string;
+      };
+      deleteAccount: {
+        label: string;
+        infoTitle: string;
+        infoDescription: string;
+        buttonText: string;
+      };
+    };
   };
 };

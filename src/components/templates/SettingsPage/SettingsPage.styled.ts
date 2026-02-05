@@ -54,6 +54,8 @@ export const SettingsContentColumn = styled.div`
 
 export const Content = styled.div`
   max-width: 660px;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const TabButton = styled.button<{ isActive: boolean }>`

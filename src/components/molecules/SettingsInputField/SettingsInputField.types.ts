@@ -11,6 +11,7 @@ export enum FIELD_VARIANT {
   TEXT = 'TEXT',
   PASSWORD = 'PASSWORD',
   CREDIT_CARD = 'CREDIT_CARD',
+  EMAIL = 'EMAIL',
 }
 
 /**

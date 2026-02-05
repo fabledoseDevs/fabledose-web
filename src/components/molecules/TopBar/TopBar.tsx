@@ -10,6 +10,7 @@ import {
 import Dropdown from '@/atoms/Dropdown';
 import { COLOR_SCHEME } from '@/atoms/Dropdown/Dropdown.types';
 import { useDictionary } from '@/lang/DictionaryProvider';
+import { handleLanguageChange } from '@/lang/lang.helpers';
 
 import { useTopBarScroll } from './TopBar.hook';
 import { ActionsContainer, LogoContainer, TopBarBody } from './TopBar.styled';
@@ -34,26 +35,8 @@ export const TopBar: TopBarType = () => {
     }
   };
 
-  const handleLanguageChange = (selectedOption: string) => {
-    const localeMap: Record<string, string> = {
-      Polski: 'pl',
-      English: 'en',
-    };
-
-    const newLocale = localeMap[selectedOption];
-    if (!newLocale || newLocale === currentLang) return;
-    document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=31536000; SameSite=Lax`;
-
-    if (!pathname) {
-      router.push(`/${newLocale}`);
-      return;
-    }
-
-    const segments = pathname.split('/');
-    segments[1] = newLocale; // Replace the language segment
-    const newPath = segments.join('/');
-
-    router.push(newPath);
+  const onLanguageChange = (selectedOption: string) => {
+    handleLanguageChange(selectedOption, currentLang, pathname, router);
   };
 
   return (
@@ -67,7 +50,7 @@ export const TopBar: TopBarType = () => {
           title="Language"
           defaultValue={getDisplayLanguage(currentLang)}
           colorScheme={COLOR_SCHEME.WHITE}
-          onChange={handleLanguageChange}
+          onChange={onLanguageChange}
         />
         <Button
           text={common.login}
