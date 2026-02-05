@@ -222,5 +222,46 @@ export const DictionaryPL: DictionaryType = {
       support_n_feedback: 'Pomoc i opinie',
       info: 'Informacje',
     },
+    profile_n_account: {
+      displayName: {
+        label: 'Nazwa wyświetlana',
+        infoTitle: 'Nazwa wyświetlana',
+        infoDescription: 'Ta nazwa będzie widoczna dla innych użytkowników.',
+      },
+      email: {
+        label: 'Adres Email',
+        infoTitle: 'Adres Email',
+        infoDescription: 'Twój adres email służy do logowania i komunikacji.',
+      },
+      password: {
+        label: 'Hasło',
+        infoTitle: 'Hasło',
+        infoDescription: 'Używaj silnego hasła, aby chronić swoje konto.',
+      },
+      plan: {
+        label: 'Plan',
+        infoTitle: 'Plan subskrypcji',
+        infoDescription: 'Informacje o Twoim aktualnym planie subskrypcji.',
+        tier0: 'Bezpłatny',
+        tier1: 'Rodzinny',
+        tier2: 'Premium',
+      },
+      creditCard: {
+        label: 'Karta płatnicza',
+        infoTitle: 'Karta płatnicza',
+        infoDescription: 'Twoja metoda płatności za subskrypcję.',
+      },
+      language: {
+        label: 'Język',
+        infoTitle: 'Język',
+        infoDescription: 'Zmień język aplikacji.',
+      },
+      deleteAccount: {
+        label: 'Usuwanie konta',
+        infoTitle: 'Usuwanie konta',
+        infoDescription: 'Trwale usuń swoje konto i wszystkie dane.',
+        buttonText: 'Usuń',
+      },
+    },
   },
 };

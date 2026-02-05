@@ -18,7 +18,11 @@ const useSettingsInputField: UseSettingsInputFieldType = (
       // Mock firebase fetch
       console.info('Fetching value from firebase...');
       const mockValue =
-        variant === FIELD_VARIANT.CREDIT_CARD ? '1234567812345678' : 'janek';
+        variant === FIELD_VARIANT.CREDIT_CARD
+          ? '1234567812345678'
+          : variant === FIELD_VARIANT.EMAIL
+          ? 'jan.kowalski@example.com'
+          : 'Janek';
       setValue(mockValue);
     };
 

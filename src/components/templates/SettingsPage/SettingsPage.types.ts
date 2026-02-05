@@ -40,16 +40,10 @@ export enum SETTINGS_TAB {
  *
  * @property activeTab - Currently selected settings tab.
  * @property setActiveTab - Function to change the active settings tab.
- * @property isModalOpen - Indicates whether the test modal is open.
- * @property openModal - Function to open the test modal.
- * @property closeModal - Function to close the test modal.
  */
 export interface UseSettingsPageReturnValues {
   activeTab: SETTINGS_TAB;
   setActiveTab: (tab: SETTINGS_TAB) => void;
-  isModalOpen: boolean;
-  openModal: () => void;
-  closeModal: () => void;
 }
 
 /**

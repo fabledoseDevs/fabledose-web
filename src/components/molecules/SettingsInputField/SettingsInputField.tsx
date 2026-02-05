@@ -64,7 +64,13 @@ export const SettingsInputField: SettingsInputFieldType = ({
       <ContentWrapper>
         {isEditMode && !isCreditCard ? (
           <InputField
-            type={variant === FIELD_VARIANT.PASSWORD ? 'password' : 'text'}
+            type={
+              variant === FIELD_VARIANT.PASSWORD
+                ? 'password'
+                : variant === FIELD_VARIANT.EMAIL
+                ? 'email'
+                : 'text'
+            }
             value={value}
             onChange={handleInputChange}
             autoFocus

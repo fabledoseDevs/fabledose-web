@@ -215,5 +215,47 @@ export const DictionaryEn: DictionaryType = {
       support_n_feedback: 'Support and feedback',
       info: 'Information',
     },
+    profile_n_account: {
+      displayName: {
+        label: 'Displayed name',
+        infoTitle: 'Displayed name',
+        infoDescription: 'This name will be visible to other users.',
+      },
+      email: {
+        label: 'Email Address',
+        infoTitle: 'Email Address',
+        infoDescription:
+          'Your email address is used for login and communication.',
+      },
+      password: {
+        label: 'Password',
+        infoTitle: 'Password',
+        infoDescription: 'Use a strong password to protect your account.',
+      },
+      plan: {
+        label: 'Plan',
+        infoTitle: 'Subscription Plan',
+        infoDescription: 'Information about your current subscription plan.',
+        tier0: 'Free',
+        tier1: 'Family',
+        tier2: 'Premium',
+      },
+      creditCard: {
+        label: 'Credit card',
+        infoTitle: 'Credit card',
+        infoDescription: 'Your payment method for the subscription.',
+      },
+      language: {
+        label: 'Language',
+        infoTitle: 'Language',
+        infoDescription: 'Change the language of the application.',
+      },
+      deleteAccount: {
+        label: 'Delete account',
+        infoTitle: 'Delete account',
+        infoDescription: 'Permanently remove your account and all data.',
+        buttonText: 'Delete',
+      },
+    },
   },
 };

@@ -1,25 +1,22 @@
-import {
-  ACTION_TYPE,
-  BUTTON_VARIANT,
-  WIDTH_TYPE,
-} from '@/atoms/Button/Button.types';
+import { useParams, usePathname, useRouter } from 'next/navigation';
+
 import {
   FOREGROUND_COLOR,
   HEADLINE_TYPE,
 } from '@/atoms/Headline/Headline.types';
 import Separator from '@/atoms/Separator';
 import { SEPARATOR_COLOR } from '@/atoms/Separator/Separator.types';
+import {
+  ACTION_TYPE,
+  BUTTON_VARIANT,
+  WIDTH_TYPE,
+} from '@/components/atoms/Button/Button.types';
+import SettingsButton from '@/components/molecules/SettingsButton';
+import SettingsDropdown from '@/components/molecules/SettingsDropdown';
+import SettingsInputField from '@/components/molecules/SettingsInputField';
+import { FIELD_VARIANT } from '@/components/molecules/SettingsInputField/SettingsInputField.types';
 import { useDictionary } from '@/lang/DictionaryProvider';
-import ModalWindow from '@/molecules/ModalWindow';
-import SettingsButton from '@/molecules/SettingsButton';
-import SettingsDropdown from '@/molecules/SettingsDropdown';
-import SettingsInputField from '@/molecules/SettingsInputField';
-import { FIELD_VARIANT } from '@/molecules/SettingsInputField/SettingsInputField.types';
-import SettingsProfiles from '@/molecules/SettingsProfiles';
-import SettingsRadio from '@/molecules/SettingsRadio';
-import SettingsRangeField from '@/molecules/SettingsRangeField';
-import SettingsSwitch from '@/molecules/SettingsSwitch';
-import PlanSelector from '@/organisms/PlanSelector';
+import { handleLanguageChange } from '@/lang/lang.helpers';
 
 import { Headline } from '../../atoms/Headline/Headline';
 import { useSettingsPage } from './SettingsPage.hook';
@@ -35,10 +32,126 @@ import { SETTINGS_TAB } from './SettingsPage.types';
 
 export const SettingsPage: SettingsPageType = () => {
   const { settingsPage } = useDictionary();
-  const { activeTab, setActiveTab, isModalOpen, openModal, closeModal } =
-    useSettingsPage();
+  const { activeTab, setActiveTab } = useSettingsPage();
+  const router = useRouter();
+  const pathname = usePathname();
+  const params = useParams();
+  const currentLang = (params?.lang as string) || 'en';
+
+  const getDisplayLanguage = (lang: string) => {
+    switch (lang) {
+      case 'pl':
+        return 'Polski';
+      case 'en':
+        return 'English';
+      default:
+        return 'Language';
+    }
+  };
 
   const tabs = Object.values(SETTINGS_TAB);
+
+  const renderTabContent = () => {
+    switch (activeTab) {
+      case SETTINGS_TAB.PROFILE_N_ACCOUNT:
+        return (
+          <>
+            <SettingsInputField
+              label={settingsPage.profile_n_account.displayName.label}
+              info={{
+                title: settingsPage.profile_n_account.displayName.infoTitle,
+                description:
+                  settingsPage.profile_n_account.displayName.infoDescription,
+              }}
+            />
+            <SettingsInputField
+              label={settingsPage.profile_n_account.email.label}
+              variant={FIELD_VARIANT.EMAIL}
+              info={{
+                title: settingsPage.profile_n_account.email.infoTitle,
+                description:
+                  settingsPage.profile_n_account.email.infoDescription,
+              }}
+            />
+            <SettingsInputField
+              label={settingsPage.profile_n_account.password.label}
+              variant={FIELD_VARIANT.PASSWORD}
+              info={{
+                title: settingsPage.profile_n_account.password.infoTitle,
+                description:
+                  settingsPage.profile_n_account.password.infoDescription,
+              }}
+            />
+            <SettingsButton
+              label={settingsPage.profile_n_account.plan.label}
+              info={{
+                title: settingsPage.profile_n_account.plan.infoTitle,
+                description:
+                  settingsPage.profile_n_account.plan.infoDescription,
+              }}
+              customButtonText={settingsPage.profile_n_account.plan.tier0}
+              customButtonRightText="0 PLN/mc"
+            />
+            <SettingsInputField
+              label={settingsPage.profile_n_account.creditCard.label}
+              variant={FIELD_VARIANT.CREDIT_CARD}
+              info={{
+                title: settingsPage.profile_n_account.creditCard.infoTitle,
+                description:
+                  settingsPage.profile_n_account.creditCard.infoDescription,
+              }}
+            />
+            <SettingsDropdown
+              label={settingsPage.profile_n_account.language.label}
+              options={['Polski', 'English']}
+              defaultValue={getDisplayLanguage(currentLang)}
+              info={{
+                title: settingsPage.profile_n_account.language.infoTitle,
+                description:
+                  settingsPage.profile_n_account.language.infoDescription,
+              }}
+              onChange={selectedOption =>
+                handleLanguageChange(
+                  selectedOption,
+                  currentLang,
+                  pathname,
+                  router,
+                )
+              }
+            />
+            <SettingsButton
+              label={settingsPage.profile_n_account.deleteAccount.label}
+              info={{
+                title: settingsPage.profile_n_account.deleteAccount.infoTitle,
+                description:
+                  settingsPage.profile_n_account.deleteAccount.infoDescription,
+              }}
+              buttonProps={{
+                variant: BUTTON_VARIANT.RED,
+                text: settingsPage.profile_n_account.deleteAccount.buttonText,
+                width: { widthType: WIDTH_TYPE.PERCENT, widthValue: 100 },
+                actionType: ACTION_TYPE.FUNCTION_TRIGGER,
+                payload: () => console.info('Boo!'),
+              }}
+            />
+          </>
+        );
+      case SETTINGS_TAB.PARENTAL_CONTROL:
+        return <p>2</p>;
+      case SETTINGS_TAB.DISPLAY_N_AUDIO:
+        return <p>3</p>;
+      case SETTINGS_TAB.NOTIFICATIONS:
+        return <p>4</p>;
+      case SETTINGS_TAB.PRIVACY_N_DATA:
+        return <p>5</p>;
+      case SETTINGS_TAB.SUPPORT_N_FEEDBACK:
+        return <p>6</p>;
+      case SETTINGS_TAB.INFO:
+        return <p>7</p>;
+      default:
+        return null;
+    }
+  };
 
   return (
     <SettingsPageBody>
@@ -61,106 +174,8 @@ export const SettingsPage: SettingsPageType = () => {
           {settingsPage.tabs[activeTab]}
         </Headline>
         <Separator color={SEPARATOR_COLOR.WHITE} margin={false} />
-        <Content>
-          <SettingsInputField
-            label={'Nazwa wyświetlana:'}
-            info={{
-              title: 'Nazwa wyświetlana',
-              description: 'Jak powinniśmy się do Ciebie zwracać?',
-            }}
-            variant={FIELD_VARIANT.TEXT}
-          />
-          <SettingsInputField
-            label={'Hasło:'}
-            info={{
-              title: 'Hasło',
-              description: 'Zmmień hasło do konta.',
-            }}
-            variant={FIELD_VARIANT.PASSWORD}
-          />
-          <SettingsInputField
-            label={'Karta płatnicza:'}
-            info={{
-              title: 'Karta płatnicza',
-              description: 'Zmień informacje dot. karty płatniczej.',
-            }}
-            variant={FIELD_VARIANT.CREDIT_CARD}
-          />
-
-          <SettingsRangeField
-            label={'Rozmiar czcionki'}
-            info={{
-              title: 'Rozmiar czcionki',
-              description: 'Dostosuj wielkość czcionki czytanych bajek.',
-            }}
-            min={10}
-            max={36}
-            unit="px"
-          />
-          <SettingsSwitch
-            label={'Lorem ispum'}
-            info={{
-              title: 'Lorem ispum',
-              description: 'Lorem ipsum dolor sit amet.',
-            }}
-          />
-          <SettingsRadio
-            label={'Jakość animacji'}
-            options={[
-              { label: 'AUTO', value: 'auto' },
-              { label: 'SD', value: 'sd' },
-              { label: 'HD', value: 'hd' },
-              { label: '2K', value: '2k', isDisabled: true },
-              { label: '4K', value: '4k', isDisabled: true },
-            ]}
-            info={{
-              title: 'Jakość animacji',
-              description: 'Wybierz jakość animacji.',
-            }}
-          />
-          <SettingsButton
-            label="Plan:"
-            info={{
-              title: 'Plan',
-              description: 'Twój obecny plan subskrypcji.',
-            }}
-            customButtonText="Family"
-            customButtonRightText="14,99 PLN/mc"
-            onCustomButtonClick={openModal}
-          />
-          <SettingsButton
-            label="Usuwanie konta:"
-            info={{
-              title: 'Usuwanie konta',
-              description: 'Usuń swoje konto na stałe.',
-            }}
-            buttonProps={{
-              text: 'Usuń konto',
-              actionType: ACTION_TYPE.FUNCTION_TRIGGER,
-              variant: BUTTON_VARIANT.RED,
-              width: { widthType: WIDTH_TYPE.PERCENT, widthValue: 100 },
-              payload: () => console.info('Delete account'),
-            }}
-          />
-          <SettingsDropdown
-            label={'Język bajek'}
-            options={[
-              { label: 'Polski', value: 'pl' },
-              { label: 'Angielski', value: 'en' },
-            ]}
-            info={{ title: 'Język bajek', description: 'Wybierz język bajek.' }}
-          />
-          <SettingsProfiles />
-        </Content>
+        <Content>{renderTabContent()}</Content>
       </SettingsContentColumn>
-      <ModalWindow
-        isOpen={isModalOpen}
-        onClose={closeModal}
-        title="Wybierz plan"
-        closeOnOverlayClick
-      >
-        <PlanSelector />
-      </ModalWindow>
     </SettingsPageBody>
   );
 };
