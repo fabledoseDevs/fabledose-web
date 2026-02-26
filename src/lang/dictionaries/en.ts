@@ -257,5 +257,184 @@ export const DictionaryEn: DictionaryType = {
         buttonText: 'Delete',
       },
     },
+    parental_control: {
+      status: {
+        label: 'Status:',
+        infoTitle: 'Parental Control Status',
+        infoDescription: 'Enable or disable parental control.',
+      },
+      pin: {
+        label: 'PIN:',
+        infoTitle: 'PIN',
+        infoDescription: 'PIN code to secure your settings.',
+      },
+      screenLimit: {
+        label: 'Screen limit:',
+        infoTitle: 'Screen Limit',
+        infoDescription: 'Daily time limit for screen usage.',
+      },
+      excludeHours: {
+        label: 'Exclude hours:',
+        infoTitle: 'Exclude Hours',
+        infoDescription: 'Hours during which the application is blocked.',
+      },
+      ads: {
+        label: 'Ads:',
+        infoTitle: 'Ads',
+        infoDescription: 'Manage how ads are displayed.',
+      },
+      profiles: {
+        label: 'Children profiles:',
+        infoTitle: 'Children Profiles',
+        infoDescription: 'Manage profiles for your children.',
+      },
+    },
+    display_n_audio: {
+      fontSize: {
+        label: 'Font size:',
+        infoTitle: 'Font Size',
+        infoDescription: 'Adjust the size of the text in stories.',
+      },
+      fontFamily: {
+        label: 'Font family:',
+        infoTitle: 'Font Family',
+        infoDescription: 'Choose the typeface that is easiest for you to read.',
+      },
+      textBackground: {
+        label: 'Text background:',
+        infoTitle: 'Text Background',
+        infoDescription: 'Choose the background color behind the text.',
+      },
+      backgroundIntensity: {
+        label: 'Background intensity:',
+        infoTitle: 'Background Intensity',
+        infoDescription: 'Adjust the transparency of the text background.',
+      },
+      storyLanguage: {
+        label: 'Story language:',
+        infoTitle: 'Story Language',
+        infoDescription:
+          'Choose the language for reading and listening to stories.',
+      },
+      illustrationAnimation: {
+        label: 'Illustration animation:',
+        infoTitle: 'Illustration Animation',
+        infoDescription: 'Enable or disable moving elements in illustrations.',
+      },
+      animationQuality: {
+        label: 'Animation quality:',
+        infoTitle: 'Animation Quality',
+        infoDescription: 'Choose the quality of the displayed animations.',
+      },
+      narration: {
+        label: 'Narration:',
+        infoTitle: 'Narration',
+        infoDescription: 'Enable or disable the narrator voice.',
+      },
+      narrationVolume: {
+        label: 'Narration volume:',
+        infoTitle: 'Narration Volume',
+        infoDescription: 'Adjust the volume of the narrator.',
+      },
+      backgroundMusic: {
+        label: 'Background music:',
+        infoTitle: 'Background Music',
+        infoDescription: 'Enable or disable the background music.',
+      },
+      musicVolume: {
+        label: 'Music volume:',
+        infoTitle: 'Music Volume',
+        infoDescription: 'Adjust the volume of the background music.',
+      },
+    },
+    notifications: {
+      news: {
+        label: 'News (PUSH):',
+        infoTitle: 'News Notifications',
+        infoDescription: 'Get notified about new stories and features.',
+      },
+      payments: {
+        label: 'Payments (PUSH):',
+        infoTitle: 'Payment Notifications',
+        infoDescription:
+          'Get notifications regarding your payments and subscription.',
+      },
+      newsletter: {
+        label: 'Newsletter:',
+        buttonText: 'Substack',
+        infoTitle: 'Newsletter',
+        infoDescription: 'Manage your newsletter subscription on Substack.',
+      },
+    },
+    privacy_n_data: {
+      headline: 'Privacy and data',
+      description:
+        'Privacy and data are important to us. Here you can manage your personal information, cookie settings, and view legal documents regarding your data protection.',
+      personalData: {
+        name: {
+          label: 'Full name:',
+          infoTitle: 'Full name',
+          infoDescription: 'Change your full name displayed in your profile.',
+        },
+        email: {
+          label: 'Email/login:',
+          infoTitle: 'Email/login',
+          infoDescription:
+            'Your login email address. Locked for security reasons.',
+        },
+        address: {
+          label: 'Address:',
+          infoTitle: 'Address',
+          infoDescription: 'Your residential address for billing purposes.',
+        },
+      },
+      cookies: {
+        label: 'Cookies:',
+        infoTitle: 'Cookie management',
+        infoDescription:
+          'Decide which cookies you want to allow in your browser.',
+        functional: {
+          label: 'Functional:',
+          state: 'on',
+        },
+        analytical: {
+          label: 'Analytical:',
+          infoTitle: 'Analytical cookies',
+          infoDescription:
+            'Help us understand how users use the service to improve it.',
+        },
+        marketing: {
+          label: 'Marketing:',
+          infoTitle: 'Marketing cookies',
+          infoDescription: 'Used to tailor advertisements to your needs.',
+        },
+        partnerA: {
+          label: 'Partner A:',
+          infoTitle: 'Partner A',
+          infoDescription: 'Cookies provided by our partner A.',
+        },
+        partnerB: {
+          label: 'Partner B:',
+          infoTitle: 'Partner B',
+          infoDescription: 'Cookies provided by our partner B.',
+        },
+      },
+      legal: {
+        headline: 'Legal information and help articles:',
+        links: {
+          dataAdmin: 'Data administration',
+          privacyPolicy: 'Privacy policy',
+          cookies: 'Cookies',
+          partners: 'Our partners',
+          howToEdit: 'How to edit or delete personal data?',
+        },
+      },
+    },
+    support_n_feedback: {
+      headline: 'Support and feedback',
+    },
+    info: {
+      headline: 'Information',
+    },
   },
 };

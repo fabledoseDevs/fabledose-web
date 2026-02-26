@@ -58,6 +58,64 @@ export const Content = styled.div`
   flex-direction: column;
 `;
 
+export const Description = styled.p`
+  color: ${({ theme }) => theme.palette.byElement.text.white};
+  font-family: ${({ theme }) => theme.typography.fonts.default};
+  font-size: 1.4rem;
+  line-height: 1.6;
+  margin-bottom: 24px;
+`;
+
+export const LegalLinksList = styled.ul`
+  list-style: none;
+  padding: 0;
+  margin: 16px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
+
+export const LegalLinkItem = styled.li`
+  color: ${({ theme }) => theme.palette.byElement.text.white};
+  font-family: ${({ theme }) => theme.typography.fonts.default};
+  font-size: 1.6rem;
+  font-weight: ${({ theme }) => theme.typography.fontWeights.semibold};
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+
+  &::before {
+    content: '•';
+    margin-right: 8px;
+  }
+
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
+export const CookieStaticWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+`;
+
+export const CookieLabel = styled.span`
+  color: ${({ theme }) => theme.palette.byElement.text.white};
+  font-family: ${({ theme }) => theme.typography.fonts.default};
+  font-size: 1.6rem;
+  margin-left: 48px;
+`;
+
+export const CookieState = styled.span`
+  color: ${({ theme }) => theme.palette.byElement.text.white};
+  font-family: ${({ theme }) => theme.typography.fonts.default};
+  font-size: 1.4rem;
+  margin-right: 48px;
+`;
+
 export const TabButton = styled.button<{ isActive: boolean }>`
   background: none;
   border: none;

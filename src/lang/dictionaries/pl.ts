@@ -263,5 +263,185 @@ export const DictionaryPL: DictionaryType = {
         buttonText: 'Usuń',
       },
     },
+    parental_control: {
+      status: {
+        label: 'Status:',
+        infoTitle: 'Status kontroli rodzicielskiej',
+        infoDescription: 'Włącz lub wyłącz kontrolę rodzicielską.',
+      },
+      pin: {
+        label: 'PIN:',
+        infoTitle: 'PIN',
+        infoDescription: 'Kod PIN zabezpieczający ustawienia.',
+      },
+      screenLimit: {
+        label: 'Limit ekranowy:',
+        infoTitle: 'Limit ekranowy',
+        infoDescription: 'Dzienny limit czasu spędzonego przed ekranem.',
+      },
+      excludeHours: {
+        label: 'Wyklucz godziny:',
+        infoTitle: 'Wyklucz godziny',
+        infoDescription:
+          'Godziny, w których korzystanie z aplikacji jest zablokowane.',
+      },
+      ads: {
+        label: 'Reklamy:',
+        infoTitle: 'Reklamy',
+        infoDescription: 'Zarządzaj wyświetlaniem reklam.',
+      },
+      profiles: {
+        label: 'Profile dzieci:',
+        infoTitle: 'Profile dzieci',
+        infoDescription: 'Zarządzaj profilami swoich dzieci.',
+      },
+    },
+    display_n_audio: {
+      fontSize: {
+        label: 'Rozmiar czcionki:',
+        infoTitle: 'Rozmiar czcionki',
+        infoDescription: 'Dostosuj wielkość tekstu w bajkach.',
+      },
+      fontFamily: {
+        label: 'Rodzaj czcionki:',
+        infoTitle: 'Rodzaj czcionki',
+        infoDescription: 'Wybierz krój pisma, który najlepiej Ci się czyta.',
+      },
+      textBackground: {
+        label: 'Tło tekstu:',
+        infoTitle: 'Tło tekstu',
+        infoDescription: 'Wybierz kolor tła pod tekstem.',
+      },
+      backgroundIntensity: {
+        label: 'Intensywność tła:',
+        infoTitle: 'Intensywność tła',
+        infoDescription: 'Dostosuj przezroczystość tła tekstu.',
+      },
+      storyLanguage: {
+        label: 'Język bajek:',
+        infoTitle: 'Język bajek',
+        infoDescription:
+          'Wybierz język, w którym chcesz czytać i słuchać bajek.',
+      },
+      illustrationAnimation: {
+        label: 'Animacja ilustracji:',
+        infoTitle: 'Animacja ilustracji',
+        infoDescription: 'Włącz lub wyłącz ruchome elementy ilustracji.',
+      },
+      animationQuality: {
+        label: 'Jakość animacji:',
+        infoTitle: 'Jakość animacji',
+        infoDescription: 'Wybierz jakość wyświetlanych animacji.',
+      },
+      narration: {
+        label: 'Narracja:',
+        infoTitle: 'Narracja',
+        infoDescription: 'Włącz lub wyłącz głos lektora.',
+      },
+      narrationVolume: {
+        label: 'Głośność narracji:',
+        infoTitle: 'Głośność narracji',
+        infoDescription: 'Dostosuj głośność lektora.',
+      },
+      backgroundMusic: {
+        label: 'Muzyka w tle:',
+        infoTitle: 'Muzyka w tle',
+        infoDescription: 'Włącz lub wyłącz podkład muzyczny.',
+      },
+      musicVolume: {
+        label: 'Głośność muzyki:',
+        infoTitle: 'Głośność muzyki',
+        infoDescription: 'Dostosuj głośność muzyki w tle.',
+      },
+    },
+    notifications: {
+      news: {
+        label: 'Nowości (PUSH):',
+        infoTitle: 'Powiadomienia o nowościach',
+        infoDescription: 'Otrzymuj powiadomienia o nowych bajkach i funkcjach.',
+      },
+      payments: {
+        label: 'Płatności (PUSH):',
+        infoTitle: 'Powiadomienia o płatnościach',
+        infoDescription:
+          'Otrzymuj powiadomienia dotyczące Twoich płatności i subskrypcji.',
+      },
+      newsletter: {
+        label: 'Newsletter:',
+        buttonText: 'Substack',
+        infoTitle: 'Newsletter',
+        infoDescription: 'Zarządzaj swoją subskrypcją newslettera na Substack.',
+      },
+    },
+    privacy_n_data: {
+      headline: 'Prywatność i dane',
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta semper venenatis. Pellentesque tempus mi in orci iaculis posuere. Nulla efficitur varius ex vel porttitor. Phasellus id magna non felis dignissim tristique et at orci. Proin mollis volutpat diam et varius. Nullam id scelerisque turpis, id ornare ipsum. Praesent ut aliquam tellus. Vivamus id arcu turpis.',
+      personalData: {
+        name: {
+          label: 'Imię i nazwisko:',
+          infoTitle: 'Imię i nazwisko',
+          infoDescription: 'Zmień swoje imię i nazwisko wyświetlane w profilu.',
+        },
+        email: {
+          label: 'Email/login:',
+          infoTitle: 'Email/login',
+          infoDescription:
+            'Twój adres email służący do logowania. Zablokowany ze względów bezpieczeństwa.',
+        },
+        address: {
+          label: 'Adres:',
+          infoTitle: 'Adres',
+          infoDescription: 'Twój adres zamieszkania do celów rozliczeniowych.',
+        },
+      },
+      cookies: {
+        label: 'Ciasteczka:',
+        infoTitle: 'Zarządzanie ciasteczkami',
+        infoDescription:
+          'Zdecyduj, które pliki cookies chcesz dopuścić do działania w Twojej przeglądarce.',
+        functional: {
+          label: 'Funkcyjne:',
+          state: 'włączone',
+        },
+        analytical: {
+          label: 'Analityczne:',
+          infoTitle: 'Ciasteczka analityczne',
+          infoDescription:
+            'Pomagają nam zrozumieć, jak użytkownicy korzystają z serwisu.',
+        },
+        marketing: {
+          label: 'Marketingowe:',
+          infoTitle: 'Ciasteczka marketingowe',
+          infoDescription: 'Używane do dopasowania reklam do Twoich potrzeb.',
+        },
+        partnerA: {
+          label: 'Partner A:',
+          infoTitle: 'Partner A',
+          infoDescription: 'Ciasteczka dostarczane przez naszego partnera A.',
+        },
+        partnerB: {
+          label: 'Partner B:',
+          infoTitle: 'Partner B',
+          infoDescription: 'Ciasteczka dostarczane przez naszego partnera B.',
+        },
+      },
+      legal: {
+        headline: 'Informacje prawne i artykuły pomocy:',
+        links: {
+          dataAdmin: 'Administracja danych',
+          privacyPolicy: 'Polityka prywatności',
+          cookies: 'Ciasteczka',
+          partners: 'Nasi partnerzy',
+          howToEdit: 'Jak edytować bądź usunąć dane osobowe?',
+        },
+      },
+    },
+    support_n_feedback: {
+      headline: 'Pomoc i opinie',
+    },
+    info: {
+      headline: 'Informacje',
+    },
   },
 };
