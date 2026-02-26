@@ -158,5 +158,178 @@ export type DictionaryType = {
         buttonText: string;
       };
     };
+    parental_control: {
+      status: {
+        label: string;
+        infoTitle: string;
+        infoDescription: string;
+      };
+      pin: {
+        label: string;
+        infoTitle: string;
+        infoDescription: string;
+      };
+      screenLimit: {
+        label: string;
+        infoTitle: string;
+        infoDescription: string;
+      };
+      excludeHours: {
+        label: string;
+        infoTitle: string;
+        infoDescription: string;
+      };
+      ads: {
+        label: string;
+        infoTitle: string;
+        infoDescription: string;
+      };
+      profiles: {
+        label: string;
+        infoTitle: string;
+        infoDescription: string;
+      };
+    };
+    display_n_audio: {
+      fontSize: {
+        label: string;
+        infoTitle: string;
+        infoDescription: string;
+      };
+      fontFamily: {
+        label: string;
+        infoTitle: string;
+        infoDescription: string;
+      };
+      textBackground: {
+        label: string;
+        infoTitle: string;
+        infoDescription: string;
+      };
+      backgroundIntensity: {
+        label: string;
+        infoTitle: string;
+        infoDescription: string;
+      };
+      storyLanguage: {
+        label: string;
+        infoTitle: string;
+        infoDescription: string;
+      };
+      illustrationAnimation: {
+        label: string;
+        infoTitle: string;
+        infoDescription: string;
+      };
+      animationQuality: {
+        label: string;
+        infoTitle: string;
+        infoDescription: string;
+      };
+      narration: {
+        label: string;
+        infoTitle: string;
+        infoDescription: string;
+      };
+      narrationVolume: {
+        label: string;
+        infoTitle: string;
+        infoDescription: string;
+      };
+      backgroundMusic: {
+        label: string;
+        infoTitle: string;
+        infoDescription: string;
+      };
+      musicVolume: {
+        label: string;
+        infoTitle: string;
+        infoDescription: string;
+      };
+    };
+    notifications: {
+      news: {
+        label: string;
+        infoTitle: string;
+        infoDescription: string;
+      };
+      payments: {
+        label: string;
+        infoTitle: string;
+        infoDescription: string;
+      };
+      newsletter: {
+        label: string;
+        buttonText: string;
+        infoTitle: string;
+        infoDescription: string;
+      };
+    };
+    privacy_n_data: {
+      headline: string;
+      description: string;
+      personalData: {
+        name: {
+          label: string;
+          infoTitle: string;
+          infoDescription: string;
+        };
+        email: {
+          label: string;
+          infoTitle: string;
+          infoDescription: string;
+        };
+        address: {
+          label: string;
+          infoTitle: string;
+          infoDescription: string;
+        };
+      };
+      cookies: {
+        label: string;
+        infoTitle: string;
+        infoDescription: string;
+        functional: {
+          label: string;
+          state: string;
+        };
+        analytical: {
+          label: string;
+          infoTitle: string;
+          infoDescription: string;
+        };
+        marketing: {
+          label: string;
+          infoTitle: string;
+          infoDescription: string;
+        };
+        partnerA: {
+          label: string;
+          infoTitle: string;
+          infoDescription: string;
+        };
+        partnerB: {
+          label: string;
+          infoTitle: string;
+          infoDescription: string;
+        };
+      };
+      legal: {
+        headline: string;
+        links: {
+          dataAdmin: string;
+          privacyPolicy: string;
+          cookies: string;
+          partners: string;
+          howToEdit: string;
+        };
+      };
+    };
+    support_n_feedback: {
+      headline: string;
+    };
+    info: {
+      headline: string;
+    };
   };
 };
