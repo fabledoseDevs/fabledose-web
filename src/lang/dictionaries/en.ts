@@ -395,7 +395,8 @@ export const DictionaryEn: DictionaryType = {
           'Decide which cookies you want to allow in your browser.',
         functional: {
           label: 'Functional:',
-          state: 'on',
+          infoTitle: 'Functional cookies',
+          infoDescription: 'Cookies necessary for the application to function.',
         },
         analytical: {
           label: 'Analytical:',

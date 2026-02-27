@@ -291,7 +291,8 @@ export type DictionaryType = {
         infoDescription: string;
         functional: {
           label: string;
-          state: string;
+          infoTitle: string;
+          infoDescription: string;
         };
         analytical: {
           label: string;

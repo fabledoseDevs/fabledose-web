@@ -24,7 +24,7 @@ export const SettingsSwitch: SettingsSwitchType = ({ label, info }) => {
           <ToggleTrack isActive={isActive} onClick={toggleSwitch}>
             <ToggleThumb isActive={isActive} />
           </ToggleTrack>
-          <StateLabel>{isActive ? 'włączona' : 'wyłączona'}</StateLabel>
+          <StateLabel>{isActive ? 'włączone' : 'wyłączona'}</StateLabel>
         </SwitchWrapper>
         <ActionsWrapper>
           <InfoTooltip content={info} />
