@@ -402,7 +402,8 @@ export const DictionaryPL: DictionaryType = {
           'Zdecyduj, które pliki cookies chcesz dopuścić do działania w Twojej przeglądarce.',
         functional: {
           label: 'Funkcyjne:',
-          state: 'włączone',
+          infoTitle: 'Ciasteczka funkcjonalne',
+          infoDescription: 'Ciasteczka niezbędne dla funkcjonowania aplikacji.',
         },
         analytical: {
           label: 'Analityczne:',

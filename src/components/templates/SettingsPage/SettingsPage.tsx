@@ -4,6 +4,7 @@ import {
   FOREGROUND_COLOR,
   HEADLINE_TYPE,
 } from '@/atoms/Headline/Headline.types';
+import Paragraph from '@/atoms/Paragraph';
 import Separator from '@/atoms/Separator';
 import { SEPARATOR_COLOR } from '@/atoms/Separator/Separator.types';
 import {
@@ -21,15 +22,12 @@ import SettingsRangeField from '@/components/molecules/SettingsRangeField';
 import SettingsSwitch from '@/components/molecules/SettingsSwitch';
 import { useDictionary } from '@/lang/DictionaryProvider';
 import { handleLanguageChange } from '@/lang/lang.helpers';
+import SettingsStaticInfo from '@/molecules/SettingsStaticInfo';
 
 import { Headline } from '../../atoms/Headline/Headline';
 import { useSettingsPage } from './SettingsPage.hook';
 import {
   Content,
-  CookieLabel,
-  CookieState,
-  CookieStaticWrapper,
-  Description,
   LegalLinkItem,
   LegalLinksList,
   SettingsContentColumn,
@@ -364,7 +362,9 @@ export const SettingsPage: SettingsPageType = () => {
       case SETTINGS_TAB.PRIVACY_N_DATA:
         return (
           <>
-            <Description>{settingsPage.privacy_n_data.description}</Description>
+            <Paragraph color={FOREGROUND_COLOR.WHITE}>
+              {settingsPage.privacy_n_data.description}
+            </Paragraph>
             <SettingsInputField
               label={settingsPage.privacy_n_data.personalData.name.label}
               info={{
@@ -392,23 +392,21 @@ export const SettingsPage: SettingsPageType = () => {
                     .infoDescription,
               }}
             />
-
             <Headline
               weight={HEADLINE_TYPE.SMALL}
               color={FOREGROUND_COLOR.WHITE}
             >
               {settingsPage.privacy_n_data.cookies.label}
             </Headline>
-
-            <CookieStaticWrapper>
-              <CookieLabel>
-                {settingsPage.privacy_n_data.cookies.functional.label}
-              </CookieLabel>
-              <CookieState>
-                {settingsPage.privacy_n_data.cookies.functional.state}
-              </CookieState>
-            </CookieStaticWrapper>
-
+            <SettingsStaticInfo
+              label={settingsPage.privacy_n_data.cookies.functional.label}
+              info={{
+                title: settingsPage.privacy_n_data.cookies.functional.infoTitle,
+                description:
+                  settingsPage.privacy_n_data.cookies.functional
+                    .infoDescription,
+              }}
+            />
             <SettingsSwitch
               label={settingsPage.privacy_n_data.cookies.analytical.label}
               info={{
@@ -442,14 +440,12 @@ export const SettingsPage: SettingsPageType = () => {
                   settingsPage.privacy_n_data.cookies.partnerB.infoDescription,
               }}
             />
-
             <Headline
               weight={HEADLINE_TYPE.SMALL}
               color={FOREGROUND_COLOR.WHITE}
             >
               {settingsPage.privacy_n_data.legal.headline}
             </Headline>
-
             <LegalLinksList>
               <LegalLinkItem>
                 {settingsPage.privacy_n_data.legal.links.dataAdmin}
