@@ -433,9 +433,63 @@ export const DictionaryEn: DictionaryType = {
     },
     support_n_feedback: {
       headline: 'Support and feedback',
+      description:
+        'Privacy and data are important to us. Here you can manage your personal information, cookie settings, and view legal documents regarding your data protection.',
+      contactButton: 'Contact',
+      helpArticles: {
+        headline: 'Help articles:',
+        links: {
+          faq: 'FAQ',
+          howToReadAnimated: 'How to read animated fables? (tutorial)',
+          displayAudioSettings: 'Display and audio settings',
+          account: 'Accounts.',
+          paymentsRefunds: 'Payments and refunds',
+          techSupport: 'Contact technical support',
+          loremIpsum: 'Lorem ipsum',
+          sitAmet: 'Sit amet',
+        },
+      },
+      legalInfo: {
+        headline: 'Legal information:',
+        links: {
+          termsOfUse: 'Terms of Use',
+          privacyPolicy: 'Privacy Policy',
+          cookies: 'Cookies',
+        },
+      },
+      feedback: {
+        headline: 'Feedback:',
+        links: {
+          sendDirectFeedback: 'Send direct Feedback',
+          rateApp: 'Rate the app in AppStore, Google Play or other',
+        },
+      },
     },
     info: {
       headline: 'Information',
+      description:
+        'Privacy and data are important to us. Here you can manage your personal information, cookie settings, and view legal documents regarding your data protection.',
+      companyDetails: {
+        headline: 'Company Details:',
+        name: 'Fabledose sp. z o. o.',
+        address: 'Długa 9, 01-234 Nigdziebądź',
+        nip: 'VAT ID: 123456789',
+        regon: 'REGON: 123456789',
+        tel: 'Tel. +48 987654321',
+      },
+      appUsage: {
+        headline: 'You are using the application:',
+        version: 'Fabledose WEB. v 1.1',
+      },
+      license: {
+        headline: 'License:',
+        copyright: 'Copyright 2025 Fabledose.',
+        allRightsReserved: 'All rights reserved.',
+      },
+      openSource: {
+        headline: 'Open Source Contributions:',
+        contributors: 'GitHub, Swiper, Lorem',
+      },
     },
   },
 };

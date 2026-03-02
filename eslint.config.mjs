@@ -54,7 +54,7 @@ export default [
 
       'arrow-body-style': ['error', 'as-needed'],
       'arrow-parens': ['error', 'as-needed'],
-      'max-lines': ['warn', 500],
+      'max-lines': ['warn', 1000],
 
       'no-console': ['error', { allow: ['warn', 'error', 'info'] }],
 

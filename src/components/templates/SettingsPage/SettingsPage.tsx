@@ -7,6 +7,8 @@ import {
 import Paragraph from '@/atoms/Paragraph';
 import Separator from '@/atoms/Separator';
 import { SEPARATOR_COLOR } from '@/atoms/Separator/Separator.types';
+import ArticleLink from '@/components/atoms/ArticleLink';
+import Button from '@/components/atoms/Button';
 import {
   ACTION_TYPE,
   BUTTON_VARIANT,
@@ -28,11 +30,11 @@ import { Headline } from '../../atoms/Headline/Headline';
 import { useSettingsPage } from './SettingsPage.hook';
 import {
   Content,
-  LegalLinkItem,
   LegalLinksList,
   SettingsContentColumn,
   SettingsMenuColumn,
   SettingsPageBody,
+  SupportSection,
   TabButton,
 } from './SettingsPage.styled';
 import type { SettingsPage as SettingsPageType } from './SettingsPage.types';
@@ -447,35 +449,219 @@ export const SettingsPage: SettingsPageType = () => {
               {settingsPage.privacy_n_data.legal.headline}
             </Headline>
             <LegalLinksList>
-              <LegalLinkItem>
-                {settingsPage.privacy_n_data.legal.links.dataAdmin}
-              </LegalLinkItem>
-              <LegalLinkItem>
-                {settingsPage.privacy_n_data.legal.links.privacyPolicy}
-              </LegalLinkItem>
-              <LegalLinkItem>
-                {settingsPage.privacy_n_data.legal.links.cookies}
-              </LegalLinkItem>
-              <LegalLinkItem>
-                {settingsPage.privacy_n_data.legal.links.partners}
-              </LegalLinkItem>
-              <LegalLinkItem>
-                {settingsPage.privacy_n_data.legal.links.howToEdit}
-              </LegalLinkItem>
+              <li>
+                <ArticleLink>
+                  {settingsPage.privacy_n_data.legal.links.dataAdmin}
+                </ArticleLink>
+              </li>
+              <li>
+                <ArticleLink>
+                  {settingsPage.privacy_n_data.legal.links.privacyPolicy}
+                </ArticleLink>
+              </li>
+              <li>
+                <ArticleLink>
+                  {settingsPage.privacy_n_data.legal.links.cookies}
+                </ArticleLink>
+              </li>
+              <li>
+                <ArticleLink>
+                  {settingsPage.privacy_n_data.legal.links.partners}
+                </ArticleLink>
+              </li>
+              <li>
+                <ArticleLink>
+                  {settingsPage.privacy_n_data.legal.links.howToEdit}
+                </ArticleLink>
+              </li>
             </LegalLinksList>
           </>
         );
       case SETTINGS_TAB.SUPPORT_N_FEEDBACK:
         return (
-          <Headline weight={HEADLINE_TYPE.SMALL} color={FOREGROUND_COLOR.WHITE}>
-            {settingsPage.support_n_feedback.headline}
-          </Headline>
+          <>
+            <Paragraph color={FOREGROUND_COLOR.WHITE}>
+              {settingsPage.support_n_feedback.description}
+            </Paragraph>
+            <Button
+              actionType={ACTION_TYPE.FUNCTION_TRIGGER}
+              variant={BUTTON_VARIANT.RED}
+              text={settingsPage.support_n_feedback.contactButton}
+              width={{ widthType: WIDTH_TYPE.PX, widthValue: 120 }}
+              payload={() => console.info('Contact clicked!')}
+            />
+            <SupportSection>
+              <Headline
+                weight={HEADLINE_TYPE.SMALL}
+                color={FOREGROUND_COLOR.WHITE}
+              >
+                {settingsPage.support_n_feedback.helpArticles.headline}
+              </Headline>
+              <LegalLinksList>
+                <li>
+                  <ArticleLink>
+                    {settingsPage.support_n_feedback.helpArticles.links.faq}
+                  </ArticleLink>
+                </li>
+                <li>
+                  <ArticleLink>
+                    {
+                      settingsPage.support_n_feedback.helpArticles.links
+                        .howToReadAnimated
+                    }
+                  </ArticleLink>
+                </li>
+                <li>
+                  <ArticleLink>
+                    {
+                      settingsPage.support_n_feedback.helpArticles.links
+                        .displayAudioSettings
+                    }
+                  </ArticleLink>
+                </li>
+                <li>
+                  <ArticleLink>
+                    {settingsPage.support_n_feedback.helpArticles.links.account}
+                  </ArticleLink>
+                </li>
+                <li>
+                  <ArticleLink>
+                    {
+                      settingsPage.support_n_feedback.helpArticles.links
+                        .paymentsRefunds
+                    }
+                  </ArticleLink>
+                </li>
+                <li>
+                  <ArticleLink>
+                    {
+                      settingsPage.support_n_feedback.helpArticles.links
+                        .techSupport
+                    }
+                  </ArticleLink>
+                </li>
+                <li>
+                  <ArticleLink>
+                    {
+                      settingsPage.support_n_feedback.helpArticles.links
+                        .loremIpsum
+                    }
+                  </ArticleLink>
+                </li>
+                <li>
+                  <ArticleLink>
+                    {settingsPage.support_n_feedback.helpArticles.links.sitAmet}
+                  </ArticleLink>
+                </li>
+              </LegalLinksList>
+            </SupportSection>
+            <SupportSection>
+              <Headline
+                weight={HEADLINE_TYPE.SMALL}
+                color={FOREGROUND_COLOR.WHITE}
+              >
+                {settingsPage.support_n_feedback.legalInfo.headline}
+              </Headline>
+              <LegalLinksList>
+                <li>
+                  <ArticleLink>
+                    {settingsPage.support_n_feedback.legalInfo.links.termsOfUse}
+                  </ArticleLink>
+                </li>
+                <li>
+                  <ArticleLink>
+                    {
+                      settingsPage.support_n_feedback.legalInfo.links
+                        .privacyPolicy
+                    }
+                  </ArticleLink>
+                </li>
+                <li>
+                  <ArticleLink>
+                    {settingsPage.support_n_feedback.legalInfo.links.cookies}
+                  </ArticleLink>
+                </li>
+              </LegalLinksList>
+            </SupportSection>
+            <SupportSection>
+              <Headline
+                weight={HEADLINE_TYPE.SMALL}
+                color={FOREGROUND_COLOR.WHITE}
+              >
+                {settingsPage.support_n_feedback.feedback.headline}
+              </Headline>
+              <LegalLinksList>
+                <li>
+                  <ArticleLink>
+                    {
+                      settingsPage.support_n_feedback.feedback.links
+                        .sendDirectFeedback
+                    }
+                  </ArticleLink>
+                </li>
+                <li>
+                  <ArticleLink>
+                    {settingsPage.support_n_feedback.feedback.links.rateApp}
+                  </ArticleLink>
+                </li>
+              </LegalLinksList>
+            </SupportSection>
+          </>
         );
       case SETTINGS_TAB.INFO:
         return (
-          <Headline weight={HEADLINE_TYPE.SMALL} color={FOREGROUND_COLOR.WHITE}>
-            {settingsPage.info.headline}
-          </Headline>
+          <>
+            <Paragraph color={FOREGROUND_COLOR.WHITE}>
+              {settingsPage.info.description}
+            </Paragraph>
+            <SupportSection>
+              <Paragraph color={FOREGROUND_COLOR.WHITE} boldText>
+                {settingsPage.info.companyDetails.headline}
+              </Paragraph>
+              <Paragraph color={FOREGROUND_COLOR.WHITE}>
+                {settingsPage.info.companyDetails.name}
+              </Paragraph>
+              <Paragraph color={FOREGROUND_COLOR.WHITE}>
+                {settingsPage.info.companyDetails.address}
+              </Paragraph>
+              <Paragraph color={FOREGROUND_COLOR.WHITE}>
+                {settingsPage.info.companyDetails.nip}
+              </Paragraph>
+              <Paragraph color={FOREGROUND_COLOR.WHITE}>
+                {settingsPage.info.companyDetails.regon}
+              </Paragraph>
+              <Paragraph color={FOREGROUND_COLOR.WHITE}>
+                {settingsPage.info.companyDetails.tel}
+              </Paragraph>
+            </SupportSection>
+            <SupportSection>
+              <Paragraph color={FOREGROUND_COLOR.WHITE} boldText>
+                {settingsPage.info.appUsage.headline}
+              </Paragraph>
+              <Paragraph color={FOREGROUND_COLOR.WHITE}>
+                {settingsPage.info.appUsage.version}
+              </Paragraph>
+            </SupportSection>
+            <SupportSection>
+              <Paragraph color={FOREGROUND_COLOR.WHITE} boldText>
+                {settingsPage.info.license.headline}
+              </Paragraph>
+              <Paragraph color={FOREGROUND_COLOR.WHITE}>
+                {settingsPage.info.license.copyright}
+              </Paragraph>
+              <Paragraph color={FOREGROUND_COLOR.WHITE}>
+                {settingsPage.info.license.allRightsReserved}
+              </Paragraph>
+            </SupportSection>
+            <SupportSection>
+              <Paragraph color={FOREGROUND_COLOR.WHITE} boldText>
+                {settingsPage.info.openSource.headline}
+              </Paragraph>
+              <Paragraph color={FOREGROUND_COLOR.WHITE}>
+                {settingsPage.info.openSource.contributors}
+              </Paragraph>
+            </SupportSection>
+          </>
         );
       default:
         return null;
