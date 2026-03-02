@@ -328,9 +328,61 @@ export type DictionaryType = {
     };
     support_n_feedback: {
       headline: string;
+      description: string;
+      contactButton: string;
+      helpArticles: {
+        headline: string;
+        links: {
+          faq: string;
+          howToReadAnimated: string;
+          displayAudioSettings: string;
+          account: string;
+          paymentsRefunds: string;
+          techSupport: string;
+          loremIpsum: string;
+          sitAmet: string;
+        };
+      };
+      legalInfo: {
+        headline: string;
+        links: {
+          termsOfUse: string;
+          privacyPolicy: string;
+          cookies: string;
+        };
+      };
+      feedback: {
+        headline: string;
+        links: {
+          sendDirectFeedback: string;
+          rateApp: string;
+        };
+      };
     };
     info: {
       headline: string;
+      description: string;
+      companyDetails: {
+        headline: string;
+        name: string;
+        address: string;
+        nip: string;
+        regon: string;
+        tel: string;
+      };
+      appUsage: {
+        headline: string;
+        version: string;
+      };
+      license: {
+        headline: string;
+        copyright: string;
+        allRightsReserved: string;
+      };
+      openSource: {
+        headline: string;
+        contributors: string;
+      };
     };
   };
 };

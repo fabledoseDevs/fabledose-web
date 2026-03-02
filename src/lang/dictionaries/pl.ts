@@ -439,10 +439,64 @@ export const DictionaryPL: DictionaryType = {
       },
     },
     support_n_feedback: {
-      headline: 'Pomoc i opinie',
+      headline: 'Pomoc i feedback',
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta semper venenatis. Pellentesque tempus mi in orci iaculis posuere. Nulla efficitur varius ex vel porttitor. Phasellus id magna non felis dignissim tristique et at orci. Proin mollis volutpat diam et varius. Nullam id scelerisque turpis, id ornare ipsum. Praesent ut aliquam tellus. Vivamus id arcu turpis.',
+      contactButton: 'Kontakt',
+      helpArticles: {
+        headline: 'Artykuły pomocy:',
+        links: {
+          faq: 'FAQ',
+          howToReadAnimated: 'Jak czytać bajki animowane? (tutorial)',
+          displayAudioSettings: 'Ustawienia wyświetlania i audio',
+          account: 'Konta.',
+          paymentsRefunds: 'Płatności i zwroty',
+          techSupport: 'Kontakt ze wsparciem technicznym',
+          loremIpsum: 'Lorem ipsum',
+          sitAmet: 'Sit amet',
+        },
+      },
+      legalInfo: {
+        headline: 'Informacje prawne:',
+        links: {
+          termsOfUse: 'Regulamin korzystania',
+          privacyPolicy: 'Polityka prywatności',
+          cookies: 'Ciasteczka',
+        },
+      },
+      feedback: {
+        headline: 'Feedback:',
+        links: {
+          sendDirectFeedback: 'Wyślij bezpośredni Feedback',
+          rateApp: 'Oceń aplikację w sklepie AppStore, Sklep Play lub innej',
+        },
+      },
     },
     info: {
       headline: 'Informacje',
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta semper venenatis. Pellentesque tempus mi in orci iaculis posuere. Nulla efficitur varius ex vel porttitor. Phasellus id magna non felis dignissim tristique et at orci. Proin mollis volutpat diam et varius. Nullam id scelerisque turpis, id ornare ipsum. Praesent ut aliquam tellus. Vivamus id arcu turpis.',
+      companyDetails: {
+        headline: 'Dane Firmy:',
+        name: 'Fabledose sp. z o. o.',
+        address: 'Długa 9, 01-234 Nigdziebądź',
+        nip: 'NIP: 123456789',
+        regon: 'REGON: 123456789',
+        tel: 'Tel. +48 987654321',
+      },
+      appUsage: {
+        headline: 'Używasz aplikacji:',
+        version: 'Fabledose WEB. v 1.1',
+      },
+      license: {
+        headline: 'Licencja:',
+        copyright: 'Copyright 2025 Fabledose.',
+        allRightsReserved: 'All rights reserved.',
+      },
+      openSource: {
+        headline: 'Open Source Contributions:',
+        contributors: 'GitHub, Swiper, Lorem',
+      },
     },
   },
 };

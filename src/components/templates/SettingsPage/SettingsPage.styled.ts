@@ -59,31 +59,22 @@ export const Content = styled.div`
 `;
 
 export const LegalLinksList = styled.ul`
-  list-style: none;
-  padding: 0;
+  list-style: disc;
+  padding: 0 0 0 10px;
   margin: 16px 0 0 0;
   display: flex;
   flex-direction: column;
   gap: 8px;
+
+  li {
+    padding-left: 2px;
+  }
 `;
 
-export const LegalLinkItem = styled.li`
-  color: ${({ theme }) => theme.palette.byElement.text.white};
-  font-family: ${({ theme }) => theme.typography.fonts.default};
-  font-size: 1.6rem;
-  font-weight: ${({ theme }) => theme.typography.fontWeights.semibold};
-  cursor: pointer;
+export const SupportSection = styled.div`
   display: flex;
-  align-items: center;
-
-  &::before {
-    content: '•';
-    margin-right: 8px;
-  }
-
-  &:hover {
-    text-decoration: underline;
-  }
+  flex-direction: column;
+  margin-top: 32px;
 `;
 
 export const TabButton = styled.button<{ isActive: boolean }>`
