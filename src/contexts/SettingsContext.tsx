@@ -49,8 +49,11 @@ export const SettingsProvider: SettingsProviderType = ({
             setSettings(userSettings);
           } else {
             // Initialize with default settings if none exist
-            const defaultSettings = {
+            const defaultSettings: Settings = {
               displayName: user.displayName || 'Anonymous',
+              parentalControl: false,
+              fontSize: 16,
+              storyLanguage: 'auto',
             };
             setSettings(defaultSettings);
             updateUserSettings(user.uid, defaultSettings);
