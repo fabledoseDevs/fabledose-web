@@ -23,6 +23,9 @@ export const SettingsInputField: SettingsInputFieldType = ({
   label,
   info,
   variant = FIELD_VARIANT.TEXT,
+  value: valueProp,
+  onChange: onChangeProp,
+  onBlur: onBlurProp,
 }) => {
   const {
     isEditMode,
@@ -32,7 +35,7 @@ export const SettingsInputField: SettingsInputFieldType = ({
     isPopupOpen,
     closePopup,
     handleCardSave,
-  } = useSettingsInputField(variant);
+  } = useSettingsInputField(variant, valueProp, onChangeProp);
 
   const isCreditCard = variant === FIELD_VARIANT.CREDIT_CARD;
 
@@ -56,6 +59,13 @@ export const SettingsInputField: SettingsInputFieldType = ({
     }
 
     return <ValueDisplay>{value}</ValueDisplay>;
+  };
+
+  const handleBlur = () => {
+    toggleEditMode();
+    if (onBlurProp) {
+      onBlurProp();
+    }
   };
 
   return (
@@ -86,7 +96,7 @@ export const SettingsInputField: SettingsInputFieldType = ({
               ) {
                 return;
               }
-              toggleEditMode();
+              handleBlur();
             }}
           />
         ) : (

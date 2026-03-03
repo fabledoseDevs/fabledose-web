@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import React from 'react';
 
+import { SettingsProvider } from '@/contexts/SettingsContext';
 import { DictionaryProvider } from '@/lang/DictionaryProvider';
 import { getDictionary } from '@/lang/lang.helpers';
 import { ThemeProvider } from '@/styles';
@@ -28,8 +29,10 @@ export default async function RootLayout({
       <body>
         <DictionaryProvider dictionary={dict}>
           <ThemeProvider>
-            <GlobalStyle />
-            {children}
+            <SettingsProvider>
+              <GlobalStyle />
+              {children}
+            </SettingsProvider>
           </ThemeProvider>
         </DictionaryProvider>
       </body>

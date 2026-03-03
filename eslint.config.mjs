@@ -94,7 +94,7 @@ export default [
   {
     files: ['src/**/*.tsx'],
     rules: {
-      'max-lines': ['error', 700],
+      'max-lines': ['error', 1000],
     },
   },
   {

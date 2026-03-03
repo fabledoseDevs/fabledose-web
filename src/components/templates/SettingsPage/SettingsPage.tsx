@@ -1,4 +1,5 @@
 import { useParams, usePathname, useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 import {
   FOREGROUND_COLOR,
@@ -42,11 +43,30 @@ import { SETTINGS_TAB } from './SettingsPage.types';
 
 export const SettingsPage: SettingsPageType = () => {
   const { settingsPage } = useDictionary();
-  const { activeTab, setActiveTab } = useSettingsPage();
+  const { activeTab, setActiveTab, settings, updateSettings } =
+    useSettingsPage();
   const router = useRouter();
   const pathname = usePathname();
   const params = useParams();
   const currentLang = (params?.lang as string) || 'en';
+
+  const [displayName, setDisplayName] = useState('');
+
+  useEffect(() => {
+    if (settings?.displayName) {
+      setDisplayName(settings.displayName);
+    }
+  }, [settings?.displayName]);
+
+  const handleDisplayNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDisplayName(e.target.value);
+  };
+
+  const handleDisplayNameBlur = () => {
+    if (settings?.displayName !== displayName) {
+      updateSettings({ displayName });
+    }
+  };
 
   const getDisplayLanguage = (lang: string) => {
     switch (lang) {
@@ -68,6 +88,9 @@ export const SettingsPage: SettingsPageType = () => {
           <>
             <SettingsInputField
               label={settingsPage.profile_n_account.displayName.label}
+              value={displayName}
+              onChange={handleDisplayNameChange}
+              onBlur={handleDisplayNameBlur}
               info={{
                 title: settingsPage.profile_n_account.displayName.infoTitle,
                 description:
