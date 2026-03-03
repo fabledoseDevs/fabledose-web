@@ -8,30 +8,28 @@ import {
 
 const useSettingsInputField: UseSettingsInputFieldType = (
   variant: FIELD_VARIANT,
+  valueProp?: string,
+  onChangeProp?: (e: ChangeEvent<HTMLInputElement>) => void,
 ) => {
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
-  const [value, setValue] = useState<string>('');
+  const [value, setValue] = useState<string>(valueProp || '');
   const [isPopupOpen, setIsPopupOpen] = useState<boolean>(false);
 
   useEffect(() => {
-    const fetchValue = async () => {
-      // Mock firebase fetch
-      console.info('Fetching value from firebase...');
-      const mockValue =
-        variant === FIELD_VARIANT.CREDIT_CARD
-          ? '1234567812345678'
-          : variant === FIELD_VARIANT.EMAIL
-          ? 'jan.kowalski@example.com'
-          : 'Janek';
-      setValue(mockValue);
-    };
-
-    fetchValue();
-  }, [variant]);
+    // When the value prop changes from the parent (e.g., after being fetched from Firebase),
+    // update the internal state of this hook.
+    if (valueProp !== undefined) {
+      setValue(valueProp);
+    }
+  }, [valueProp]);
 
   const updateValueOnBackend = async (newValue: string) => {
-    // Mock firebase update
-    console.info('Updating value on backend (Firebase):', newValue);
+    // This logic is now handled by the onBlur prop passed from the parent.
+    // This function can be kept for other variants if needed, or removed.
+    console.info(
+      'Value update is now handled by the parent component:',
+      newValue,
+    );
   };
 
   const toggleEditMode = () => {
@@ -39,15 +37,17 @@ const useSettingsInputField: UseSettingsInputFieldType = (
       setIsPopupOpen(prev => !prev);
       return;
     }
-
-    if (isEditMode) {
-      updateValueOnBackend(value);
-    }
+    // The parent's onBlur now handles backend updates.
     setIsEditMode(prev => !prev);
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    // First, update the local state to make the input responsive.
     setValue(e.target.value);
+    // Then, if an onChange handler was passed from the parent, call it.
+    if (onChangeProp) {
+      onChangeProp(e);
+    }
   };
 
   const closePopup = () => setIsPopupOpen(false);

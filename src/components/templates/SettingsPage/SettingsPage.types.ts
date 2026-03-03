@@ -1,5 +1,7 @@
 import type { ReactElement } from 'react';
 
+import type { Settings } from '@/contexts/SettingsContext.types';
+
 /**
  * @file
  * This file defines the types and interfaces for SettingsPage component.
@@ -40,10 +42,14 @@ export enum SETTINGS_TAB {
  *
  * @property activeTab - Currently selected settings tab.
  * @property setActiveTab - Function to change the active settings tab.
+ * @property settings - The user's settings object from the SettingsContext.
+ * @property updateSettings - Function to update the user's settings.
  */
 export interface UseSettingsPageReturnValues {
   activeTab: SETTINGS_TAB;
   setActiveTab: (tab: SETTINGS_TAB) => void;
+  settings: Settings | null;
+  updateSettings: (newSettings: Partial<Settings>) => void;
 }
 
 /**

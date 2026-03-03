@@ -1,4 +1,5 @@
 import type { ChangeEvent, ReactElement } from 'react';
+import type React from 'react';
 
 import type { InfoTooltipContent } from '@/atoms/InfoTooltip';
 
@@ -20,11 +21,17 @@ export enum FIELD_VARIANT {
  * @property label - The label of the input field.
  * @property info - The content for the info tooltip.
  * @property variant - The variant of the input field.
+ * @property value - The current value of the input, passed from a parent component.
+ * @property onChange - Handler for when the input value changes.
+ * @property onBlur - Handler for when the input loses focus.
  */
 export interface SettingsInputFieldProps {
   label: string;
   info: InfoTooltipContent;
   variant?: FIELD_VARIANT;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: () => void;
 }
 
 /**
@@ -49,10 +56,14 @@ export interface UseSettingsInputFieldReturnValues {
  * Hook to manage the state and logic for the SettingsInputField component.
  *
  * @param variant - The variant of the input field.
+ * @param valueProp - The initial value passed from the parent.
+ * @param onChangeProp - The change handler passed from the parent.
  * @returns An object containing the state and handlers for the input field.
  */
 export type UseSettingsInputField = (
   variant: FIELD_VARIANT,
+  valueProp?: string,
+  onChangeProp?: (e: ChangeEvent<HTMLInputElement>) => void,
 ) => UseSettingsInputFieldReturnValues;
 
 /**
