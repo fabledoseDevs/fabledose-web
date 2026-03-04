@@ -9,7 +9,7 @@ export const useSettingsPage: UseSettingsPageType = () => {
   const [activeTab, setActiveTab] = useState<SETTINGS_TAB>(
     SETTINGS_TAB.PROFILE_N_ACCOUNT,
   );
-  const { settings, updateSettings } = useSettings();
+  const { settings, updateSettings, updateUserEmail } = useSettings();
 
-  return { activeTab, setActiveTab, settings, updateSettings };
+  return { activeTab, setActiveTab, settings, updateSettings, updateUserEmail };
 };

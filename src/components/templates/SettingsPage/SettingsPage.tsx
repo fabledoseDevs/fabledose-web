@@ -43,7 +43,7 @@ import { SETTINGS_TAB } from './SettingsPage.types';
 
 export const SettingsPage: SettingsPageType = () => {
   const { settingsPage } = useDictionary();
-  const { activeTab, setActiveTab, settings, updateSettings } =
+  const { activeTab, setActiveTab, settings, updateSettings, updateUserEmail } =
     useSettingsPage();
   const router = useRouter();
   const pathname = usePathname();
@@ -51,12 +51,16 @@ export const SettingsPage: SettingsPageType = () => {
   const currentLang = (params?.lang as string) || 'en';
 
   const [displayName, setDisplayName] = useState('');
+  const [email, setEmail] = useState('');
 
   useEffect(() => {
     if (settings?.displayName) {
       setDisplayName(settings.displayName);
     }
-  }, [settings?.displayName]);
+    if (settings?.email) {
+      setEmail(settings.email);
+    }
+  }, [settings?.displayName, settings?.email]);
 
   const handleDisplayNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDisplayName(e.target.value);
@@ -65,6 +69,16 @@ export const SettingsPage: SettingsPageType = () => {
   const handleDisplayNameBlur = () => {
     if (settings?.displayName !== displayName) {
       updateSettings({ displayName });
+    }
+  };
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
+
+  const handleEmailBlur = () => {
+    if (settings?.email !== email) {
+      updateUserEmail(email);
     }
   };
 
@@ -100,6 +114,9 @@ export const SettingsPage: SettingsPageType = () => {
             <SettingsInputField
               label={settingsPage.profile_n_account.email.label}
               variant={FIELD_VARIANT.EMAIL}
+              value={email}
+              onChange={handleEmailChange}
+              onBlur={handleEmailBlur}
               info={{
                 title: settingsPage.profile_n_account.email.infoTitle,
                 description:
