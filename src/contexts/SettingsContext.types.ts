@@ -10,12 +10,14 @@ import type { ReactElement, ReactNode } from 'react';
  * This interface contains all the customizable options available to the user.
  *
  * @property displayName - The user's public display name.
+ * @property email - The user's email address.
  * @property parentalControl - State of the parental control feature.
  * @property fontSize - The preferred font size for reading content, in pixels.
  * @property storyLanguage - The preferred language for story content.
  */
 export interface Settings {
   displayName: string;
+  email: string;
   parentalControl: boolean;
   fontSize: number;
   storyLanguage: string;
@@ -26,10 +28,12 @@ export interface Settings {
  *
  * @property settings - The current user's settings object. Null if no user is logged in.
  * @property updateSettings - A function to update one or more settings. It accepts a partial Settings object.
+ * @property updateUserEmail - A function to securely update the user's email with verification.
  */
 export interface SettingsContextType {
   settings: Settings | null;
   updateSettings: (newSettings: Partial<Settings>) => void;
+  updateUserEmail: (newEmail: string) => Promise<void>;
 }
 
 /**

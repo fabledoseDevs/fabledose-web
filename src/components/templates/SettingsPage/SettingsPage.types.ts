@@ -50,6 +50,7 @@ export interface UseSettingsPageReturnValues {
   setActiveTab: (tab: SETTINGS_TAB) => void;
   settings: Settings | null;
   updateSettings: (newSettings: Partial<Settings>) => void;
+  updateUserEmail: (newEmail: string) => Promise<void>;
 }
 
 /**
