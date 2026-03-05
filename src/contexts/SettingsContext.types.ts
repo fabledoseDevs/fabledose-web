@@ -18,10 +18,13 @@ import type { ReactElement, ReactNode } from 'react';
 export interface Settings {
   displayName: string;
   email: string;
+  plan: UserPlan;
   parentalControl: boolean;
   fontSize: number;
   storyLanguage: string;
 }
+
+export type UserPlan = 'free' | 'family' | 'ultimate';
 
 /**
  * Defines the shape of the SettingsContext.

@@ -226,6 +226,8 @@ export const DictionaryEn: DictionaryType = {
         infoTitle: 'Email Address',
         infoDescription:
           'Your email address is used for login and communication.',
+        verificationEmailSent:
+          'Verification email was sent to provided email address. This update will only take place if activation link is clicked in that message. Link is valid for 15 minutes.',
       },
       password: {
         label: 'Password',
@@ -236,9 +238,12 @@ export const DictionaryEn: DictionaryType = {
         label: 'Plan',
         infoTitle: 'Subscription Plan',
         infoDescription: 'Information about your current subscription plan.',
-        tier0: 'Free',
-        tier1: 'Family',
-        tier2: 'Premium',
+        changeButton: 'Change plan',
+        modalTitle: 'Choose your plan',
+        modalDescription: 'Select the plan you want to use on this account.',
+        free: 'Free',
+        family: 'Family',
+        ultimate: 'Ultimate',
       },
       creditCard: {
         label: 'Credit card',

@@ -232,6 +232,8 @@ export const DictionaryPL: DictionaryType = {
         label: 'Adres Email',
         infoTitle: 'Adres Email',
         infoDescription: 'Twój adres email służy do logowania i komunikacji.',
+        verificationEmailSent:
+          'Na podany adres wysłaliśmy email weryfikacyjny. Ta zmiana zostanie zatwierdzona tylko w przypadku kliknięcia w link potwierdzający w wysłanej wiadomości email. Link ważny jest przez 15 minut.',
       },
       password: {
         label: 'Hasło',
@@ -242,9 +244,12 @@ export const DictionaryPL: DictionaryType = {
         label: 'Plan',
         infoTitle: 'Plan subskrypcji',
         infoDescription: 'Informacje o Twoim aktualnym planie subskrypcji.',
-        tier0: 'Bezpłatny',
-        tier1: 'Rodzinny',
-        tier2: 'Premium',
+        changeButton: 'Zmień plan',
+        modalTitle: 'Wybierz plan',
+        modalDescription: 'Wybierz plan, którego chcesz używać na tym koncie.',
+        free: 'Bezpłatny',
+        family: 'Rodzinny',
+        ultimate: 'Ultimate',
       },
       creditCard: {
         label: 'Karta płatnicza',
