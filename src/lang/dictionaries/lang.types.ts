@@ -127,6 +127,7 @@ export type DictionaryType = {
         label: string;
         infoTitle: string;
         infoDescription: string;
+        verificationEmailSent: string;
       };
       password: {
         label: string;
@@ -137,9 +138,12 @@ export type DictionaryType = {
         label: string;
         infoTitle: string;
         infoDescription: string;
-        tier0: string;
-        tier1: string;
-        tier2: string;
+        changeButton: string;
+        modalTitle: string;
+        modalDescription: string;
+        free: string;
+        family: string;
+        ultimate: string;
       };
       creditCard: {
         label: string;

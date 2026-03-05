@@ -23,8 +23,10 @@ import SettingsProfiles from '@/components/molecules/SettingsProfiles';
 import SettingsRadio from '@/components/molecules/SettingsRadio';
 import SettingsRangeField from '@/components/molecules/SettingsRangeField';
 import SettingsSwitch from '@/components/molecules/SettingsSwitch';
+import type { UserPlan } from '@/contexts/SettingsContext.types';
 import { useDictionary } from '@/lang/DictionaryProvider';
 import { handleLanguageChange } from '@/lang/lang.helpers';
+import ModalWindow from '@/molecules/ModalWindow';
 import SettingsStaticInfo from '@/molecules/SettingsStaticInfo';
 
 import { Headline } from '../../atoms/Headline/Headline';
@@ -32,6 +34,7 @@ import { useSettingsPage } from './SettingsPage.hook';
 import {
   Content,
   LegalLinksList,
+  PlanActions,
   SettingsContentColumn,
   SettingsMenuColumn,
   SettingsPageBody,
@@ -52,6 +55,7 @@ export const SettingsPage: SettingsPageType = () => {
 
   const [displayName, setDisplayName] = useState('');
   const [email, setEmail] = useState('');
+  const [isPlanModalOpen, setIsPlanModalOpen] = useState(false);
 
   useEffect(() => {
     if (settings?.displayName) {
@@ -91,6 +95,23 @@ export const SettingsPage: SettingsPageType = () => {
       default:
         return 'Language';
     }
+  };
+
+  const getPlanLabel = (plan: UserPlan | undefined) => {
+    switch (plan) {
+      case 'family':
+        return settingsPage.profile_n_account.plan.family;
+      case 'ultimate':
+        return settingsPage.profile_n_account.plan.ultimate;
+      case 'free':
+      default:
+        return settingsPage.profile_n_account.plan.free;
+    }
+  };
+
+  const handlePlanChange = (plan: UserPlan) => {
+    updateSettings({ plan });
+    setIsPlanModalOpen(false);
   };
 
   const tabs = Object.values(SETTINGS_TAB);
@@ -139,8 +160,11 @@ export const SettingsPage: SettingsPageType = () => {
                 description:
                   settingsPage.profile_n_account.plan.infoDescription,
               }}
-              customButtonText={settingsPage.profile_n_account.plan.tier0}
-              customButtonRightText="0 PLN/mc"
+              customButtonText={getPlanLabel(settings?.plan)}
+              customButtonRightText={
+                settingsPage.profile_n_account.plan.changeButton
+              }
+              onCustomButtonClick={() => setIsPlanModalOpen(true)}
             />
             <SettingsInputField
               label={settingsPage.profile_n_account.creditCard.label}
@@ -731,6 +755,53 @@ export const SettingsPage: SettingsPageType = () => {
         <Separator color={SEPARATOR_COLOR.WHITE} margin={false} />
         <Content>{renderTabContent()}</Content>
       </SettingsContentColumn>
+      <ModalWindow
+        isOpen={isPlanModalOpen}
+        onClose={() => setIsPlanModalOpen(false)}
+        closeOnOverlayClick
+        title={settingsPage.profile_n_account.plan.modalTitle}
+      >
+        <Paragraph>
+          {settingsPage.profile_n_account.plan.modalDescription}
+          <br />
+          <br />
+        </Paragraph>
+        <PlanActions>
+          <Button
+            actionType={ACTION_TYPE.FUNCTION_TRIGGER}
+            variant={
+              settings?.plan === 'free'
+                ? BUTTON_VARIANT.RED
+                : BUTTON_VARIANT.WHITE
+            }
+            text={settingsPage.profile_n_account.plan.free}
+            payload={() => handlePlanChange('free')}
+            width={{ widthType: WIDTH_TYPE.PERCENT, widthValue: 100 }}
+          />
+          <Button
+            actionType={ACTION_TYPE.FUNCTION_TRIGGER}
+            variant={
+              settings?.plan === 'family'
+                ? BUTTON_VARIANT.RED
+                : BUTTON_VARIANT.WHITE
+            }
+            text={settingsPage.profile_n_account.plan.family}
+            payload={() => handlePlanChange('family')}
+            width={{ widthType: WIDTH_TYPE.PERCENT, widthValue: 100 }}
+          />
+          <Button
+            actionType={ACTION_TYPE.FUNCTION_TRIGGER}
+            variant={
+              settings?.plan === 'ultimate'
+                ? BUTTON_VARIANT.RED
+                : BUTTON_VARIANT.WHITE
+            }
+            text={settingsPage.profile_n_account.plan.ultimate}
+            payload={() => handlePlanChange('ultimate')}
+            width={{ widthType: WIDTH_TYPE.PERCENT, widthValue: 100 }}
+          />
+        </PlanActions>
+      </ModalWindow>
     </SettingsPageBody>
   );
 };

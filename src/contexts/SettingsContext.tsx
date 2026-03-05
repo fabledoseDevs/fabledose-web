@@ -12,6 +12,7 @@ import {
 
 import { auth } from '@/config/firebase';
 import { getUserSettings, updateUserSettings } from '@/config/firestore';
+import { useDictionary } from '@/lang/DictionaryProvider';
 
 import { debounce } from './debounce.helper';
 import type {
@@ -19,12 +20,18 @@ import type {
   SettingsContextType,
   SettingsProvider as SettingsProviderType,
   SettingsProviderProps,
+  UserPlan,
   UseSettings,
 } from './SettingsContext.types';
 
 const SettingsContext = createContext<SettingsContextType | undefined>(
   undefined,
 );
+
+const DEFAULT_PLAN: UserPlan = 'free';
+
+const normalizePlan = (plan: unknown): UserPlan =>
+  plan === 'family' || plan === 'ultimate' ? plan : DEFAULT_PLAN;
 
 export const useSettings: UseSettings = () => {
   const context = useContext(SettingsContext);
@@ -37,6 +44,7 @@ export const useSettings: UseSettings = () => {
 export const SettingsProvider: SettingsProviderType = ({
   children,
 }: SettingsProviderProps) => {
+  const { settingsPage } = useDictionary();
   const [user, setUser] = useState<User | null>(null);
   const [settings, setSettings] = useState<Settings | null>(null);
 
@@ -46,19 +54,36 @@ export const SettingsProvider: SettingsProviderType = ({
       if (user) {
         getUserSettings(user.uid).then(userSettings => {
           if (userSettings) {
+            const normalizedPlan = normalizePlan(userSettings.plan);
+            const normalizedUserSettings: Settings = {
+              ...userSettings,
+              plan: normalizedPlan,
+            };
+
             // User document exists, check if email needs syncing
             if (user.email && userSettings.email !== user.email) {
-              const updatedSettings = { ...userSettings, email: user.email };
+              const updatedSettings = {
+                ...normalizedUserSettings,
+                email: user.email,
+              };
               setSettings(updatedSettings);
-              updateUserSettings(user.uid, { email: user.email });
+              updateUserSettings(user.uid, {
+                email: user.email,
+                plan: normalizedPlan,
+              });
             } else {
-              setSettings(userSettings);
+              setSettings(normalizedUserSettings);
+
+              if (userSettings.plan !== normalizedPlan) {
+                updateUserSettings(user.uid, { plan: normalizedPlan });
+              }
             }
           } else {
             // This is a new user, create their settings document
             const defaultSettings: Settings = {
               displayName: user.displayName || 'Anonymous',
               email: user.email || '',
+              plan: DEFAULT_PLAN,
               parentalControl: false,
               fontSize: 16,
               storyLanguage: 'auto',
@@ -96,21 +121,15 @@ export const SettingsProvider: SettingsProviderType = ({
     }
 
     const actionCodeSettings = {
-      // URL to redirect back to. This must be in the authorized domains list
-      // in your Firebase console.
       url: window.location.href,
       handleCodeInApp: true,
     };
 
     try {
       await verifyBeforeUpdateEmail(user, newEmail, actionCodeSettings);
-      // We can also update our local state to give immediate feedback
-      // while letting Firebase handle the final confirmed update.
       updateSettings({ email: newEmail });
-      // Optionally, you could show a toast notification here.
-      alert('Verification email sent! Please check your new email address.');
+      alert(settingsPage.profile_n_account.email.verificationEmailSent);
     } catch (error) {
-      // Handle errors, e.g., email already in use, requires recent login, etc.
       console.error('Error sending verification email:', error);
       if (error instanceof Error) {
         alert(`Error: ${error.message}`);
