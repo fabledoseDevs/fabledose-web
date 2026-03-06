@@ -239,6 +239,22 @@ export const DictionaryPL: DictionaryType = {
         label: 'Hasło',
         infoTitle: 'Hasło',
         infoDescription: 'Używaj silnego hasła, aby chronić swoje konto.',
+        changeButton: 'Zmień hasło',
+        modalTitle: 'Zmiana hasła',
+        modalDescription:
+          'Ze względów bezpieczeństwa najpierw potwierdź obecne hasło.',
+        currentPasswordLabel: 'Obecne hasło',
+        newPasswordLabel: 'Nowe hasło',
+        confirmPasswordLabel: 'Potwierdź nowe hasło',
+        okButton: 'OK',
+        cancelButton: 'Anuluj',
+        validationRequired: 'Wszystkie pola hasła są wymagane.',
+        validationMismatch: 'Nowe hasło i potwierdzenie muszą być identyczne.',
+        updateSuccess: 'Hasło zostało zaktualizowane.',
+        wrongCurrentPassword: 'Obecne hasło jest niepoprawne.',
+        recentLoginRequired:
+          'Sesja wygasła. Zaloguj się ponownie i spróbuj jeszcze raz.',
+        updateFailed: 'Nie udało się zaktualizować hasła.',
       },
       plan: {
         label: 'Plan',
