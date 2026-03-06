@@ -133,6 +133,20 @@ export type DictionaryType = {
         label: string;
         infoTitle: string;
         infoDescription: string;
+        changeButton: string;
+        modalTitle: string;
+        modalDescription: string;
+        currentPasswordLabel: string;
+        newPasswordLabel: string;
+        confirmPasswordLabel: string;
+        okButton: string;
+        cancelButton: string;
+        validationRequired: string;
+        validationMismatch: string;
+        updateSuccess: string;
+        wrongCurrentPassword: string;
+        recentLoginRequired: string;
+        updateFailed: string;
       };
       plan: {
         label: string;

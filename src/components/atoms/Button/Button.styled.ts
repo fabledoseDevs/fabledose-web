@@ -168,9 +168,13 @@ export const ButtonContent = styled.div`
   gap: 8px;
 `;
 
-export const ButtonIcon = styled.img`
-  width: 24px;
-  height: 24px;
+export const ButtonIcon = styled.img<{
+  $iconSizeOverride?: number;
+}>`
+  width: ${({ $iconSizeOverride }) =>
+    typeof $iconSizeOverride === 'number' ? `${$iconSizeOverride}px` : '24px'};
+  height: ${({ $iconSizeOverride }) =>
+    typeof $iconSizeOverride === 'number' ? 'auto' : '24px'};
 `;
 
 export const ButtonBody = styled.button<{

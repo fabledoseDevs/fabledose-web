@@ -1,6 +1,3 @@
-import { useParams, usePathname, useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
-
 import {
   FOREGROUND_COLOR,
   HEADLINE_TYPE,
@@ -23,9 +20,7 @@ import SettingsProfiles from '@/components/molecules/SettingsProfiles';
 import SettingsRadio from '@/components/molecules/SettingsRadio';
 import SettingsRangeField from '@/components/molecules/SettingsRangeField';
 import SettingsSwitch from '@/components/molecules/SettingsSwitch';
-import type { UserPlan } from '@/contexts/SettingsContext.types';
 import { useDictionary } from '@/lang/DictionaryProvider';
-import { handleLanguageChange } from '@/lang/lang.helpers';
 import ModalWindow from '@/molecules/ModalWindow';
 import SettingsStaticInfo from '@/molecules/SettingsStaticInfo';
 
@@ -34,6 +29,12 @@ import { useSettingsPage } from './SettingsPage.hook';
 import {
   Content,
   LegalLinksList,
+  PasswordFieldInput,
+  PasswordFieldLabel,
+  PasswordFormField,
+  PasswordModalActions,
+  PasswordModalContent,
+  PasswordModalError,
   PlanActions,
   SettingsContentColumn,
   SettingsMenuColumn,
@@ -46,75 +47,37 @@ import { SETTINGS_TAB } from './SettingsPage.types';
 
 export const SettingsPage: SettingsPageType = () => {
   const { settingsPage } = useDictionary();
-  const { activeTab, setActiveTab, settings, updateSettings, updateUserEmail } =
-    useSettingsPage();
-  const router = useRouter();
-  const pathname = usePathname();
-  const params = useParams();
-  const currentLang = (params?.lang as string) || 'en';
-
-  const [displayName, setDisplayName] = useState('');
-  const [email, setEmail] = useState('');
-  const [isPlanModalOpen, setIsPlanModalOpen] = useState(false);
-
-  useEffect(() => {
-    if (settings?.displayName) {
-      setDisplayName(settings.displayName);
-    }
-    if (settings?.email) {
-      setEmail(settings.email);
-    }
-  }, [settings?.displayName, settings?.email]);
-
-  const handleDisplayNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setDisplayName(e.target.value);
-  };
-
-  const handleDisplayNameBlur = () => {
-    if (settings?.displayName !== displayName) {
-      updateSettings({ displayName });
-    }
-  };
-
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
-
-  const handleEmailBlur = () => {
-    if (settings?.email !== email) {
-      updateUserEmail(email);
-    }
-  };
-
-  const getDisplayLanguage = (lang: string) => {
-    switch (lang) {
-      case 'pl':
-        return 'Polski';
-      case 'en':
-        return 'English';
-      default:
-        return 'Language';
-    }
-  };
-
-  const getPlanLabel = (plan: UserPlan | undefined) => {
-    switch (plan) {
-      case 'family':
-        return settingsPage.profile_n_account.plan.family;
-      case 'ultimate':
-        return settingsPage.profile_n_account.plan.ultimate;
-      case 'free':
-      default:
-        return settingsPage.profile_n_account.plan.free;
-    }
-  };
-
-  const handlePlanChange = (plan: UserPlan) => {
-    updateSettings({ plan });
-    setIsPlanModalOpen(false);
-  };
-
-  const tabs = Object.values(SETTINGS_TAB);
+  const {
+    activeTab,
+    setActiveTab,
+    tabs,
+    settings,
+    displayName,
+    email,
+    isPlanModalOpen,
+    isPasswordModalOpen,
+    currentPassword,
+    newPassword,
+    confirmNewPassword,
+    passwordModalFeedback,
+    isPasswordUpdatePending,
+    planLabel,
+    displayLanguage,
+    handleLanguageSelection,
+    handleDisplayNameChange,
+    handleDisplayNameBlur,
+    handleEmailChange,
+    handleEmailBlur,
+    openPlanModal,
+    closePlanModal,
+    handlePlanChange,
+    openPasswordModal,
+    closePasswordModal,
+    handleCurrentPasswordChange,
+    handleNewPasswordChange,
+    handleConfirmNewPasswordChange,
+    handlePasswordUpdate,
+  } = useSettingsPage();
 
   const renderTabContent = () => {
     switch (activeTab) {
@@ -144,14 +107,18 @@ export const SettingsPage: SettingsPageType = () => {
                   settingsPage.profile_n_account.email.infoDescription,
               }}
             />
-            <SettingsInputField
+            <SettingsButton
               label={settingsPage.profile_n_account.password.label}
-              variant={FIELD_VARIANT.PASSWORD}
               info={{
                 title: settingsPage.profile_n_account.password.infoTitle,
                 description:
                   settingsPage.profile_n_account.password.infoDescription,
               }}
+              customButtonText={settings?.password || '********'}
+              customButtonRightText={
+                settingsPage.profile_n_account.password.changeButton
+              }
+              onCustomButtonClick={openPasswordModal}
             />
             <SettingsButton
               label={settingsPage.profile_n_account.plan.label}
@@ -160,38 +127,39 @@ export const SettingsPage: SettingsPageType = () => {
                 description:
                   settingsPage.profile_n_account.plan.infoDescription,
               }}
-              customButtonText={getPlanLabel(settings?.plan)}
+              customButtonText={planLabel}
               customButtonRightText={
                 settingsPage.profile_n_account.plan.changeButton
               }
-              onCustomButtonClick={() => setIsPlanModalOpen(true)}
+              onCustomButtonClick={openPlanModal}
             />
-            <SettingsInputField
+            <SettingsButton
               label={settingsPage.profile_n_account.creditCard.label}
-              variant={FIELD_VARIANT.CREDIT_CARD}
               info={{
                 title: settingsPage.profile_n_account.creditCard.infoTitle,
                 description:
                   settingsPage.profile_n_account.creditCard.infoDescription,
               }}
+              buttonProps={{
+                variant: BUTTON_VARIANT.WHITE,
+                text: '',
+                iconUrl: '/icons/stripe-blurple.svg',
+                iconSizeOverride: 44,
+                width: { widthType: WIDTH_TYPE.PERCENT, widthValue: 100 },
+                actionType: ACTION_TYPE.NAVIGATION,
+                payload: '#',
+              }}
             />
             <SettingsDropdown
               label={settingsPage.profile_n_account.language.label}
               options={['Polski', 'English']}
-              defaultValue={getDisplayLanguage(currentLang)}
+              defaultValue={displayLanguage}
               info={{
                 title: settingsPage.profile_n_account.language.infoTitle,
                 description:
                   settingsPage.profile_n_account.language.infoDescription,
               }}
-              onChange={selectedOption =>
-                handleLanguageChange(
-                  selectedOption,
-                  currentLang,
-                  pathname,
-                  router,
-                )
-              }
+              onChange={handleLanguageSelection}
             />
             <SettingsButton
               label={settingsPage.profile_n_account.deleteAccount.label}
@@ -757,7 +725,7 @@ export const SettingsPage: SettingsPageType = () => {
       </SettingsContentColumn>
       <ModalWindow
         isOpen={isPlanModalOpen}
-        onClose={() => setIsPlanModalOpen(false)}
+        onClose={closePlanModal}
         closeOnOverlayClick
         title={settingsPage.profile_n_account.plan.modalTitle}
       >
@@ -801,6 +769,83 @@ export const SettingsPage: SettingsPageType = () => {
             width={{ widthType: WIDTH_TYPE.PERCENT, widthValue: 100 }}
           />
         </PlanActions>
+      </ModalWindow>
+      <ModalWindow
+        isOpen={isPasswordModalOpen}
+        onClose={closePasswordModal}
+        closeOnOverlayClick={!isPasswordUpdatePending}
+        title={settingsPage.profile_n_account.password.modalTitle}
+      >
+        <PasswordModalContent>
+          <Paragraph>
+            {settingsPage.profile_n_account.password.modalDescription}
+          </Paragraph>
+          <PasswordFormField>
+            <PasswordFieldLabel htmlFor="settings-current-password">
+              {settingsPage.profile_n_account.password.currentPasswordLabel}
+            </PasswordFieldLabel>
+            <PasswordFieldInput
+              id="settings-current-password"
+              type="password"
+              value={currentPassword}
+              onChange={handleCurrentPasswordChange}
+              disabled={isPasswordUpdatePending}
+              autoComplete="current-password"
+            />
+          </PasswordFormField>
+          <PasswordFormField>
+            <PasswordFieldLabel htmlFor="settings-new-password">
+              {settingsPage.profile_n_account.password.newPasswordLabel}
+            </PasswordFieldLabel>
+            <PasswordFieldInput
+              id="settings-new-password"
+              type="password"
+              value={newPassword}
+              onChange={handleNewPasswordChange}
+              disabled={isPasswordUpdatePending}
+              autoComplete="new-password"
+            />
+          </PasswordFormField>
+          <PasswordFormField>
+            <PasswordFieldLabel htmlFor="settings-confirm-new-password">
+              {settingsPage.profile_n_account.password.confirmPasswordLabel}
+            </PasswordFieldLabel>
+            <PasswordFieldInput
+              id="settings-confirm-new-password"
+              type="password"
+              value={confirmNewPassword}
+              onChange={handleConfirmNewPasswordChange}
+              disabled={isPasswordUpdatePending}
+              autoComplete="new-password"
+              onKeyDown={event => {
+                if (event.key === 'Enter') {
+                  void handlePasswordUpdate();
+                }
+              }}
+            />
+          </PasswordFormField>
+          {passwordModalFeedback && (
+            <PasswordModalError>{passwordModalFeedback}</PasswordModalError>
+          )}
+          <PasswordModalActions>
+            <Button
+              actionType={ACTION_TYPE.FUNCTION_TRIGGER}
+              variant={BUTTON_VARIANT.TRANSPARENT}
+              text={settingsPage.profile_n_account.password.cancelButton}
+              payload={closePasswordModal}
+              isDisabled={isPasswordUpdatePending}
+              width={{ widthType: WIDTH_TYPE.AUTO }}
+            />
+            <Button
+              actionType={ACTION_TYPE.FUNCTION_TRIGGER}
+              variant={BUTTON_VARIANT.RED}
+              text={settingsPage.profile_n_account.password.okButton}
+              payload={handlePasswordUpdate}
+              isDisabled={isPasswordUpdatePending}
+              width={{ widthType: WIDTH_TYPE.AUTO }}
+            />
+          </PasswordModalActions>
+        </PasswordModalContent>
       </ModalWindow>
     </SettingsPageBody>
   );

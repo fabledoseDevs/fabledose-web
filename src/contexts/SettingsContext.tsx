@@ -1,7 +1,13 @@
 'use client';
 
 import type { User } from 'firebase/auth';
-import { onAuthStateChanged, verifyBeforeUpdateEmail } from 'firebase/auth';
+import {
+  EmailAuthProvider,
+  onAuthStateChanged,
+  reauthenticateWithCredential,
+  updatePassword,
+  verifyBeforeUpdateEmail,
+} from 'firebase/auth';
 import {
   createContext,
   useCallback,
@@ -29,6 +35,7 @@ const SettingsContext = createContext<SettingsContextType | undefined>(
 );
 
 const DEFAULT_PLAN: UserPlan = 'free';
+const DEFAULT_PASSWORD_PLACEHOLDER = '';
 
 const normalizePlan = (plan: unknown): UserPlan =>
   plan === 'family' || plan === 'ultimate' ? plan : DEFAULT_PLAN;
@@ -58,6 +65,10 @@ export const SettingsProvider: SettingsProviderType = ({
             const normalizedUserSettings: Settings = {
               ...userSettings,
               plan: normalizedPlan,
+              password:
+                typeof userSettings.password === 'string'
+                  ? userSettings.password
+                  : DEFAULT_PASSWORD_PLACEHOLDER,
             };
 
             // User document exists, check if email needs syncing
@@ -70,12 +81,19 @@ export const SettingsProvider: SettingsProviderType = ({
               updateUserSettings(user.uid, {
                 email: user.email,
                 plan: normalizedPlan,
+                password: normalizedUserSettings.password,
               });
             } else {
               setSettings(normalizedUserSettings);
 
-              if (userSettings.plan !== normalizedPlan) {
-                updateUserSettings(user.uid, { plan: normalizedPlan });
+              if (
+                userSettings.plan !== normalizedPlan ||
+                typeof userSettings.password !== 'string'
+              ) {
+                updateUserSettings(user.uid, {
+                  plan: normalizedPlan,
+                  password: normalizedUserSettings.password,
+                });
               }
             }
           } else {
@@ -83,6 +101,7 @@ export const SettingsProvider: SettingsProviderType = ({
             const defaultSettings: Settings = {
               displayName: user.displayName || 'Anonymous',
               email: user.email || '',
+              password: DEFAULT_PASSWORD_PLACEHOLDER,
               plan: DEFAULT_PLAN,
               parentalControl: false,
               fontSize: 16,
@@ -141,9 +160,37 @@ export const SettingsProvider: SettingsProviderType = ({
     }
   };
 
+  const updateUserPassword = async (
+    currentPassword: string,
+    newPassword: string,
+  ) => {
+    if (!user) {
+      throw new Error('User must be logged in to update password.');
+    }
+
+    if (!user.email) {
+      throw new Error(
+        'User email is missing. Password update is not possible.',
+      );
+    }
+
+    const credential = EmailAuthProvider.credential(
+      user.email,
+      currentPassword,
+    );
+    await reauthenticateWithCredential(user, credential);
+    await updatePassword(user, newPassword);
+    updateSettings({ password: '*'.repeat(Math.max(newPassword.length, 8)) });
+  };
+
   return (
     <SettingsContext.Provider
-      value={{ settings, updateSettings, updateUserEmail }}
+      value={{
+        settings,
+        updateSettings,
+        updateUserEmail,
+        updateUserPassword,
+      }}
     >
       {children}
     </SettingsContext.Provider>

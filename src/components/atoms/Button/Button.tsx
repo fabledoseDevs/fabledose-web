@@ -20,10 +20,13 @@ const actionTypeSelector: ActionSelectorType = ({
   isDisabled,
   width = { widthType: WIDTH_TYPE.AUTO },
   iconUrl,
+  iconSizeOverride,
 }) => {
   const renderContent = () => (
     <ButtonContent>
-      {iconUrl && <ButtonIcon src={iconUrl} alt="" />}
+      {iconUrl && (
+        <ButtonIcon src={iconUrl} alt="" $iconSizeOverride={iconSizeOverride} />
+      )}
       {text}
     </ButtonContent>
   );
@@ -78,6 +81,7 @@ export const Button: ButtonType = ({
   isDisabled = false,
   width,
   iconUrl,
+  iconSizeOverride,
 }) => (
   <ButtonWrapper width={width}>
     {actionTypeSelector({
@@ -88,6 +92,7 @@ export const Button: ButtonType = ({
       isDisabled,
       width,
       iconUrl,
+      iconSizeOverride,
     })}
   </ButtonWrapper>
 );

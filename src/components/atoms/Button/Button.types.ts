@@ -68,6 +68,7 @@ export interface WidthSpec {
  * @property isDisabled - If true, disables the button.
  * @property width - Optional width specification object controlling the CSS width.
  * @property iconUrl - Optional URL for an icon to display next to the text.
+ * @property iconSizeOverride - Optional icon width in pixels. When provided, icon height is set to auto.
  */
 export interface ButtonProps {
   actionType: ACTION_TYPE;
@@ -77,6 +78,7 @@ export interface ButtonProps {
   isDisabled?: boolean;
   width: WidthSpec;
   iconUrl?: string;
+  iconSizeOverride?: number;
 }
 
 /**
@@ -88,6 +90,7 @@ export interface ButtonProps {
  *  - `text`: Label text for the button.
  *  - `isDisabled`: Optionally disables the button.
  *  - `iconUrl`: Optional URL for an icon to display next to the text.
+ *  - `iconSizeOverride`: Optional icon width in pixels. When set, icon height is auto.
  *
  * @returns A ReactElement showing the rendered button.
  */
@@ -104,6 +107,7 @@ export type ActionSelector = (props: ButtonProps) => ReactElement;
  *  - `isDisabled`: If true, disables the button.
  *  - `fixedWidth`: Optional width of a button in pixels.
  *  - `iconUrl`: Optional URL for an icon to display next to the text in 24x24 format.
+ *  - `iconSizeOverride`: Optional icon width in pixels. When set, icon height is auto.
  *
  * @group Component
  *

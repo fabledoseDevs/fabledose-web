@@ -1,4 +1,4 @@
-import type { ReactElement } from 'react';
+import type { ChangeEvent, ReactElement } from 'react';
 
 import type { Settings } from '@/contexts/SettingsContext.types';
 
@@ -48,9 +48,40 @@ export enum SETTINGS_TAB {
 export interface UseSettingsPageReturnValues {
   activeTab: SETTINGS_TAB;
   setActiveTab: (tab: SETTINGS_TAB) => void;
+  tabs: SETTINGS_TAB[];
+  currentLang: string;
+  displayLanguage: string;
+  handleLanguageSelection: (selectedOption: string) => void;
   settings: Settings | null;
+  displayName: string;
+  email: string;
+  isPlanModalOpen: boolean;
+  isPasswordModalOpen: boolean;
+  currentPassword: string;
+  newPassword: string;
+  confirmNewPassword: string;
+  passwordModalFeedback: string;
+  isPasswordUpdatePending: boolean;
+  planLabel: string;
   updateSettings: (newSettings: Partial<Settings>) => void;
   updateUserEmail: (newEmail: string) => Promise<void>;
+  updateUserPassword: (
+    currentPassword: string,
+    newPassword: string,
+  ) => Promise<void>;
+  handleDisplayNameChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleDisplayNameBlur: () => void;
+  handleEmailChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleEmailBlur: () => void;
+  openPlanModal: () => void;
+  closePlanModal: () => void;
+  handlePlanChange: (plan: 'free' | 'family' | 'ultimate') => void;
+  openPasswordModal: () => void;
+  closePasswordModal: () => void;
+  handleCurrentPasswordChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleNewPasswordChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleConfirmNewPasswordChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  handlePasswordUpdate: () => Promise<void>;
 }
 
 /**

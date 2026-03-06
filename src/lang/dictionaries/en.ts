@@ -233,6 +233,22 @@ export const DictionaryEn: DictionaryType = {
         label: 'Password',
         infoTitle: 'Password',
         infoDescription: 'Use a strong password to protect your account.',
+        changeButton: 'Change password',
+        modalTitle: 'Change password',
+        modalDescription:
+          'For security reasons, confirm your current password first.',
+        currentPasswordLabel: 'Current password',
+        newPasswordLabel: 'New password',
+        confirmPasswordLabel: 'Confirm new password',
+        okButton: 'OK',
+        cancelButton: 'Cancel',
+        validationRequired: 'All password fields are required.',
+        validationMismatch: 'New password and confirmation must match.',
+        updateSuccess: 'Password updated successfully.',
+        wrongCurrentPassword: 'Current password is incorrect.',
+        recentLoginRequired:
+          'Session expired. Log in again and then retry password change.',
+        updateFailed: 'Unable to update password.',
       },
       plan: {
         label: 'Plan',

@@ -110,3 +110,47 @@ export const PlanActions = styled.div`
   flex-direction: column;
   gap: 12px;
 `;
+
+export const PasswordModalContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 320px;
+`;
+
+export const PasswordFormField = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+`;
+
+export const PasswordFieldLabel = styled.label`
+  font-family: ${({ theme }) => theme.typography.fonts.default};
+  font-size: ${({ theme }) => theme.typography.paragraphs.default.fontSize};
+  color: ${({ theme }) => theme.palette.byElement.text.purple};
+`;
+
+export const PasswordFieldInput = styled.input`
+  width: 100%;
+  border: 1px solid ${({ theme }) => theme.palette.byElement.text.purple};
+  border-radius: 10px;
+  background-color: ${({ theme }) => theme.palette.byColor.white.full};
+  color: ${({ theme }) => theme.palette.byElement.text.purple};
+  font-family: ${({ theme }) => theme.typography.fonts.default};
+  font-size: ${({ theme }) => theme.typography.paragraphs.default.fontSize};
+  padding: 10px 12px;
+`;
+
+export const PasswordModalActions = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 8px;
+`;
+
+export const PasswordModalError = styled.p`
+  margin: 4px 0 0 0;
+  color: ${({ theme }) => theme.palette.byColor.red.regular};
+  font-family: ${({ theme }) => theme.typography.fonts.default};
+  font-size: ${({ theme }) => theme.typography.paragraphs.default.fontSize};
+`;
