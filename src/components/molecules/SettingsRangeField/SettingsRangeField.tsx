@@ -1,6 +1,5 @@
 import InfoTooltip from '@/atoms/InfoTooltip';
 
-import useSettingsRangeField from './SettingsRangeField.hook';
 import {
   ActionsWrapper,
   ContentWrapper,
@@ -19,8 +18,14 @@ export const SettingsRangeField: SettingsRangeFieldType = ({
   max = 100,
   step = 1,
   unit = '',
+  value = 16,
+  onChange,
 }) => {
-  const { value, handleRangeChange } = useSettingsRangeField();
+  const handleRangeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (onChange) {
+      onChange(Number(e.target.value));
+    }
+  };
 
   return (
     <SettingsRangeFieldBody>

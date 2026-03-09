@@ -82,6 +82,11 @@ export interface UseSettingsPageReturnValues {
   handleNewPasswordChange: (e: ChangeEvent<HTMLInputElement>) => void;
   handleConfirmNewPasswordChange: (e: ChangeEvent<HTMLInputElement>) => void;
   handlePasswordUpdate: () => Promise<void>;
+  handleFontSizeChange: (value: number) => void;
+  handleFontFamilyChange: (value: string) => void;
+  handleTextBackgroundChange: (value: string) => void;
+  handleBackgroundIntensityChange: (value: number) => void;
+  handleStoryLanguageChange: (value: string) => void;
 }
 
 /**

@@ -77,6 +77,11 @@ export const SettingsPage: SettingsPageType = () => {
     handleNewPasswordChange,
     handleConfirmNewPasswordChange,
     handlePasswordUpdate,
+    handleFontSizeChange,
+    handleFontFamilyChange,
+    handleTextBackgroundChange,
+    handleBackgroundIntensityChange,
+    handleStoryLanguageChange,
   } = useSettingsPage();
 
   const renderTabContent = () => {
@@ -231,6 +236,8 @@ export const SettingsPage: SettingsPageType = () => {
               min={12}
               max={24}
               unit="px"
+              value={settings?.fontSize || 16}
+              onChange={handleFontSizeChange}
               info={{
                 title: settingsPage.display_n_audio.fontSize.infoTitle,
                 description:
@@ -244,6 +251,8 @@ export const SettingsPage: SettingsPageType = () => {
                 { label: 'Serif', value: 'serif' },
                 { label: 'Dyslexia', value: 'dyslexia' },
               ]}
+              value={settings?.fontFamily || 'sans'}
+              onChange={handleFontFamilyChange}
               info={{
                 title: settingsPage.display_n_audio.fontFamily.infoTitle,
                 description:
@@ -257,6 +266,8 @@ export const SettingsPage: SettingsPageType = () => {
                 { label: 'jasne', value: 'light' },
                 { label: 'ciemne', value: 'dark' },
               ]}
+              value={settings?.textBackground || 'none'}
+              onChange={handleTextBackgroundChange}
               info={{
                 title: settingsPage.display_n_audio.textBackground.infoTitle,
                 description:
@@ -268,6 +279,8 @@ export const SettingsPage: SettingsPageType = () => {
               min={0}
               max={100}
               unit="%"
+              value={settings?.backgroundIntensity || 50}
+              onChange={handleBackgroundIntensityChange}
               info={{
                 title:
                   settingsPage.display_n_audio.backgroundIntensity.infoTitle,
@@ -279,7 +292,8 @@ export const SettingsPage: SettingsPageType = () => {
             <SettingsDropdown
               label={settingsPage.display_n_audio.storyLanguage.label}
               options={['Auto', 'Polski', 'English']}
-              defaultValue="Auto"
+              defaultValue={settings?.storyLanguage || 'auto'}
+              onChange={handleStoryLanguageChange}
               info={{
                 title: settingsPage.display_n_audio.storyLanguage.infoTitle,
                 description:
