@@ -180,6 +180,26 @@ export const useSettingsPage: UseSettingsPageType = () => {
     }
   };
 
+  const handleFontSizeChange = (value: number) => {
+    updateSettings({ fontSize: value });
+  };
+
+  const handleFontFamilyChange = (value: string) => {
+    updateSettings({ fontFamily: value });
+  };
+
+  const handleTextBackgroundChange = (value: string) => {
+    updateSettings({ textBackground: value });
+  };
+
+  const handleBackgroundIntensityChange = (value: number) => {
+    updateSettings({ backgroundIntensity: value });
+  };
+
+  const handleStoryLanguageChange = (value: string) => {
+    updateSettings({ storyLanguage: value });
+  };
+
   return {
     activeTab,
     setActiveTab,
@@ -214,5 +234,10 @@ export const useSettingsPage: UseSettingsPageType = () => {
     handleNewPasswordChange,
     handleConfirmNewPasswordChange,
     handlePasswordUpdate,
+    handleFontSizeChange,
+    handleFontFamilyChange,
+    handleTextBackgroundChange,
+    handleBackgroundIntensityChange,
+    handleStoryLanguageChange,
   };
 };

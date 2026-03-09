@@ -14,6 +14,9 @@ import type { ReactElement, ReactNode } from 'react';
  * @property password - Password placeholder persisted in settings document.
  * @property parentalControl - State of the parental control feature.
  * @property fontSize - The preferred font size for reading content, in pixels.
+ * @property fontFamily - The preferred font family for reading content.
+ * @property textBackground - The preferred text background color for reading content.
+ * @property backgroundIntensity - The preferred background intensity for reading content.
  * @property storyLanguage - The preferred language for story content.
  */
 export interface Settings {
@@ -23,6 +26,9 @@ export interface Settings {
   plan: UserPlan;
   parentalControl: boolean;
   fontSize: number;
+  fontFamily: string;
+  textBackground: string;
+  backgroundIntensity: number;
   storyLanguage: string;
 }
 

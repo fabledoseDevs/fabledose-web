@@ -82,17 +82,28 @@ export const SettingsProvider: SettingsProviderType = ({
                 email: user.email,
                 plan: normalizedPlan,
                 password: normalizedUserSettings.password,
+                fontSize: userSettings.fontSize ?? 16,
+                fontFamily: userSettings.fontFamily ?? 'sans',
+                textBackground: userSettings.textBackground ?? 'none',
+                backgroundIntensity: userSettings.backgroundIntensity ?? 50,
+                storyLanguage: userSettings.storyLanguage ?? 'auto',
               });
             } else {
               setSettings(normalizedUserSettings);
 
               if (
                 userSettings.plan !== normalizedPlan ||
-                typeof userSettings.password !== 'string'
+                typeof userSettings.password !== 'string' ||
+                userSettings.fontFamily === undefined
               ) {
                 updateUserSettings(user.uid, {
                   plan: normalizedPlan,
                   password: normalizedUserSettings.password,
+                  fontSize: userSettings.fontSize ?? 16,
+                  fontFamily: userSettings.fontFamily ?? 'sans',
+                  textBackground: userSettings.textBackground ?? 'none',
+                  backgroundIntensity: userSettings.backgroundIntensity ?? 50,
+                  storyLanguage: userSettings.storyLanguage ?? 'auto',
                 });
               }
             }
@@ -105,6 +116,9 @@ export const SettingsProvider: SettingsProviderType = ({
               plan: DEFAULT_PLAN,
               parentalControl: false,
               fontSize: 16,
+              fontFamily: 'sans',
+              textBackground: 'none',
+              backgroundIntensity: 50,
               storyLanguage: 'auto',
             };
             setSettings(defaultSettings);
@@ -130,7 +144,7 @@ export const SettingsProvider: SettingsProviderType = ({
     if (settings && user) {
       const updatedSettings = { ...settings, ...newSettings };
       setSettings(updatedSettings);
-      debouncedUpdate(user.uid, updatedSettings);
+      debouncedUpdate(user.uid, newSettings);
     }
   };
 

@@ -28,32 +28,16 @@ export interface SettingsRadioOption {
  * @property label - The label of the radio group field.
  * @property options - The list of radio options.
  * @property info - The content for the info tooltip.
+ * @property value - The currently active value.
+ * @property onChange - The callback function triggered when a radio option is selected.
  */
 export interface SettingsRadioProps {
   label: string;
   options: SettingsRadioOption[];
   info: InfoTooltipContent;
+  value?: string;
+  onChange?: (value: string) => void;
 }
-
-/**
- * Interface for the values returned by the useSettingsRadio hook.
- *
- * @property selectedValue - The currently selected option value.
- * @property selectOption - Function to select an option.
- */
-export interface UseSettingsRadioReturnValues {
-  selectedValue: string | null;
-  selectOption: (value: string) => void;
-}
-
-/**
- * Hook to manage the state and logic for the SettingsRadio component.
- *
- * @returns An object containing the state and handlers for the radio group.
- */
-export type UseSettingsRadio = (
-  options: SettingsRadioOption[],
-) => UseSettingsRadioReturnValues;
 
 /**
  * Component renders a settings radio group with box-styled options.

@@ -1,4 +1,4 @@
-import type { ChangeEvent, ReactElement } from 'react';
+import type { ReactElement } from 'react';
 
 import type { InfoTooltipContent } from '@/atoms/InfoTooltip';
 
@@ -16,6 +16,8 @@ import type { InfoTooltipContent } from '@/atoms/InfoTooltip';
  * @property max - The maximum value of the range.
  * @property step - The step value of the range.
  * @property unit - The unit of the value (e.g., 'px').
+ * @property value - The current value of the range.
+ * @property onChange - The callback function triggered when the range value changes.
  */
 export interface SettingsRangeFieldProps {
   label: string;
@@ -24,25 +26,9 @@ export interface SettingsRangeFieldProps {
   max?: number;
   step?: number;
   unit?: string;
+  value?: number;
+  onChange?: (value: number) => void;
 }
-
-/**
- * Interface for the values returned by the useSettingsRangeField hook.
- *
- * @property value - The current numeric value of the range field.
- * @property handleRangeChange - Event handler for range input changes.
- */
-export interface UseSettingsRangeFieldReturnValues {
-  value: number;
-  handleRangeChange: (e: ChangeEvent<HTMLInputElement>) => void;
-}
-
-/**
- * Hook to manage the state and logic for the SettingsRangeField component.
- *
- * @returns An object containing the state and handlers for the range field.
- */
-export type UseSettingsRangeField = () => UseSettingsRangeFieldReturnValues;
 
 /**
  * Component renders a settings range field with a slider.

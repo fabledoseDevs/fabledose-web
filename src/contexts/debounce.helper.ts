@@ -1,5 +1,4 @@
 /**
- * @group Utility
  * This file provides a generic debounce utility.
  */
 
