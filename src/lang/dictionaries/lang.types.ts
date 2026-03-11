@@ -223,6 +223,11 @@ export type DictionaryType = {
         label: string;
         infoTitle: string;
         infoDescription: string;
+        options: {
+          none: string;
+          light: string;
+          dark: string;
+        };
       };
       backgroundIntensity: {
         label: string;
@@ -401,6 +406,10 @@ export type DictionaryType = {
         headline: string;
         contributors: string;
       };
+    };
+    SettingsSwitch: {
+      enabled: string;
+      disabled: string;
     };
   };
 };

@@ -325,6 +325,11 @@ export const DictionaryEn: DictionaryType = {
         label: 'Text background:',
         infoTitle: 'Text Background',
         infoDescription: 'Choose the background color behind the text.',
+        options: {
+          none: 'none',
+          light: 'light',
+          dark: 'dark',
+        },
       },
       backgroundIntensity: {
         label: 'Background intensity:',
@@ -511,6 +516,10 @@ export const DictionaryEn: DictionaryType = {
         headline: 'Open Source Contributions:',
         contributors: 'GitHub, Swiper, Lorem',
       },
+    },
+    SettingsSwitch: {
+      enabled: 'on',
+      disabled: 'off',
     },
   },
 };

@@ -87,6 +87,12 @@ export interface UseSettingsPageReturnValues {
   handleTextBackgroundChange: (value: string) => void;
   handleBackgroundIntensityChange: (value: number) => void;
   handleStoryLanguageChange: (value: string) => void;
+  handleIllustrationAnimationChange: (value: boolean) => void;
+  handleAnimationQualityChange: (value: string) => void;
+  handleNarrationChange: (value: boolean) => void;
+  handleNarrationVolumeChange: (value: number) => void;
+  handleBackgroundMusicChange: (value: boolean) => void;
+  handleMusicVolumeChange: (value: number) => void;
 }
 
 /**

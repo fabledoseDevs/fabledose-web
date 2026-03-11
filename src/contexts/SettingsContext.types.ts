@@ -18,6 +18,12 @@ import type { ReactElement, ReactNode } from 'react';
  * @property textBackground - The preferred text background color for reading content.
  * @property backgroundIntensity - The preferred background intensity for reading content.
  * @property storyLanguage - The preferred language for story content.
+ * @property illustrationAnimation - State of the illustration animation feature.
+ * @property animationQuality - The preferred quality level for animations.
+ * @property narration - State of the narration feature.
+ * @property narrationVolume - The preferred volume level for narration.
+ * @property backgroundMusic - State of the background music feature.
+ * @property musicVolume - The preferred volume level for background music.
  */
 export interface Settings {
   displayName: string;
@@ -30,6 +36,12 @@ export interface Settings {
   textBackground: string;
   backgroundIntensity: number;
   storyLanguage: string;
+  illustrationAnimation: boolean;
+  animationQuality: string;
+  narration: boolean;
+  narrationVolume: number;
+  backgroundMusic: boolean;
+  musicVolume: number;
 }
 
 export type UserPlan = 'free' | 'family' | 'ultimate';

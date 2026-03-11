@@ -200,6 +200,30 @@ export const useSettingsPage: UseSettingsPageType = () => {
     updateSettings({ storyLanguage: value });
   };
 
+  const handleIllustrationAnimationChange = (value: boolean) => {
+    updateSettings({ illustrationAnimation: value });
+  };
+
+  const handleAnimationQualityChange = (value: string) => {
+    updateSettings({ animationQuality: value });
+  };
+
+  const handleNarrationChange = (value: boolean) => {
+    updateSettings({ narration: value });
+  };
+
+  const handleNarrationVolumeChange = (value: number) => {
+    updateSettings({ narrationVolume: value });
+  };
+
+  const handleBackgroundMusicChange = (value: boolean) => {
+    updateSettings({ backgroundMusic: value });
+  };
+
+  const handleMusicVolumeChange = (value: number) => {
+    updateSettings({ musicVolume: value });
+  };
+
   return {
     activeTab,
     setActiveTab,
@@ -239,5 +263,11 @@ export const useSettingsPage: UseSettingsPageType = () => {
     handleTextBackgroundChange,
     handleBackgroundIntensityChange,
     handleStoryLanguageChange,
+    handleIllustrationAnimationChange,
+    handleAnimationQualityChange,
+    handleNarrationChange,
+    handleNarrationVolumeChange,
+    handleBackgroundMusicChange,
+    handleMusicVolumeChange,
   };
 };

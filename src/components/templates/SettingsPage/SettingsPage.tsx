@@ -82,6 +82,12 @@ export const SettingsPage: SettingsPageType = () => {
     handleTextBackgroundChange,
     handleBackgroundIntensityChange,
     handleStoryLanguageChange,
+    handleIllustrationAnimationChange,
+    handleAnimationQualityChange,
+    handleNarrationChange,
+    handleNarrationVolumeChange,
+    handleBackgroundMusicChange,
+    handleMusicVolumeChange,
   } = useSettingsPage();
 
   const renderTabContent = () => {
@@ -262,9 +268,21 @@ export const SettingsPage: SettingsPageType = () => {
             <SettingsRadio
               label={settingsPage.display_n_audio.textBackground.label}
               options={[
-                { label: 'brak', value: 'none' },
-                { label: 'jasne', value: 'light' },
-                { label: 'ciemne', value: 'dark' },
+                {
+                  label:
+                    settingsPage.display_n_audio.textBackground.options.none,
+                  value: 'none',
+                },
+                {
+                  label:
+                    settingsPage.display_n_audio.textBackground.options.light,
+                  value: 'light',
+                },
+                {
+                  label:
+                    settingsPage.display_n_audio.textBackground.options.dark,
+                  value: 'dark',
+                },
               ]}
               value={settings?.textBackground || 'none'}
               onChange={handleTextBackgroundChange}
@@ -302,6 +320,8 @@ export const SettingsPage: SettingsPageType = () => {
             />
             <SettingsSwitch
               label={settingsPage.display_n_audio.illustrationAnimation.label}
+              value={settings?.illustrationAnimation ?? true}
+              onChange={handleIllustrationAnimationChange}
               info={{
                 title:
                   settingsPage.display_n_audio.illustrationAnimation.infoTitle,
@@ -319,6 +339,8 @@ export const SettingsPage: SettingsPageType = () => {
                 { label: '2K', value: '2k', isDisabled: true },
                 { label: '4K', value: '4k', isDisabled: true },
               ]}
+              value={settings?.animationQuality || 'high'}
+              onChange={handleAnimationQualityChange}
               info={{
                 title: settingsPage.display_n_audio.animationQuality.infoTitle,
                 description:
@@ -327,6 +349,8 @@ export const SettingsPage: SettingsPageType = () => {
             />
             <SettingsSwitch
               label={settingsPage.display_n_audio.narration.label}
+              value={settings?.narration ?? true}
+              onChange={handleNarrationChange}
               info={{
                 title: settingsPage.display_n_audio.narration.infoTitle,
                 description:
@@ -338,6 +362,8 @@ export const SettingsPage: SettingsPageType = () => {
               min={0}
               max={100}
               unit="%"
+              value={settings?.narrationVolume ?? 80}
+              onChange={handleNarrationVolumeChange}
               info={{
                 title: settingsPage.display_n_audio.narrationVolume.infoTitle,
                 description:
@@ -346,6 +372,8 @@ export const SettingsPage: SettingsPageType = () => {
             />
             <SettingsSwitch
               label={settingsPage.display_n_audio.backgroundMusic.label}
+              value={settings?.backgroundMusic ?? true}
+              onChange={handleBackgroundMusicChange}
               info={{
                 title: settingsPage.display_n_audio.backgroundMusic.infoTitle,
                 description:
@@ -357,6 +385,8 @@ export const SettingsPage: SettingsPageType = () => {
               min={0}
               max={100}
               unit="%"
+              value={settings?.musicVolume ?? 60}
+              onChange={handleMusicVolumeChange}
               info={{
                 title: settingsPage.display_n_audio.musicVolume.infoTitle,
                 description:

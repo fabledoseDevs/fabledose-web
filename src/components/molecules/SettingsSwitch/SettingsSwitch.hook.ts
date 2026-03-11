@@ -5,29 +5,22 @@ import type {
   UseSettingsSwitchReturnValues,
 } from './SettingsSwitch.types';
 
-const useSettingsSwitch: UseSettingsSwitchType = () => {
-  const [isActive, setIsActive] = useState<boolean>(true);
+const useSettingsSwitch: UseSettingsSwitchType = (
+  initialValue,
+  onValueChange,
+) => {
+  const [isActive, setIsActive] = useState<boolean>(initialValue);
 
   useEffect(() => {
-    const fetchValue = async () => {
-      // Mock firebase fetch
-      console.info('Fetching switch state from firebase...');
-      const mockValue = true;
-      setIsActive(mockValue);
-    };
-
-    fetchValue();
-  }, []);
-
-  const updateValueOnBackend = async (newValue: boolean) => {
-    // Mock firebase update
-    console.info('Updating switch state on backend (Firebase):', newValue);
-  };
+    setIsActive(initialValue);
+  }, [initialValue]);
 
   const toggleSwitch = () => {
     const newValue = !isActive;
     setIsActive(newValue);
-    updateValueOnBackend(newValue);
+    if (onValueChange) {
+      onValueChange(newValue);
+    }
   };
 
   return {
