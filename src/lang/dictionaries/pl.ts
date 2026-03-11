@@ -332,6 +332,11 @@ export const DictionaryPL: DictionaryType = {
         label: 'Tło tekstu:',
         infoTitle: 'Tło tekstu',
         infoDescription: 'Wybierz kolor tła pod tekstem.',
+        options: {
+          none: 'brak',
+          light: 'jasne',
+          dark: 'ciemne',
+        },
       },
       backgroundIntensity: {
         label: 'Intensywność tła:',
@@ -518,6 +523,10 @@ export const DictionaryPL: DictionaryType = {
         headline: 'Open Source Contributions:',
         contributors: 'GitHub, Swiper, Lorem',
       },
+    },
+    SettingsSwitch: {
+      enabled: 'włączone',
+      disabled: 'wyłączone',
     },
   },
 };

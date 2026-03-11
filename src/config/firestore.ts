@@ -1,4 +1,10 @@
-import { doc, getDoc, setDoc } from 'firebase/firestore';
+import {
+  type FirestoreError,
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc,
+} from 'firebase/firestore';
 
 import type { Settings } from '@/contexts/SettingsContext.types';
 
@@ -22,5 +28,20 @@ export const updateUserSettings = async (
   settings: Partial<Settings>,
 ): Promise<void> => {
   const docRef = doc(db, 'users', userId);
-  await setDoc(docRef, { settings }, { merge: true });
+  const updateData: Record<string, unknown> = {};
+
+  Object.entries(settings).forEach(([key, value]) => {
+    updateData[`settings.${key}`] = value;
+  });
+
+  try {
+    await updateDoc(docRef, updateData);
+  } catch (error: unknown) {
+    // If document doesn't exist, create it
+    if ((error as FirestoreError).code === 'not-found') {
+      await setDoc(docRef, { settings }, { merge: true });
+    } else {
+      throw error;
+    }
+  }
 };

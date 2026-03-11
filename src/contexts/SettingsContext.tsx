@@ -87,6 +87,13 @@ export const SettingsProvider: SettingsProviderType = ({
                 textBackground: userSettings.textBackground ?? 'none',
                 backgroundIntensity: userSettings.backgroundIntensity ?? 50,
                 storyLanguage: userSettings.storyLanguage ?? 'auto',
+                illustrationAnimation:
+                  userSettings.illustrationAnimation ?? true,
+                animationQuality: userSettings.animationQuality ?? 'high',
+                narration: userSettings.narration ?? true,
+                narrationVolume: userSettings.narrationVolume ?? 80,
+                backgroundMusic: userSettings.backgroundMusic ?? true,
+                musicVolume: userSettings.musicVolume ?? 60,
               });
             } else {
               setSettings(normalizedUserSettings);
@@ -94,7 +101,8 @@ export const SettingsProvider: SettingsProviderType = ({
               if (
                 userSettings.plan !== normalizedPlan ||
                 typeof userSettings.password !== 'string' ||
-                userSettings.fontFamily === undefined
+                userSettings.fontFamily === undefined ||
+                userSettings.illustrationAnimation === undefined
               ) {
                 updateUserSettings(user.uid, {
                   plan: normalizedPlan,
@@ -104,6 +112,13 @@ export const SettingsProvider: SettingsProviderType = ({
                   textBackground: userSettings.textBackground ?? 'none',
                   backgroundIntensity: userSettings.backgroundIntensity ?? 50,
                   storyLanguage: userSettings.storyLanguage ?? 'auto',
+                  illustrationAnimation:
+                    userSettings.illustrationAnimation ?? true,
+                  animationQuality: userSettings.animationQuality ?? 'high',
+                  narration: userSettings.narration ?? true,
+                  narrationVolume: userSettings.narrationVolume ?? 80,
+                  backgroundMusic: userSettings.backgroundMusic ?? true,
+                  musicVolume: userSettings.musicVolume ?? 60,
                 });
               }
             }
@@ -120,6 +135,12 @@ export const SettingsProvider: SettingsProviderType = ({
               textBackground: 'none',
               backgroundIntensity: 50,
               storyLanguage: 'auto',
+              illustrationAnimation: true,
+              animationQuality: 'high',
+              narration: true,
+              narrationVolume: 80,
+              backgroundMusic: true,
+              musicVolume: 60,
             };
             setSettings(defaultSettings);
             updateUserSettings(user.uid, defaultSettings);
