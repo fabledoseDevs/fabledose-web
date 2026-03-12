@@ -88,6 +88,10 @@ export const SettingsPage: SettingsPageType = () => {
     handleNarrationVolumeChange,
     handleBackgroundMusicChange,
     handleMusicVolumeChange,
+    handleNewsChange,
+    handlePaymentsChange,
+    handleAnalyticalChange,
+    handleMarketingChange,
   } = useSettingsPage();
 
   const renderTabContent = () => {
@@ -400,6 +404,8 @@ export const SettingsPage: SettingsPageType = () => {
           <>
             <SettingsSwitch
               label={settingsPage.notifications.news.label}
+              value={settings?.notificationsNews ?? true}
+              onChange={handleNewsChange}
               info={{
                 title: settingsPage.notifications.news.infoTitle,
                 description: settingsPage.notifications.news.infoDescription,
@@ -407,6 +413,8 @@ export const SettingsPage: SettingsPageType = () => {
             />
             <SettingsSwitch
               label={settingsPage.notifications.payments.label}
+              value={settings?.notificationsPayments ?? true}
+              onChange={handlePaymentsChange}
               info={{
                 title: settingsPage.notifications.payments.infoTitle,
                 description:
@@ -487,6 +495,8 @@ export const SettingsPage: SettingsPageType = () => {
             />
             <SettingsSwitch
               label={settingsPage.privacy_n_data.cookies.analytical.label}
+              value={settings?.cookiesAnalytical ?? true}
+              onChange={handleAnalyticalChange}
               info={{
                 title: settingsPage.privacy_n_data.cookies.analytical.infoTitle,
                 description:
@@ -496,28 +506,15 @@ export const SettingsPage: SettingsPageType = () => {
             />
             <SettingsSwitch
               label={settingsPage.privacy_n_data.cookies.marketing.label}
+              value={settings?.cookiesMarketing ?? true}
+              onChange={handleMarketingChange}
               info={{
                 title: settingsPage.privacy_n_data.cookies.marketing.infoTitle,
                 description:
                   settingsPage.privacy_n_data.cookies.marketing.infoDescription,
               }}
             />
-            <SettingsSwitch
-              label={settingsPage.privacy_n_data.cookies.partnerA.label}
-              info={{
-                title: settingsPage.privacy_n_data.cookies.partnerA.infoTitle,
-                description:
-                  settingsPage.privacy_n_data.cookies.partnerA.infoDescription,
-              }}
-            />
-            <SettingsSwitch
-              label={settingsPage.privacy_n_data.cookies.partnerB.label}
-              info={{
-                title: settingsPage.privacy_n_data.cookies.partnerB.infoTitle,
-                description:
-                  settingsPage.privacy_n_data.cookies.partnerB.infoDescription,
-              }}
-            />
+
             <Headline
               weight={HEADLINE_TYPE.SMALL}
               color={FOREGROUND_COLOR.WHITE}

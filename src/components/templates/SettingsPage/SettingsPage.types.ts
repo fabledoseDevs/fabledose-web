@@ -93,6 +93,10 @@ export interface UseSettingsPageReturnValues {
   handleNarrationVolumeChange: (value: number) => void;
   handleBackgroundMusicChange: (value: boolean) => void;
   handleMusicVolumeChange: (value: number) => void;
+  handleNewsChange: (value: boolean) => void;
+  handlePaymentsChange: (value: boolean) => void;
+  handleAnalyticalChange: (value: boolean) => void;
+  handleMarketingChange: (value: boolean) => void;
 }
 
 /**
