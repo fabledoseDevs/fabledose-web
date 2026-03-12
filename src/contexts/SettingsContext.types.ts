@@ -24,6 +24,10 @@ import type { ReactElement, ReactNode } from 'react';
  * @property narrationVolume - The preferred volume level for narration.
  * @property backgroundMusic - State of the background music feature.
  * @property musicVolume - The preferred volume level for background music.
+ * @property notificationsNews - State of news notifications.
+ * @property notificationsPayments - State of payment notifications.
+ * @property cookiesAnalytical - State of analytical cookies consent.
+ * @property cookiesMarketing - State of marketing cookies consent.
  */
 export interface Settings {
   displayName: string;
@@ -42,6 +46,10 @@ export interface Settings {
   narrationVolume: number;
   backgroundMusic: boolean;
   musicVolume: number;
+  notificationsNews: boolean;
+  notificationsPayments: boolean;
+  cookiesAnalytical: boolean;
+  cookiesMarketing: boolean;
 }
 
 export type UserPlan = 'free' | 'family' | 'ultimate';

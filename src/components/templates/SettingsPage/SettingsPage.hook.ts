@@ -224,6 +224,22 @@ export const useSettingsPage: UseSettingsPageType = () => {
     updateSettings({ musicVolume: value });
   };
 
+  const handleNewsChange = (value: boolean) => {
+    updateSettings({ notificationsNews: value });
+  };
+
+  const handlePaymentsChange = (value: boolean) => {
+    updateSettings({ notificationsPayments: value });
+  };
+
+  const handleAnalyticalChange = (value: boolean) => {
+    updateSettings({ cookiesAnalytical: value });
+  };
+
+  const handleMarketingChange = (value: boolean) => {
+    updateSettings({ cookiesMarketing: value });
+  };
+
   return {
     activeTab,
     setActiveTab,
@@ -269,5 +285,9 @@ export const useSettingsPage: UseSettingsPageType = () => {
     handleNarrationVolumeChange,
     handleBackgroundMusicChange,
     handleMusicVolumeChange,
+    handleNewsChange,
+    handlePaymentsChange,
+    handleAnalyticalChange,
+    handleMarketingChange,
   };
 };

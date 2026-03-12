@@ -40,6 +40,13 @@ const DEFAULT_PASSWORD_PLACEHOLDER = '';
 const normalizePlan = (plan: unknown): UserPlan =>
   plan === 'family' || plan === 'ultimate' ? plan : DEFAULT_PLAN;
 
+type LegacyNotificationAndCookiesSettings = {
+  news?: boolean;
+  payments?: boolean;
+  analytical?: boolean;
+  marketing?: boolean;
+};
+
 export const useSettings: UseSettings = () => {
   const context = useContext(SettingsContext);
   if (!context) {
@@ -61,6 +68,8 @@ export const SettingsProvider: SettingsProviderType = ({
       if (user) {
         getUserSettings(user.uid).then(userSettings => {
           if (userSettings) {
+            const settingsWithLegacySupport = userSettings as Settings &
+              LegacyNotificationAndCookiesSettings;
             const normalizedPlan = normalizePlan(userSettings.plan);
             const normalizedUserSettings: Settings = {
               ...userSettings,
@@ -69,6 +78,22 @@ export const SettingsProvider: SettingsProviderType = ({
                 typeof userSettings.password === 'string'
                   ? userSettings.password
                   : DEFAULT_PASSWORD_PLACEHOLDER,
+              notificationsNews:
+                settingsWithLegacySupport.notificationsNews ??
+                settingsWithLegacySupport.news ??
+                true,
+              notificationsPayments:
+                settingsWithLegacySupport.notificationsPayments ??
+                settingsWithLegacySupport.payments ??
+                true,
+              cookiesAnalytical:
+                settingsWithLegacySupport.cookiesAnalytical ??
+                settingsWithLegacySupport.analytical ??
+                true,
+              cookiesMarketing:
+                settingsWithLegacySupport.cookiesMarketing ??
+                settingsWithLegacySupport.marketing ??
+                true,
             };
 
             // User document exists, check if email needs syncing
@@ -94,6 +119,11 @@ export const SettingsProvider: SettingsProviderType = ({
                 narrationVolume: userSettings.narrationVolume ?? 80,
                 backgroundMusic: userSettings.backgroundMusic ?? true,
                 musicVolume: userSettings.musicVolume ?? 60,
+                notificationsNews: normalizedUserSettings.notificationsNews,
+                notificationsPayments:
+                  normalizedUserSettings.notificationsPayments,
+                cookiesAnalytical: normalizedUserSettings.cookiesAnalytical,
+                cookiesMarketing: normalizedUserSettings.cookiesMarketing,
               });
             } else {
               setSettings(normalizedUserSettings);
@@ -102,7 +132,11 @@ export const SettingsProvider: SettingsProviderType = ({
                 userSettings.plan !== normalizedPlan ||
                 typeof userSettings.password !== 'string' ||
                 userSettings.fontFamily === undefined ||
-                userSettings.illustrationAnimation === undefined
+                userSettings.illustrationAnimation === undefined ||
+                settingsWithLegacySupport.notificationsNews === undefined ||
+                settingsWithLegacySupport.notificationsPayments === undefined ||
+                settingsWithLegacySupport.cookiesAnalytical === undefined ||
+                settingsWithLegacySupport.cookiesMarketing === undefined
               ) {
                 updateUserSettings(user.uid, {
                   plan: normalizedPlan,
@@ -119,6 +153,11 @@ export const SettingsProvider: SettingsProviderType = ({
                   narrationVolume: userSettings.narrationVolume ?? 80,
                   backgroundMusic: userSettings.backgroundMusic ?? true,
                   musicVolume: userSettings.musicVolume ?? 60,
+                  notificationsNews: normalizedUserSettings.notificationsNews,
+                  notificationsPayments:
+                    normalizedUserSettings.notificationsPayments,
+                  cookiesAnalytical: normalizedUserSettings.cookiesAnalytical,
+                  cookiesMarketing: normalizedUserSettings.cookiesMarketing,
                 });
               }
             }
@@ -141,6 +180,10 @@ export const SettingsProvider: SettingsProviderType = ({
               narrationVolume: 80,
               backgroundMusic: true,
               musicVolume: 60,
+              notificationsNews: true,
+              notificationsPayments: true,
+              cookiesAnalytical: true,
+              cookiesMarketing: true,
             };
             setSettings(defaultSettings);
             updateUserSettings(user.uid, defaultSettings);
