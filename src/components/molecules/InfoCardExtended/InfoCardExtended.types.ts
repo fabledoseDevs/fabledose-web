@@ -21,6 +21,8 @@ export interface InfoCardSection {
  * @property sectionQuality - Section with available quality of content description.
  * @property sectionChildrenAccounts - Section informing about number of children accounts available.
  * @property sectionLicensing - Section with licensing information.
+ * @property price - PriceTag component props.
+ * @property monthlyCostLabel - Optional label for monthly cost.
  */
 export interface InfoCardExtendedProps {
   title: string;
@@ -29,6 +31,7 @@ export interface InfoCardExtendedProps {
   sectionChildrenAccounts: InfoCardSection;
   sectionLicensing: InfoCardSection;
   price: PriceTagProps;
+  monthlyCostLabel?: string;
 }
 
 /**

@@ -211,6 +211,112 @@ export const DictionaryPL: DictionaryType = {
       'Sprawdź ikony poniżej lub naciśnij przycisk "Więcej infomacji" aby upewnić się, czy ta historyjka jest odpowiednia dla twojego dziecka',
     moreInfoButton: 'Więcej informacji',
   },
+  registerPage: {
+    form: {
+      headline: 'Załóż konto',
+      stepLabel: 'Krok',
+      stepHighlight: '1 z 2',
+      description:
+        'Użyj adresu email lub skorzystaj z istniejącego konta Google, Facebook lub Apple.',
+      googleButton: 'Zaloguj się przez Google',
+      appleButton: 'Zaloguj się przez Apple',
+      separatorLabel: 'lub',
+      emailLabel: 'Adres email:',
+      emailPlaceholder: 'twoj@adres.email',
+      passwordLabel: 'Utwórz hasło:',
+      confirmPasswordLabel: 'Powtórz hasło:',
+      submitLoading: 'Przetwarzanie…',
+      submit: 'Dalej',
+      hasAccount: 'Masz konto?',
+      loginLink: 'Zaloguj się',
+      passwordMismatch: 'Hasła nie są identyczne',
+      googleError: 'Wystąpił błąd podczas logowania przez Google',
+      requiredEmail: 'Adres email jest wymagany',
+      requiredPassword: 'Hasło jest wymagane',
+      passwordMustMatch: 'Hasła muszą być identyczne',
+      createAccountError: 'Nie udało się utworzyć konta',
+    },
+    planSelector: {
+      headline: 'Skonfiguruj konto',
+      stepLabel: 'Krok',
+      stepHighlight: '2 z 2',
+      registrationDescription:
+        'Konto zostało założone. Domyślnie zostało ustawione na Starter.<br />Jeżeli interesuje cię szerszy zakres usługi, tutaj wybierzesz konto dopasowane do Twoich oczekiwań.',
+      standaloneDescription: 'Wybierz plan dopasowany do Twoich oczekiwań.',
+      showDetails: 'Zobacz pełne porównanie',
+      hideDetails: 'Ukryj pełne porównanie',
+      backToTop: 'Powrót do góry',
+      plans: {
+        free: {
+          title: 'Starter',
+          description:
+            'Dostęp do wyselekcjonowanej liczby bajek w formacie animowanej książki.',
+          optionalParagraphs: [
+            'Bajki w jakości: SD.',
+            'Jeden profil użytkownika.',
+            'Brak opłat',
+            'Konto sponsorowane (zawiera reklamy).',
+          ],
+          button: 'Pozostaję przy Starter',
+        },
+        family: {
+          title: 'Family',
+          description:
+            'Dostęp do pełnej kolekcji bajek w formatach animowanej książki, audiobooków oraz ebooków.',
+          optionalParagraphs: [
+            'Bajki w jakości: SD, HD.',
+            'Trzy profile dla dzieci.',
+          ],
+          button: 'Wybieram Family',
+        },
+        ultimate: {
+          title: 'Ultimate',
+          description:
+            'Dostęp do pełnej kolekcji bajek w formatach animowanej książki, audiobooków oraz ebooków.',
+          optionalParagraphs: [
+            'Bajki w jakości: SD, HD, 2K oraz 4K.',
+            'Wiele profili dla dzieci.',
+            'Licencja na pokazy publiczne.',
+          ],
+          button: 'Wybieram Ultimate',
+        },
+      },
+      extended: {
+        contentTitle: 'Dostęp do treści',
+        qualityTitle: 'Jakość bajek',
+        childrenTitle: 'Liczba kont dla dzieci',
+        licenseTitle: 'Rodzaj licencji',
+        monthlyCostLabel: 'Miesięczny koszt',
+        free: {
+          contentParagraph:
+            'Dostęp do wybranych tytułów w następujących formatach:',
+          contentList: ['animowana książka'],
+          qualityList: ['SD (720p)'],
+          childrenParagraph: 'Tylko konto podstawowe.',
+          licenseParagraph:
+            'Konto zawiera licencję na pokazy prywatne, wyłącznie w gronie najbliższej rodziny.',
+        },
+        family: {
+          contentParagraph:
+            'Pełen dostęp do tytułów w następujących formatach:',
+          contentList: ['animowana książka', 'audiobook', 'ebook'],
+          qualityList: ['SD (720p)', 'HD (1080p)'],
+          childrenParagraph: 'Trzy.',
+          licenseParagraph:
+            'Konto zawiera licencję na pokazy prywatne, wyłącznie w gronie najbliższej rodziny',
+        },
+        ultimate: {
+          contentParagraph:
+            'Pełen dostęp do tytułów w następujących formatach:',
+          contentList: ['animowana książka', 'audiobook', 'ebook'],
+          qualityList: ['SD (720p)', 'HD (1080p)', '2K', '4K'],
+          childrenParagraph: 'Bez ograniczeń.',
+          licenseParagraph:
+            'Konto zawiera licencję na pokazy prywatne oraz publiczne. Ciesz się treściami Fabledose bez ograniczeń!',
+        },
+      },
+    },
+  },
   settingsPage: {
     title: 'Ustawienia',
     tabs: {

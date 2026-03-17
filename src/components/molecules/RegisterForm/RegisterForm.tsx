@@ -17,6 +17,7 @@ import Paragraph from '@/atoms/Paragraph';
 import { TEXT_ALIGNMENT } from '@/atoms/Paragraph/Paragraph.types';
 import Separator from '@/atoms/Separator';
 import { SEPARATOR_COLOR } from '@/atoms/Separator/Separator.types';
+import { useDictionary } from '@/lang/DictionaryProvider';
 
 import useRegisterForm from './RegisterForm.hook';
 import {
@@ -31,6 +32,7 @@ import {
 import type { RegisterForm as RegisterFormType } from './RegisterForm.types';
 
 export const RegisterForm: RegisterFormType = ({ onSuccess }) => {
+  const { registerPage } = useDictionary();
   const {
     email,
     password,
@@ -44,25 +46,25 @@ export const RegisterForm: RegisterFormType = ({ onSuccess }) => {
     handleGoogleSignIn,
     handleSubmit,
   } = useRegisterForm({ onSuccess });
+  const { form } = registerPage;
 
   return (
     <RegisterFormBody>
       <FormCard>
         <Headline weight={HEADLINE_TYPE.BIG} color={FOREGROUND_COLOR.PURPLE}>
-          Załóż konto
+          {form.headline}
         </Headline>
         <Paragraph alignment={TEXT_ALIGNMENT.CENTER}>
-          Krok <RedText>1 z 2</RedText>
+          {form.stepLabel} <RedText>{form.stepHighlight}</RedText>
         </Paragraph>
         <Paragraph alignment={TEXT_ALIGNMENT.CENTER}>
-          Użyj adresu email lub skorzystaj z istniejącego konta Google, Facebook
-          lub Apple.
+          {form.description}
         </Paragraph>
         <Form onSubmit={handleSubmit}>
           <Button
             actionType={ACTION_TYPE.FUNCTION_TRIGGER}
             variant={BUTTON_VARIANT.WHITE}
-            text={'Zaloguj się przez Google'}
+            text={form.googleButton}
             width={{
               widthType: WIDTH_TYPE.PERCENT,
               widthValue: 100,
@@ -74,7 +76,7 @@ export const RegisterForm: RegisterFormType = ({ onSuccess }) => {
           <Button
             actionType={ACTION_TYPE.FUNCTION_TRIGGER}
             variant={BUTTON_VARIANT.WHITE}
-            text={'Zaloguj się przez Apple'}
+            text={form.appleButton}
             width={{
               widthType: WIDTH_TYPE.PERCENT,
               widthValue: 100,
@@ -82,12 +84,12 @@ export const RegisterForm: RegisterFormType = ({ onSuccess }) => {
             iconUrl={'/icons/apple.png'}
             isDisabled
           />
-          <Separator color={SEPARATOR_COLOR.GRAY} label={'lub'} />
+          <Separator color={SEPARATOR_COLOR.GRAY} label={form.separatorLabel} />
           <Label>
-            <LabelText>Adres email:</LabelText>
+            <LabelText>{form.emailLabel}</LabelText>
             <InputField
               type={INPUT_TYPE.EMAIL}
-              placeholder={'twoj@adres.email'}
+              placeholder={form.emailPlaceholder}
               value={email}
               name="email"
               onChange={e => setEmail(e.target.value)}
@@ -95,7 +97,7 @@ export const RegisterForm: RegisterFormType = ({ onSuccess }) => {
             />
           </Label>
           <Label>
-            <LabelText>Utwórz hasło:</LabelText>
+            <LabelText>{form.passwordLabel}</LabelText>
             <InputField
               type={INPUT_TYPE.PASSWORD}
               value={password}
@@ -105,7 +107,7 @@ export const RegisterForm: RegisterFormType = ({ onSuccess }) => {
             />
           </Label>
           <Label>
-            <LabelText>Powtórz hasło:</LabelText>
+            <LabelText>{form.confirmPasswordLabel}</LabelText>
             <InputField
               type={INPUT_TYPE.PASSWORD}
               value={confirmPassword}
@@ -121,7 +123,7 @@ export const RegisterForm: RegisterFormType = ({ onSuccess }) => {
               widthType: WIDTH_TYPE.PERCENT,
               widthValue: 100,
             }}
-            text={loading ? 'Przetwarzanie…' : 'Dalej'}
+            text={loading ? form.submitLoading : form.submit}
             isDisabled={loading}
           />
         </Form>
@@ -129,7 +131,7 @@ export const RegisterForm: RegisterFormType = ({ onSuccess }) => {
           <Paragraph alignment={TEXT_ALIGNMENT.CENTER}>{error}</Paragraph>
         )}
         <NewAccount>
-          Masz konto? <Link href={'/login'}>Zaloguj się</Link>.
+          {form.hasAccount} <Link href={'/login'}>{form.loginLink}</Link>.
         </NewAccount>
       </FormCard>
     </RegisterFormBody>

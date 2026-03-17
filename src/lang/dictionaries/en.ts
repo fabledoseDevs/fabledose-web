@@ -204,6 +204,110 @@ export const DictionaryEn: DictionaryType = {
       'Check tag icons below or press the "More info" button to confirm that this story is suitable for your child.',
     moreInfoButton: 'More info',
   },
+  registerPage: {
+    form: {
+      headline: 'Create account',
+      stepLabel: 'Step',
+      stepHighlight: '1 of 2',
+      description:
+        'Use your email address or continue with your Google, Facebook, or Apple account.',
+      googleButton: 'Continue with Google',
+      appleButton: 'Continue with Apple',
+      separatorLabel: 'or',
+      emailLabel: 'Email address:',
+      emailPlaceholder: 'your@email.com',
+      passwordLabel: 'Create password:',
+      confirmPasswordLabel: 'Repeat password:',
+      submitLoading: 'Processing…',
+      submit: 'Continue',
+      hasAccount: 'Already have an account?',
+      loginLink: 'Log in',
+      passwordMismatch: 'Passwords do not match',
+      googleError: 'Google sign-in failed',
+      requiredEmail: 'Email address is required',
+      requiredPassword: 'Password is required',
+      passwordMustMatch: 'Passwords must match',
+      createAccountError: 'Could not create account',
+    },
+    planSelector: {
+      headline: 'Set up your account',
+      stepLabel: 'Step',
+      stepHighlight: '2 of 2',
+      registrationDescription:
+        'Your account has been created and set to Starter by default.<br />If you need a wider service range, choose a plan tailored to your needs.',
+      standaloneDescription: 'Choose the plan that fits your needs.',
+      showDetails: 'Show full comparison',
+      hideDetails: 'Hide full comparison',
+      backToTop: 'Back to top',
+      plans: {
+        free: {
+          title: 'Starter',
+          description:
+            'Access to a selected number of stories in animated book format.',
+          optionalParagraphs: [
+            'Stories quality: SD.',
+            'One user profile.',
+            'No fees.',
+            'Sponsored account (includes ads).',
+          ],
+          button: 'Keep Starter',
+        },
+        family: {
+          title: 'Family',
+          description:
+            'Access to the full collection in animated book, audiobook, and ebook formats.',
+          optionalParagraphs: [
+            'Stories quality: SD, HD.',
+            'Three child profiles.',
+          ],
+          button: 'Choose Family',
+        },
+        ultimate: {
+          title: 'Ultimate',
+          description:
+            'Access to the full collection in animated book, audiobook, and ebook formats.',
+          optionalParagraphs: [
+            'Stories quality: SD, HD, 2K, and 4K.',
+            'Multiple child profiles.',
+            'Public display license.',
+          ],
+          button: 'Choose Ultimate',
+        },
+      },
+      extended: {
+        contentTitle: 'Content access',
+        qualityTitle: 'Story quality',
+        childrenTitle: 'Children accounts',
+        licenseTitle: 'License type',
+        monthlyCostLabel: 'Monthly cost',
+        free: {
+          contentParagraph:
+            'Access to selected titles in the following formats:',
+          contentList: ['animated book'],
+          qualityList: ['SD (720p)'],
+          childrenParagraph: 'Base account only.',
+          licenseParagraph:
+            'This plan includes a private-use license limited to your immediate family.',
+        },
+        family: {
+          contentParagraph: 'Full access to titles in the following formats:',
+          contentList: ['animated book', 'audiobook', 'ebook'],
+          qualityList: ['SD (720p)', 'HD (1080p)'],
+          childrenParagraph: 'Three.',
+          licenseParagraph:
+            'This plan includes a private-use license limited to your immediate family.',
+        },
+        ultimate: {
+          contentParagraph: 'Full access to titles in the following formats:',
+          contentList: ['animated book', 'audiobook', 'ebook'],
+          qualityList: ['SD (720p)', 'HD (1080p)', '2K', '4K'],
+          childrenParagraph: 'Unlimited.',
+          licenseParagraph:
+            'This plan includes both private and public display licenses. Enjoy Fabledose content without limits.',
+        },
+      },
+    },
+  },
   settingsPage: {
     title: 'Settings',
     tabs: {

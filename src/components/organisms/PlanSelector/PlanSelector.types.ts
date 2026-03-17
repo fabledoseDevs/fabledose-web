@@ -1,5 +1,9 @@
 import type { ReactElement } from 'react';
 
+import type { UserPlan } from '@/contexts/SettingsContext.types';
+import type { InfoCardExtendedProps } from '@/molecules/InfoCardExtended';
+import type { InfoCardSimpleProps } from '@/molecules/InfoCardSimple';
+
 /**
  * @module
  * Types and interfaces for the PlanSelector component and its related hook.
@@ -14,13 +18,25 @@ import type { ReactElement } from 'react';
  *
  * @property isDetailViewVisible - Indicates whether the extended plan comparison
  *  section is currently visible.
+ *  @property simpleCards - Array of InfoCardSimpleProps for the simple comparison.
+ *  @property extendedCards - Array of InfoCardExtendedProps for the extended comparison.
  * @property handleDetailViewToggle - Toggles the visibility state of the
  *  extended plan comparison section.
  */
 
 export interface UsePlanSelectorReturnValues {
   isDetailViewVisible: boolean;
+  simpleCards: [InfoCardSimpleProps, InfoCardSimpleProps, InfoCardSimpleProps];
+  extendedCards: [
+    InfoCardExtendedProps,
+    InfoCardExtendedProps,
+    InfoCardExtendedProps,
+  ];
   handleDetailViewToggle: () => void;
+}
+
+export interface UsePlanSelectorOptions {
+  onPlanSelected?: (plan: UserPlan) => void;
 }
 
 /**
@@ -30,7 +46,9 @@ export interface UsePlanSelectorReturnValues {
  *  - `isDetailViewVisible`: boolean flag indicating visibility of the extended view.
  *  - `handleDetailViewToggle()`: function to toggle the extended view.
  */
-export type UsePlanSelector = () => UsePlanSelectorReturnValues;
+export type UsePlanSelector = (
+  options?: UsePlanSelectorOptions,
+) => UsePlanSelectorReturnValues;
 
 /**
  * Renders the PlanSelector organism.

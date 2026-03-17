@@ -4,34 +4,31 @@ import {
   WIDTH_TYPE,
 } from '@/atoms/Button/Button.types';
 import { CURRENCY, PERIOD } from '@/atoms/PriceTag/PriceTag.types';
+import type { UserPlan } from '@/contexts/SettingsContext.types';
+import type { DictionaryType } from '@/lang/dictionaries/lang.types';
 import type { InfoCardExtendedProps } from '@/molecules/InfoCardExtended';
 import type { InfoCardSimpleProps } from '@/molecules/InfoCardSimple';
 
-export const CARDS_SIMPLE: [
-  InfoCardSimpleProps,
-  InfoCardSimpleProps,
-  InfoCardSimpleProps,
-] = [
+type PlanSelectorDictionary = DictionaryType['registerPage']['planSelector'];
+
+export const createSimpleCards = (
+  planSelector: PlanSelectorDictionary,
+  onPlanSelect: (plan: UserPlan) => void,
+): [InfoCardSimpleProps, InfoCardSimpleProps, InfoCardSimpleProps] => [
   {
-    title: 'Starter',
-    description:
-      'Dostęp do wyselekcjonowanej liczby bajek w formacie animowanej książki.',
-    optionalParagraphs: [
-      'Bajki w jakości: SD.',
-      'Jeden profil użytkownika.',
-      'Brak opłat',
-      'Konto sponsorowane (zawiera reklamy).',
-    ],
+    title: planSelector.plans.free.title,
+    description: planSelector.plans.free.description,
+    optionalParagraphs: planSelector.plans.free.optionalParagraphs,
     priceParams: {
       period: PERIOD.MONTHLY,
       currency: CURRENCY.PLN,
       value: 0,
     },
     buttonParams: {
-      text: 'Pozostaję przy Starter',
+      text: planSelector.plans.free.button,
       variant: BUTTON_VARIANT.WHITE,
       actionType: ACTION_TYPE.FUNCTION_TRIGGER,
-      payload: () => console.info('Starter selected...'),
+      payload: () => onPlanSelect('free'),
       width: {
         widthType: WIDTH_TYPE.PERCENT,
         widthValue: 100,
@@ -39,23 +36,19 @@ export const CARDS_SIMPLE: [
     },
   },
   {
-    title: 'Family',
-    description:
-      'Dostęp do pełnej kolekcji bajek w formatach animowanej książki, audiobooków oraz ebooków.',
-    optionalParagraphs: [
-      'Bajki w jakości: SD, HD.',
-      'Trzy profile dla dzieci.',
-    ],
+    title: planSelector.plans.family.title,
+    description: planSelector.plans.family.description,
+    optionalParagraphs: planSelector.plans.family.optionalParagraphs,
     priceParams: {
       period: PERIOD.MONTHLY,
       currency: CURRENCY.PLN,
       value: 14.99,
     },
     buttonParams: {
-      text: 'Wybieram Family',
+      text: planSelector.plans.family.button,
       variant: BUTTON_VARIANT.RED,
       actionType: ACTION_TYPE.FUNCTION_TRIGGER,
-      payload: () => console.info('Family selected...'),
+      payload: () => onPlanSelect('family'),
       width: {
         widthType: WIDTH_TYPE.PERCENT,
         widthValue: 100,
@@ -63,24 +56,19 @@ export const CARDS_SIMPLE: [
     },
   },
   {
-    title: 'Ultimate',
-    description:
-      'Dostęp do pełnej kolekcji bajek w formatach animowanej książki, audiobooków oraz ebooków.',
-    optionalParagraphs: [
-      'Bajki w jakości: SD, HD, 2K oraz 4K.',
-      'Wiele profili dla dzieci.',
-      'Licencja na pokazy publiczne.',
-    ],
+    title: planSelector.plans.ultimate.title,
+    description: planSelector.plans.ultimate.description,
+    optionalParagraphs: planSelector.plans.ultimate.optionalParagraphs,
     priceParams: {
       period: PERIOD.MONTHLY,
       currency: CURRENCY.PLN,
       value: 29.99,
     },
     buttonParams: {
-      text: 'Wybieram Ultimate',
+      text: planSelector.plans.ultimate.button,
       variant: BUTTON_VARIANT.RED,
       actionType: ACTION_TYPE.FUNCTION_TRIGGER,
-      payload: () => console.info('Ultimate selected...'),
+      payload: () => onPlanSelect('ultimate'),
       width: {
         widthType: WIDTH_TYPE.PERCENT,
         widthValue: 100,
@@ -89,84 +77,82 @@ export const CARDS_SIMPLE: [
   },
 ];
 
-export const CARDS_EXTENDED: [
-  InfoCardExtendedProps,
-  InfoCardExtendedProps,
-  InfoCardExtendedProps,
-] = [
+export const createExtendedCards = (
+  planSelector: PlanSelectorDictionary,
+): [InfoCardExtendedProps, InfoCardExtendedProps, InfoCardExtendedProps] => [
   {
-    title: 'Starter',
+    title: planSelector.plans.free.title,
     sectionContent: {
-      title: 'Dostęp do treści',
-      paragraph: 'Dostęp do wybranych tytułów w następujących formatach:',
-      list: ['animowana książka'],
+      title: planSelector.extended.contentTitle,
+      paragraph: planSelector.extended.free.contentParagraph,
+      list: planSelector.extended.free.contentList,
     },
     sectionQuality: {
-      title: 'Jakość bajek',
-      list: ['SD (720p)'],
+      title: planSelector.extended.qualityTitle,
+      list: planSelector.extended.free.qualityList,
     },
     sectionChildrenAccounts: {
-      title: 'Liczba kont dla dzieci',
-      paragraph: 'Tylko konto podstawowe.',
+      title: planSelector.extended.childrenTitle,
+      paragraph: planSelector.extended.free.childrenParagraph,
     },
     sectionLicensing: {
-      title: 'Rodzaj licencji',
-      paragraph:
-        'Konto zawiera licencję na pokazy prywatne, wyłącznie w gronie najbliższej rodziny.',
+      title: planSelector.extended.licenseTitle,
+      paragraph: planSelector.extended.free.licenseParagraph,
     },
     price: {
       currency: CURRENCY.PLN,
       value: 0,
     },
+    monthlyCostLabel: planSelector.extended.monthlyCostLabel,
   },
   {
-    title: 'Family',
+    title: planSelector.plans.family.title,
     sectionContent: {
-      title: 'Dostęp do treści',
-      paragraph: 'Pełen dostęp do tytułów w następujących formatach:',
-      list: ['animowana książka', 'audiobook', 'ebook'],
+      title: planSelector.extended.contentTitle,
+      paragraph: planSelector.extended.family.contentParagraph,
+      list: planSelector.extended.family.contentList,
     },
     sectionQuality: {
-      title: 'Jakość bajek',
-      list: ['SD (720p)', 'HD (1080p)'],
+      title: planSelector.extended.qualityTitle,
+      list: planSelector.extended.family.qualityList,
     },
     sectionChildrenAccounts: {
-      title: 'Liczba kont dla dzieci',
-      paragraph: 'Trzy.',
+      title: planSelector.extended.childrenTitle,
+      paragraph: planSelector.extended.family.childrenParagraph,
     },
     sectionLicensing: {
-      title: 'Rodzaj licencji',
-      paragraph:
-        'Konto zawiera licencję na pokazy prywatne, wyłącznie w gronie najbliższej rodziny',
+      title: planSelector.extended.licenseTitle,
+      paragraph: planSelector.extended.family.licenseParagraph,
     },
     price: {
       currency: CURRENCY.PLN,
       value: 14.99,
     },
+    monthlyCostLabel: planSelector.extended.monthlyCostLabel,
   },
   {
-    title: 'Ultimate',
+    title: planSelector.plans.ultimate.title,
     sectionContent: {
-      title: 'Dostęp do treści',
-      paragraph: 'Full access to titles in the following formats:',
-      list: ['Animated book', 'Audiobook', 'E-book'],
+      title: planSelector.extended.contentTitle,
+      paragraph: planSelector.extended.ultimate.contentParagraph,
+      list: planSelector.extended.ultimate.contentList,
     },
     sectionQuality: {
-      title: 'Jakość bajek',
-      list: ['SD (720p)', 'HD (1080p)', '2K', '4K'],
+      title: planSelector.extended.qualityTitle,
+      list: planSelector.extended.ultimate.qualityList,
     },
     sectionChildrenAccounts: {
-      title: 'Liczba kont dla dzieci',
-      paragraph: 'Bez ograniczeń.',
+      title: planSelector.extended.childrenTitle,
+      paragraph: planSelector.extended.ultimate.childrenParagraph,
     },
     sectionLicensing: {
-      title: 'Rodzaj licencji',
-      paragraph:
-        'Konto zawiera licencję na pokazy prywatne oraz publiczne. Ciesz się treściami Fabledose bez ograniczeń!',
+      title: planSelector.extended.licenseTitle,
+      paragraph: planSelector.extended.ultimate.licenseParagraph,
     },
     price: {
       currency: CURRENCY.PLN,
       value: 29.99,
     },
+    monthlyCostLabel: planSelector.extended.monthlyCostLabel,
   },
 ];
