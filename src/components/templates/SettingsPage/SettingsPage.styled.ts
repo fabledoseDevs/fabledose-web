@@ -105,12 +105,6 @@ export const TabButton = styled.button<{ isActive: boolean }>`
   }
 `;
 
-export const PlanActions = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-`;
-
 export const PasswordModalContent = styled.div`
   display: flex;
   flex-direction: column;

@@ -6,6 +6,7 @@ import {
 import { useCallback, useMemo, useState } from 'react';
 
 import { auth } from '@/config/firebase';
+import { useDictionary } from '@/lang/DictionaryProvider';
 
 import type {
   HandleGoogleSignIn,
@@ -14,6 +15,7 @@ import type {
 } from './RegisterForm.types';
 
 export const useRegisterForm: UseRegisterFormType = options => {
+  const { registerPage } = useDictionary();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -23,10 +25,10 @@ export const useRegisterForm: UseRegisterFormType = options => {
   const passwordError = useMemo(() => {
     if (!confirmPassword && !password) return '';
     if (confirmPassword && password !== confirmPassword) {
-      return 'Hasła nie są identyczne';
+      return registerPage.form.passwordMismatch;
     }
     return '';
-  }, [password, confirmPassword]);
+  }, [confirmPassword, password, registerPage.form.passwordMismatch]);
 
   const handleGoogleSignIn = useCallback<HandleGoogleSignIn>(async () => {
     setError(null);
@@ -37,11 +39,11 @@ export const useRegisterForm: UseRegisterFormType = options => {
       options?.onSuccess?.();
     } catch (e: unknown) {
       const message = e instanceof Error ? e.message : null;
-      setError(message || 'Wystąpił błąd podczas logowania przez Google');
+      setError(message || registerPage.form.googleError);
     } finally {
       setLoading(false);
     }
-  }, [options]);
+  }, [options, registerPage.form.googleError]);
 
   const handleSubmit = useCallback<HandleSubmit>(
     async e => {
@@ -49,15 +51,15 @@ export const useRegisterForm: UseRegisterFormType = options => {
       setError(null);
 
       if (!email) {
-        setError('Adres email jest wymagany');
+        setError(registerPage.form.requiredEmail);
         return;
       }
       if (!password) {
-        setError('Hasło jest wymagane');
+        setError(registerPage.form.requiredPassword);
         return;
       }
       if (password !== confirmPassword) {
-        setError('Hasła muszą być identyczne');
+        setError(registerPage.form.passwordMustMatch);
         return;
       }
 
@@ -67,12 +69,21 @@ export const useRegisterForm: UseRegisterFormType = options => {
         options?.onSuccess?.();
       } catch (e: unknown) {
         const message = e instanceof Error ? e.message : null;
-        setError(message || 'Nie udało się utworzyć konta');
+        setError(message || registerPage.form.createAccountError);
       } finally {
         setLoading(false);
       }
     },
-    [email, password, confirmPassword, options],
+    [
+      confirmPassword,
+      email,
+      options,
+      password,
+      registerPage.form.createAccountError,
+      registerPage.form.passwordMustMatch,
+      registerPage.form.requiredEmail,
+      registerPage.form.requiredPassword,
+    ],
   );
 
   return {

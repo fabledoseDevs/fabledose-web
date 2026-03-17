@@ -35,7 +35,6 @@ import {
   PasswordModalActions,
   PasswordModalContent,
   PasswordModalError,
-  PlanActions,
   SettingsContentColumn,
   SettingsMenuColumn,
   SettingsPageBody,
@@ -54,7 +53,6 @@ export const SettingsPage: SettingsPageType = () => {
     settings,
     displayName,
     email,
-    isPlanModalOpen,
     isPasswordModalOpen,
     currentPassword,
     newPassword,
@@ -68,9 +66,7 @@ export const SettingsPage: SettingsPageType = () => {
     handleDisplayNameBlur,
     handleEmailChange,
     handleEmailBlur,
-    openPlanModal,
-    closePlanModal,
-    handlePlanChange,
+    navigateToPlanPage,
     openPasswordModal,
     closePasswordModal,
     handleCurrentPasswordChange,
@@ -146,7 +142,7 @@ export const SettingsPage: SettingsPageType = () => {
               customButtonRightText={
                 settingsPage.profile_n_account.plan.changeButton
               }
-              onCustomButtonClick={openPlanModal}
+              onCustomButtonClick={navigateToPlanPage}
             />
             <SettingsButton
               label={settingsPage.profile_n_account.creditCard.label}
@@ -764,53 +760,6 @@ export const SettingsPage: SettingsPageType = () => {
         <Separator color={SEPARATOR_COLOR.WHITE} margin={false} />
         <Content>{renderTabContent()}</Content>
       </SettingsContentColumn>
-      <ModalWindow
-        isOpen={isPlanModalOpen}
-        onClose={closePlanModal}
-        closeOnOverlayClick
-        title={settingsPage.profile_n_account.plan.modalTitle}
-      >
-        <Paragraph>
-          {settingsPage.profile_n_account.plan.modalDescription}
-          <br />
-          <br />
-        </Paragraph>
-        <PlanActions>
-          <Button
-            actionType={ACTION_TYPE.FUNCTION_TRIGGER}
-            variant={
-              settings?.plan === 'free'
-                ? BUTTON_VARIANT.RED
-                : BUTTON_VARIANT.WHITE
-            }
-            text={settingsPage.profile_n_account.plan.free}
-            payload={() => handlePlanChange('free')}
-            width={{ widthType: WIDTH_TYPE.PERCENT, widthValue: 100 }}
-          />
-          <Button
-            actionType={ACTION_TYPE.FUNCTION_TRIGGER}
-            variant={
-              settings?.plan === 'family'
-                ? BUTTON_VARIANT.RED
-                : BUTTON_VARIANT.WHITE
-            }
-            text={settingsPage.profile_n_account.plan.family}
-            payload={() => handlePlanChange('family')}
-            width={{ widthType: WIDTH_TYPE.PERCENT, widthValue: 100 }}
-          />
-          <Button
-            actionType={ACTION_TYPE.FUNCTION_TRIGGER}
-            variant={
-              settings?.plan === 'ultimate'
-                ? BUTTON_VARIANT.RED
-                : BUTTON_VARIANT.WHITE
-            }
-            text={settingsPage.profile_n_account.plan.ultimate}
-            payload={() => handlePlanChange('ultimate')}
-            width={{ widthType: WIDTH_TYPE.PERCENT, widthValue: 100 }}
-          />
-        </PlanActions>
-      </ModalWindow>
       <ModalWindow
         isOpen={isPasswordModalOpen}
         onClose={closePasswordModal}

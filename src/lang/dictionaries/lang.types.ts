@@ -112,6 +112,89 @@ export type DictionaryType = {
     infoDisclaimer: string;
     moreInfoButton: string;
   };
+  registerPage: {
+    form: {
+      headline: string;
+      stepLabel: string;
+      stepHighlight: string;
+      description: string;
+      googleButton: string;
+      appleButton: string;
+      separatorLabel: string;
+      emailLabel: string;
+      emailPlaceholder: string;
+      passwordLabel: string;
+      confirmPasswordLabel: string;
+      submitLoading: string;
+      submit: string;
+      hasAccount: string;
+      loginLink: string;
+      passwordMismatch: string;
+      googleError: string;
+      requiredEmail: string;
+      requiredPassword: string;
+      passwordMustMatch: string;
+      createAccountError: string;
+    };
+    planSelector: {
+      headline: string;
+      stepLabel: string;
+      stepHighlight: string;
+      registrationDescription: string;
+      standaloneDescription: string;
+      showDetails: string;
+      hideDetails: string;
+      backToTop: string;
+      plans: {
+        free: {
+          title: string;
+          description: string;
+          optionalParagraphs: string[];
+          button: string;
+        };
+        family: {
+          title: string;
+          description: string;
+          optionalParagraphs: string[];
+          button: string;
+        };
+        ultimate: {
+          title: string;
+          description: string;
+          optionalParagraphs: string[];
+          button: string;
+        };
+      };
+      extended: {
+        contentTitle: string;
+        qualityTitle: string;
+        childrenTitle: string;
+        licenseTitle: string;
+        monthlyCostLabel: string;
+        free: {
+          contentParagraph: string;
+          contentList: string[];
+          qualityList: string[];
+          childrenParagraph: string;
+          licenseParagraph: string;
+        };
+        family: {
+          contentParagraph: string;
+          contentList: string[];
+          qualityList: string[];
+          childrenParagraph: string;
+          licenseParagraph: string;
+        };
+        ultimate: {
+          contentParagraph: string;
+          contentList: string[];
+          qualityList: string[];
+          childrenParagraph: string;
+          licenseParagraph: string;
+        };
+      };
+    };
+  };
   settingsPage: {
     title: string;
     tabs: {

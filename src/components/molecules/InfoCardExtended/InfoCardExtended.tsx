@@ -23,6 +23,7 @@ export const InfoCardExtended: InfoCardExtendedType = ({
   sectionChildrenAccounts,
   sectionLicensing,
   price,
+  monthlyCostLabel = 'Miesięczny koszt',
 }) => (
   <InfoCardSimpleBody>
     <InfoContainer>
@@ -71,7 +72,7 @@ export const InfoCardExtended: InfoCardExtendedType = ({
     </InfoContainer>
     <PriceContainer>
       <Separator color={SEPARATOR_COLOR.GRAY} />
-      <Paragraph boldText={true}>Miesięczny koszt</Paragraph>
+      <Paragraph boldText={true}>{monthlyCostLabel}</Paragraph>
       <PriceTag {...price} />
     </PriceContainer>
   </InfoCardSimpleBody>

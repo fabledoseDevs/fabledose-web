@@ -24,7 +24,6 @@ export const useSettingsPage: UseSettingsPageType = () => {
     useSettings();
   const [displayName, setDisplayName] = useState('');
   const [email, setEmail] = useState('');
-  const [isPlanModalOpen, setIsPlanModalOpen] = useState(false);
   const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
@@ -88,17 +87,8 @@ export const useSettingsPage: UseSettingsPageType = () => {
     }
   })();
 
-  const openPlanModal = () => {
-    setIsPlanModalOpen(true);
-  };
-
-  const closePlanModal = () => {
-    setIsPlanModalOpen(false);
-  };
-
-  const handlePlanChange = (plan: 'free' | 'family' | 'ultimate') => {
-    updateSettings({ plan });
-    setIsPlanModalOpen(false);
+  const navigateToPlanPage = () => {
+    router.push(`/${currentLang}/plan`);
   };
 
   const openPasswordModal = () => {
@@ -250,7 +240,6 @@ export const useSettingsPage: UseSettingsPageType = () => {
     settings,
     displayName,
     email,
-    isPlanModalOpen,
     isPasswordModalOpen,
     currentPassword,
     newPassword,
@@ -265,9 +254,7 @@ export const useSettingsPage: UseSettingsPageType = () => {
     handleDisplayNameBlur,
     handleEmailChange,
     handleEmailBlur,
-    openPlanModal,
-    closePlanModal,
-    handlePlanChange,
+    navigateToPlanPage,
     openPasswordModal,
     closePasswordModal,
     handleCurrentPasswordChange,

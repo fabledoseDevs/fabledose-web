@@ -4,52 +4,37 @@ import {
   BUTTON_VARIANT,
   WIDTH_TYPE,
 } from '@/atoms/Button/Button.types';
-import Headline from '@/atoms/Headline';
-import {
-  FOREGROUND_COLOR,
-  HEADLINE_TYPE,
-} from '@/atoms/Headline/Headline.types';
 import Paragraph from '@/atoms/Paragraph';
 import { TEXT_ALIGNMENT } from '@/atoms/Paragraph/Paragraph.types';
 import { useDictionary } from '@/lang/DictionaryProvider';
 import PlanComparisonExtended from '@/organisms/PlanComparisonExtended';
 import PlanComparisonSimple from '@/organisms/PlanComparisonSimple';
-import { usePlanSelector } from '@/organisms/PlanSelector/PlanSelector.hook';
 
+import { useStandalonePlanSelector } from './StandalonePlanSelector.hook';
 import {
   PlanSelectorBody,
-  RedText,
   SelectorCard,
   SelectorContainer,
-} from './PlanSelector.styled';
-import type { PlanSelector as PlanSelectorType } from './PlanSelector.types';
+} from './StandalonePlanSelector.styled';
+import type { StandalonePlanSelector as StandalonePlanSelectorType } from './StandalonePlanSelector.types';
 
-export const PlanSelector: PlanSelectorType = () => {
+export const StandalonePlanSelector: StandalonePlanSelectorType = ({
+  onPlanSelected,
+}) => {
   const { registerPage } = useDictionary();
   const {
     isDetailViewVisible,
     simpleCards,
     extendedCards,
     handleDetailViewToggle,
-  } = usePlanSelector();
+  } = useStandalonePlanSelector({ onPlanSelected });
   const { planSelector } = registerPage;
 
   return (
     <PlanSelectorBody id="page-top">
       <SelectorCard>
-        <Headline weight={HEADLINE_TYPE.BIG} color={FOREGROUND_COLOR.PURPLE}>
-          {planSelector.headline}
-        </Headline>
         <Paragraph alignment={TEXT_ALIGNMENT.CENTER}>
-          {planSelector.stepLabel}{' '}
-          <RedText>{planSelector.stepHighlight}</RedText>
-        </Paragraph>
-        <Paragraph alignment={TEXT_ALIGNMENT.CENTER}>
-          <span
-            dangerouslySetInnerHTML={{
-              __html: planSelector.registrationDescription,
-            }}
-          />
+          {planSelector.standaloneDescription}
         </Paragraph>
         <SelectorContainer>
           <PlanComparisonSimple accountCards={simpleCards} />
