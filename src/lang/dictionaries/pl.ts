@@ -211,6 +211,17 @@ export const DictionaryPL: DictionaryType = {
       'Sprawdź ikony poniżej lub naciśnij przycisk "Więcej infomacji" aby upewnić się, czy ta historyjka jest odpowiednia dla twojego dziecka',
     moreInfoButton: 'Więcej informacji',
   },
+  cataloguePage: {
+    headline: 'Przeszukaj katalog',
+    paragraph:
+      'Wpisz nazwisko autora lub tytuł bajki aby rozpocząć przeszukiwanie.',
+    searchPlaceholder: 'Szukaj...',
+    resultsTitle: 'Wyniki',
+    titlesColumn: 'Tytuły',
+    authorsColumn: 'Autorzy',
+    noSelectedItem: 'Brak wybranej pozycji',
+    emptyResults: 'Brak dopasowanych okładek dla obecnego zapytania.',
+  },
   registerPage: {
     form: {
       headline: 'Załóż konto',

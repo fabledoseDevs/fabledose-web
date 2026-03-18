@@ -112,6 +112,16 @@ export type DictionaryType = {
     infoDisclaimer: string;
     moreInfoButton: string;
   };
+  cataloguePage: {
+    headline: string;
+    paragraph: string;
+    searchPlaceholder: string;
+    resultsTitle: string;
+    titlesColumn: string;
+    authorsColumn: string;
+    noSelectedItem: string;
+    emptyResults: string;
+  };
   registerPage: {
     form: {
       headline: string;

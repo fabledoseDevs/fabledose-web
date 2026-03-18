@@ -204,6 +204,16 @@ export const DictionaryEn: DictionaryType = {
       'Check tag icons below or press the "More info" button to confirm that this story is suitable for your child.',
     moreInfoButton: 'More info',
   },
+  cataloguePage: {
+    headline: 'Search the catalogue',
+    paragraph: 'Type an author surname or story title to start searching.',
+    searchPlaceholder: 'Search...',
+    resultsTitle: 'Results',
+    titlesColumn: 'Titles',
+    authorsColumn: 'Authors',
+    noSelectedItem: 'No item selected',
+    emptyResults: 'No matching covers for the current query.',
+  },
   registerPage: {
     form: {
       headline: 'Create account',
