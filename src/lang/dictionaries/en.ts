@@ -14,6 +14,11 @@ export const DictionaryEn: DictionaryType = {
     paragraph: `Our new website is currently under construction.<br />Until it's ready, we are looking forward to welcoming you<br />at our demo page.`,
     button: 'See DEMO',
   },
+  notFoundPage: {
+    headline: "It looks like you've lost your way.",
+    subtitle: '(Page dose not exist)',
+    button: 'Return',
+  },
   landingPage: {
     jumbotron: {
       headline: 'Place where fairy tales come to life.',

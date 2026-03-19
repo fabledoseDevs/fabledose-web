@@ -12,6 +12,11 @@ export type DictionaryType = {
     paragraph: string;
     button: string;
   };
+  notFoundPage: {
+    headline: string;
+    subtitle: string;
+    button: string;
+  };
   landingPage: {
     jumbotron: {
       headline: string;
