@@ -14,6 +14,11 @@ export const DictionaryPL: DictionaryType = {
     paragraph: `Nasza nowa strona jest obecnie w budowie.<br />Do czasu premiery zapraszamy do zapoznania się z naszymi baśniami<br />na stronie demonstracyjnej.`,
     button: 'Zobacz DEMO',
   },
+  notFoundPage: {
+    headline: 'Wygląda na to, że zgubiłeś drogę.',
+    subtitle: '(Taka strona nie istnieje)',
+    button: 'Wróć',
+  },
   landingPage: {
     jumbotron: {
       headline: 'Miejsce, w którym baśnie ożywają podczas czytania',
