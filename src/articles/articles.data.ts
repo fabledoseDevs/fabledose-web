@@ -4,10 +4,17 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 
-import type { ArticleData, ArticleSection } from './articles.types';
+import type {
+  ArticleData,
+  ArticleLocale,
+  ArticleLocalizedData,
+  ArticleSection,
+  ArticleTranslation,
+} from './articles.types';
 
-const ARTICLES_DIR = path.join(process.cwd(), 'public', 'articles');
+const ARTICLES_DIR = path.join(process.cwd(), 'src', 'articles', 'content');
 const SUPPORTED_EXTENSIONS = new Set(['.json', '.js', '.mjs', '.cjs']);
+const SUPPORTED_LOCALES: ArticleLocale[] = ['pl', 'en'];
 
 const isString = (value: unknown): value is string =>
   typeof value === 'string' && value.trim().length > 0;
@@ -50,7 +57,7 @@ const normalizeSection = (value: unknown): ArticleSection | null => {
   };
 };
 
-const normalizeArticle = (value: unknown): ArticleData | null => {
+const normalizeLegacyArticle = (value: unknown): ArticleData | null => {
   if (!value || typeof value !== 'object') {
     return null;
   }
@@ -77,6 +84,100 @@ const normalizeArticle = (value: unknown): ArticleData | null => {
   return { title, url, sections };
 };
 
+const normalizeTranslation = (value: unknown): ArticleTranslation | null => {
+  if (!value || typeof value !== 'object') {
+    return null;
+  }
+
+  const candidate = value as Record<string, unknown>;
+  const title = isString(candidate.title) ? candidate.title : null;
+  const sectionsValue = Array.isArray(candidate.sections)
+    ? candidate.sections
+    : null;
+
+  if (!title || !sectionsValue) {
+    return null;
+  }
+
+  const sections = sectionsValue
+    .map(normalizeSection)
+    .filter((section): section is ArticleSection => section !== null);
+
+  if (!sections.length) {
+    return null;
+  }
+
+  return { title, sections };
+};
+
+const isArticleLocale = (value: string): value is ArticleLocale =>
+  SUPPORTED_LOCALES.includes(value as ArticleLocale);
+
+const normalizeLocalizedArticle = (
+  value: unknown,
+): ArticleLocalizedData | null => {
+  if (!value || typeof value !== 'object') {
+    return null;
+  }
+
+  const candidate = value as Record<string, unknown>;
+  const url = isString(candidate.url) ? candidate.url : null;
+  const translationsValue =
+    candidate.translations && typeof candidate.translations === 'object'
+      ? (candidate.translations as Record<string, unknown>)
+      : null;
+
+  if (!url || !translationsValue) {
+    return null;
+  }
+
+  const translations: Partial<Record<ArticleLocale, ArticleTranslation>> = {};
+
+  for (const [locale, translationValue] of Object.entries(translationsValue)) {
+    if (!isArticleLocale(locale)) {
+      continue;
+    }
+
+    const normalizedTranslation = normalizeTranslation(translationValue);
+
+    if (normalizedTranslation) {
+      translations[locale] = normalizedTranslation;
+    }
+  }
+
+  if (!Object.keys(translations).length) {
+    return null;
+  }
+
+  return { url, translations };
+};
+
+const normalizeArticleForLanguage = (
+  value: unknown,
+  lang: string,
+): ArticleData | null => {
+  const localizedArticle = normalizeLocalizedArticle(value);
+
+  if (localizedArticle) {
+    const selectedTranslation =
+      localizedArticle.translations[lang as ArticleLocale] ||
+      localizedArticle.translations.en ||
+      localizedArticle.translations.pl;
+
+    if (!selectedTranslation) {
+      return null;
+    }
+
+    return {
+      url: localizedArticle.url,
+      title: selectedTranslation.title,
+      sections: selectedTranslation.sections,
+    };
+  }
+
+  return normalizeLegacyArticle(value);
+};
+
 const readFromJsModule = async (filePath: string): Promise<unknown> => {
   const importedModule = await import(pathToFileURL(filePath).href);
 
@@ -101,6 +202,7 @@ const readFromJsModule = async (filePath: string): Promise<unknown> => {
 
 const readArticlesFromFile = async (
   filePath: string,
+  lang: string,
 ): Promise<ArticleData[]> => {
   const ext = path.extname(filePath).toLowerCase();
 
@@ -117,7 +219,7 @@ const readArticlesFromFile = async (
     const payloadArray = Array.isArray(rawPayload) ? rawPayload : [rawPayload];
 
     return payloadArray
-      .map(normalizeArticle)
+      .map(item => normalizeArticleForLanguage(item, lang))
       .filter((article): article is ArticleData => article !== null);
   } catch {
     return [];
@@ -133,14 +235,16 @@ const toSlug = (value: string): string =>
     .filter(Boolean)
     .pop() || '';
 
-export const getAllArticles = async (): Promise<ArticleData[]> => {
+export const getAllArticles = async (lang: string): Promise<ArticleData[]> => {
   try {
     const entries = await fs.readdir(ARTICLES_DIR, { withFileTypes: true });
     const files = entries
       .filter(entry => entry.isFile())
       .map(entry => path.join(ARTICLES_DIR, entry.name));
 
-    const articleGroups = await Promise.all(files.map(readArticlesFromFile));
+    const articleGroups = await Promise.all(
+      files.map(filePath => readArticlesFromFile(filePath, lang)),
+    );
 
     return articleGroups.flat();
   } catch {
@@ -150,9 +254,10 @@ export const getAllArticles = async (): Promise<ArticleData[]> => {
 
 export const getArticleBySlug = async (
   slug: string,
+  lang: string,
 ): Promise<ArticleData | null> => {
   const normalizedSlug = toSlug(decodeURIComponent(slug));
-  const articles = await getAllArticles();
+  const articles = await getAllArticles(lang);
 
   return (
     articles.find(article => {

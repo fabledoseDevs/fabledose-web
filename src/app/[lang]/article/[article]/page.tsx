@@ -14,8 +14,8 @@ const Article = async ({
 }: {
   params: Promise<ArticleRouteParams>;
 }): Promise<ReactElement> => {
-  const { article } = await params;
-  const articleData = await getArticleBySlug(article);
+  const { article, lang } = await params;
+  const articleData = await getArticleBySlug(article, lang);
 
   if (!articleData) {
     notFound();
