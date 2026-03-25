@@ -1,0 +1,79 @@
+{
+  "url": "example-article",
+  "translations": {
+    "en": {
+      "title": "How To Add A New Article",
+      "sections": [
+        {
+          "title": "1. Create a file in /src/articles/content",
+          "paragraphs": [
+            "Add a new .json file in src/articles/content. You can name it anything, for example: my-first-article.json.",
+            "Each file can contain one article object or an array of article objects."
+          ]
+        },
+        {
+          "title": "2. Use localized structure",
+          "paragraphs": [
+            "Every article must have url and translations.",
+            "translations can include pl and en variants. Each translation needs title and sections."
+          ],
+          "list": [
+            "url: string (used by route matching)",
+            "translations.en.title: string",
+            "translations.en.sections: section[]",
+            "translations.pl.title: string",
+            "translations.pl.sections: section[]",
+            "section.title?: string",
+            "section.paragraphs?: string | string[]",
+            "section.list?: string[]"
+          ]
+        },
+        {
+          "title": "3. Open article by language route",
+          "paragraphs": [
+            "Route format is: /<lang>/article/<url>.",
+            "Example: /en/article/example-article and /pl/article/example-article.",
+            "The page picks translations[lang], then falls back to en, then pl."
+          ]
+        }
+      ]
+    },
+    "pl": {
+      "title": "Jak dodać nowy artykuł",
+      "sections": [
+        {
+          "title": "1. Utwórz plik w /src/articles/content",
+          "paragraphs": [
+            "Dodaj nowy plik .json w src/articles/content. Nazwa może być dowolna, np.: moj-pierwszy-artykul.json.",
+            "Jeden plik może zawierać jeden obiekt artykułu albo tablicę obiektów artykułów."
+          ]
+        },
+        {
+          "title": "2. Użyj struktury z tłumaczeniami",
+          "paragraphs": [
+            "Każdy artykuł musi mieć pola url oraz translations.",
+            "W translations możesz dodać wersje pl i en. Każda wersja językowa musi mieć title oraz sections."
+          ],
+          "list": [
+            "url: string (używany do dopasowania trasy)",
+            "translations.en.title: string",
+            "translations.en.sections: section[]",
+            "translations.pl.title: string",
+            "translations.pl.sections: section[]",
+            "section.title?: string",
+            "section.paragraphs?: string | string[]",
+            "section.list?: string[]"
+          ]
+        },
+        {
+          "title": "3. Otwieranie artykułu po adresie",
+          "paragraphs": [
+            "Format trasy: /<lang>/article/<url>.",
+            "Przykład: /pl/article/example-article oraz /en/article/example-article.",
+            "Strona wybiera translations[lang], a potem fallback do en i pl."
+          ]
+        }
+      ]
+    }
+  }
+}
