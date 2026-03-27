@@ -1,12 +1,14 @@
 import {
-  ArrowLeftCircleIcon,
   ArrowUturnLeftIcon,
   ArrowUturnRightIcon,
   ForwardIcon,
   HeartIcon as HeartIconOutline,
+} from '@heroicons/react/24/outline';
+import {
+  ArrowLeftCircleIcon,
   PauseCircleIcon,
   PlayCircleIcon,
-} from '@heroicons/react/24/outline';
+} from '@heroicons/react/24/solid';
 import { HeartIcon as HeartIconSolid } from '@heroicons/react/24/solid';
 
 import { AudoButtonsBody, SeekBadge, SpeedLabel } from './AudoButtons.styled';

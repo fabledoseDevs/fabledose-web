@@ -63,6 +63,9 @@ export const theme: Theme = {
         full: '#FFFFFF',
         ecru: '#FAF0DD',
       },
+      grey: {
+        light: '#D9D9D9',
+      },
     },
   },
   interfaceWidth: `${breakpoints.interfaceWidth}px`,

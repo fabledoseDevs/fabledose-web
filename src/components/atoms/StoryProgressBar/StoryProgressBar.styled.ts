@@ -15,7 +15,7 @@ export const BufferedTrack = styled.div<{ percent: number }>`
   width: 100%;
   height: 4px;
   border-radius: 999px;
-  background: ${theme.palette.byElement.background.transparentWhite['20']};
+  background: ${theme.palette.byColor.grey.light};
 
   &::after {
     content: '';
@@ -25,7 +25,7 @@ export const BufferedTrack = styled.div<{ percent: number }>`
     width: ${({ percent }) => `${percent}%`};
     height: 100%;
     border-radius: 999px;
-    background: ${theme.palette.byElement.background.transparentWhite['30']};
+    background: ${theme.palette.byColor.grey.light};
   }
 `;
 

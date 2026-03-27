@@ -3,9 +3,9 @@ import styled from '@emotion/styled';
 import { theme } from '@/styles/theme';
 
 export const AudiobookBody = styled.section`
-  width: 100%;
+  width: calc(100% - 40px);
   max-width: 1024px;
-  margin: 0 auto;
+  margin: 20px;
   padding: 20px 16px;
   border-radius: 30px;
   background: ${theme.palette.byElement.background.gradientWhite};

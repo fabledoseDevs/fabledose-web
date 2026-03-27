@@ -54,6 +54,9 @@ export interface Palette {
       full: string;
       ecru: string;
     };
+    grey: {
+      light: string;
+    };
   };
 }
 
