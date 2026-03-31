@@ -1,0 +1,114 @@
+{
+  "tales": [
+    {
+      "meta": {
+        "id": "goldilocks",
+        "slug": {
+          "en": "goldilocks",
+          "pl": "zlotowlosa-i-trzy-misie"
+        },
+        "title": {
+          "en": "Goldilocks and the Three Bears",
+          "pl": "Złotowłosa i trzy misie"
+        },
+        "shortDescription": {
+          "en": "A curious girl enters a forest cottage and discovers three bowls, three chairs, and three beds.",
+          "pl": "Ciekawska dziewczynka trafia do leśnego domku i odkrywa trzy miski, trzy krzesła oraz trzy łóżka."
+        },
+        "fullDescription": {
+          "en": {
+            "synopsis": "Goldilocks wanders into the bears' home while they are away. She tastes their porridge, tries their chairs, and falls asleep in the smallest bed until the family returns.",
+            "comment": "This fairy tale works well for discussing boundaries, respect for others' property, and how curiosity can lead to consequences."
+          },
+          "pl": {
+            "synopsis": "Złotowłosa trafia do domu niedźwiedzi, gdy ich nie ma. Próbuje ich owsianki, testuje krzesła i zasypia w najmniejszym łóżku, aż rodzina wraca.",
+            "comment": "Ta bajka dobrze nadaje się do rozmowy o granicach, szacunku do cudzej własności i o tym, że ciekawość może mieć konsekwencje."
+          }
+        },
+        "credits": {
+          "authors": [],
+          "illustrators": [],
+          "animators": [],
+          "lectors": [],
+          "translators": []
+        },
+        "tags": [
+          "age-3",
+          "classic-fable",
+          "carefulness"
+        ],
+        "covers": {
+          "tileCover": "",
+          "mainCover": "",
+          "fullCover": "",
+          "audioCover": ""
+        },
+        "contentPointers": {
+          "text": {
+            "en": "tales/goldilocks/txt/en.json",
+            "pl": "tales/goldilocks/txt/pl.json"
+          },
+          "audio": {
+            "en": "tales/goldilocks/audio/en.mp3",
+            "pl": "tales/goldilocks/audio/pl.mp3"
+          }
+        }
+      }
+    },
+    {
+      "meta": {
+        "id": "three-little-pigs",
+        "slug": {
+          "en": "three-little-pigs",
+          "pl": "trzy-male-swinki"
+        },
+        "title": {
+          "en": "The Three Little Pigs",
+          "pl": "Trzy małe świnki"
+        },
+        "shortDescription": {
+          "en": "Three pig siblings build their homes in different ways and face a determined wolf.",
+          "pl": "Trzy świnki budują domy na swój sposób i muszą zmierzyć się z upartym wilkiem."
+        },
+        "fullDescription": {
+          "en": {
+            "synopsis": "Each pig chooses a different building material: straw, wood, and brick. When the wolf arrives, only careful planning and effort prove strong enough to keep everyone safe.",
+            "comment": "This tale naturally supports conversations about patience, long-term thinking, and why quality work matters."
+          },
+          "pl": {
+            "synopsis": "Każda świnka wybiera inny materiał na dom: słomę, drewno i cegłę. Gdy pojawia się wilk, tylko rozsądne planowanie i solidna praca zapewniają bezpieczeństwo.",
+            "comment": "Ta historia dobrze wspiera rozmowę o cierpliwości, myśleniu długoterminowym i o tym, dlaczego warto robić coś porządnie."
+          }
+        },
+        "credits": {
+          "authors": [],
+          "illustrators": [],
+          "animators": [],
+          "lectors": [],
+          "translators": []
+        },
+        "tags": [
+          "age-3",
+          "classic-fable",
+          "diligence"
+        ],
+        "covers": {
+          "tileCover": "",
+          "mainCover": "",
+          "fullCover": "",
+          "audioCover": ""
+        },
+        "contentPointers": {
+          "text": {
+            "en": "tales/three-little-pigs/txt/en.json",
+            "pl": "tales/three-little-pigs/txt/pl.json"
+          },
+          "audio": {
+            "en": "tales/three-little-pigs/audio/en.mp3",
+            "pl": "tales/three-little-pigs/audio/pl.mp3"
+          }
+        }
+      }
+    }
+  ]
+}
