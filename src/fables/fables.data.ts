@@ -7,6 +7,7 @@ import { TAG_NAME } from '@/components/atoms/TagIcon/TagIcon.types';
 
 import type {
   FableContentPointers,
+  FableCovers,
   FableCredits,
   FableData,
   FableDatabaseIndex,
@@ -14,7 +15,9 @@ import type {
   FableIndexItem,
   FableLocale,
   FableMeta,
-  FableTextContent,
+  FableResolvedSlide,
+  FableStoryContent,
+  FableStorySlide,
   FableTextSlide,
 } from './fables.types';
 
@@ -22,14 +25,12 @@ const FABLE_DB_DIR = path.join(process.cwd(), 'public', 'fable-database');
 const FABLE_INDEX_PATH = path.join(FABLE_DB_DIR, 'index.json');
 const SUPPORTED_LOCALES: FableLocale[] = ['pl', 'en'];
 const TAG_VALUES = new Set(Object.values(TAG_NAME));
-
-const isNonEmptyString = (value: unknown): value is string =>
-  typeof value === 'string' && value.trim().length > 0;
+const DEFAULT_LAYOUT = 'default';
 
 const isString = (value: unknown): value is string => typeof value === 'string';
 
-const isStringArray = (value: unknown): value is string[] =>
-  Array.isArray(value) && value.every(isNonEmptyString);
+const isNonEmptyString = (value: unknown): value is string =>
+  isString(value) && value.trim().length > 0;
 
 const toSlug = (value: string): string =>
   value
@@ -44,6 +45,9 @@ const normalizeLocale = (value: string): FableLocale =>
   SUPPORTED_LOCALES.includes(value as FableLocale)
     ? (value as FableLocale)
     : 'en';
+
+const joinUrlPath = (...parts: string[]): string =>
+  parts.filter(Boolean).join('/').replace(/\/+/g, '/').replace(/^\/+/, '');
 
 const readJsonFile = async (filePath: string): Promise<unknown> => {
   try {
@@ -156,6 +160,9 @@ const normalizePointers = (value: unknown): FableContentPointers | null => {
   }
 
   const candidate = value as Record<string, unknown>;
+  const story = isNonEmptyString(candidate.story)
+    ? candidate.story.trim()
+    : undefined;
   const text = normalizeLocalizedStrings(candidate.text);
   const audio = normalizeLocalizedStrings(candidate.audio);
 
@@ -164,8 +171,32 @@ const normalizePointers = (value: unknown): FableContentPointers | null => {
   }
 
   return {
+    ...(story ? { story } : {}),
     text,
     ...(Object.keys(audio).length ? { audio } : {}),
+  };
+};
+
+const normalizeCovers = (value: unknown): FableCovers => {
+  if (!value || typeof value !== 'object') {
+    return {};
+  }
+
+  const candidate = value as Record<string, unknown>;
+
+  return {
+    ...(isNonEmptyString(candidate.tileCover)
+      ? { tileCover: candidate.tileCover.trim() }
+      : {}),
+    ...(isNonEmptyString(candidate.mainCover)
+      ? { mainCover: candidate.mainCover.trim() }
+      : {}),
+    ...(isNonEmptyString(candidate.fullCover)
+      ? { fullCover: candidate.fullCover.trim() }
+      : {}),
+    ...(isNonEmptyString(candidate.audioCover)
+      ? { audioCover: candidate.audioCover.trim() }
+      : {}),
   };
 };
 
@@ -187,10 +218,7 @@ const normalizeMeta = (value: unknown): FableMeta | null => {
   const credits = normalizeCredits(candidate.credits);
   const tags = normalizeTags(candidate.tags);
   const contentPointers = normalizePointers(candidate.contentPointers);
-  const coversValue =
-    candidate.covers && typeof candidate.covers === 'object'
-      ? (candidate.covers as Record<string, unknown>)
-      : {};
+  const covers = normalizeCovers(candidate.covers);
 
   if (
     !id ||
@@ -209,14 +237,7 @@ const normalizeMeta = (value: unknown): FableMeta | null => {
     fullDescription,
     credits,
     tags,
-    covers: {
-      tileCover: isString(coversValue.tileCover) ? coversValue.tileCover : '',
-      mainCover: isString(coversValue.mainCover) ? coversValue.mainCover : '',
-      fullCover: isString(coversValue.fullCover) ? coversValue.fullCover : '',
-      audioCover: isString(coversValue.audioCover)
-        ? coversValue.audioCover
-        : '',
-    },
+    covers,
     contentPointers,
   };
 };
@@ -255,13 +276,19 @@ const readFableIndex = async (): Promise<FableDatabaseIndex> => {
 const resolvePointerPath = (relativePath: string): string =>
   path.join(FABLE_DB_DIR, relativePath);
 
+interface ResolvedPointer {
+  locale: FableLocale;
+  relativePath: string;
+  path: string;
+}
+
 const resolveLocalePointer = (
   pointers: Partial<Record<FableLocale, string>>,
   locale: FableLocale,
-): { locale: FableLocale; path: string } | null => {
+): ResolvedPointer | null => {
   const primary = pointers[locale];
   if (primary) {
-    return { locale, path: resolvePointerPath(primary) };
+    return { locale, relativePath: primary, path: resolvePointerPath(primary) };
   }
 
   const fallbackLocale = SUPPORTED_LOCALES.find(
@@ -271,57 +298,83 @@ const resolveLocalePointer = (
     return null;
   }
 
+  const relativePath = pointers[fallbackLocale] as string;
+
   return {
     locale: fallbackLocale,
-    path: resolvePointerPath(pointers[fallbackLocale] as string),
+    relativePath,
+    path: resolvePointerPath(relativePath),
   };
 };
 
-const normalizeBackgroundImage = (value: unknown): Record<string, string> => {
-  if (!value || typeof value !== 'object' || Array.isArray(value)) {
-    return {};
+const resolveStoryPointer = (
+  pointers: FableContentPointers,
+  locale: FableLocale,
+): { relativePath: string; path: string } | null => {
+  if (isNonEmptyString(pointers.story)) {
+    return {
+      relativePath: pointers.story,
+      path: resolvePointerPath(pointers.story),
+    };
   }
 
-  const candidate = value as Record<string, unknown>;
-  const normalized: Record<string, string> = {};
-
-  for (const [key, itemValue] of Object.entries(candidate)) {
-    if (isNonEmptyString(itemValue)) {
-      normalized[key] = itemValue.trim();
-    }
+  const resolvedTextPointer = resolveLocalePointer(pointers.text, locale);
+  if (!resolvedTextPointer) {
+    return null;
   }
 
-  return normalized;
+  const derivedRelativePath = resolvedTextPointer.relativePath.replace(
+    /\/txt\/[^/]+\.json$/,
+    '/story.json',
+  );
+
+  return {
+    relativePath: derivedRelativePath,
+    path: resolvePointerPath(derivedRelativePath),
+  };
 };
 
-const normalizeSlide = (value: unknown): FableTextSlide | null => {
+const normalizeTextSlide = (value: unknown): FableTextSlide | null => {
   if (!value || typeof value !== 'object') {
     return null;
   }
 
   const candidate = value as Record<string, unknown>;
-  const paragraphs = isStringArray(candidate.paragraphs)
+  const paragraphs = Array.isArray(candidate.paragraphs)
     ? candidate.paragraphs
+        .map(item => (isString(item) ? item : null))
+        .filter((item): item is string => item !== null)
     : [];
-  const backgroundImage = normalizeBackgroundImage(candidate.backgroundImage);
-  const audioFile = isNonEmptyString(candidate.audioFile)
-    ? candidate.audioFile.trim()
+
+  return { paragraphs };
+};
+
+const normalizeStorySlide = (value: unknown): FableStorySlide | null => {
+  if (!value || typeof value !== 'object') {
+    return null;
+  }
+
+  const candidate = value as Record<string, unknown>;
+  const scene = isNonEmptyString(candidate.scene)
+    ? candidate.scene.trim()
     : undefined;
   const layout = isNonEmptyString(candidate.layout)
     ? candidate.layout.trim()
     : undefined;
+  const audioFile = isNonEmptyString(candidate.audioFile)
+    ? candidate.audioFile.trim()
+    : undefined;
 
   return {
-    paragraphs,
-    backgroundImage,
-    ...(audioFile ? { audioFile } : {}),
+    ...(scene ? { scene } : {}),
     ...(layout ? { layout } : {}),
+    ...(audioFile ? { audioFile } : {}),
   };
 };
 
-const normalizeTextContent = (value: unknown): FableTextContent => {
+const normalizeTextContent = (value: unknown): FableTextSlide[] => {
   if (!value || typeof value !== 'object') {
-    return { slides: [] };
+    return [];
   }
 
   const candidate = value as Record<string, unknown>;
@@ -330,9 +383,26 @@ const normalizeTextContent = (value: unknown): FableTextContent => {
       ? (candidate.text as Record<string, unknown>)
       : {};
   const slidesInput = Array.isArray(textValue.slides) ? textValue.slides : [];
-  const slides = slidesInput
-    .map(normalizeSlide)
+
+  return slidesInput
+    .map(normalizeTextSlide)
     .filter((slide): slide is FableTextSlide => slide !== null);
+};
+
+const normalizeStoryContent = (value: unknown): FableStoryContent => {
+  if (!value || typeof value !== 'object') {
+    return { slides: [] };
+  }
+
+  const candidate = value as Record<string, unknown>;
+  const storyValue =
+    candidate.story && typeof candidate.story === 'object'
+      ? (candidate.story as Record<string, unknown>)
+      : candidate;
+  const slidesInput = Array.isArray(storyValue.slides) ? storyValue.slides : [];
+  const slides = slidesInput
+    .map(normalizeStorySlide)
+    .filter((slide): slide is FableStorySlide => slide !== null);
 
   return { slides };
 };
@@ -367,9 +437,103 @@ const getPreferredAudioFile = (
     isNonEmptyString,
   );
 
+const getDefaultScene = (slideIndex: number): string => {
+  if (slideIndex === 0) {
+    return 'cover';
+  }
+
+  return `img_${Math.min(slideIndex, 10)}`;
+};
+
+const getTaleBasePath = (
+  item: FableIndexItem,
+  pointerHints: { story?: string; text?: string },
+): string => {
+  const fromStory = pointerHints.story?.replace(/\/story\.json$/, '');
+  if (fromStory) {
+    return fromStory;
+  }
+
+  const fromText = pointerHints.text?.replace(/\/txt\/[^/]+\.json$/, '');
+  if (fromText) {
+    return fromText;
+  }
+
+  const preferredSlug = item.meta.slug.en || item.meta.slug.pl || item.meta.id;
+  return joinUrlPath('tales', preferredSlug);
+};
+
+const resolveBackgroundImage = (
+  taleBasePath: string,
+  scene: string,
+): Record<string, string> => {
+  if (scene === 'cover') {
+    return {
+      desktop: joinUrlPath(taleBasePath, 'img', 'cover_1920x1080.webm'),
+      mobile: joinUrlPath(taleBasePath, 'img', 'cover_1280x720.webm'),
+    };
+  }
+
+  return {
+    desktop: joinUrlPath(taleBasePath, 'img', `${scene}_1920x1080.webm`),
+    mobile: joinUrlPath(taleBasePath, 'img', `${scene}_1280x720.webm`),
+  };
+};
+
+const resolveCovers = (
+  covers: FableCovers,
+  taleBasePath: string,
+): FableCovers => ({
+  tileCover:
+    covers.tileCover || joinUrlPath(taleBasePath, 'img', 'tileCover.jpg'),
+  mainCover:
+    covers.mainCover ||
+    joinUrlPath(taleBasePath, 'img', 'cover_1920x1080.webm'),
+  fullCover:
+    covers.fullCover || joinUrlPath(taleBasePath, 'img', 'fullCover.jpg'),
+  audioCover:
+    covers.audioCover || joinUrlPath(taleBasePath, 'img', 'audioCover.jpg'),
+});
+
+const mergeSlides = (
+  taleBasePath: string,
+  storySlides: FableStorySlide[],
+  textSlides: FableTextSlide[],
+): FableResolvedSlide[] => {
+  const totalSlides = Math.max(storySlides.length, textSlides.length);
+  const slides: FableResolvedSlide[] = [];
+
+  for (let index = 0; index < totalSlides; index += 1) {
+    const storySlide = storySlides[index] || {};
+    const textSlide = textSlides[index] || { paragraphs: [] };
+    const scene = storySlide.scene || getDefaultScene(index);
+
+    slides.push({
+      paragraphs: textSlide.paragraphs,
+      backgroundImage: resolveBackgroundImage(taleBasePath, scene),
+      layout: storySlide.layout || DEFAULT_LAYOUT,
+      ...(storySlide.audioFile ? { audioFile: storySlide.audioFile } : {}),
+    });
+  }
+
+  return slides;
+};
+
 export const getFablesIndex = async (): Promise<FableMeta[]> => {
   const index = await readFableIndex();
-  return index.tales.map(item => item.meta);
+  return index.tales.map(item => {
+    const textHint =
+      item.meta.contentPointers.text.en || item.meta.contentPointers.text.pl;
+    const taleBasePath = getTaleBasePath(item, {
+      story: item.meta.contentPointers.story,
+      text: textHint,
+    });
+
+    return {
+      ...item.meta,
+      covers: resolveCovers(item.meta.covers, taleBasePath),
+    };
+  });
 };
 
 export const getFableBySlug = async (
@@ -397,8 +561,19 @@ export const getFableBySlug = async (
     return null;
   }
 
+  const storyPointer = resolveStoryPointer(
+    item.meta.contentPointers,
+    textPointer.locale,
+  );
   const rawText = await readJsonFile(textPointer.path);
-  const text = normalizeTextContent(rawText);
+  const rawStory = storyPointer ? await readJsonFile(storyPointer.path) : null;
+  const textSlides = normalizeTextContent(rawText);
+  const storyContent = normalizeStoryContent(rawStory);
+  const taleBasePath = getTaleBasePath(item, {
+    story: storyPointer?.relativePath,
+    text: textPointer.relativePath,
+  });
+  const slides = mergeSlides(taleBasePath, storyContent.slides, textSlides);
   const audioPointers = item.meta.contentPointers.audio || {};
   const selectedAudio = getPreferredAudioFile(
     audioPointers,
@@ -406,10 +581,15 @@ export const getFableBySlug = async (
   );
 
   return {
-    meta: item.meta,
+    meta: {
+      ...item.meta,
+      covers: resolveCovers(item.meta.covers, taleBasePath),
+    },
     content: {
       locale: textPointer.locale,
-      text,
+      text: {
+        slides,
+      },
       audio: {
         files: audioPointers,
         ...(selectedAudio ? { selected: selectedAudio } : {}),

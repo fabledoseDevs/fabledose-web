@@ -26,11 +26,21 @@
           }
         },
         "credits": {
-          "authors": [],
-          "illustrators": [],
-          "animators": [],
-          "lectors": [],
-          "translators": []
+          "authors": [
+            "Paweł Modzelewski"
+          ],
+          "illustrators": [
+            "Edyta Petrzak"
+          ],
+          "animators": [
+            "Arutiun Sargsyan"
+          ],
+          "lectors": [
+            "System AI"
+          ],
+          "translators": [
+            "Paweł Modzelewski"
+          ]
         },
         "tags": [
           "age-3",
@@ -44,13 +54,14 @@
           "audioCover": ""
         },
         "contentPointers": {
+          "story": "tales/goldilocks/story.json",
           "text": {
             "en": "tales/goldilocks/txt/en.json",
             "pl": "tales/goldilocks/txt/pl.json"
           },
           "audio": {
-            "en": "tales/goldilocks/audio/en.mp3",
-            "pl": "tales/goldilocks/audio/pl.mp3"
+            "en": "tales/goldilocks/audio/mock-01.mp3",
+            "pl": "tales/goldilocks/audio/mock-01.mp3"
           }
         }
       }
@@ -99,6 +110,7 @@
           "audioCover": ""
         },
         "contentPointers": {
+          "story": "tales/three-little-pigs/story.json",
           "text": {
             "en": "tales/three-little-pigs/txt/en.json",
             "pl": "tales/three-little-pigs/txt/pl.json"

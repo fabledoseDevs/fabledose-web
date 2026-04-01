@@ -33,16 +33,17 @@ export interface FableCredits {
  * Cover-image set used by different UI contexts.
  */
 export interface FableCovers {
-  tileCover: string;
-  mainCover: string;
-  fullCover: string;
-  audioCover: string;
+  tileCover?: string;
+  mainCover?: string;
+  fullCover?: string;
+  audioCover?: string;
 }
 
 /**
  * Pointers to external content files.
  */
 export interface FableContentPointers {
+  story?: string;
   text: FableLocalized<string>;
   audio?: FableLocalized<string>;
 }
@@ -67,16 +68,39 @@ export interface FableMeta {
  */
 export interface FableTextSlide {
   paragraphs: string[];
+}
+
+/**
+ * Slide metadata shared across all locales.
+ */
+export interface FableStorySlide {
+  scene?: string;
+  layout?: string;
+  audioFile?: string;
+}
+
+/**
+ * Shared story payload loaded from story.json.
+ */
+export interface FableStoryContent {
+  slides: FableStorySlide[];
+}
+
+/**
+ * Fully resolved slide payload used by rendering.
+ */
+export interface FableResolvedSlide {
+  paragraphs: string[];
   backgroundImage: Record<string, string>;
   audioFile?: string;
-  layout?: string;
+  layout: string;
 }
 
 /**
  * Text content payload loaded from txt/<lang>.json.
  */
 export interface FableTextContent {
-  slides: FableTextSlide[];
+  slides: FableResolvedSlide[];
 }
 
 /**

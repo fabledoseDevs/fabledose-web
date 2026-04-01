@@ -1,0 +1,58 @@
+{
+  "story": {
+    "slides": [
+      {
+        "scene": "cover",
+        "layout": "default"
+      },
+      {
+        "scene": "img_1",
+        "layout": "default"
+      },
+      {
+        "scene": "img_2",
+        "layout": "default"
+      },
+      {
+        "scene": "img_3",
+        "layout": "default"
+      },
+      {
+        "scene": "img_4",
+        "layout": "default"
+      },
+      {
+        "scene": "img_5",
+        "layout": "default"
+      },
+      {
+        "scene": "img_6",
+        "layout": "default"
+      },
+      {
+        "scene": "img_7",
+        "layout": "default"
+      },
+      {
+        "scene": "img_8",
+        "layout": "default"
+      },
+      {
+        "scene": "img_9",
+        "layout": "default"
+      },
+      {
+        "scene": "img_10",
+        "layout": "default"
+      },
+      {
+        "scene": "img_10",
+        "layout": "default"
+      },
+      {
+        "scene": "img_10",
+        "layout": "default"
+      }
+    ]
+  }
+}
