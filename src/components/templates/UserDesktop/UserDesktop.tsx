@@ -1,5 +1,7 @@
 'use client';
 
+import { useParams } from 'next/navigation';
+
 import Container from '@/atoms/Container';
 import {
   BACKGROUND_COLOR,
@@ -12,11 +14,6 @@ import DesktopTilesSlider from '@/organisms/DesktopTilesSlider';
 import desktopTilesSliderMock from '@/organisms/DesktopTilesSlider/DesktopTilesSlider.mock';
 import { FooterSimple } from '@/organisms/FooterSimple';
 import StoryCard from '@/organisms/StoryCard';
-import {
-  StoryOneMock,
-  StoryThreeMock,
-  StoryTwoMock,
-} from '@/organisms/StoryCard/StoryCard.mock';
 import { STORY_CARD_VARIANT } from '@/organisms/StoryCard/StoryCard.types';
 
 import useUserDesktop from './UserDesktop.hook';
@@ -31,7 +28,10 @@ import {
 import type { UserDesktop as UserDesktopType } from './UserDesktop.types';
 
 export const UserDesktop: UserDesktopType = () => {
-  const { viewportRef, selectedIndex, slideCount, scrollTo } = useUserDesktop();
+  const params = useParams();
+  const currentLang = (params?.lang as string) || 'en';
+  const { viewportRef, selectedIndex, slideCount, scrollTo, storyCards } =
+    useUserDesktop(currentLang);
 
   return (
     <>
@@ -46,27 +46,15 @@ export const UserDesktop: UserDesktopType = () => {
         >
           <EmblaViewport ref={viewportRef}>
             <EmblaContainer>
-              <EmblaSlide>
-                <StoryCard
-                  variant={STORY_CARD_VARIANT.COMPACT}
-                  unlockedAccount={false}
-                  data={StoryOneMock}
-                />
-              </EmblaSlide>
-              <EmblaSlide>
-                <StoryCard
-                  variant={STORY_CARD_VARIANT.COMPACT}
-                  unlockedAccount={false}
-                  data={StoryTwoMock}
-                />
-              </EmblaSlide>
-              <EmblaSlide>
-                <StoryCard
-                  variant={STORY_CARD_VARIANT.COMPACT}
-                  unlockedAccount={false}
-                  data={StoryThreeMock}
-                />
-              </EmblaSlide>
+              {storyCards.map(card => (
+                <EmblaSlide key={card.readUrl || card.headline}>
+                  <StoryCard
+                    variant={STORY_CARD_VARIANT.COMPACT}
+                    unlockedAccount={false}
+                    data={card}
+                  />
+                </EmblaSlide>
+              ))}
             </EmblaContainer>
 
             <Pagination aria-label="Slider pagination">

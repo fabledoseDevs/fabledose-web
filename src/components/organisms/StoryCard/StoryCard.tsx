@@ -79,14 +79,14 @@ export const StoryCard: StoryCardType = ({
                       actionType={ACTION_TYPE.NAVIGATION}
                       variant={BUTTON_VARIANT.RED}
                       text={storyCard.readButton}
-                      payload="#"
+                      payload={data.readUrl || '#'}
                       width={{ widthType: WIDTH_TYPE.AUTO }}
                     />
                     <Button
                       actionType={ACTION_TYPE.NAVIGATION}
                       variant={BUTTON_VARIANT.TRANSPARENT}
                       text={storyCard.audiobookButton}
-                      payload="#"
+                      payload={data.audiobookUrl || '#'}
                       width={{ widthType: WIDTH_TYPE.AUTO }}
                     />
                   </ButtonsRow>
@@ -101,14 +101,14 @@ export const StoryCard: StoryCardType = ({
                       actionType={ACTION_TYPE.NAVIGATION}
                       variant={BUTTON_VARIANT.TRANSPARENT}
                       text={storyCard.pdfButton}
-                      payload="#"
+                      payload={data.pdfUrl || '#'}
                       width={{ widthType: WIDTH_TYPE.AUTO }}
                     />
                     <Button
                       actionType={ACTION_TYPE.NAVIGATION}
                       variant={BUTTON_VARIANT.TRANSPARENT}
                       text={storyCard.epubButton}
-                      payload="#"
+                      payload={data.epubUrl || '#'}
                       width={{ widthType: WIDTH_TYPE.AUTO }}
                     />
                   </SingleButtonRow>
@@ -120,7 +120,7 @@ export const StoryCard: StoryCardType = ({
                       actionType={ACTION_TYPE.NAVIGATION}
                       variant={BUTTON_VARIANT.RED}
                       text={storyCard.readButton}
-                      payload="#"
+                      payload={data.readUrl || '#'}
                       width={{ widthType: WIDTH_TYPE.AUTO }}
                     />
                   </SingleButtonRow>
@@ -135,7 +135,7 @@ export const StoryCard: StoryCardType = ({
                       actionType={ACTION_TYPE.NAVIGATION}
                       variant={BUTTON_VARIANT.TRANSPARENT}
                       text={storyCard.unlockButton}
-                      payload="#"
+                      payload={data.unlockUrl || '#'}
                       width={{ widthType: WIDTH_TYPE.AUTO }}
                     />
                   </SingleButtonRow>
@@ -160,7 +160,7 @@ export const StoryCard: StoryCardType = ({
                 actionType={ACTION_TYPE.NAVIGATION}
                 variant={BUTTON_VARIANT.TRANSPARENT}
                 text={storyCard.moreInfoButton}
-                payload="#"
+                payload={data.moreInfoUrl || '#'}
                 width={{ widthType: WIDTH_TYPE.AUTO }}
               />
             </TagsRow>

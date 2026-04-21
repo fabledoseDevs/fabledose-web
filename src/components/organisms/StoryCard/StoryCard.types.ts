@@ -48,6 +48,12 @@ export enum STORY_CARD_VARIANT {
  * @property headlineColor - Optional Headline color; defaults to WHITE.
  * @property description - Main supporting paragraph text.
  * @property tags - Up to five TagIcon identifiers describing the story.
+ * @property readUrl - Optional target URL used by "Read" button.
+ * @property audiobookUrl - Optional target URL used by "Audiobook" button.
+ * @property unlockUrl - Optional target URL used by "Unlock" button.
+ * @property moreInfoUrl - Optional target URL used by "More info" button.
+ * @property pdfUrl - Optional target URL used by "PDF" button.
+ * @property epubUrl - Optional target URL used by "EPUB" button.
  */
 export interface StoryCardData {
   backgroundVideoUrl: string;
@@ -60,6 +66,12 @@ export interface StoryCardData {
     name: TAG_NAME;
     warning: boolean;
   }[];
+  readUrl?: string;
+  audiobookUrl?: string;
+  unlockUrl?: string;
+  moreInfoUrl?: string;
+  pdfUrl?: string;
+  epubUrl?: string;
 }
 
 /**
