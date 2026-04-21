@@ -1,5 +1,7 @@
 import type { ReactElement } from 'react';
 
+import type { StoryCardData } from '@/organisms/StoryCard/StoryCard.types';
+
 /**
  * @module
  * This file defines the types and interfaces for the UserDesktop template component.
@@ -30,9 +32,10 @@ export interface UseUserDesktopReturnValues {
   selectedIndex: number;
   slideCount: number;
   scrollTo: (index: number) => void;
+  storyCards: StoryCardData[];
 }
 
 /**
  * Hook used by UserDesktop to integrate with Embla carousel and control pagination.
  */
-export type UseUserDesktop = () => UseUserDesktopReturnValues;
+export type UseUserDesktop = (lang: string) => UseUserDesktopReturnValues;
