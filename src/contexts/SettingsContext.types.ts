@@ -65,6 +65,7 @@ export type UserPlan = 'free' | 'family' | 'ultimate';
 export interface SettingsContextType {
   settings: Settings | null;
   updateSettings: (newSettings: Partial<Settings>) => void;
+  refreshPlanFromFirebase: () => Promise<UserPlan>;
   updateUserEmail: (newEmail: string) => Promise<void>;
   updateUserPassword: (
     currentPassword: string,

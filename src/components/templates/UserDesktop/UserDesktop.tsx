@@ -9,7 +9,6 @@ import {
   FLEX_ALIGNMENT,
   FLEX_DIRECTION,
 } from '@/atoms/Container/Container.types';
-import Audiobook, { audiobookMock } from '@/organisms/Audiobook';
 import DesktopTilesSlider from '@/organisms/DesktopTilesSlider';
 import desktopTilesSliderMock from '@/organisms/DesktopTilesSlider/DesktopTilesSlider.mock';
 import { FooterSimple } from '@/organisms/FooterSimple';
@@ -85,16 +84,6 @@ export const UserDesktop: UserDesktopType = () => {
             title={'Edukacyjne'}
             tiles={desktopTilesSliderMock.tiles}
           />
-        </Container>
-
-        <Container
-          containerType={CONTAINER_ELEMENT.SECTION}
-          backgroundColor={BACKGROUND_COLOR.PURPLE}
-          alignItems={FLEX_ALIGNMENT.CENTER}
-          justifyContent={FLEX_ALIGNMENT.CENTER}
-          flexDirection={FLEX_DIRECTION.COLUMN}
-        >
-          <Audiobook source={audiobookMock} onClose={() => undefined} />
         </Container>
       </UserDesktopBody>
       <FooterSimple />

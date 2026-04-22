@@ -13,6 +13,7 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useRef,
   useState,
 } from 'react';
 
@@ -61,6 +62,13 @@ export const SettingsProvider: SettingsProviderType = ({
   const { settingsPage } = useDictionary();
   const [user, setUser] = useState<User | null>(null);
   const [settings, setSettings] = useState<Settings | null>(null);
+  const settingsRef = useRef<Settings | null>(null);
+  const latestPlanRefreshRef = useRef<number>(0);
+  const refreshInFlightRef = useRef<Promise<UserPlan> | null>(null);
+
+  useEffect(() => {
+    settingsRef.current = settings;
+  }, [settings]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, user => {
@@ -212,6 +220,51 @@ export const SettingsProvider: SettingsProviderType = ({
     }
   };
 
+  const refreshPlanFromFirebase = useCallback(async (): Promise<UserPlan> => {
+    const now = Date.now();
+    const cacheWindowMs = 5000;
+
+    if (!user) {
+      return DEFAULT_PLAN;
+    }
+
+    if (refreshInFlightRef.current) {
+      return refreshInFlightRef.current;
+    }
+
+    if (
+      settingsRef.current &&
+      now - latestPlanRefreshRef.current < cacheWindowMs &&
+      settingsRef.current.plan
+    ) {
+      return normalizePlan(settingsRef.current.plan);
+    }
+
+    refreshInFlightRef.current = (async () => {
+      const userSettings = await getUserSettings(user.uid);
+      const refreshedPlan = normalizePlan(userSettings?.plan);
+
+      if (settingsRef.current?.plan !== refreshedPlan) {
+        setSettings(previous =>
+          previous ? { ...previous, plan: refreshedPlan } : previous,
+        );
+      }
+
+      if (userSettings?.plan !== refreshedPlan) {
+        updateUserSettings(user.uid, { plan: refreshedPlan });
+      }
+
+      latestPlanRefreshRef.current = Date.now();
+      return refreshedPlan;
+    })();
+
+    try {
+      return await refreshInFlightRef.current;
+    } finally {
+      refreshInFlightRef.current = null;
+    }
+  }, [user]);
+
   const updateUserEmail = async (newEmail: string) => {
     if (!user) {
       throw new Error('User must be logged in to update email.');
@@ -266,6 +319,7 @@ export const SettingsProvider: SettingsProviderType = ({
       value={{
         settings,
         updateSettings,
+        refreshPlanFromFirebase,
         updateUserEmail,
         updateUserPassword,
       }}

@@ -83,16 +83,21 @@ export interface StoryCardData {
  */
 export interface StoryCardProps {
   variant: STORY_CARD_VARIANT;
-  unlockedAccount: boolean;
+  unlockedAccount?: boolean;
   data: StoryCardData;
+}
+
+export interface UseStoryCardArgs {
+  unlockedAccount?: boolean;
 }
 
 export interface UseStoryCardReturnValues {
   isVideoReady: boolean;
+  isUnlockedAccount: boolean;
   handleVideoCanPlay: () => void;
 }
 
-export type UseStoryCard = () => UseStoryCardReturnValues;
+export type UseStoryCard = (args: UseStoryCardArgs) => UseStoryCardReturnValues;
 
 /**
  * @group Components

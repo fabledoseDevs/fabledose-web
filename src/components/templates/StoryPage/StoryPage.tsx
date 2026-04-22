@@ -1,6 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 import Headline from '@/atoms/Headline';
 import {
@@ -12,12 +13,17 @@ import {
   FOREGROUND_COLOR as PARAGRAPH_FOREGROUND_COLOR,
   TEXT_ALIGNMENT,
 } from '@/atoms/Paragraph/Paragraph.types';
+import { useSettings } from '@/contexts/SettingsContext';
 import Audiobook from '@/organisms/Audiobook';
 import { AUDIOBOOK_SOURCE_TYPE } from '@/organisms/Audiobook/Audiobook.types';
 import StoryCard from '@/organisms/StoryCard';
 import { STORY_CARD_VARIANT } from '@/organisms/StoryCard/StoryCard.types';
 
-import { StoryPageBody, StoryPlaceholder } from './StoryPage.styled';
+import {
+  StoryPageBody,
+  StoryPageCenteredContent,
+  StoryPlaceholder,
+} from './StoryPage.styled';
 import type {
   StoryPage as StoryPageType,
   StoryPageProps,
@@ -56,36 +62,48 @@ export const StoryPage: StoryPageType = ({
   lang,
 }: StoryPageProps) => {
   const router = useRouter();
+  const { settings, refreshPlanFromFirebase } = useSettings();
   const localeSlug = pickLocalized(fable.meta.slug, lang, fable.meta.id);
   const title = pickLocalized(fable.meta.title, lang, fable.meta.id);
   const description = pickLocalized(fable.meta.shortDescription, lang, '');
   const introUrl = `/${lang}/fable/${localeSlug}`;
+  const isUnlockedAccount =
+    settings?.plan === 'family' || settings?.plan === 'ultimate';
+  const slideshowQuality = isUnlockedAccount ? 'high' : 'low';
+  const effectiveMode =
+    mode === 'audiobook' && !isUnlockedAccount ? 'slideshow' : mode;
 
-  if (mode === 'audiobook') {
+  useEffect(() => {
+    void refreshPlanFromFirebase();
+  }, [refreshPlanFromFirebase]);
+
+  if (effectiveMode === 'audiobook') {
     return (
       <StoryPageBody>
-        <Audiobook
-          source={{
-            title,
-            coverUrl: toPublicUrl(
-              fable.meta.covers.audioCover ||
-                fable.meta.covers.fullCover ||
-                fable.meta.covers.tileCover ||
-                fable.meta.covers.mainCover ||
-                '',
-            ),
-            audioUrl: toPublicUrl(fable.content.audio.selected || ''),
-            sourceType: AUDIOBOOK_SOURCE_TYPE.LOCAL,
-          }}
-          onClose={() => {
-            router.push(introUrl);
-          }}
-        />
+        <StoryPageCenteredContent>
+          <Audiobook
+            source={{
+              title,
+              coverUrl: toPublicUrl(
+                fable.meta.covers.audioCover ||
+                  fable.meta.covers.fullCover ||
+                  fable.meta.covers.tileCover ||
+                  fable.meta.covers.mainCover ||
+                  '',
+              ),
+              audioUrl: toPublicUrl(fable.content.audio.selected || ''),
+              sourceType: AUDIOBOOK_SOURCE_TYPE.LOCAL,
+            }}
+            onClose={() => {
+              router.push(introUrl);
+            }}
+          />
+        </StoryPageCenteredContent>
       </StoryPageBody>
     );
   }
 
-  if (mode === 'slideshow') {
+  if (effectiveMode === 'slideshow') {
     return (
       <StoryPageBody>
         <StoryPlaceholder>
@@ -100,7 +118,7 @@ export const StoryPage: StoryPageType = ({
             alignment={TEXT_ALIGNMENT.LEFT}
           >
             Slideshow mode is reserved. UI components for slides and controls
-            will be added next.
+            will be added next. Current account quality: {slideshowQuality}.
           </Paragraph>
         </StoryPlaceholder>
       </StoryPageBody>
@@ -111,7 +129,7 @@ export const StoryPage: StoryPageType = ({
     <StoryPageBody>
       <StoryCard
         variant={STORY_CARD_VARIANT.FULLSCREEN}
-        unlockedAccount={false}
+        unlockedAccount={isUnlockedAccount}
         data={{
           backgroundVideoUrl: toPublicUrl(fable.meta.covers.mainCover || ''),
           backgroundPosterUrl: toPublicUrl(fable.meta.covers.fullCover || ''),
@@ -121,6 +139,8 @@ export const StoryPage: StoryPageType = ({
             name: tag,
             warning: toWarningTag(tag),
           })),
+          readUrl: `/${lang}/fable/${localeSlug}?mode=slideshow`,
+          audiobookUrl: `/${lang}/fable/${localeSlug}?mode=audiobook`,
         }}
       />
     </StoryPageBody>

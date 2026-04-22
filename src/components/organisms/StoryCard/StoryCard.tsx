@@ -39,7 +39,9 @@ export const StoryCard: StoryCardType = ({
   unlockedAccount,
   data,
 }) => {
-  const { isVideoReady, handleVideoCanPlay } = useStoryCard();
+  const { isVideoReady, isUnlockedAccount, handleVideoCanPlay } = useStoryCard({
+    unlockedAccount,
+  });
   const { storyCard } = useDictionary();
 
   return (
@@ -72,7 +74,7 @@ export const StoryCard: StoryCardType = ({
             </Paragraph>
 
             <ButtonsBlock>
-              {unlockedAccount ? (
+              {isUnlockedAccount ? (
                 <>
                   <ButtonsRow>
                     <Button
@@ -135,7 +137,7 @@ export const StoryCard: StoryCardType = ({
                       actionType={ACTION_TYPE.NAVIGATION}
                       variant={BUTTON_VARIANT.TRANSPARENT}
                       text={storyCard.unlockButton}
-                      payload={data.unlockUrl || '#'}
+                      payload={'/plan'}
                       width={{ widthType: WIDTH_TYPE.AUTO }}
                     />
                   </SingleButtonRow>
