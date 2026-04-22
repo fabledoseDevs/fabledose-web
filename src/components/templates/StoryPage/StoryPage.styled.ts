@@ -5,6 +5,16 @@ export const StoryPageBody = styled.main`
   min-height: 100vh;
 `;
 
+export const StoryPageCenteredContent = styled.section`
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  box-sizing: border-box;
+`;
+
 export const StoryPlaceholder = styled.section`
   min-height: 100vh;
   padding: 48px 24px;
