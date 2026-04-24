@@ -26,6 +26,8 @@ export const SettingsRadio: SettingsRadioType = ({
             key={option.value}
             isSelected={value === option.value}
             isDisabled={option.isDisabled}
+            data-selected={value === option.value}
+            data-disabled={option.isDisabled ? 'true' : 'false'}
             onClick={() => !option.isDisabled && onChange?.(option.value)}
           >
             {option.label}

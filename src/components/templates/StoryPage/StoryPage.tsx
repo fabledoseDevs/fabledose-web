@@ -3,27 +3,14 @@
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
-import Headline from '@/atoms/Headline';
-import {
-  FOREGROUND_COLOR as HEADLINE_FOREGROUND_COLOR,
-  HEADLINE_TYPE,
-} from '@/atoms/Headline/Headline.types';
-import Paragraph from '@/atoms/Paragraph';
-import {
-  FOREGROUND_COLOR as PARAGRAPH_FOREGROUND_COLOR,
-  TEXT_ALIGNMENT,
-} from '@/atoms/Paragraph/Paragraph.types';
 import { useSettings } from '@/contexts/SettingsContext';
 import Audiobook from '@/organisms/Audiobook';
 import { AUDIOBOOK_SOURCE_TYPE } from '@/organisms/Audiobook/Audiobook.types';
+import Slideshow from '@/organisms/Slideshow';
 import StoryCard from '@/organisms/StoryCard';
 import { STORY_CARD_VARIANT } from '@/organisms/StoryCard/StoryCard.types';
 
-import {
-  StoryPageBody,
-  StoryPageCenteredContent,
-  StoryPlaceholder,
-} from './StoryPage.styled';
+import { StoryPageBody, StoryPageCenteredContent } from './StoryPage.styled';
 import type {
   StoryPage as StoryPageType,
   StoryPageProps,
@@ -106,21 +93,14 @@ export const StoryPage: StoryPageType = ({
   if (effectiveMode === 'slideshow') {
     return (
       <StoryPageBody>
-        <StoryPlaceholder>
-          <Headline
-            weight={HEADLINE_TYPE.BIG}
-            color={HEADLINE_FOREGROUND_COLOR.WHITE}
-          >
-            {title}
-          </Headline>
-          <Paragraph
-            color={PARAGRAPH_FOREGROUND_COLOR.WHITE}
-            alignment={TEXT_ALIGNMENT.LEFT}
-          >
-            Slideshow mode is reserved. UI components for slides and controls
-            will be added next. Current account quality: {slideshowQuality}.
-          </Paragraph>
-        </StoryPlaceholder>
+        <Slideshow
+          fable={fable}
+          settings={settings}
+          quality={slideshowQuality}
+          onGoBack={() => {
+            router.push(introUrl);
+          }}
+        />
       </StoryPageBody>
     );
   }
