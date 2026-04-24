@@ -14,13 +14,3 @@ export const StoryPageCenteredContent = styled.section`
   padding: 24px;
   box-sizing: border-box;
 `;
-
-export const StoryPlaceholder = styled.section`
-  min-height: 100vh;
-  padding: 48px 24px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 12px;
-  background-color: #342358;
-`;
