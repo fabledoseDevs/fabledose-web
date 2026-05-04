@@ -1,6 +1,7 @@
 import 'server-only';
 
 import { promises as fs } from 'node:fs';
+import { existsSync } from 'node:fs';
 import path from 'node:path';
 
 import { TAG_NAME } from '@/components/atoms/TagIcon/TagIcon.types';
@@ -467,16 +468,29 @@ const resolveBackgroundImage = (
   taleBasePath: string,
   scene: string,
 ): Record<string, string> => {
-  if (scene === 'cover') {
-    return {
-      desktop: joinUrlPath(taleBasePath, 'img', 'cover_1920x1080.webm'),
-      mobile: joinUrlPath(taleBasePath, 'img', 'cover_1280x720.webm'),
-    };
-  }
+  const resolveSceneFile = (resolution: '1920x1080' | '1280x720'): string => {
+    const exactName = `${scene}_${resolution}.webm`;
+    const exactPath = resolvePointerPath(
+      joinUrlPath(taleBasePath, 'img', exactName),
+    );
+    if (existsSync(exactPath)) {
+      return exactName;
+    }
+
+    const suffixedName = `${scene}_${resolution}_1.webm`;
+    const suffixedPath = resolvePointerPath(
+      joinUrlPath(taleBasePath, 'img', suffixedName),
+    );
+    if (existsSync(suffixedPath)) {
+      return suffixedName;
+    }
+
+    return exactName;
+  };
 
   return {
-    desktop: joinUrlPath(taleBasePath, 'img', `${scene}_1920x1080.webm`),
-    mobile: joinUrlPath(taleBasePath, 'img', `${scene}_1280x720.webm`),
+    desktop: joinUrlPath(taleBasePath, 'img', resolveSceneFile('1920x1080')),
+    mobile: joinUrlPath(taleBasePath, 'img', resolveSceneFile('1280x720')),
   };
 };
 
