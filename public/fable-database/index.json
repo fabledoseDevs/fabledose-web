@@ -92,11 +92,21 @@
           }
         },
         "credits": {
-          "authors": [],
-          "illustrators": [],
-          "animators": [],
-          "lectors": [],
-          "translators": []
+          "authors": [
+            "Paweł Modzelewski"
+          ],
+          "illustrators": [
+            "Edyta Petrzak"
+          ],
+          "animators": [
+            "Arutiun Sargsyan"
+          ],
+          "lectors": [
+            "System AI"
+          ],
+          "translators": [
+            "Paweł Modzelewski"
+          ]
         },
         "tags": [
           "age-5",
@@ -104,10 +114,10 @@
           "diligence"
         ],
         "covers": {
-          "tileCover": "",
-          "mainCover": "",
-          "fullCover": "",
-          "audioCover": ""
+          "tileCover": "tales/three-little-pigs/img/thumb-piggies.png",
+          "mainCover": "tales/three-little-pigs/img/cover_1920x1080.webm",
+          "fullCover": "tales/three-little-pigs/img/fullCover.jpg",
+          "audioCover": "tales/three-little-pigs/img/audioCover.jpg"
         },
         "contentPointers": {
           "story": "tales/three-little-pigs/story.json",
@@ -116,8 +126,8 @@
             "pl": "tales/three-little-pigs/txt/pl.json"
           },
           "audio": {
-            "en": "tales/three-little-pigs/audio/en.mp3",
-            "pl": "tales/three-little-pigs/audio/pl.mp3"
+            "en": "tales/three-little-pigs/audio/mock-01.mp3",
+            "pl": "tales/three-little-pigs/audio/mock-01.mp3"
           }
         }
       }

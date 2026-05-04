@@ -36,7 +36,13 @@ export const SingleSlide: SingleSlideType = props => {
     <SingleSlideBody isActive={isActive}>
       <BackgroundLayer>
         {useAnimatedBackground ? (
-          <BackgroundVideo autoPlay muted loop playsInline>
+          <BackgroundVideo
+            autoPlay
+            muted
+            loop
+            playsInline
+            poster={resolvedStaticImageUrl}
+          >
             <source src={mediaUrl} type="video/webm" />
           </BackgroundVideo>
         ) : (
