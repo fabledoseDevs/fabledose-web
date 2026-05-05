@@ -23,6 +23,7 @@
     "@emotion/styled": "^11.14.0",
     "@heroicons/react": "^2.2.0",
     "embla-carousel-autoplay": "^8.6.0",
+    "embla-carousel-fade": "^8.6.0",
     "embla-carousel-react": "^8.6.0",
     "firebase": "^12.6.0",
     "next": "^16.0.10",
