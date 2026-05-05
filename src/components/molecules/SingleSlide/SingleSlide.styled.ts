@@ -49,36 +49,36 @@ const toTextPositionStyles = (
 
   if (textPosition === SLIDE_TEXT_POSITION.TOP_CENTER) {
     return css`
-      justify-content: flex-start;
-      align-items: center;
+      justify-content: center;
+      align-items: flex-start;
     `;
   }
 
   if (textPosition === SLIDE_TEXT_POSITION.TOP_RIGHT) {
     return css`
-      justify-content: flex-start;
-      align-items: flex-end;
+      justify-content: flex-end;
+      align-items: flex-start;
     `;
   }
 
   if (textPosition === SLIDE_TEXT_POSITION.MIDDLE_LEFT) {
     return css`
-      justify-content: center;
-      align-items: flex-start;
+      justify-content: flex-start;
+      align-items: center;
     `;
   }
 
   if (textPosition === SLIDE_TEXT_POSITION.MIDDLE_RIGHT) {
     return css`
-      justify-content: center;
-      align-items: flex-end;
+      justify-content: flex-end;
+      align-items: center;
     `;
   }
 
   if (textPosition === SLIDE_TEXT_POSITION.BOTTOM_LEFT) {
     return css`
-      justify-content: flex-end;
-      align-items: flex-start;
+      justify-content: flex-start;
+      align-items: flex-end;
     `;
   }
 
@@ -90,8 +90,8 @@ const toTextPositionStyles = (
   }
 
   return css`
-    justify-content: flex-end;
-    align-items: center;
+    justify-content: center;
+    align-items: flex-end;
   `;
 };
 
@@ -141,17 +141,17 @@ export const TextLayer = styled.div<{ textPosition: SLIDE_TEXT_POSITION }>`
   position: absolute;
   inset: 0;
   z-index: ${({ theme }) => theme.zIndex.high};
-  padding: 24px 18px 30px;
+  padding: 82px 18px 90px;
   display: flex;
   pointer-events: none;
   ${({ textPosition }) => toTextPositionStyles(textPosition)};
 
   @media ${({ theme }) => theme.media.tablet} {
-    padding: 28px 30px 36px;
+    padding: 82px 30px 100px;
   }
 
   @media ${({ theme }) => theme.media.laptop} {
-    padding: 36px 44px 46px;
+    padding: 82px 44px 116px;
   }
 `;
 
@@ -160,10 +160,8 @@ export const TextBlock = styled.div<{
   textBackground: string;
   backgroundIntensity: number;
 }>`
-  width: ${({ textPosition }) =>
-    isCenterRowPosition(textPosition) ? '100%' : 'auto'};
-  max-width: ${({ textPosition }) =>
-    isCenterRowPosition(textPosition) ? '100%' : 'min(720px, 44vw)'};
+  width: 100%;
+  max-width: 100%;
   padding: 14px 16px;
   border-radius: 16px;
   box-sizing: border-box;
@@ -175,7 +173,16 @@ export const TextBlock = styled.div<{
   }
 
   @media ${({ theme }) => theme.media.laptop} {
+    width: ${({ textPosition }) =>
+      isCenterRowPosition(textPosition) ? '100%' : 'auto'};
+    max-width: ${({ textPosition }) =>
+      isCenterRowPosition(textPosition) ? '100%' : 'min(720px, 44vw)'};
     padding: 20px 24px;
+  }
+
+  @media ${({ theme }) => theme.media.desktop} {
+    min-width: ${({ textPosition }) =>
+      isCenterRowPosition(textPosition) ? '100%' : '50%'};
   }
 `;
 

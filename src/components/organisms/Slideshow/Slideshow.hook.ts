@@ -1,3 +1,4 @@
+import Fade from 'embla-carousel-fade';
 import useEmblaCarousel from 'embla-carousel-react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
@@ -95,13 +96,16 @@ export const useSlideshow: UseSlideshowType = ({
   quality,
 }) => {
   const { updateSettings } = useSettings();
-  const [viewportRef, emblaApi] = useEmblaCarousel({
-    dragFree: false,
-    align: 'start',
-    loop: false,
-    slidesToScroll: 1,
-    skipSnaps: false,
-  });
+  const [viewportRef, emblaApi] = useEmblaCarousel(
+    {
+      dragFree: false,
+      align: 'start',
+      loop: false,
+      slidesToScroll: 1,
+      skipSnaps: false,
+    },
+    [Fade()],
+  );
   const slideshowRef = useRef<HTMLElement | null>(null);
   const controlsTimerRef = useRef<number | null>(null);
   const [selectedIndex, setSelectedIndex] = useState(0);

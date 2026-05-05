@@ -3,55 +3,55 @@
     "slides": [
       {
         "scene": "cover",
-        "layout": "default"
+        "layout": "top-left"
       },
       {
         "scene": "img_1",
-        "layout": "default"
+        "layout": "top-left"
       },
       {
         "scene": "img_2",
-        "layout": "default"
+        "layout": "top-left"
       },
       {
         "scene": "img_3",
-        "layout": "default"
+        "layout": "top-left"
       },
       {
         "scene": "img_4",
-        "layout": "default"
+        "layout": "top-left"
       },
       {
         "scene": "img_5",
-        "layout": "default"
+        "layout": "top-left"
       },
       {
         "scene": "img_6",
-        "layout": "default"
+        "layout": "top-left"
       },
       {
         "scene": "img_7",
-        "layout": "default"
+        "layout": "top-left"
       },
       {
         "scene": "img_8",
-        "layout": "default"
+        "layout": "top-left"
       },
       {
         "scene": "img_9",
-        "layout": "default"
+        "layout": "top-left"
       },
       {
         "scene": "img_10",
-        "layout": "default"
+        "layout": "top-left"
       },
       {
         "scene": "img_10",
-        "layout": "default"
+        "layout": "top-left"
       },
       {
         "scene": "img_10",
-        "layout": "default"
+        "layout": "top-left"
       }
     ]
   }
