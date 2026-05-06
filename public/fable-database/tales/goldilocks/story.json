@@ -2,7 +2,7 @@
   "story": {
     "slides": [
       {
-        "scene": "cover",
+        "scene": "img_1",
         "layout": "top-left"
       },
       {
@@ -11,30 +11,34 @@
       },
       {
         "scene": "img_2",
-        "layout": "top-left"
+        "layout": "top-right"
       },
       {
         "scene": "img_3",
-        "layout": "top-left"
+        "layout": "middle-right"
       },
       {
         "scene": "img_4",
-        "layout": "top-left"
+        "layout": "top-right"
       },
       {
         "scene": "img_5",
-        "layout": "top-left"
+        "layout": "bottom-left"
       },
       {
         "scene": "img_6",
-        "layout": "top-left"
+        "layout": "top-right"
       },
       {
         "scene": "img_7",
-        "layout": "top-left"
+        "layout": "top-right"
       },
       {
         "scene": "img_8",
+        "layout": "top-right"
+      },
+      {
+        "scene": "img_9",
         "layout": "top-left"
       },
       {
@@ -43,15 +47,11 @@
       },
       {
         "scene": "img_10",
-        "layout": "top-left"
+        "layout": "top-center"
       },
       {
         "scene": "img_10",
-        "layout": "top-left"
-      },
-      {
-        "scene": "img_10",
-        "layout": "top-left"
+        "layout": "bottom-center"
       }
     ]
   }
