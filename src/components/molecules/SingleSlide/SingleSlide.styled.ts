@@ -1,18 +1,25 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
+import type { FableFontFamily } from '@/contexts/SettingsContext.types';
+
 import { SLIDE_TEXT_POSITION } from './SingleSlide.types';
 
-const toFontFamily = (fontFamily: string): string => {
+const toFontFamily = (
+  fontFamily: FableFontFamily | 'dyslexia',
+  sansFontFamily: string,
+  serifFontFamily: string,
+  dyslexicFontFamily: string,
+): string => {
   if (fontFamily === 'serif') {
-    return 'var(--slide-font-headline, YesevaOne, serif)';
+    return serifFontFamily;
   }
 
-  if (fontFamily === 'dyslexia') {
-    return '"OpenDyslexic", "Comic Sans MS", sans-serif';
+  if (fontFamily === 'dyslexic' || fontFamily === 'dyslexia') {
+    return dyslexicFontFamily;
   }
 
-  return 'var(--slide-font-default, Baloo2, sans-serif)';
+  return sansFontFamily;
 };
 
 const getOverlayOpacity = (backgroundIntensity: number): number => {
@@ -188,11 +195,9 @@ export const TextBlock = styled.div<{
 
 export const SlideParagraph = styled.p<{
   fontSize: number;
-  fontFamily: string;
+  fontFamily: FableFontFamily | 'dyslexia';
   textTone: 'light' | 'dark';
 }>`
-  --slide-font-default: ${({ theme }) => theme.typography.fonts.default};
-  --slide-font-headline: ${({ theme }) => theme.typography.fonts.headline};
   margin: 0;
   color: ${({ textTone, theme }) =>
     textTone === 'dark'
@@ -203,7 +208,13 @@ export const SlideParagraph = styled.p<{
       ? 'none'
       : `0 2px 12px ${theme.palette.byElement.shadows.purple['20']}`};
   font-size: ${({ fontSize }) => `${fontSize}px`};
-  font-family: ${({ fontFamily }) => toFontFamily(fontFamily)};
+  font-family: ${({ fontFamily, theme }) =>
+    toFontFamily(
+      fontFamily,
+      theme.typography.fonts.fables.sans,
+      theme.typography.fonts.fables.serif,
+      theme.typography.fonts.fables.dyslexic,
+    )};
   line-height: 1.45;
 
   & + & {

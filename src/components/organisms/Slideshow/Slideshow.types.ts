@@ -1,6 +1,9 @@
 import type { ReactElement, RefObject } from 'react';
 
-import type { Settings } from '@/contexts/SettingsContext.types';
+import type {
+  FableFontFamily,
+  Settings,
+} from '@/contexts/SettingsContext.types';
 import type { FableData } from '@/fables/fables.types';
 import type { SLIDE_TEXT_POSITION } from '@/molecules/SingleSlide';
 
@@ -123,7 +126,7 @@ export interface UseSlideshowReturn {
   textBackground: string;
   backgroundIntensity: number;
   fontSize: number;
-  fontFamily: string;
+  fontFamily: FableFontFamily;
   animationQualityValue: string;
   useAnimatedBackground: boolean;
   isSettingsModalOpen: boolean;

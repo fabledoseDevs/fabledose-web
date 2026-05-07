@@ -4,6 +4,7 @@ import type { ChangeEvent } from 'react';
 import { useEffect, useState } from 'react';
 
 import { useSettings } from '@/contexts/SettingsContext';
+import type { FableFontFamily } from '@/contexts/SettingsContext.types';
 import { useDictionary } from '@/lang/DictionaryProvider';
 import { handleLanguageChange } from '@/lang/lang.helpers';
 
@@ -175,7 +176,13 @@ export const useSettingsPage: UseSettingsPageType = () => {
   };
 
   const handleFontFamilyChange = (value: string) => {
-    updateSettings({ fontFamily: value });
+    const normalizedValue: FableFontFamily =
+      value === 'serif'
+        ? 'serif'
+        : value === 'dyslexic' || value === 'dyslexia'
+        ? 'dyslexic'
+        : 'sans';
+    updateSettings({ fontFamily: normalizedValue });
   };
 
   const handleTextBackgroundChange = (value: string) => {

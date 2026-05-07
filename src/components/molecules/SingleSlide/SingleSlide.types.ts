@@ -1,5 +1,7 @@
 import type { ReactElement } from 'react';
 
+import type { FableFontFamily } from '@/contexts/SettingsContext.types';
+
 /**
  * @module
  * Types and interfaces for the SingleSlide molecule component.
@@ -41,7 +43,7 @@ export interface SingleSlideProps {
   textBackground: string;
   backgroundIntensity: number;
   fontSize: number;
-  fontFamily: string;
+  fontFamily: FableFontFamily;
   useAnimatedBackground: boolean;
   isActive: boolean;
 }

@@ -43,6 +43,7 @@ export const RadioWrapper = styled.div`
 export const RadioOptionBox = styled.div<{
   isSelected: boolean;
   isDisabled?: boolean;
+  optionFontFamily?: string;
 }>`
   flex: 1;
   display: flex;
@@ -59,7 +60,8 @@ export const RadioOptionBox = styled.div<{
       ? theme.palette.byElement.text.purple
       : theme.palette.byElement.text.white;
   }};
-  font-family: ${({ theme }) => theme.typography.fonts.default};
+  font-family: ${({ theme, optionFontFamily }) =>
+    optionFontFamily || theme.typography.fonts.default};
   font-size: ${({ theme }) => theme.typography.paragraphs.default.fontSize};
   cursor: ${({ isDisabled }) => (isDisabled ? 'not-allowed' : 'pointer')};
   transition: all 0.3s ease;

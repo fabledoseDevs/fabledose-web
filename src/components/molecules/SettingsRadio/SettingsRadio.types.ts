@@ -20,6 +20,7 @@ export interface SettingsRadioOption {
   label: string;
   value: string;
   isDisabled?: boolean;
+  fontFamily?: string;
 }
 
 /**
