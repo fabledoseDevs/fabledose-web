@@ -36,7 +36,7 @@ export interface Settings {
   plan: UserPlan;
   parentalControl: boolean;
   fontSize: number;
-  fontFamily: string;
+  fontFamily: FableFontFamily;
   textBackground: string;
   backgroundIntensity: number;
   storyLanguage: string;
@@ -53,6 +53,7 @@ export interface Settings {
 }
 
 export type UserPlan = 'free' | 'family' | 'ultimate';
+export type FableFontFamily = 'sans' | 'serif' | 'dyslexic';
 
 /**
  * Defines the shape of the SettingsContext.

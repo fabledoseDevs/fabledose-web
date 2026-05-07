@@ -80,6 +80,11 @@ export const theme: Theme = {
     fonts: {
       default: 'Baloo2, sans-serif',
       headline: 'YesevaOne, serif',
+      fables: {
+        sans: 'PlusJakartaSans, sans-serif',
+        serif: 'Literata, serif',
+        dyslexic: '"OpenDyslexic", "Comic Sans MS", sans-serif',
+      },
     },
     fontWeights: {
       regular: 400,

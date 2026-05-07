@@ -152,9 +152,21 @@ export const Slideshow: SlideshowType = ({
           <SettingsRadio
             label={settingsPage.display_n_audio.fontFamily.label}
             options={[
-              { label: 'Sans', value: 'sans' },
-              { label: 'Serif', value: 'serif' },
-              { label: 'Dyslexia', value: 'dyslexia' },
+              {
+                label: 'Sans',
+                value: 'sans',
+                fontFamily: 'PlusJakartaSans, sans-serif',
+              },
+              {
+                label: 'Serif',
+                value: 'serif',
+                fontFamily: 'Literata, serif',
+              },
+              {
+                label: 'Dyslexic',
+                value: 'dyslexic',
+                fontFamily: '"OpenDyslexic", "Comic Sans MS", sans-serif',
+              },
             ]}
             value={fontFamily}
             onChange={handleFontFamilyChange}

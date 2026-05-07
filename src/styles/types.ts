@@ -80,6 +80,11 @@ export interface Typography {
   fonts: {
     default: string;
     headline: string;
+    fables: {
+      sans: string;
+      serif: string;
+      dyslexic: string;
+    };
   };
   fontWeights: {
     [key in FontWeight]: number;

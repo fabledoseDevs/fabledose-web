@@ -3,6 +3,7 @@ import useEmblaCarousel from 'embla-carousel-react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { useSettings } from '@/contexts/SettingsContext';
+import type { FableFontFamily } from '@/contexts/SettingsContext.types';
 import { SLIDE_TEXT_POSITION } from '@/molecules/SingleSlide';
 
 import type { UseSlideshow as UseSlideshowType } from './Slideshow.types';
@@ -119,7 +120,7 @@ export const useSlideshow: UseSlideshowType = ({
   const textBackground = settings?.textBackground || 'none';
   const backgroundIntensity = settings?.backgroundIntensity || 50;
   const fontSize = settings?.fontSize || 16;
-  const fontFamily = settings?.fontFamily || 'sans';
+  const fontFamily: FableFontFamily = settings?.fontFamily || 'sans';
   const useAnimatedBackground = settings?.illustrationAnimation ?? true;
   const userAnimationQuality = settings?.animationQuality || 'auto';
   const animationQualityValue =
@@ -281,7 +282,13 @@ export const useSlideshow: UseSlideshowType = ({
 
   const handleFontFamilyChange = useCallback(
     (value: string) => {
-      updateSettings({ fontFamily: value });
+      const normalizedValue: FableFontFamily =
+        value === 'serif'
+          ? 'serif'
+          : value === 'dyslexic' || value === 'dyslexia'
+          ? 'dyslexic'
+          : 'sans';
+      updateSettings({ fontFamily: normalizedValue });
     },
     [updateSettings],
   );

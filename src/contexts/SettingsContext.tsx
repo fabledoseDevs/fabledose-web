@@ -23,6 +23,7 @@ import { useDictionary } from '@/lang/DictionaryProvider';
 
 import { debounce } from './debounce.helper';
 import type {
+  FableFontFamily,
   Settings,
   SettingsContextType,
   SettingsProvider as SettingsProviderType,
@@ -37,9 +38,22 @@ const SettingsContext = createContext<SettingsContextType | undefined>(
 
 const DEFAULT_PLAN: UserPlan = 'free';
 const DEFAULT_PASSWORD_PLACEHOLDER = '';
+const DEFAULT_FONT_FAMILY: FableFontFamily = 'sans';
 
 const normalizePlan = (plan: unknown): UserPlan =>
   plan === 'family' || plan === 'ultimate' ? plan : DEFAULT_PLAN;
+
+const normalizeFontFamily = (fontFamily: unknown): FableFontFamily => {
+  if (fontFamily === 'serif') {
+    return 'serif';
+  }
+
+  if (fontFamily === 'dyslexic' || fontFamily === 'dyslexia') {
+    return 'dyslexic';
+  }
+
+  return DEFAULT_FONT_FAMILY;
+};
 
 type LegacyNotificationAndCookiesSettings = {
   news?: boolean;
@@ -82,6 +96,7 @@ export const SettingsProvider: SettingsProviderType = ({
             const normalizedUserSettings: Settings = {
               ...userSettings,
               plan: normalizedPlan,
+              fontFamily: normalizeFontFamily(userSettings.fontFamily),
               password:
                 typeof userSettings.password === 'string'
                   ? userSettings.password
@@ -116,7 +131,7 @@ export const SettingsProvider: SettingsProviderType = ({
                 plan: normalizedPlan,
                 password: normalizedUserSettings.password,
                 fontSize: userSettings.fontSize ?? 16,
-                fontFamily: userSettings.fontFamily ?? 'sans',
+                fontFamily: normalizeFontFamily(userSettings.fontFamily),
                 textBackground: userSettings.textBackground ?? 'none',
                 backgroundIntensity: userSettings.backgroundIntensity ?? 50,
                 storyLanguage: userSettings.storyLanguage ?? 'auto',
@@ -139,7 +154,7 @@ export const SettingsProvider: SettingsProviderType = ({
               if (
                 userSettings.plan !== normalizedPlan ||
                 typeof userSettings.password !== 'string' ||
-                userSettings.fontFamily === undefined ||
+                userSettings.fontFamily !== normalizedUserSettings.fontFamily ||
                 userSettings.illustrationAnimation === undefined ||
                 settingsWithLegacySupport.notificationsNews === undefined ||
                 settingsWithLegacySupport.notificationsPayments === undefined ||
@@ -150,7 +165,7 @@ export const SettingsProvider: SettingsProviderType = ({
                   plan: normalizedPlan,
                   password: normalizedUserSettings.password,
                   fontSize: userSettings.fontSize ?? 16,
-                  fontFamily: userSettings.fontFamily ?? 'sans',
+                  fontFamily: normalizeFontFamily(userSettings.fontFamily),
                   textBackground: userSettings.textBackground ?? 'none',
                   backgroundIntensity: userSettings.backgroundIntensity ?? 50,
                   storyLanguage: userSettings.storyLanguage ?? 'auto',
@@ -178,7 +193,7 @@ export const SettingsProvider: SettingsProviderType = ({
               plan: DEFAULT_PLAN,
               parentalControl: false,
               fontSize: 16,
-              fontFamily: 'sans',
+              fontFamily: DEFAULT_FONT_FAMILY,
               textBackground: 'none',
               backgroundIntensity: 50,
               storyLanguage: 'auto',
