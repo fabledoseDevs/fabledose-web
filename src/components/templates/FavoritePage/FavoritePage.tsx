@@ -26,8 +26,7 @@ import {
 } from './FavoritePage.styled';
 import type { FavoritePage as FavoritePageType } from './FavoritePage.types';
 import { normalizeLocale } from './FavoritePage.utils';
-import { useFavoritesData } from './hooks/useFavoritesData';
-import { useFableTiles } from './hooks/useFableTiles';
+import { useFavoritesData, useFableTiles } from './hooks';
 
 
 
