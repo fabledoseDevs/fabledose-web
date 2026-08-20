@@ -2,7 +2,9 @@ import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import React from 'react';
 
+import { SidebarProvider } from '@/contexts/SidebarContext';
 import { SettingsProvider } from '@/contexts/SettingsContext';
+import { ReadingProgressProvider } from '@/contexts/ReadingProgressContext';
 import { DictionaryProvider } from '@/lang/DictionaryProvider';
 import { getDictionary } from '@/lang/lang.helpers';
 import { ThemeProvider } from '@/styles';
@@ -30,8 +32,12 @@ export default async function RootLayout({
         <DictionaryProvider dictionary={dict}>
           <ThemeProvider>
             <SettingsProvider>
-              <GlobalStyle />
-              {children}
+              <ReadingProgressProvider>
+                <SidebarProvider>
+                  <GlobalStyle />
+                  {children}
+                </SidebarProvider>
+              </ReadingProgressProvider>
             </SettingsProvider>
           </ThemeProvider>
         </DictionaryProvider>

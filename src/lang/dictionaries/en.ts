@@ -198,6 +198,7 @@ export const DictionaryEn: DictionaryType = {
   },
   storyCard: {
     readButton: 'Read',
+    readButtonContinue: 'Continue reading',
     audiobookButton: 'Audiobook',
     downloadCta: 'Download ebook',
     pdfButton: 'Illustrated PDF',

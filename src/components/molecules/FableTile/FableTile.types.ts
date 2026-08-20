@@ -13,6 +13,8 @@ import type { ReactElement } from 'react';
  * @property fableDescription - Short description of fable displayed on hover.
  * @property fableUrl - URL leading to fable content.
  * @property registerTile - Flag indicating if tile is for registration purpose.
+ * @property currentSlide - Optional current slide index for progress tracking.
+ * @property totalSlides - Optional total number of slides for progress bar calculation.
  */
 export interface FableTileProps {
   imageUrl: string;
@@ -20,6 +22,8 @@ export interface FableTileProps {
   fableDescription: string;
   fableUrl: string;
   registerTile?: boolean;
+  currentSlide?: number;
+  totalSlides?: number;
 }
 
 /**

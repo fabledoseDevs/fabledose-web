@@ -1,14 +1,15 @@
-import { ArrowLeftStartOnRectangleIcon } from '@heroicons/react/24/outline';
-import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
-import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
-import { BookOpenIcon } from '@heroicons/react/24/outline';
-import { HeartIcon } from '@heroicons/react/24/outline';
-import { CogIcon } from '@heroicons/react/24/outline';
-import { UserIcon } from '@heroicons/react/24/outline';
+import {
+  ArrowLeftStartOnRectangleIcon,
+  QuestionMarkCircleIcon,
+  MagnifyingGlassIcon,
+  BookOpenIcon,
+  HeartIcon,
+  CogIcon,
+  UserIcon,
+} from '@heroicons/react/24/outline';
 
 import { SidebarIconBody } from './SidebarIcon.styled';
-import type { SidebarIcon as SidebarIconType } from './SidebarIcon.types';
-import type { IconSwitch as IconSwitchType } from './SidebarIcon.types';
+import type { SidebarIcon as SidebarIconType, IconSwitch as IconSwitchType } from './SidebarIcon.types';
 import { SIDEBAR_ICON } from './SidebarIcon.types';
 
 const IconSwitch: IconSwitchType = icon => {

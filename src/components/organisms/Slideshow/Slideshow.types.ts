@@ -24,12 +24,18 @@ export type SlideshowQuality = 'high' | 'low';
  * @property settings - Current user display settings from SettingsContext.
  * @property quality - Effective quality level after account restrictions.
  * @property onGoBack - Callback for the top-left "go back" button.
+ * @property onSlideChange - Optional callback fired when slide changes, receives current slide index.
+ * @property onCompleted - Optional callback fired when user completes the story (reaches last slide).
+ * @property initialSlide - Optional initial slide index to start from.
  */
 export interface SlideshowProps {
   fable: FableData;
   settings: Settings | null;
   quality: SlideshowQuality;
   onGoBack: () => void;
+  onSlideChange?: (slideIndex: number) => void;
+  onCompleted?: () => void;
+  initialSlide?: number;
 }
 
 /**
@@ -78,11 +84,17 @@ export interface SlideshowSlideModel {
  * @property fable - Fully resolved fable payload with localized slides.
  * @property settings - Current user display settings from SettingsContext.
  * @property quality - Effective quality level after account restrictions.
+ * @property onSlideChange - Optional callback fired when slide changes, receives current slide index.
+ * @property onCompleted - Optional callback fired when user completes the story (reaches last slide).
+ * @property initialSlide - Optional initial slide index to start from.
  */
 export interface UseSlideshowProps {
   fable: FableData;
   settings: Settings | null;
   quality: SlideshowQuality;
+  onSlideChange?: (slideIndex: number) => void;
+  onCompleted?: () => void;
+  initialSlide?: number;
 }
 
 /**

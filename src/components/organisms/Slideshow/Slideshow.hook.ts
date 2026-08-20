@@ -95,6 +95,9 @@ export const useSlideshow: UseSlideshowType = ({
   fable,
   settings,
   quality,
+  onSlideChange,
+  onCompleted,
+  initialSlide = 0,
 }) => {
   const { updateSettings } = useSettings();
   const [viewportRef, emblaApi] = useEmblaCarousel(
@@ -109,7 +112,7 @@ export const useSlideshow: UseSlideshowType = ({
   );
   const slideshowRef = useRef<HTMLElement | null>(null);
   const controlsTimerRef = useRef<number | null>(null);
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState(initialSlide);
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
   const [controlsVisible, setControlsVisible] = useState(false);
@@ -170,6 +173,25 @@ export const useSlideshow: UseSlideshowType = ({
     emblaApi.on('select', syncEmblaState);
     emblaApi.on('reInit', syncEmblaState);
   }, [emblaApi, syncEmblaState]);
+
+  useEffect(() => {
+    if (!emblaApi || initialSlide === 0) {
+      return;
+    }
+
+    emblaApi.scrollTo(initialSlide);
+  }, [emblaApi, initialSlide]);
+
+  useEffect(() => {
+    if (onSlideChange) {
+      onSlideChange(selectedIndex);
+    }
+
+    const totalSlides = fable.content.text.slides.length;
+    if (onCompleted && selectedIndex === totalSlides - 1) {
+      onCompleted();
+    }
+  }, [selectedIndex, fable.content.text.slides.length, onSlideChange, onCompleted]);
 
   const handleRevealControls = useCallback(() => {
     setControlsVisible(true);
