@@ -18,11 +18,13 @@ export type StoryPageMode = 'intro' | 'slideshow' | 'audiobook';
  * @property fable - Fully resolved fable payload for the selected route.
  * @property mode - Active story mode resolved from query params.
  * @property lang - Current route locale used for navigation and labels.
+ * @property initialSlide - Optional initial slide index for slideshow mode.
  */
 export interface StoryPageProps {
   fable: FableData;
   mode: StoryPageMode;
   lang: FableLocale;
+  initialSlide?: number;
 }
 
 /**

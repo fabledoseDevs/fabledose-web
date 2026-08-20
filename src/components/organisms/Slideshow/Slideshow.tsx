@@ -28,6 +28,9 @@ export const Slideshow: SlideshowType = ({
   settings,
   quality,
   onGoBack,
+  onSlideChange,
+  onCompleted,
+  initialSlide = 0,
 }) => {
   const { settingsPage } = useDictionary();
   const {
@@ -61,6 +64,9 @@ export const Slideshow: SlideshowType = ({
     fable,
     settings,
     quality,
+    onSlideChange,
+    onCompleted,
+    initialSlide,
   });
 
   return (

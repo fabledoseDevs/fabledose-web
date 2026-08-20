@@ -5,6 +5,7 @@ import StoryPage from '@/components/templates/StoryPage';
 import type { StoryPageMode } from '@/components/templates/StoryPage/StoryPage.types';
 import { getFableBySlug, getFablesIndex } from '@/fables/fables.data';
 import type { FableLocale } from '@/fables/fables.types';
+import Sidebar from '@/organisms/Sidebar';
 
 interface FableRouteParams {
   lang: string;
@@ -15,6 +16,7 @@ interface FableSearchParams {
   mode?: string | string[];
   animated?: string | string[];
   audiobook?: string | string[];
+  slide?: string | string[];
 }
 
 const normalizeLocale = (value: string): FableLocale =>
@@ -83,12 +85,18 @@ const FablePage = async ({
   const locale = normalizeLocale(lang);
   const mode = resolveStoryMode(query);
   const fable = await getFableBySlug(slug, locale);
+  const initialSlide = query.slide ? parseInt(getFirstParam(query.slide) || '0', 10) : 0;
 
   if (!fable) {
     notFound();
   }
 
-  return <StoryPage fable={fable} mode={mode} lang={locale} />;
+  return ( 
+    <>
+      <Sidebar />
+      <StoryPage fable={fable} mode={mode} lang={locale} initialSlide={initialSlide} />
+    </>
+  );
 };
 
 export default FablePage;

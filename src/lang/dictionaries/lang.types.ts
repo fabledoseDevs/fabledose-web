@@ -108,6 +108,7 @@ export type DictionaryType = {
   };
   storyCard: {
     readButton: string;
+    readButtonContinue: string;
     audiobookButton: string;
     downloadCta: string;
     pdfButton: string;

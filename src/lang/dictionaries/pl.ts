@@ -205,6 +205,7 @@ export const DictionaryPL: DictionaryType = {
   },
   storyCard: {
     readButton: 'Czytaj',
+    readButtonContinue: 'Czytaj dalej',
     audiobookButton: 'Audiobook',
     downloadCta: 'Pobierz ebook',
     pdfButton: 'Ilustrowany PDF',

@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export const SidebarBody = styled.aside`
+export const SidebarBody = styled.aside<{ $isHidden?: boolean }>`
   position: fixed;
   left: 0;
   bottom: 0;
@@ -16,6 +16,9 @@ export const SidebarBody = styled.aside`
   align-items: center;
   justify-content: center;
 
+  transition: transform 0.3s ease-in-out;
+  transform: ${({ $isHidden }) => ($isHidden ? 'translateY(50px)' : 'translateY(0)')};
+
   @media ${({ theme }) => theme.media.tablet} {
     top: 0;
     bottom: auto;
@@ -26,11 +29,13 @@ export const SidebarBody = styled.aside`
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+    transform: ${({ $isHidden }) => ($isHidden ? 'translateX(-70px)' : 'translateX(0)')};
   }
 `;
 
 export const LogoWrapper = styled.div`
   display: none;
+  margin-top: 20px;
   @media ${({ theme }) => theme.media.tablet} {
     display: flex;
     align-items: center;

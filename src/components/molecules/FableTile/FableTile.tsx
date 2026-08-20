@@ -11,7 +11,7 @@ import { FOREGROUND_COLOR } from '@/atoms/Paragraph/Paragraph.types';
 import { useDictionary } from '@/lang/DictionaryProvider';
 
 import { useFableTileInteraction } from './FableTile.hook';
-import { ButtonsDrawer, FableTileBody } from './FableTile.styled';
+import { ButtonsDrawer, FableTileBody, ProgressBarContainer, ProgressBarFill } from './FableTile.styled';
 import type { FableTile as FableTileType } from './FableTile.types';
 
 export const FableTile: FableTileType = ({
@@ -20,10 +20,15 @@ export const FableTile: FableTileType = ({
   fableDescription,
   fableUrl,
   registerTile,
+  currentSlide,
+  totalSlides,
 }) => {
   const { isActive, onMouseEnter, onMouseLeave, onTouchStart, onTouchEnd } =
     useFableTileInteraction();
   const { common } = useDictionary();
+
+  const hasProgress = currentSlide !== undefined && totalSlides !== undefined && totalSlides > 0;
+  const progressPercentage = hasProgress ? Math.round((currentSlide / totalSlides) * 100) : 0;
 
   return (
     <FableTileBody
@@ -33,6 +38,11 @@ export const FableTile: FableTileType = ({
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
     >
+      {hasProgress && (
+        <ProgressBarContainer>
+          <ProgressBarFill $progress={progressPercentage} />
+        </ProgressBarContainer>
+      )}
       <Image
         src={imageUrl}
         alt={fableTitle}

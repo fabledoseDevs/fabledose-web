@@ -49,6 +49,7 @@ export enum STORY_CARD_VARIANT {
  * @property description - Main supporting paragraph text.
  * @property tags - Up to five TagIcon identifiers describing the story.
  * @property readUrl - Optional target URL used by "Read" button.
+ * @property readButtonText - Optional custom text for the read button (defaults to "Read").
  * @property audiobookUrl - Optional target URL used by "Audiobook" button.
  * @property unlockUrl - Optional target URL used by "Unlock" button.
  * @property moreInfoUrl - Optional target URL used by "More info" button.
@@ -67,6 +68,7 @@ export interface StoryCardData {
     warning: boolean;
   }[];
   readUrl?: string;
+  readButtonText?: string;
   audiobookUrl?: string;
   unlockUrl?: string;
   moreInfoUrl?: string;
@@ -85,6 +87,7 @@ export interface StoryCardProps {
   variant: STORY_CARD_VARIANT;
   unlockedAccount?: boolean;
   data: StoryCardData;
+  onResetProgress?: () => void;
 }
 
 export interface UseStoryCardArgs {

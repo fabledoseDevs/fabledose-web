@@ -94,13 +94,14 @@ export const ButtonsBlock = styled.div`
   gap: 12px;
 `;
 
-export const ButtonsRow = styled.div`
+export const ButtonsRow = styled.div<{ $hasResetButton?: boolean }>`
   display: grid;
   grid-template-columns: 1fr;
   gap: 12px;
 
   @media ${theme.media.tablet} {
-    grid-template-columns: repeat(2, auto);
+    grid-template-columns: ${({ $hasResetButton }) => $hasResetButton ? 'auto 1fr auto' : 'repeat(2, 1fr)'};
+    grid-auto-flow: column;
     justify-content: start;
   }
 `;

@@ -29,6 +29,26 @@ export const FableTileBody = styled.div`
   }
 `;
 
+export const ProgressBarContainer = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background-color: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  z-index: 10;
+`;
+
+export const ProgressBarFill = styled.div<{ $progress: number }>`
+  height: 100%;
+  width: ${({ $progress }) => `${$progress}%`};
+  background: linear-gradient(90deg, 
+    #a370f7 0%,
+    #d8a8ff 100%);
+  transition: width 0.3s ease;
+`;
+
 export const ButtonsDrawer = styled.div`
   position: absolute;
   bottom: 0;

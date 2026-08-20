@@ -15,6 +15,7 @@ import {
   TEXT_ALIGNMENT,
 } from '@/atoms/Paragraph/Paragraph.types';
 import { TagIcon } from '@/atoms/TagIcon/TagIcon';
+import { ResetButton } from '@/atoms/ResetButton';
 import { useDictionary } from '@/lang/DictionaryProvider';
 
 import useStoryCard from './StoryCard.hook';
@@ -38,6 +39,7 @@ export const StoryCard: StoryCardType = ({
   variant,
   unlockedAccount,
   data,
+  onResetProgress,
 }) => {
   const { isVideoReady, isUnlockedAccount, handleVideoCanPlay } = useStoryCard({
     unlockedAccount,
@@ -76,11 +78,17 @@ export const StoryCard: StoryCardType = ({
             <ButtonsBlock>
               {isUnlockedAccount ? (
                 <>
-                  <ButtonsRow>
+                  <ButtonsRow $hasResetButton={!!onResetProgress}>
+                    {onResetProgress && (
+                      <ResetButton
+                        onClick={onResetProgress}
+                        title="Reset reading progress"
+                      />
+                    )}
                     <Button
                       actionType={ACTION_TYPE.NAVIGATION}
                       variant={BUTTON_VARIANT.RED}
-                      text={storyCard.readButton}
+                      text={data.readButtonText || storyCard.readButton}
                       payload={data.readUrl || '#'}
                       width={{ widthType: WIDTH_TYPE.AUTO }}
                     />
@@ -121,7 +129,7 @@ export const StoryCard: StoryCardType = ({
                     <Button
                       actionType={ACTION_TYPE.NAVIGATION}
                       variant={BUTTON_VARIANT.RED}
-                      text={storyCard.readButton}
+                      text={data.readButtonText || storyCard.readButton}
                       payload={data.readUrl || '#'}
                       width={{ widthType: WIDTH_TYPE.AUTO }}
                     />
