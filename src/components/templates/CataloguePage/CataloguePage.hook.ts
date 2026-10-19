@@ -1,11 +1,14 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import {
-  catalogueAuthorsMock_EN,
-  catalogueAuthorsMock_PL,
-} from './CataloguePage.data';
+  libraryFables,
+  normalizeLocale,
+  pickLocalized,
+  toFableTile,
+} from '@/fables/fables.library';
+
 import type {
-  CatalogueAuthor,
+  CatalogueItems,
   CatalogueListItem,
   UseCataloguePage as UseCataloguePageType,
 } from './CataloguePage.types';
@@ -15,24 +18,40 @@ const getLocale = (lang: string): string => (lang === 'pl' ? 'pl' : 'en');
 const normalizeValue = (value: string, lang: string): string =>
   value.toLocaleLowerCase(getLocale(lang)).trim();
 
-const createTitleItems = (authors: CatalogueAuthor[]): CatalogueListItem[] =>
-  authors.flatMap(author =>
-    author.books.map(book => ({
-      id: `title-${book.id}`,
-      label: book.title,
+const createCatalogueItems = (lang: string): CatalogueItems => {
+  const locale = normalizeLocale(lang);
+  const authors = new Map<string, CatalogueListItem>();
+  const titles: CatalogueListItem[] = libraryFables.map(meta => {
+    const tile = toFableTile(meta, locale);
+    const book = {
+      id: meta.id,
+      title: tile.fableTitle,
+      description: tile.fableDescription,
+      cover: tile.imageUrl,
+      storyUrl: tile.fableUrl,
+    };
+    for (const name of new Set(
+      meta.credits.authors.map(author => author.trim()).filter(Boolean),
+    )) {
+      const entry = authors.get(name) || {
+        id: `author-${name}`,
+        label: name,
+        type: 'author' as const,
+        books: [],
+      };
+      entry.books.push(book);
+      authors.set(name, entry);
+    }
+    return {
+      id: `title-${meta.id}`,
+      label: pickLocalized(meta.title, locale, meta.id),
       type: 'title',
       books: [book],
-      helperText: author.name,
-    })),
-  );
-
-const createAuthorItems = (authors: CatalogueAuthor[]): CatalogueListItem[] =>
-  authors.map(author => ({
-    id: `author-${author.id}`,
-    label: author.name,
-    type: 'author',
-    books: author.books,
-  }));
+      helperText: meta.credits.authors.join(', '),
+    };
+  });
+  return { titles, authors: [...authors.values()] };
+};
 
 const sortByLabel = (
   items: CatalogueListItem[],
@@ -44,22 +63,15 @@ const sortByLabel = (
 
 export const useCataloguePage: UseCataloguePageType = lang => {
   const [query, setQuery] = useState('');
-  const [selectedItem, setSelectedItem] = useState<CatalogueListItem | null>(
-    null,
-  );
-
-  const authorsData = useMemo(
-    () => (lang === 'pl' ? catalogueAuthorsMock_PL : catalogueAuthorsMock_EN),
-    [lang],
-  );
-
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const items = useMemo(() => createCatalogueItems(lang), [lang]);
   const titleItems = useMemo(
-    () => sortByLabel(createTitleItems(authorsData), lang),
-    [authorsData, lang],
+    () => sortByLabel(items.titles, lang),
+    [items, lang],
   );
   const authorItems = useMemo(
-    () => sortByLabel(createAuthorItems(authorsData), lang),
-    [authorsData, lang],
+    () => sortByLabel(items.authors, lang),
+    [items, lang],
   );
 
   const normalizedQuery = normalizeValue(query, lang);
@@ -85,29 +97,10 @@ export const useCataloguePage: UseCataloguePageType = lang => {
     [filteredAuthorItems, filteredTitleItems],
   );
 
-  useEffect(() => {
-    if (!selectedItem) {
-      setSelectedItem(fallbackSelection);
-      return;
-    }
-
-    const stillVisibleInAuthors = filteredAuthorItems.some(
-      item => item.id === selectedItem.id,
-    );
-    const stillVisibleInTitles = filteredTitleItems.some(
-      item => item.id === selectedItem.id,
-    );
-
-    if (!stillVisibleInAuthors && !stillVisibleInTitles) {
-      setSelectedItem(fallbackSelection);
-    }
-  }, [
-    fallbackSelection,
-    filteredAuthorItems,
-    filteredTitleItems,
-    selectedItem,
-    setSelectedItem,
-  ]);
+  const selectedItem =
+    [...filteredAuthorItems, ...filteredTitleItems].find(
+      item => item.id === selectedId,
+    ) || fallbackSelection;
 
   const selectedBooks = useMemo(() => {
     if (!selectedItem) return [];
@@ -137,6 +130,6 @@ export const useCataloguePage: UseCataloguePageType = lang => {
     filteredAuthorItems,
     selectedItem,
     selectedBooks,
-    selectItem: setSelectedItem,
+    selectItem: item => setSelectedId(item.id),
   };
 };

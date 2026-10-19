@@ -11,7 +11,8 @@ import type { ChangeEvent, ReactElement } from 'react';
  * @property id - Unique identifier of the book.
  * @property title - Book title displayed in title lists and cover tiles.
  * @property description - Short description displayed on tile overlay.
- * @property coverUrl - URL to the cover image.
+ * @property cover - Resolved cover image URL from the shared fable index.
+ * @property storyUrl - Locale-prefixed link to the fable introduction.
  */
 export interface CatalogueBook {
   id: string;
@@ -22,7 +23,7 @@ export interface CatalogueBook {
 }
 
 /**
- * Author record used as source data for catalogue search.
+ * Author record grouping indexed fables for catalogue search.
  *
  * @property id - Unique identifier of the author.
  * @property name - Full author name.
@@ -61,7 +62,7 @@ export interface CatalogueListItem {
  * @property authorItems - Data for author alphabetical list.
  * @property filteredTitleItems - Search-filtered titles.
  * @property filteredAuthorItems - Search-filtered authors.
- * @property selectedItem - Currently selected author/title item.
+ * @property selectedItem - Selected item resolved by stable ID in the current locale, or the first matching item; null when no results match.
  * @property selectedBooks - Books shown inside search results panel.
  * @property selectItem - Handler for picking a list item.
  */
@@ -79,7 +80,12 @@ export interface UseCataloguePageReturnValues {
 }
 
 /**
- * Hook used by CataloguePage to handle data mapping and search interactions.
+ * Maps the shared fable index to unique title and author lists and filters them by query.
+ * Fables with multiple authors appear once in the title list and under each credited author.
+ * Fables without an author remain searchable by title.
+ *
+ * @param lang - Requested locale for labels, links, and locale-aware sorting.
+ * @returns Search state and localized catalogue results.
  */
 export type UseCataloguePage = (lang: string) => UseCataloguePageReturnValues;
 
@@ -94,3 +100,14 @@ export type UseCataloguePage = (lang: string) => UseCataloguePageReturnValues;
  * ```
  */
 export type CataloguePage = () => ReactElement;
+
+/**
+ * Catalogue lists derived from the shared fable metadata.
+ *
+ * @property titles - One item per fable, including entries without author credits.
+ * @property authors - One item per distinct author, with their associated fables.
+ */
+export interface CatalogueItems {
+  titles: CatalogueListItem[];
+  authors: CatalogueListItem[];
+}

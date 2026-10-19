@@ -9,8 +9,8 @@ import {
   FLEX_ALIGNMENT,
   FLEX_DIRECTION,
 } from '@/atoms/Container/Container.types';
+import { useDictionary } from '@/lang/DictionaryProvider';
 import DesktopTilesSlider from '@/organisms/DesktopTilesSlider';
-import desktopTilesSliderMock from '@/organisms/DesktopTilesSlider/DesktopTilesSlider.mock';
 import { FooterSimple } from '@/organisms/FooterSimple';
 import StoryCard from '@/organisms/StoryCard';
 import { STORY_CARD_VARIANT } from '@/organisms/StoryCard/StoryCard.types';
@@ -28,9 +28,16 @@ import type { UserDesktop as UserDesktopType } from './UserDesktop.types';
 
 export const UserDesktop: UserDesktopType = () => {
   const params = useParams();
+  const { cataloguePage } = useDictionary();
   const currentLang = (params?.lang as string) || 'en';
-  const { viewportRef, selectedIndex, slideCount, scrollTo, storyCards } =
-    useUserDesktop(currentLang);
+  const {
+    viewportRef,
+    selectedIndex,
+    slideCount,
+    scrollTo,
+    storyCards,
+    tiles,
+  } = useUserDesktop(currentLang);
 
   return (
     <>
@@ -76,14 +83,7 @@ export const UserDesktop: UserDesktopType = () => {
           justifyContent={FLEX_ALIGNMENT.CENTER}
           flexDirection={FLEX_DIRECTION.COLUMN}
         >
-          <DesktopTilesSlider
-            title={desktopTilesSliderMock.title}
-            tiles={desktopTilesSliderMock.tiles}
-          />
-          <DesktopTilesSlider
-            title={'Edukacyjne'}
-            tiles={desktopTilesSliderMock.tiles}
-          />
+          <DesktopTilesSlider title={cataloguePage.headline} tiles={tiles} />
         </Container>
       </UserDesktopBody>
       <FooterSimple />

@@ -2,33 +2,37 @@
 
 import { useEffect, useState } from 'react';
 
-import type { FavoriteData, ReadingProgressData } from '@/config/firestore';
-import { FableWithMeta, getFablesIndexClient, getTotalSlides } from '../FavoritePage.utils';
+import { getFableUrl } from '@/fables/fables.library';
 
-interface UseFavoritesDataProps {
-  favorites: FavoriteData[];
-  continueReading: ReadingProgressData[];
-  loading: boolean;
-  currentLang: 'pl' | 'en';
-}
+import type {
+  UseFavoritesDataProps,
+  UseFavoritesDataReturnValues,
+} from '../FavoritePage.types';
+import type { FableWithMeta } from '../FavoritePage.utils';
+import { getFablesIndexClient, getTotalSlides } from '../FavoritePage.utils';
 
 export const useFavoritesData = ({
   favorites,
   continueReading,
   loading,
   currentLang,
-}: UseFavoritesDataProps) => {
+}: UseFavoritesDataProps): UseFavoritesDataReturnValues => {
   const [favoriteFables, setFavoriteFables] = useState<FableWithMeta[]>([]);
-  const [continueReadingFables, setContinueReadingFables] = useState<FableWithMeta[]>([]);
+  const [continueReadingFables, setContinueReadingFables] = useState<
+    FableWithMeta[]
+  >([]);
   const [loadingFables, setLoadingFables] = useState(true);
 
   useEffect(() => {
+    let active = true;
     const loadFableData = async () => {
       if (loading) {
         return;
       }
 
       if (favorites.length === 0 && continueReading.length === 0) {
+        setFavoriteFables([]);
+        setContinueReadingFables([]);
         setLoadingFables(false);
         return;
       }
@@ -41,10 +45,9 @@ export const useFavoritesData = ({
           .map(fav => {
             const fable = fablesIndex.find(f => f.meta.id === fav.fableId);
             if (fable) {
-              const slug = fable.meta.slug[currentLang];
               return {
                 meta: fable.meta,
-                url: `/${currentLang}/fable/${slug}`,
+                url: getFableUrl(fable.meta, currentLang),
                 currentSlide: undefined,
               } as FableWithMeta;
             }
@@ -56,31 +59,40 @@ export const useFavoritesData = ({
           continueReading.map(async cr => {
             const fable = fablesIndex.find(f => f.meta.id === cr.fableId);
             if (fable) {
-              const slug = fable.meta.slug[currentLang];
-              const slideParam = cr.currentSlide > 0 ? `&slide=${cr.currentSlide}` : '';
+              const slideParam =
+                cr.currentSlide > 0 ? `&slide=${cr.currentSlide}` : '';
               const storyPath = fable.meta.contentPointers.story;
               const totalSlides = await getTotalSlides(storyPath);
               return {
                 meta: fable.meta,
-                url: `/${currentLang}/fable/${slug}?mode=slideshow${slideParam}`,
+                url: `${getFableUrl(
+                  fable.meta,
+                  currentLang,
+                )}?mode=slideshow${slideParam}`,
                 currentSlide: cr.currentSlide,
                 totalSlides,
               } as FableWithMeta;
             }
             return null;
-          })
-        ).then(results => results.filter((f): f is FableWithMeta => f !== null));
+          }),
+        ).then(results =>
+          results.filter((f): f is FableWithMeta => f !== null),
+        );
 
+        if (!active) return;
         setFavoriteFables(favs);
         setContinueReadingFables(continuing);
       } catch (error) {
         console.error('Error loading fable data:', error);
       } finally {
-        setLoadingFables(false);
+        if (active) setLoadingFables(false);
       }
     };
 
     void loadFableData();
+    return () => {
+      active = false;
+    };
   }, [loading, favorites, continueReading, currentLang]);
 
   return {
