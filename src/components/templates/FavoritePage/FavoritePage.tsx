@@ -1,7 +1,6 @@
 'use client';
 
 import { onAuthStateChanged } from 'firebase/auth';
-import { useRouter } from 'next/navigation';
 import { useParams } from 'next/navigation';
 import { type ReactElement, useEffect, useState } from 'react';
 
@@ -31,12 +30,9 @@ import { useFavoritesData, useFableTiles } from './hooks';
 
 
 export const FavoritePage: FavoritePageType = () => {
-  const router = useRouter();
   const params = useParams();
   const currentLang = normalizeLocale((params?.lang as string) || 'en');
-  const [authChecked, setAuthChecked] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const { favorites, continueReading, loading: loadingFavorites } = useFavorites(userId);
   const { favoriteFables, continueReadingFables } = useFavoritesData({
@@ -51,28 +47,11 @@ export const FavoritePage: FavoritePageType = () => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, user => {
-      if (user) {
-        setUserId(user.uid);
-        setIsLoggedIn(true);
-      } else {
-        setIsLoggedIn(false);
-        setUserId(null);
-      }
-      setAuthChecked(true);
+      setUserId(user?.uid ?? null);
     });
 
     return () => unsubscribe();
   }, []);
-
-  useEffect(() => {
-    if (authChecked && !isLoggedIn) {
-      router.replace('/login');
-    }
-  }, [authChecked, isLoggedIn, router]);
-
-  if (!authChecked || !isLoggedIn) {
-    return <></>;
-  }
 
   return (
     <FavoritePageBody>

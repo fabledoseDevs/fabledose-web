@@ -1,14 +1,15 @@
 'use client';
-import { type ReactElement } from 'react';
+
+import type { ReactElement } from 'react';
 
 import LogoutPage from '@/components/templates/LogoutPage';
 import Sidebar from '@/organisms/Sidebar';
 
-const Login = (): ReactElement => (
+const Logout = (): ReactElement => (
   <>
     <Sidebar />
     <LogoutPage />
   </>
 );
 
-export default Login;
+export default Logout;
