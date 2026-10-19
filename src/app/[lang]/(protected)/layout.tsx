@@ -1,28 +1,28 @@
 'use client';
 
 import { onAuthStateChanged } from 'firebase/auth';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState, type ReactNode } from 'react';
+import { useParams, useRouter } from 'next/navigation';
+import { type ReactElement, type ReactNode, useEffect, useState } from 'react';
 
-import Sidebar from '@/organisms/Sidebar';
 import { auth } from '@/config/firebase';
+import Sidebar from '@/organisms/Sidebar';
 
 interface ProtectedLayoutProps {
   children: ReactNode;
 }
 
-export default function ProtectedLayout({ children }: ProtectedLayoutProps) {
+export default function ProtectedLayout({
+  children,
+}: ProtectedLayoutProps): ReactElement | null {
   const router = useRouter();
+  const { lang } = useParams<{ lang: string }>();
+  const locale = lang === 'pl' ? 'pl' : 'en';
   const [authChecked, setAuthChecked] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, user => {
-      if (user) {
-        setIsLoggedIn(true);
-      } else {
-        setIsLoggedIn(false);
-      }
+      setIsLoggedIn(Boolean(user));
       setAuthChecked(true);
     });
 
@@ -31,9 +31,9 @@ export default function ProtectedLayout({ children }: ProtectedLayoutProps) {
 
   useEffect(() => {
     if (authChecked && !isLoggedIn) {
-      router.replace('/login');
+      router.replace(`/${locale}/login`);
     }
-  }, [authChecked, isLoggedIn, router]);
+  }, [authChecked, isLoggedIn, locale, router]);
 
   if (!authChecked || !isLoggedIn) {
     return null;
