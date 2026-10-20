@@ -16,8 +16,9 @@ import {
 } from '@/molecules/SettingsSwitch/SettingsSwitch.styled';
 
 export const SlideshowBody = styled.section`
-  width: 100vw;
+  width: 100%;
   height: 100vh;
+  height: 100dvh;
   position: relative;
   overflow: hidden;
   background: ${({ theme }) => theme.palette.byColor.purple.extraDark};
@@ -55,8 +56,8 @@ export const SlideStub = styled.div`
 
 export const TopLeftControls = styled.div`
   position: absolute;
-  top: 16px;
-  left: 16px;
+  top: max(16px, env(safe-area-inset-top, 0px));
+  left: max(16px, env(safe-area-inset-left, 0px));
   z-index: ${({ theme }) => theme.zIndex.veryTop};
   display: flex;
   gap: 10px;
@@ -65,7 +66,10 @@ export const TopLeftControls = styled.div`
 export const BottomCenterControls = styled.div`
   position: absolute;
   left: 50%;
-  bottom: 20px;
+  bottom: calc(70px + env(safe-area-inset-bottom, 0px));
+  @media ${({ theme }) => theme.media.tablet} {
+    bottom: max(20px, env(safe-area-inset-bottom, 0px));
+  }
   transform: translateX(-50%);
   z-index: ${({ theme }) => theme.zIndex.veryTop};
   display: flex;
@@ -73,7 +77,8 @@ export const BottomCenterControls = styled.div`
 `;
 
 export const SlideshowSettingsModalBody = styled.div`
-  width: min(920px, 92vw);
+  width: 100%;
+  min-width: 0;
   max-width: 100%;
   display: flex;
   flex-direction: column;

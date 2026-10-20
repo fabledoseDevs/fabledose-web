@@ -22,8 +22,12 @@ export const AudoButtonsBody = styled.button<{
   ${({ variant }) =>
     variant === AUDIO_BUTTON_VARIANT.PLAY_TOGGLE
       ? css`
-          width: 72px;
-          height: 72px;
+          width: 56px;
+          height: 56px;
+          @media ${theme.media.tablet} {
+            width: 72px;
+            height: 72px;
+          }
         `
       : css`
           width: 44px;

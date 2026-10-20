@@ -210,6 +210,7 @@ export const DictionaryEn: DictionaryType = {
       'Check tag icons below or press the "More info" button to confirm that this story is suitable for your child.',
     moreInfoButton: 'More info',
   },
+  userDesktop: { libraryTitle: 'Your library' },
   cataloguePage: {
     headline: 'Search the catalogue',
     paragraph: 'Type an author surname or story title to start searching.',

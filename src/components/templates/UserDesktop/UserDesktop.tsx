@@ -28,7 +28,7 @@ import type { UserDesktop as UserDesktopType } from './UserDesktop.types';
 
 export const UserDesktop: UserDesktopType = () => {
   const params = useParams();
-  const { cataloguePage } = useDictionary();
+  const { userDesktop } = useDictionary();
   const currentLang = (params?.lang as string) || 'en';
   const {
     viewportRef,
@@ -83,7 +83,7 @@ export const UserDesktop: UserDesktopType = () => {
           justifyContent={FLEX_ALIGNMENT.CENTER}
           flexDirection={FLEX_DIRECTION.COLUMN}
         >
-          <DesktopTilesSlider title={cataloguePage.headline} tiles={tiles} />
+          <DesktopTilesSlider title={userDesktop.libraryTitle} tiles={tiles} />
         </Container>
       </UserDesktopBody>
       <FooterSimple />

@@ -12,9 +12,16 @@ export const FableTileBody = styled.div`
   transform-origin: center center;
   will-change: transform, box-shadow, border;
   width: 260px;
-  max-width: 300px;
+  max-width: 100%;
+
+  @media (hover: none), (pointer: coarse) {
+    div[data-overlay] {
+      transform: translateY(0);
+    }
+  }
 
   &:hover,
+  &:focus-within,
   &.active {
     box-shadow: 0 14px 24px 0
       ${({ theme }) => theme.palette.byElement.shadows.purple[20]};
@@ -25,6 +32,13 @@ export const FableTileBody = styled.div`
 
     div[data-overlay] {
       transform: translateY(0);
+    }
+  }
+  @media (hover: none), (pointer: coarse) {
+    &:hover,
+    &.active,
+    &:focus-within {
+      transform: none;
     }
   }
 `;
@@ -43,9 +57,7 @@ export const ProgressBarContainer = styled.div`
 export const ProgressBarFill = styled.div<{ $progress: number }>`
   height: 100%;
   width: ${({ $progress }) => `${$progress}%`};
-  background: linear-gradient(90deg, 
-    #a370f7 0%,
-    #d8a8ff 100%);
+  background: linear-gradient(90deg, #a370f7 0%, #d8a8ff 100%);
   transition: width 0.3s ease;
 `;
 

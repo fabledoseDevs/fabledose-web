@@ -3,10 +3,11 @@ import styled from '@emotion/styled';
 import { theme } from '@/styles/theme';
 
 export const AudiobookBody = styled.section`
-  width: calc(100% - 40px);
+  width: 100%;
+  min-width: 0;
   max-width: 1024px;
-  margin: 20px;
-  padding: 20px 16px;
+  margin: 0;
+  padding: 20px 16px 36px;
   border-radius: 30px;
   background: ${theme.palette.byElement.background.gradientWhite};
 
@@ -26,7 +27,7 @@ export const TopBar = styled.div`
 
 export const CoverWrapper = styled.div`
   position: relative;
-  width: 100%;
+  width: min(100%, 420px, 45dvh);
   max-width: 420px;
   aspect-ratio: 1 / 1;
   margin: 8px auto 18px;
@@ -61,7 +62,7 @@ export const ActionsRow = styled.div`
   grid-template-columns: repeat(5, auto);
   align-items: center;
   justify-content: space-between;
-  gap: 14px;
+  gap: 4px;
 
   @media ${theme.media.tablet} {
     gap: 22px;

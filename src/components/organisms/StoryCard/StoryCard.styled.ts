@@ -15,15 +15,20 @@ export const StoryCardBody = styled.section<{ variant: STORY_CARD_VARIANT }>`
     variant === 'compact'
       ? css`
           max-width: 1800px;
-          height: 800px;
+          min-height: 640px;
+          height: auto;
+          @media ${theme.media.laptop} {
+            min-height: 800px;
+          }
           border-radius: 24px;
           margin: 0 auto;
         `
       : css`
-          width: 100vw;
-          height: 100vh;
+          width: 100%;
+          min-height: 100vh;
+          min-height: 100dvh;
           border-radius: 0;
-          padding-left: 40px;
+          padding-left: 0;
         `};
 `;
 
@@ -60,7 +65,8 @@ export const ContentLayer = styled.div`
   z-index: ${theme.zIndex.high};
   display: flex;
   align-items: stretch;
-  height: 100%;
+  min-height: inherit;
+  width: 100%;
 `;
 
 export const LeftColumn = styled.div`
@@ -68,12 +74,17 @@ export const LeftColumn = styled.div`
   flex-direction: column;
   justify-content: space-between;
   gap: 24px;
-  padding: 24px 20px 24px 20px;
+  padding: 24px 20px calc(80px + env(safe-area-inset-bottom, 0px));
+  min-width: 0;
   width: 100%;
 
   @media ${theme.media.tablet} {
     padding: 40px;
-    width: min(820px, 60%);
+    width: 100%;
+  }
+
+  @media ${theme.media.laptop} {
+    width: min(820px, 75%);
   }
 
   @media ${theme.media.desktop} {
@@ -100,7 +111,10 @@ export const ButtonsRow = styled.div<{ $hasResetButton?: boolean }>`
   gap: 12px;
 
   @media ${theme.media.tablet} {
-    grid-template-columns: ${({ $hasResetButton }) => $hasResetButton ? 'auto 1fr auto' : 'repeat(2, 1fr)'};
+    grid-template-columns: ${({ $hasResetButton }) =>
+      $hasResetButton
+        ? 'auto minmax(0, 1fr) minmax(0, 1fr)'
+        : 'repeat(2, minmax(0, 1fr))'};
     grid-auto-flow: column;
     justify-content: start;
   }

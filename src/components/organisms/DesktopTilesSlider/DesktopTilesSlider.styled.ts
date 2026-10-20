@@ -4,6 +4,7 @@ export const DesktopTilesSliderBody = styled.section`
   display: flex;
   flex-direction: column;
   width: 100%;
+  min-width: 0;
 `;
 
 export const Header = styled.div`
@@ -13,12 +14,11 @@ export const Header = styled.div`
   flex-wrap: wrap;
   row-gap: 0.8rem;
   position: relative;
-  top: 34px;
 `;
 
 export const Title = styled.h3`
   margin: 0;
-  padding-left: 20px;
+  padding-left: 12px;
   color: ${({ theme }) => theme.palette.byElement.text.white};
   font-family: ${({ theme }) => theme.typography.headlines.small.fontFamily};
   font-size: ${({ theme }) => theme.typography.headlines.small.fontSize};
@@ -44,7 +44,7 @@ export const ArrowButton = styled.button<{ disabled?: boolean }>`
 
 export const EmblaViewport = styled.div`
   overflow: hidden;
-  padding: 48px 0 12px 12px;
+  padding: 24px 12px 20px;
 `;
 
 export const EmblaContainer = styled.div`
@@ -52,4 +52,7 @@ export const EmblaContainer = styled.div`
   gap: 1.2rem;
 `;
 
-export const EmblaSlide = styled.div``;
+export const EmblaSlide = styled.div`
+  flex: 0 0 auto;
+  min-width: 0;
+`;

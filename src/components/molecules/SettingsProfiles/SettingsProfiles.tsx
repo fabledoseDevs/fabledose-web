@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 
 import Avatar, { AVATAR_SIZE } from '@/atoms/Avatar';
 import Button from '@/atoms/Button';
@@ -12,16 +12,20 @@ import ModalWindow from '@/molecules/ModalWindow';
 import {
   AddIconWrapper,
   AddProfileButton,
+  AvatarField,
   FormField,
   GalleryItem,
   GalleryWrapper,
   Input,
   Label,
   ModalFooter,
+  ProfileForm,
   ProfileItem,
   ProfileName,
+  ProfileSelect,
   ProfilesList,
   ProfilesTitle,
+  RemoveProfileButton,
   SettingsProfilesWrapper,
 } from './SettingsProfiles.styled';
 import type {
@@ -52,6 +56,7 @@ const AVAILABLE_AVATARS = [
 const ACTIVE_PROFILE_COOKIE = 'active_profile_id';
 
 export const SettingsProfiles: SettingsProfilesType = () => {
+  const nameId = useId();
   const [profiles, setProfiles] = useState<Profile[]>(MOCK_PROFILES);
   const [activeProfileId, setActiveProfileId] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -62,11 +67,14 @@ export const SettingsProfiles: SettingsProfilesType = () => {
     const match = document.cookie.match(
       new RegExp('(^| )' + ACTIVE_PROFILE_COOKIE + '=([^;]+)'),
     );
-    if (match) {
-      setActiveProfileId(match[2]);
-    } else if (profiles.length > 0) {
-      setActiveProfileId(profiles[0].id);
-    }
+    const nextId =
+      profiles.find(profile => profile.id === match?.[2])?.id ||
+      profiles[0]?.id ||
+      null;
+    setActiveProfileId(nextId);
+    document.cookie = nextId
+      ? `${ACTIVE_PROFILE_COOKIE}=${nextId}; path=/; max-age=31536000; SameSite=Lax`
+      : `${ACTIVE_PROFILE_COOKIE}=; path=/; max-age=0; SameSite=Lax`;
   }, [profiles]);
 
   const handleProfileClick = (id: string) => {
@@ -74,11 +82,16 @@ export const SettingsProfiles: SettingsProfilesType = () => {
     document.cookie = `${ACTIVE_PROFILE_COOKIE}=${id}; path=/; max-age=31536000; SameSite=Lax`;
   };
 
+  const handleRemoveProfile = (profile: Profile): void => {
+    if (!window.confirm(`Usunąć profil „${profile.name}”?`)) return;
+    setProfiles(previous => previous.filter(item => item.id !== profile.id));
+  };
+
   const handleAddProfile = () => {
     if (newProfileName.trim()) {
       const newProfile: Profile = {
         id: Math.random().toString(36).substr(2, 9),
-        name: newProfileName,
+        name: newProfileName.trim(),
         imageUrl: selectedAvatar,
       };
       setProfiles(prev => [...prev, newProfile]);
@@ -92,18 +105,29 @@ export const SettingsProfiles: SettingsProfilesType = () => {
       <ProfilesTitle>Profile dzieci:</ProfilesTitle>
       <ProfilesList>
         {profiles.map(profile => (
-          <ProfileItem
-            key={profile.id}
-            onClick={() => handleProfileClick(profile.id)}
-          >
-            <Avatar
-              imageUrl={profile.imageUrl}
-              altText={profile.name}
-              isActive={activeProfileId === profile.id}
-            />
-            <ProfileName isActive={activeProfileId === profile.id}>
-              {profile.name}
-            </ProfileName>
+          <ProfileItem key={profile.id}>
+            <ProfileSelect
+              type="button"
+              aria-label={`Wybierz profil: ${profile.name}`}
+              aria-pressed={activeProfileId === profile.id}
+              onClick={() => handleProfileClick(profile.id)}
+            >
+              <Avatar
+                imageUrl={profile.imageUrl}
+                altText={profile.name}
+                isActive={activeProfileId === profile.id}
+              />
+              <ProfileName isActive={activeProfileId === profile.id}>
+                {profile.name}
+              </ProfileName>
+            </ProfileSelect>
+            <RemoveProfileButton
+              type="button"
+              aria-label={`Usuń profil: ${profile.name}`}
+              onClick={() => handleRemoveProfile(profile)}
+            >
+              Usuń profil
+            </RemoveProfileButton>
           </ProfileItem>
         ))}
         <AddProfileButton onClick={() => setIsModalOpen(true)}>
@@ -116,50 +140,61 @@ export const SettingsProfiles: SettingsProfilesType = () => {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         title="Stwórz nowy profil"
+        width={520}
       >
-        <FormField>
-          <Label>Imię</Label>
-          <Input
-            value={newProfileName}
-            onChange={e => setNewProfileName(e.target.value)}
-            placeholder="Wpisz imię..."
-          />
-        </FormField>
+        <ProfileForm>
+          <FormField>
+            <Label htmlFor={nameId}>Imię dziecka</Label>
+            <Input
+              id={nameId}
+              autoComplete="off"
+              maxLength={40}
+              value={newProfileName}
+              onChange={e => setNewProfileName(e.target.value)}
+              placeholder="Wpisz imię..."
+            />
+          </FormField>
 
-        <Label>Wybierz awatar</Label>
-        <GalleryWrapper>
-          {AVAILABLE_AVATARS.map(avatar => (
-            <GalleryItem
-              key={avatar}
-              isSelected={selectedAvatar === avatar}
-              onClick={() => setSelectedAvatar(avatar)}
-            >
-              <Avatar
-                imageUrl={avatar}
-                altText="Avatar option"
-                size={AVATAR_SIZE.LARGE}
-              />
-            </GalleryItem>
-          ))}
-        </GalleryWrapper>
+          <AvatarField>
+            <legend>Wybierz awatar</legend>
+            <GalleryWrapper>
+              {AVAILABLE_AVATARS.map((avatar, index) => (
+                <GalleryItem
+                  key={avatar}
+                  type="button"
+                  aria-label={`Awatar ${index + 1}`}
+                  aria-pressed={selectedAvatar === avatar}
+                  isSelected={selectedAvatar === avatar}
+                  onClick={() => setSelectedAvatar(avatar)}
+                >
+                  <Avatar
+                    imageUrl={avatar}
+                    altText="Avatar option"
+                    size={AVATAR_SIZE.SMALL}
+                  />
+                </GalleryItem>
+              ))}
+            </GalleryWrapper>
+          </AvatarField>
 
-        <ModalFooter>
-          <Button
-            actionType={ACTION_TYPE.FUNCTION_TRIGGER}
-            variant={BUTTON_VARIANT.TRANSPARENT}
-            text="Anuluj"
-            payload={() => setIsModalOpen(false)}
-            width={{ widthType: WIDTH_TYPE.AUTO }}
-          />
-          <Button
-            actionType={ACTION_TYPE.FUNCTION_TRIGGER}
-            variant={BUTTON_VARIANT.RED}
-            text="Dodaj profil"
-            payload={handleAddProfile}
-            width={{ widthType: WIDTH_TYPE.AUTO }}
-            isDisabled={!newProfileName.trim()}
-          />
-        </ModalFooter>
+          <ModalFooter>
+            <Button
+              actionType={ACTION_TYPE.FUNCTION_TRIGGER}
+              variant={BUTTON_VARIANT.WHITE}
+              text="Anuluj"
+              payload={() => setIsModalOpen(false)}
+              width={{ widthType: WIDTH_TYPE.PERCENT, widthValue: 100 }}
+            />
+            <Button
+              actionType={ACTION_TYPE.FUNCTION_TRIGGER}
+              variant={BUTTON_VARIANT.RED}
+              text="Dodaj profil"
+              payload={handleAddProfile}
+              width={{ widthType: WIDTH_TYPE.PERCENT, widthValue: 100 }}
+              isDisabled={!newProfileName.trim()}
+            />
+          </ModalFooter>
+        </ProfileForm>
       </ModalWindow>
     </SettingsProfilesWrapper>
   );
