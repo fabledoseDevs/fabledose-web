@@ -27,6 +27,11 @@ export const SlideshowButtonsBody = styled.button<{
   transition: opacity 0.35s ease, transform 0.35s ease,
     background-color 0.2s ease;
 
+  @media (hover: none), (pointer: coarse) {
+    opacity: ${({ disabled }) => (disabled ? 0.3 : 0.92)};
+    transform: none;
+  }
+
   &:hover {
     background: ${({ theme }) =>
       theme.palette.byElement.background.extraDarkPurple};

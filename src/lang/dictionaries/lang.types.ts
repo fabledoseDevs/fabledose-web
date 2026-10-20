@@ -118,6 +118,11 @@ export type DictionaryType = {
     infoDisclaimer: string;
     moreInfoButton: string;
   };
+  /** Localized headings for the indexed library view. */
+  userDesktop: {
+    /** Heading above the carousel of available fables. */
+    libraryTitle: string;
+  };
   cataloguePage: {
     headline: string;
     paragraph: string;

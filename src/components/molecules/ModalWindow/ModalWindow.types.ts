@@ -13,6 +13,7 @@ import type { ReactElement, ReactNode } from 'react';
  * @property children - The content to be displayed inside the modal window.
  * @property showCloseButton - If true, an additional close button is displayed at the bottom of the modal.
  * @property closeOnOverlayClick - If true, clicking on the darkened/blurred background will trigger onClose.
+ * @property width - Optional preferred dialog width in pixels, constrained to the viewport.
  * @property title - Optional title displayed at the top of the modal.
  */
 export interface ModalWindowProps {
@@ -22,6 +23,7 @@ export interface ModalWindowProps {
   showCloseButton?: boolean;
   closeOnOverlayClick?: boolean;
   title?: string;
+  width?: number;
 }
 
 /**

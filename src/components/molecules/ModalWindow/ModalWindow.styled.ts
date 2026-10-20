@@ -6,6 +6,8 @@ export const ModalOverlay = styled.div`
   left: 0;
   width: 100vw;
   height: 100vh;
+  height: 100dvh;
+  padding: 16px;
   background-color: rgba(23, 15, 47, 0.7);
   backdrop-filter: blur(8px);
   display: flex;
@@ -14,12 +16,14 @@ export const ModalOverlay = styled.div`
   z-index: ${({ theme }) => theme.zIndex.overlay};
 `;
 
-export const ModalContainer = styled.div`
+export const ModalContainer = styled.div<{ $width?: number }>`
   background-color: ${({ theme }) => theme.palette.byElement.background.white};
-  border-radius: 40px;
-  width: auto;
-  max-width: 90vw;
-  max-height: 90vh;
+  border-radius: 24px;
+  width: ${({ $width }) => ($width ? `${$width}px` : 'auto')};
+  max-width: 100%;
+  max-height: 100%;
+  min-height: 0;
+  min-width: 0;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -29,7 +33,8 @@ export const ModalContainer = styled.div`
 `;
 
 export const ModalHeader = styled.div`
-  padding: 24px 32px 12px;
+  padding: 24px 64px 16px 24px;
+  flex-shrink: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -67,7 +72,10 @@ export const CloseIconButton = styled.button`
 `;
 
 export const ModalContent = styled.div`
-  padding: 0 32px 32px;
+  padding: 0 24px 24px;
+  min-height: 0;
+  min-width: 0;
+  overscroll-behavior: contain;
   overflow-y: auto;
   flex: 1;
   font-family: ${({ theme }) => theme.typography.fonts.default};

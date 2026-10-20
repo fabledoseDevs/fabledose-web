@@ -1,13 +1,18 @@
 import styled from '@emotion/styled';
 
-export const StoryPageBody = styled.main<{ $isIntro?: boolean; $sidebarHidden?: boolean }>`
+export const StoryPageBody = styled.main<{
+  $isIntro?: boolean;
+  $sidebarHidden?: boolean;
+}>`
   width: 100%;
   min-height: 100vh;
-  margin-left: ${({ $isIntro }) => ($isIntro ? '20px' : '0')};
+  margin-left: 0;
   transition: margin-left 0.3s ease-in-out;
   overflow-x: hidden;
 
   @media ${({ theme }) => theme.media.tablet} {
+    width: ${({ $sidebarHidden }) =>
+      $sidebarHidden ? '100%' : 'calc(100% - 70px)'};
     margin-left: ${({ $sidebarHidden }) => ($sidebarHidden ? '0' : '70px')};
   }
 `;
@@ -18,14 +23,18 @@ export const StoryPageCenteredContent = styled.section`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px;
+  padding: 16px 16px calc(74px + env(safe-area-inset-bottom, 0px));
+  @media ${({ theme }) => theme.media.tablet} {
+    padding: 24px;
+  }
   box-sizing: border-box;
 `;
 
 export const IntroWrapper = styled.div`
   position: relative;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
+  min-height: 100dvh;
   overflow: hidden;
 `;
 

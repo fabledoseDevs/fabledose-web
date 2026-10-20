@@ -33,7 +33,7 @@ export enum SLIDE_TEXT_POSITION {
  * @property fontSize - Font size in pixels.
  * @property fontFamily - Selected reader font family identifier.
  * @property useAnimatedBackground - If true, mediaUrl is treated as animated WEBM.
- * @property isActive - Controls subtle opacity emphasis for active slide.
+ * @property isActive - Controls opacity emphasis and video playback; inactive slides pause and avoid preloading media.
  */
 export interface SingleSlideProps {
   paragraphs: string[];

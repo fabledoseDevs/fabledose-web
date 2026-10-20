@@ -1,3 +1,5 @@
+import { useEffect, useRef } from 'react';
+
 import { useSingleSlide } from './SingleSlide.hook';
 import {
   BackgroundImage,
@@ -24,6 +26,16 @@ export const SingleSlide: SingleSlideType = props => {
     useAnimatedBackground,
     isActive,
   } = props;
+  const videoRef = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (isActive && useAnimatedBackground)
+      void video.play().catch(() => undefined);
+    else video.pause();
+    return () => video.pause();
+  }, [isActive, useAnimatedBackground, mediaUrl]);
+
   const { paragraphEntries, resolvedStaticImageUrl, resolvedTextTone } =
     useSingleSlide({
       paragraphs,
@@ -37,7 +49,9 @@ export const SingleSlide: SingleSlideType = props => {
       <BackgroundLayer>
         {useAnimatedBackground ? (
           <BackgroundVideo
-            autoPlay
+            ref={videoRef}
+            autoPlay={isActive}
+            preload={isActive ? 'auto' : 'none'}
             muted
             loop
             playsInline

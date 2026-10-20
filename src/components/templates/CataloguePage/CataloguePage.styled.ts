@@ -19,7 +19,7 @@ export const CataloguePageBody = styled.main`
 
 export const TopSection = styled.section`
   width: 100%;
-  margin: 24px auto 96px;
+  margin: 24px auto 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -42,7 +42,7 @@ export const MobileQuickResults = styled.div`
     theme.palette.byElement.background.darkPurple};
   overflow: hidden;
 
-  @media ${({ theme }) => theme.media.tablet} {
+  @media ${({ theme }) => theme.media.desktop} {
     display: none;
   }
 `;
@@ -85,10 +85,10 @@ export const MobileQuickResultButton = styled.button<{ isSelected?: boolean }>`
 export const MainContent = styled.section`
   margin-top: 30px;
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: 24px;
 
-  @media ${({ theme }) => theme.media.tablet} {
+  @media ${({ theme }) => theme.media.desktop} {
     grid-template-columns: minmax(300px, 1.2fr) minmax(260px, 1fr) minmax(
         260px,
         1fr
@@ -101,12 +101,13 @@ export const MainContent = styled.section`
 
 export const Column = styled.div`
   min-height: 0;
+  min-width: 0;
 `;
 
 export const DesktopOnlyColumn = styled(Column)`
   display: none;
 
-  @media ${({ theme }) => theme.media.tablet} {
+  @media ${({ theme }) => theme.media.desktop} {
     display: block;
   }
 `;

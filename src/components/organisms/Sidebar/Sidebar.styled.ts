@@ -5,8 +5,8 @@ export const SidebarBody = styled.aside<{ $isHidden?: boolean }>`
   left: 0;
   bottom: 0;
   width: 100vw;
-  height: 50px;
-  padding: 0;
+  height: calc(50px + env(safe-area-inset-bottom, 0px));
+  padding: 0 0 env(safe-area-inset-bottom, 0px);
   background-color: ${({ theme }) =>
     theme.palette.byElement.background.extraDarkPurple};
   z-index: ${({ theme }) => theme.zIndex.top};
@@ -17,19 +17,22 @@ export const SidebarBody = styled.aside<{ $isHidden?: boolean }>`
   justify-content: center;
 
   transition: transform 0.3s ease-in-out;
-  transform: ${({ $isHidden }) => ($isHidden ? 'translateY(50px)' : 'translateY(0)')};
+  transform: ${({ $isHidden }) =>
+    $isHidden ? 'translateY(100%)' : 'translateY(0)'};
 
   @media ${({ theme }) => theme.media.tablet} {
     top: 0;
     bottom: auto;
     width: 70px;
     height: 100vh;
+    height: 100dvh;
     padding: 7px;
 
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    transform: ${({ $isHidden }) => ($isHidden ? 'translateX(-70px)' : 'translateX(0)')};
+    transform: ${({ $isHidden }) =>
+      $isHidden ? 'translateX(-70px)' : 'translateX(0)'};
   }
 `;
 

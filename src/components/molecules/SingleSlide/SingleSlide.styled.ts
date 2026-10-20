@@ -109,7 +109,7 @@ const isCenterRowPosition = (textPosition: SLIDE_TEXT_POSITION): boolean =>
 export const SingleSlideBody = styled.article<{ isActive: boolean }>`
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   overflow: hidden;
   opacity: ${({ isActive }) => (isActive ? 1 : 0.88)};
   transition: opacity 0.45s ease;
@@ -148,7 +148,8 @@ export const TextLayer = styled.div<{ textPosition: SLIDE_TEXT_POSITION }>`
   position: absolute;
   inset: 0;
   z-index: ${({ theme }) => theme.zIndex.high};
-  padding: 82px 18px 90px;
+  padding: calc(82px + env(safe-area-inset-top, 0px)) 18px
+    calc(140px + env(safe-area-inset-bottom, 0px));
   display: flex;
   pointer-events: none;
   ${({ textPosition }) => toTextPositionStyles(textPosition)};
@@ -169,6 +170,12 @@ export const TextBlock = styled.div<{
 }>`
   width: 100%;
   max-width: 100%;
+  max-height: 100%;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+  pointer-events: auto;
   padding: 14px 16px;
   border-radius: 16px;
   box-sizing: border-box;

@@ -65,7 +65,7 @@ const resolveTextPosition = (layout: string): SLIDE_TEXT_POSITION => {
 
 const toStaticImageFromVideo = (videoUrl: string): string => {
   const match = videoUrl.match(
-    /\/img\/(cover|img_\d+)_(?:1920x1080|1280x720)\.webm$/,
+    /\/img\/(cover|img_\d+)_(?:1920x1080|1280x720)(?:_\d+)?\.webm$/,
   );
 
   if (!match) {
@@ -73,7 +73,7 @@ const toStaticImageFromVideo = (videoUrl: string): string => {
   }
 
   return videoUrl.replace(
-    /\/img\/(cover|img_\d+)_(?:1920x1080|1280x720)\.webm$/,
+    /\/img\/(cover|img_\d+)_(?:1920x1080|1280x720)(?:_\d+)?\.webm$/,
     '/img/backups/$1.jpg',
   );
 };
@@ -131,7 +131,7 @@ export const useSlideshow: UseSlideshowType = ({
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
 
   const textBackground = settings?.textBackground || 'none';
-  const backgroundIntensity = settings?.backgroundIntensity || 50;
+  const backgroundIntensity = settings?.backgroundIntensity ?? 50;
   const fontSize = settings?.fontSize || 16;
   const fontFamily: FableFontFamily = settings?.fontFamily || 'sans';
   const useAnimatedBackground = settings?.illustrationAnimation ?? true;
@@ -252,7 +252,7 @@ export const useSlideshow: UseSlideshowType = ({
   }, [emblaApi]);
 
   const handleToggleFullscreen = useCallback(async () => {
-    if (!slideshowRef.current) {
+    if (!slideshowRef.current || !slideshowRef.current.requestFullscreen) {
       return;
     }
 

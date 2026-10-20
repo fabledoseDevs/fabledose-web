@@ -217,6 +217,7 @@ export const DictionaryPL: DictionaryType = {
       'Sprawdź ikony poniżej lub naciśnij przycisk "Więcej infomacji" aby upewnić się, czy ta historyjka jest odpowiednia dla twojego dziecka',
     moreInfoButton: 'Więcej informacji',
   },
+  userDesktop: { libraryTitle: 'Bajki w bibliotece' },
   cataloguePage: {
     headline: 'Przeszukaj katalog',
     paragraph:

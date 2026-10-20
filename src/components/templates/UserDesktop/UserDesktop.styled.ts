@@ -5,9 +5,17 @@ export const UserDesktopBody = styled.div`
   flex-direction: column;
   margin-left: 0;
   margin-top: 24px;
+  min-width: 0;
+  padding: 0 16px calc(74px + env(safe-area-inset-bottom, 0px));
+  gap: 24px;
 
   @media ${({ theme }) => theme.media.tablet} {
-    margin-left: 86px;
+    margin-left: 70px;
+    padding: 0 24px 32px;
+  }
+
+  @media ${({ theme }) => theme.media.desktop} {
+    padding-inline: 40px;
   }
 `;
 

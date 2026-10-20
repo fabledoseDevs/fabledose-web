@@ -109,7 +109,8 @@ export const PasswordModalContent = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
-  min-width: 320px;
+  width: min(420px, 100%);
+  min-width: 0;
 `;
 
 export const PasswordFormField = styled.div`
