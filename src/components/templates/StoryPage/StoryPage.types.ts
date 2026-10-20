@@ -1,6 +1,7 @@
 import type { ReactElement } from 'react';
 
 import type { FableData, FableLocale } from '@/fables/fables.types';
+import type { StoryCardProps } from '@/organisms/StoryCard/StoryCard.types';
 
 /**
  * @module
@@ -38,3 +39,15 @@ export interface StoryPageProps {
  * ```
  */
 export type StoryPage = (props: StoryPageProps) => ReactElement;
+
+/**
+ * Introduction card with account-scoped continuation and persistent reset.
+ *
+ * @property fableId - Stable catalogue ID used to read and reset progress.
+ * @property data - Localized card content; the reader URL receives saved slide parameters.
+ * @property variant - Story card layout inherited from the base card.
+ * @property unlockedAccount - Whether premium actions are available.
+ */
+export interface StoryCardWithProgressProps extends StoryCardProps {
+  fableId: string;
+}

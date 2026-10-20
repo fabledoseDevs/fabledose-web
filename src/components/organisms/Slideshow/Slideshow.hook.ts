@@ -100,6 +100,15 @@ export const useSlideshow: UseSlideshowType = ({
   initialSlide = 0,
 }) => {
   const { updateSettings } = useSettings();
+  const startSlide = Number.isFinite(initialSlide)
+    ? Math.max(
+        0,
+        Math.min(
+          Math.trunc(initialSlide),
+          fable.content.text.slides.length - 1,
+        ),
+      )
+    : 0;
   const [viewportRef, emblaApi] = useEmblaCarousel(
     {
       dragFree: false,
@@ -107,12 +116,13 @@ export const useSlideshow: UseSlideshowType = ({
       loop: false,
       slidesToScroll: 1,
       skipSnaps: false,
+      startIndex: startSlide,
     },
     [Fade()],
   );
   const slideshowRef = useRef<HTMLElement | null>(null);
   const controlsTimerRef = useRef<number | null>(null);
-  const [selectedIndex, setSelectedIndex] = useState(initialSlide);
+  const [selectedIndex, setSelectedIndex] = useState(startSlide);
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
   const [controlsVisible, setControlsVisible] = useState(false);
@@ -172,26 +182,33 @@ export const useSlideshow: UseSlideshowType = ({
     syncEmblaState();
     emblaApi.on('select', syncEmblaState);
     emblaApi.on('reInit', syncEmblaState);
+    return () => {
+      emblaApi.off('select', syncEmblaState);
+      emblaApi.off('reInit', syncEmblaState);
+    };
   }, [emblaApi, syncEmblaState]);
 
   useEffect(() => {
-    if (!emblaApi || initialSlide === 0) {
+    if (!emblaApi) {
       return;
     }
 
-    emblaApi.scrollTo(initialSlide);
-  }, [emblaApi, initialSlide]);
+    emblaApi.scrollTo(startSlide, true);
+  }, [emblaApi, startSlide]);
 
   useEffect(() => {
-    if (onSlideChange) {
-      onSlideChange(selectedIndex);
-    }
-
+    if (!emblaApi || selectedIndex !== emblaApi.selectedScrollSnap()) return;
     const totalSlides = fable.content.text.slides.length;
-    if (onCompleted && selectedIndex === totalSlides - 1) {
-      onCompleted();
-    }
-  }, [selectedIndex, fable.content.text.slides.length, onSlideChange, onCompleted]);
+    if (!totalSlides) return;
+    if (onCompleted && selectedIndex === totalSlides - 1) onCompleted();
+    else onSlideChange?.(selectedIndex);
+  }, [
+    emblaApi,
+    selectedIndex,
+    fable.content.text.slides.length,
+    onSlideChange,
+    onCompleted,
+  ]);
 
   const handleRevealControls = useCallback(() => {
     setControlsVisible(true);

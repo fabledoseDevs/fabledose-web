@@ -59,7 +59,8 @@ export type FableFontFamily = 'sans' | 'serif' | 'dyslexic';
  * Defines the shape of the SettingsContext.
  *
  * @property settings - The current user's settings object. Null if no user is logged in.
- * @property updateSettings - A function to update one or more settings. It accepts a partial Settings object.
+ * @property updateSettings - Merges a partial patch into current state and persists patches in order for the active account, without discarding rapid changes.
+ * @property refreshPlanFromFirebase - Refreshes plan data for the current session; responses from a previous account are ignored.
  * @property updateUserEmail - A function to securely update the user's email with verification.
  * @property updateUserPassword - A function to reauthenticate and update the user's password.
  */
@@ -100,3 +101,18 @@ export type UseSettings = () => SettingsContextType;
  * @returns A React element that provides the settings context.
  */
 export type SettingsProvider = (props: SettingsProviderProps) => ReactElement;
+
+/**
+ * Legacy persisted preference keys accepted during settings migration.
+ *
+ * @property news - Previous name of notificationsNews.
+ * @property payments - Previous name of notificationsPayments.
+ * @property analytical - Previous name of cookiesAnalytical.
+ * @property marketing - Previous name of cookiesMarketing.
+ */
+export interface LegacyNotificationAndCookiesSettings {
+  news?: boolean;
+  payments?: boolean;
+  analytical?: boolean;
+  marketing?: boolean;
+}

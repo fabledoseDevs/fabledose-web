@@ -1,45 +1,27 @@
 'use client';
 
+import type { ReactElement } from 'react';
 import { useCallback, useEffect, useState } from 'react';
 
-import StoryCard from '@/organisms/StoryCard';
-import { STORY_CARD_VARIANT } from '@/organisms/StoryCard/StoryCard.types';
-import { useReadingProgress } from '@/hooks/useReadingProgress';
-import { useReadingProgressContext } from '@/contexts/ReadingProgressContext';
-import { useDictionary } from '@/lang/DictionaryProvider';
 import { auth } from '@/config/firebase';
+import { useReadingProgress } from '@/hooks/useReadingProgress';
+import { useDictionary } from '@/lang/DictionaryProvider';
+import StoryCard from '@/organisms/StoryCard';
 
-interface StoryCardWithProgressProps {
-  variant: typeof STORY_CARD_VARIANT.FULLSCREEN;
-  unlockedAccount: boolean;
-  data: {
-    backgroundVideoUrl: string;
-    backgroundPosterUrl: string;
-    headline: string;
-    description: string;
-    tags: Array<{ name: any; warning: boolean }>;
-    readUrl: string;
-    audiobookUrl: string;
-    pdfUrl?: string;
-    epubUrl?: string;
-    moreInfoUrl?: string;
-  };
-  fableId: string;
-}
+import type { StoryCardWithProgressProps } from './StoryPage.types';
 
 export const StoryCardWithProgress = ({
   variant,
   unlockedAccount,
   data,
   fableId,
-}: StoryCardWithProgressProps) => {
+}: StoryCardWithProgressProps): ReactElement => {
   const [userId, setUserId] = useState<string | null>(null);
   const [readUrl, setReadUrl] = useState(data.readUrl);
   const [audiobookUrl, setAudiobookUrl] = useState(data.audiobookUrl);
   const [readButtonText, setReadButtonText] = useState<string | undefined>();
   const [hasProgress, setHasProgress] = useState(false);
-  const { getProgress } = useReadingProgress(userId);
-  const { clearProgress } = useReadingProgressContext();
+  const { getProgress, saveProgress } = useReadingProgress(userId);
   const { storyCard } = useDictionary();
 
   useEffect(() => {
@@ -49,30 +31,54 @@ export const StoryCardWithProgress = ({
     return () => unsubscribe();
   }, []);
 
-  const handleResetProgress = useCallback(() => {
-    clearProgress(fableId);
+  const handleResetProgress = useCallback(async () => {
+    if (
+      !(await saveProgress(fableId, 0, false)) ||
+      auth.currentUser?.uid !== userId
+    )
+      return;
     setHasProgress(false);
     setReadUrl(data.readUrl);
     setAudiobookUrl(data.audiobookUrl);
     setReadButtonText(undefined);
-  }, [fableId, clearProgress, data.readUrl, data.audiobookUrl]);
+  }, [userId, fableId, saveProgress, data.readUrl, data.audiobookUrl]);
 
   useEffect(() => {
+    let active = true;
+    setHasProgress(false);
+    setReadUrl(data.readUrl);
+    setAudiobookUrl(data.audiobookUrl);
+    setReadButtonText(undefined);
     const fetchProgress = async () => {
       if (!userId) return;
 
       const progress = await getProgress(fableId);
-      if (progress && progress.currentSlide > 0) {
+      if (
+        active &&
+        progress &&
+        !progress.isCompleted &&
+        progress.currentSlide > 0
+      ) {
         const slideParam = `&slide=${progress.currentSlide}`;
         setReadUrl(data.readUrl + slideParam);
         setAudiobookUrl(data.audiobookUrl + slideParam);
-        setReadButtonText((storyCard as any).readButtonContinue || 'Czytaj dalej');
+        setReadButtonText(storyCard.readButtonContinue);
         setHasProgress(true);
       }
     };
 
     void fetchProgress();
-  }, [userId, fableId, getProgress, data.readUrl, data.audiobookUrl, storyCard]);
+    return () => {
+      active = false;
+    };
+  }, [
+    userId,
+    fableId,
+    getProgress,
+    data.readUrl,
+    data.audiobookUrl,
+    storyCard,
+  ]);
 
   return (
     <StoryCard

@@ -14,6 +14,9 @@ import {
 import type { Settings } from '@/contexts/SettingsContext.types';
 
 import { db } from './firebase';
+import { createWriteQueue } from './writeQueue';
+
+const enqueueWrite = createWriteQueue();
 
 export const getUserSettings = async (
   userId: string,
@@ -31,25 +34,26 @@ export const getUserSettings = async (
 export const updateUserSettings = async (
   userId: string,
   settings: Partial<Settings>,
-): Promise<void> => {
-  const docRef = doc(db, 'users', userId);
-  const updateData: Record<string, unknown> = {};
+): Promise<void> =>
+  enqueueWrite(`settings/${userId}`, async () => {
+    const docRef = doc(db, 'users', userId);
+    const updateData: Record<string, unknown> = {};
 
-  Object.entries(settings).forEach(([key, value]) => {
-    updateData[`settings.${key}`] = value;
-  });
+    Object.entries(settings).forEach(([key, value]) => {
+      updateData[`settings.${key}`] = value;
+    });
 
-  try {
-    await updateDoc(docRef, updateData);
-  } catch (error: unknown) {
-    // If document doesn't exist, create it
-    if ((error as FirestoreError).code === 'not-found') {
-      await setDoc(docRef, { settings }, { merge: true });
-    } else {
-      throw error;
+    try {
+      await updateDoc(docRef, updateData);
+    } catch (error: unknown) {
+      // If document doesn't exist, create it
+      if ((error as FirestoreError).code === 'not-found') {
+        await setDoc(docRef, { settings }, { merge: true });
+      } else {
+        throw error;
+      }
     }
-  }
-};
+  });
 
 export interface FavoriteData {
   fableId: string;
@@ -93,15 +97,16 @@ export const updateReadingProgress = async (
   fableId: string,
   currentSlide: number,
   isCompleted = false,
-): Promise<void> => {
-  const docRef = doc(db, 'users', userId, 'readingProgress', fableId);
-  await setDoc(docRef, {
-    fableId,
-    currentSlide,
-    lastUpdated: Date.now(),
-    isCompleted,
+): Promise<void> =>
+  enqueueWrite(`progress/${userId}/${fableId}`, async () => {
+    const docRef = doc(db, 'users', userId, 'readingProgress', fableId);
+    await setDoc(docRef, {
+      fableId,
+      currentSlide,
+      lastUpdated: Date.now(),
+      isCompleted,
+    });
   });
-};
 
 export const getReadingProgress = async (
   userId: string,
