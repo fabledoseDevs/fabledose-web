@@ -1,39 +1,34 @@
 'use client';
 
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
+import { auth } from '@/config/firebase';
 import {
+  type ReadingProgressData,
   getReadingProgress,
   updateReadingProgress,
-  type ReadingProgressData,
 } from '@/config/firestore';
 import { useReadingProgressContext } from '@/contexts/ReadingProgressContext';
 
-interface UseReadingProgressResult {
-  saveProgress: (
-    fableId: string,
-    currentSlide: number,
-    isCompleted?: boolean,
-  ) => Promise<void>;
-  getProgress: (fableId: string) => Promise<ReadingProgressData | null>;
-  loading: boolean;
-  error: Error | null;
-}
+import type { UseReadingProgressResult } from './useReadingProgress.types';
 
 export const useReadingProgress = (
   userId: string | null,
 ): UseReadingProgressResult => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
+  const pendingReads = useRef(
+    new Map<string, Promise<ReadingProgressData | null>>(),
+  );
   const contextCache = useReadingProgressContext();
+  useEffect(() => {
+    setError(null);
+    setLoading(false);
+  }, [userId]);
 
   const saveProgress = useCallback(
-    async (
-      fableId: string,
-      currentSlide: number,
-      isCompleted = false,
-    ) => {
-      if (!userId) return;
+    async (fableId: string, currentSlide: number, isCompleted = false) => {
+      if (!userId || auth.currentUser?.uid !== userId) return false;
 
       const progress: ReadingProgressData = {
         fableId,
@@ -41,23 +36,23 @@ export const useReadingProgress = (
         isCompleted,
         lastUpdated: Date.now(),
       };
-      
+
       // Update cache immediately for instant UI feedback
-      contextCache.setProgress(fableId, progress);
+      contextCache.setProgress(userId, fableId, progress);
 
       // Update Firebase in background
       try {
-        await updateReadingProgress(
-          userId,
-          fableId,
-          currentSlide,
-          isCompleted,
-        );
-        setError(null);
+        await updateReadingProgress(userId, fableId, currentSlide, isCompleted);
+        if (auth.currentUser?.uid === userId) setError(null);
+        return auth.currentUser?.uid === userId;
       } catch (err) {
-        setError(
-          err instanceof Error ? err : new Error('Failed to save progress'),
-        );
+        if (contextCache.getProgress(userId, fableId) === progress)
+          contextCache.clearProgress(userId, fableId);
+        if (auth.currentUser?.uid === userId)
+          setError(
+            err instanceof Error ? err : new Error('Failed to save progress'),
+          );
+        return false;
       }
     },
     [userId, contextCache],
@@ -66,29 +61,41 @@ export const useReadingProgress = (
   const getProgress = useCallback(
     async (fableId: string): Promise<ReadingProgressData | null> => {
       // Return cached value immediately if available
-      const cached = contextCache.getProgress(fableId);
+      if (!userId || auth.currentUser?.uid !== userId) return null;
+      const cached = contextCache.getProgress(userId, fableId);
       if (cached) {
         return cached;
       }
 
-      if (!userId) return null;
-
       // Fetch from Firebase in background
       try {
         setLoading(true);
-        const progress = await getReadingProgress(userId, fableId);
+        const key = `${userId}/${fableId}`;
+        let request = pendingReads.current.get(key);
+        if (!request) {
+          request = getReadingProgress(userId, fableId);
+          pendingReads.current.set(key, request);
+          void request
+            .finally(() => pendingReads.current.delete(key))
+            .catch(() => undefined);
+        }
+        const progress = await request;
+        if (auth.currentUser?.uid !== userId) return null;
+        const newer = contextCache.getProgress(userId, fableId);
+        if (newer) return newer;
         if (progress) {
-          contextCache.setProgress(fableId, progress);
+          contextCache.setProgress(userId, fableId, progress);
         }
         setError(null);
         return progress;
       } catch (err) {
-        setError(
-          err instanceof Error ? err : new Error('Failed to load progress'),
-        );
+        if (auth.currentUser?.uid === userId)
+          setError(
+            err instanceof Error ? err : new Error('Failed to load progress'),
+          );
         return null;
       } finally {
-        setLoading(false);
+        if (auth.currentUser?.uid === userId) setLoading(false);
       }
     },
     [userId, contextCache],

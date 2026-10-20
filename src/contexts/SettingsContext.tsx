@@ -21,9 +21,9 @@ import { auth } from '@/config/firebase';
 import { getUserSettings, updateUserSettings } from '@/config/firestore';
 import { useDictionary } from '@/lang/DictionaryProvider';
 
-import { debounce } from './debounce.helper';
 import type {
   FableFontFamily,
+  LegacyNotificationAndCookiesSettings,
   Settings,
   SettingsContextType,
   SettingsProvider as SettingsProviderType,
@@ -55,13 +55,6 @@ const normalizeFontFamily = (fontFamily: unknown): FableFontFamily => {
   return DEFAULT_FONT_FAMILY;
 };
 
-type LegacyNotificationAndCookiesSettings = {
-  news?: boolean;
-  payments?: boolean;
-  analytical?: boolean;
-  marketing?: boolean;
-};
-
 export const useSettings: UseSettings = () => {
   const context = useContext(SettingsContext);
   if (!context) {
@@ -78,6 +71,7 @@ export const SettingsProvider: SettingsProviderType = ({
   const [settings, setSettings] = useState<Settings | null>(null);
   const settingsRef = useRef<Settings | null>(null);
   const latestPlanRefreshRef = useRef<number>(0);
+  const sessionRef = useRef(0);
   const refreshInFlightRef = useRef<Promise<UserPlan> | null>(null);
 
   useEffect(() => {
@@ -85,83 +79,62 @@ export const SettingsProvider: SettingsProviderType = ({
   }, [settings]);
 
   useEffect(() => {
+    let active = true;
     const unsubscribe = onAuthStateChanged(auth, user => {
+      const session = ++sessionRef.current;
+      settingsRef.current = null;
+      setSettings(null);
+      latestPlanRefreshRef.current = 0;
+      refreshInFlightRef.current = null;
       setUser(user);
       if (user) {
-        getUserSettings(user.uid).then(userSettings => {
-          if (userSettings) {
-            const settingsWithLegacySupport = userSettings as Settings &
-              LegacyNotificationAndCookiesSettings;
-            const normalizedPlan = normalizePlan(userSettings.plan);
-            const normalizedUserSettings: Settings = {
-              ...userSettings,
-              plan: normalizedPlan,
-              fontFamily: normalizeFontFamily(userSettings.fontFamily),
-              password:
-                typeof userSettings.password === 'string'
-                  ? userSettings.password
-                  : DEFAULT_PASSWORD_PLACEHOLDER,
-              notificationsNews:
-                settingsWithLegacySupport.notificationsNews ??
-                settingsWithLegacySupport.news ??
-                true,
-              notificationsPayments:
-                settingsWithLegacySupport.notificationsPayments ??
-                settingsWithLegacySupport.payments ??
-                true,
-              cookiesAnalytical:
-                settingsWithLegacySupport.cookiesAnalytical ??
-                settingsWithLegacySupport.analytical ??
-                true,
-              cookiesMarketing:
-                settingsWithLegacySupport.cookiesMarketing ??
-                settingsWithLegacySupport.marketing ??
-                true,
-            };
-
-            // User document exists, check if email needs syncing
-            if (user.email && userSettings.email !== user.email) {
-              const updatedSettings = {
-                ...normalizedUserSettings,
-                email: user.email,
-              };
-              setSettings(updatedSettings);
-              updateUserSettings(user.uid, {
-                email: user.email,
+        getUserSettings(user.uid)
+          .then(async userSettings => {
+            if (
+              !active ||
+              session !== sessionRef.current ||
+              auth.currentUser?.uid !== user.uid
+            )
+              return;
+            if (userSettings) {
+              const settingsWithLegacySupport = userSettings as Settings &
+                LegacyNotificationAndCookiesSettings;
+              const normalizedPlan = normalizePlan(userSettings.plan);
+              const normalizedUserSettings: Settings = {
+                ...userSettings,
                 plan: normalizedPlan,
-                password: normalizedUserSettings.password,
-                fontSize: userSettings.fontSize ?? 16,
                 fontFamily: normalizeFontFamily(userSettings.fontFamily),
-                textBackground: userSettings.textBackground ?? 'none',
-                backgroundIntensity: userSettings.backgroundIntensity ?? 50,
-                storyLanguage: userSettings.storyLanguage ?? 'auto',
-                illustrationAnimation:
-                  userSettings.illustrationAnimation ?? true,
-                animationQuality: userSettings.animationQuality ?? 'high',
-                narration: userSettings.narration ?? true,
-                narrationVolume: userSettings.narrationVolume ?? 80,
-                backgroundMusic: userSettings.backgroundMusic ?? true,
-                musicVolume: userSettings.musicVolume ?? 60,
-                notificationsNews: normalizedUserSettings.notificationsNews,
+                password:
+                  typeof userSettings.password === 'string'
+                    ? userSettings.password
+                    : DEFAULT_PASSWORD_PLACEHOLDER,
+                notificationsNews:
+                  settingsWithLegacySupport.notificationsNews ??
+                  settingsWithLegacySupport.news ??
+                  true,
                 notificationsPayments:
-                  normalizedUserSettings.notificationsPayments,
-                cookiesAnalytical: normalizedUserSettings.cookiesAnalytical,
-                cookiesMarketing: normalizedUserSettings.cookiesMarketing,
-              });
-            } else {
-              setSettings(normalizedUserSettings);
+                  settingsWithLegacySupport.notificationsPayments ??
+                  settingsWithLegacySupport.payments ??
+                  true,
+                cookiesAnalytical:
+                  settingsWithLegacySupport.cookiesAnalytical ??
+                  settingsWithLegacySupport.analytical ??
+                  true,
+                cookiesMarketing:
+                  settingsWithLegacySupport.cookiesMarketing ??
+                  settingsWithLegacySupport.marketing ??
+                  true,
+              };
 
-              if (
-                userSettings.plan !== normalizedPlan ||
-                typeof userSettings.password !== 'string' ||
-                userSettings.fontFamily !== normalizedUserSettings.fontFamily ||
-                userSettings.illustrationAnimation === undefined ||
-                settingsWithLegacySupport.notificationsNews === undefined ||
-                settingsWithLegacySupport.notificationsPayments === undefined ||
-                settingsWithLegacySupport.cookiesAnalytical === undefined ||
-                settingsWithLegacySupport.cookiesMarketing === undefined
-              ) {
-                updateUserSettings(user.uid, {
+              // User document exists, check if email needs syncing
+              if (user.email && userSettings.email !== user.email) {
+                const updatedSettings = {
+                  ...normalizedUserSettings,
+                  email: user.email,
+                };
+                setSettings(updatedSettings);
+                await updateUserSettings(user.uid, {
+                  email: user.email,
                   plan: normalizedPlan,
                   password: normalizedUserSettings.password,
                   fontSize: userSettings.fontSize ?? 16,
@@ -182,64 +155,107 @@ export const SettingsProvider: SettingsProviderType = ({
                   cookiesAnalytical: normalizedUserSettings.cookiesAnalytical,
                   cookiesMarketing: normalizedUserSettings.cookiesMarketing,
                 });
+              } else {
+                setSettings(normalizedUserSettings);
+
+                if (
+                  userSettings.plan !== normalizedPlan ||
+                  typeof userSettings.password !== 'string' ||
+                  userSettings.fontFamily !==
+                    normalizedUserSettings.fontFamily ||
+                  userSettings.illustrationAnimation === undefined ||
+                  settingsWithLegacySupport.notificationsNews === undefined ||
+                  settingsWithLegacySupport.notificationsPayments ===
+                    undefined ||
+                  settingsWithLegacySupport.cookiesAnalytical === undefined ||
+                  settingsWithLegacySupport.cookiesMarketing === undefined
+                ) {
+                  await updateUserSettings(user.uid, {
+                    plan: normalizedPlan,
+                    password: normalizedUserSettings.password,
+                    fontSize: userSettings.fontSize ?? 16,
+                    fontFamily: normalizeFontFamily(userSettings.fontFamily),
+                    textBackground: userSettings.textBackground ?? 'none',
+                    backgroundIntensity: userSettings.backgroundIntensity ?? 50,
+                    storyLanguage: userSettings.storyLanguage ?? 'auto',
+                    illustrationAnimation:
+                      userSettings.illustrationAnimation ?? true,
+                    animationQuality: userSettings.animationQuality ?? 'high',
+                    narration: userSettings.narration ?? true,
+                    narrationVolume: userSettings.narrationVolume ?? 80,
+                    backgroundMusic: userSettings.backgroundMusic ?? true,
+                    musicVolume: userSettings.musicVolume ?? 60,
+                    notificationsNews: normalizedUserSettings.notificationsNews,
+                    notificationsPayments:
+                      normalizedUserSettings.notificationsPayments,
+                    cookiesAnalytical: normalizedUserSettings.cookiesAnalytical,
+                    cookiesMarketing: normalizedUserSettings.cookiesMarketing,
+                  });
+                }
               }
+            } else {
+              // This is a new user, create their settings document
+              const defaultSettings: Settings = {
+                displayName: user.displayName || 'Anonymous',
+                email: user.email || '',
+                password: DEFAULT_PASSWORD_PLACEHOLDER,
+                plan: DEFAULT_PLAN,
+                parentalControl: false,
+                fontSize: 16,
+                fontFamily: DEFAULT_FONT_FAMILY,
+                textBackground: 'none',
+                backgroundIntensity: 50,
+                storyLanguage: 'auto',
+                illustrationAnimation: true,
+                animationQuality: 'high',
+                narration: true,
+                narrationVolume: 80,
+                backgroundMusic: true,
+                musicVolume: 60,
+                notificationsNews: true,
+                notificationsPayments: true,
+                cookiesAnalytical: true,
+                cookiesMarketing: true,
+              };
+              setSettings(defaultSettings);
+              await updateUserSettings(user.uid, defaultSettings);
             }
-          } else {
-            // This is a new user, create their settings document
-            const defaultSettings: Settings = {
-              displayName: user.displayName || 'Anonymous',
-              email: user.email || '',
-              password: DEFAULT_PASSWORD_PLACEHOLDER,
-              plan: DEFAULT_PLAN,
-              parentalControl: false,
-              fontSize: 16,
-              fontFamily: DEFAULT_FONT_FAMILY,
-              textBackground: 'none',
-              backgroundIntensity: 50,
-              storyLanguage: 'auto',
-              illustrationAnimation: true,
-              animationQuality: 'high',
-              narration: true,
-              narrationVolume: 80,
-              backgroundMusic: true,
-              musicVolume: 60,
-              notificationsNews: true,
-              notificationsPayments: true,
-              cookiesAnalytical: true,
-              cookiesMarketing: true,
-            };
-            setSettings(defaultSettings);
-            updateUserSettings(user.uid, defaultSettings);
-          }
-        });
+          })
+          .catch(error => {
+            if (active && session === sessionRef.current)
+              console.error('Failed to load settings', error);
+          });
       } else {
         setSettings(null);
       }
     });
 
-    return () => unsubscribe();
+    return () => {
+      active = false;
+      ++sessionRef.current;
+      unsubscribe();
+    };
   }, []);
 
-  const debouncedUpdate = useCallback(
-    debounce((userId: string, newSettings: Partial<Settings>) => {
-      updateUserSettings(userId, newSettings);
-    }, 1000),
-    [],
+  const updateSettings = useCallback(
+    (newSettings: Partial<Settings>): void => {
+      if (!user || !settingsRef.current || auth.currentUser?.uid !== user.uid)
+        return;
+      setSettings(previous =>
+        previous ? { ...previous, ...newSettings } : previous,
+      );
+      void updateUserSettings(user.uid, newSettings).catch(error => {
+        console.error('Failed to save settings', error);
+      });
+    },
+    [user],
   );
-
-  const updateSettings = (newSettings: Partial<Settings>) => {
-    if (settings && user) {
-      const updatedSettings = { ...settings, ...newSettings };
-      setSettings(updatedSettings);
-      debouncedUpdate(user.uid, newSettings);
-    }
-  };
 
   const refreshPlanFromFirebase = useCallback(async (): Promise<UserPlan> => {
     const now = Date.now();
     const cacheWindowMs = 5000;
 
-    if (!user) {
+    if (!user || auth.currentUser?.uid !== user.uid) {
       return DEFAULT_PLAN;
     }
 
@@ -255,8 +271,11 @@ export const SettingsProvider: SettingsProviderType = ({
       return normalizePlan(settingsRef.current.plan);
     }
 
-    refreshInFlightRef.current = (async () => {
+    const session = sessionRef.current;
+    const request = (async () => {
       const userSettings = await getUserSettings(user.uid);
+      if (session !== sessionRef.current || auth.currentUser?.uid !== user.uid)
+        return DEFAULT_PLAN;
       const refreshedPlan = normalizePlan(userSettings?.plan);
 
       if (settingsRef.current?.plan !== refreshedPlan) {
@@ -266,17 +285,24 @@ export const SettingsProvider: SettingsProviderType = ({
       }
 
       if (userSettings?.plan !== refreshedPlan) {
-        updateUserSettings(user.uid, { plan: refreshedPlan });
+        await updateUserSettings(user.uid, { plan: refreshedPlan });
       }
 
       latestPlanRefreshRef.current = Date.now();
       return refreshedPlan;
     })();
 
+    refreshInFlightRef.current = request;
     try {
-      return await refreshInFlightRef.current;
+      return await request;
+    } catch (error) {
+      console.error('Failed to refresh plan', error);
+      return auth.currentUser?.uid === user.uid
+        ? normalizePlan(settingsRef.current?.plan)
+        : DEFAULT_PLAN;
     } finally {
-      refreshInFlightRef.current = null;
+      if (refreshInFlightRef.current === request)
+        refreshInFlightRef.current = null;
     }
   }, [user]);
 
