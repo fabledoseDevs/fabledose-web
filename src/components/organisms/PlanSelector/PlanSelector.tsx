@@ -24,14 +24,14 @@ import {
 } from './PlanSelector.styled';
 import type { PlanSelector as PlanSelectorType } from './PlanSelector.types';
 
-export const PlanSelector: PlanSelectorType = () => {
+export const PlanSelector: PlanSelectorType = props => {
   const { registerPage } = useDictionary();
   const {
     isDetailViewVisible,
     simpleCards,
     extendedCards,
     handleDetailViewToggle,
-  } = usePlanSelector();
+  } = usePlanSelector(props);
   const { planSelector } = registerPage;
 
   return (
@@ -50,6 +50,9 @@ export const PlanSelector: PlanSelectorType = () => {
               __html: planSelector.registrationDescription,
             }}
           />
+        </Paragraph>
+        <Paragraph alignment={TEXT_ALIGNMENT.CENTER}>
+          {registerPage.flow.paidUnavailable}
         </Paragraph>
         <SelectorContainer>
           <PlanComparisonSimple accountCards={simpleCards} />

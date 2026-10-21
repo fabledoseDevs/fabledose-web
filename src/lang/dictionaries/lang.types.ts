@@ -134,6 +134,15 @@ export type DictionaryType = {
     emptyResults: string;
   };
   registerPage: {
+    /** Registration recovery and persistence status, shared by both account steps. */
+    flow: {
+      loading: string;
+      saving: string;
+      loadError: string;
+      saveError: string;
+      retry: string;
+      paidUnavailable: string;
+    };
     form: {
       headline: string;
       stepLabel: string;

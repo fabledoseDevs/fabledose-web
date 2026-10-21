@@ -35,7 +35,10 @@ export interface UsePlanSelectorReturnValues {
   handleDetailViewToggle: () => void;
 }
 
+/** Registration controls: only the free plan can be persisted until checkout exists. */
 export interface UsePlanSelectorOptions {
+  /** Disables selection while account settings are loading or saving. */
+  isDisabled?: boolean;
   onPlanSelected?: (plan: UserPlan) => void;
 }
 
@@ -71,4 +74,4 @@ export type UsePlanSelector = (
  * }
  * ```
  */
-export type PlanSelector = () => ReactElement;
+export type PlanSelector = (props: UsePlanSelectorOptions) => ReactElement;

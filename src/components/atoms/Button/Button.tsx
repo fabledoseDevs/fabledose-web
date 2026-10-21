@@ -61,6 +61,7 @@ const actionTypeSelector: ActionSelectorType = ({
         <ButtonBody
           variant={variant}
           width={width}
+          type="button"
           onClick={payload as () => void}
           aria-label={text}
           disabled={isDisabled}

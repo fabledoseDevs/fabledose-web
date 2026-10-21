@@ -230,6 +230,16 @@ export const DictionaryPL: DictionaryType = {
     emptyResults: 'Brak dopasowanych okładek dla obecnego zapytania.',
   },
   registerPage: {
+    flow: {
+      loading: 'Ładowanie konta…',
+      saving: 'Zapisywanie planu…',
+      loadError: 'Nie udało się wczytać konta. Spróbuj ponownie.',
+      saveError:
+        'Nie udało się zapisać planu. Wybierz go ponownie, aby ponowić zapis.',
+      retry: 'Spróbuj ponownie',
+      paidUnavailable:
+        'Na razie rejestrację można ukończyć z planem darmowym. Płatne plany będą dostępne po uruchomieniu płatności.',
+    },
     form: {
       headline: 'Załóż konto',
       stepLabel: 'Krok',

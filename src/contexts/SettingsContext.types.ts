@@ -30,6 +30,8 @@ import type { ReactElement, ReactNode } from 'react';
  * @property cookiesMarketing - State of marketing cookies consent.
  */
 export interface Settings {
+  /** False for unfinished new accounts; absent on legacy accounts. */
+  registrationCompleted?: boolean;
   displayName: string;
   email: string;
   password: string;
@@ -66,6 +68,12 @@ export type FableFontFamily = 'sans' | 'serif' | 'dyslexic';
  */
 export interface SettingsContextType {
   settings: Settings | null;
+  /** Whether loading or initializing the active account failed. */
+  settingsLoadError: boolean;
+  /** Retries loading settings without recreating the authenticated account. */
+  retrySettingsLoad: () => void;
+  /** Persists free onboarding before updating state; rejects on failure or session change. */
+  completeRegistration: () => Promise<void>;
   updateSettings: (newSettings: Partial<Settings>) => void;
   refreshPlanFromFirebase: () => Promise<UserPlan>;
   updateUserEmail: (newEmail: string) => Promise<void>;
