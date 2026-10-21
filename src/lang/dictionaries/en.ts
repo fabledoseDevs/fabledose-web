@@ -221,6 +221,24 @@ export const DictionaryEn: DictionaryType = {
     noSelectedItem: 'No item selected',
     emptyResults: 'No matching covers for the current query.',
   },
+  passwordResetPage: {
+    headline: 'Reset your password',
+    description:
+      'Enter the email address used to register. We will send a link to set a new password.',
+    emailLabel: 'Email address:',
+    placeholder: 'you@example.com',
+    submit: 'Send reset link',
+    sending: 'Sending…',
+    success:
+      'If an account exists with this email address, you will receive a password reset link. Please also check your spam folder.',
+    invalidEmail: 'Enter a valid email address.',
+    tooManyRequests: 'Too many attempts. Please wait a moment and try again.',
+    networkError:
+      'Connection failed. Check your internet connection and try again.',
+    failure: 'The reset link could not be sent. Please try again later.',
+    backToLogin: 'Back to sign in',
+    forgotPassword: 'Forgot your password?',
+  },
   registerPage: {
     flow: {
       loading: 'Loading account…',

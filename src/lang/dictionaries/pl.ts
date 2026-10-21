@@ -229,6 +229,23 @@ export const DictionaryPL: DictionaryType = {
     noSelectedItem: 'Brak wybranej pozycji',
     emptyResults: 'Brak dopasowanych okładek dla obecnego zapytania.',
   },
+  passwordResetPage: {
+    headline: 'Odzyskaj hasło',
+    description:
+      'Podaj adres email użyty przy rejestracji. Wyślemy link do ustawienia nowego hasła.',
+    emailLabel: 'Adres email:',
+    placeholder: 'twoj@adres.email',
+    submit: 'Wyślij link',
+    sending: 'Wysyłanie…',
+    success:
+      'Jeśli konto z tym adresem istnieje, otrzymasz wiadomość z linkiem do zmiany hasła. Sprawdź również folder spam.',
+    invalidEmail: 'Podaj poprawny adres email.',
+    tooManyRequests: 'Zbyt wiele prób. Poczekaj chwilę i spróbuj ponownie.',
+    networkError: 'Brak połączenia. Sprawdź internet i spróbuj ponownie.',
+    failure: 'Nie udało się wysłać linku. Spróbuj ponownie później.',
+    backToLogin: 'Wróć do logowania',
+    forgotPassword: 'Nie pamiętam hasła',
+  },
   registerPage: {
     flow: {
       loading: 'Ładowanie konta…',

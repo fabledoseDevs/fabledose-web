@@ -133,6 +133,22 @@ export type DictionaryType = {
     noSelectedItem: string;
     emptyResults: string;
   };
+  /** Public password-recovery form and Firebase request feedback. */
+  passwordResetPage: {
+    headline: string;
+    description: string;
+    emailLabel: string;
+    placeholder: string;
+    submit: string;
+    sending: string;
+    success: string;
+    invalidEmail: string;
+    tooManyRequests: string;
+    networkError: string;
+    failure: string;
+    backToLogin: string;
+    forgotPassword: string;
+  };
   registerPage: {
     /** Registration recovery and persistence status, shared by both account steps. */
     flow: {
