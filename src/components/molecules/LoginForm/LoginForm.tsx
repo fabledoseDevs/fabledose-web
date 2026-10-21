@@ -1,6 +1,7 @@
 'use client';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 
 import Button from '@/atoms/Button';
 import {
@@ -17,6 +18,7 @@ import InputField from '@/atoms/InputField';
 import { INPUT_TYPE } from '@/atoms/InputField/InputField.types';
 import Separator from '@/atoms/Separator';
 import { SEPARATOR_COLOR } from '@/atoms/Separator/Separator.types';
+import { useDictionary } from '@/lang/DictionaryProvider';
 import { Gradient } from '@/organisms/Jumbotron/Jumbotron.styled';
 
 import { useLoginForm } from './LoginForm.hook';
@@ -32,6 +34,9 @@ import {
 import type { LoginForm as LoginFormType } from './LoginForm.types';
 
 export const LoginForm: LoginFormType = ({ onSuccess }) => {
+  const { lang } = useParams<{ lang: string }>();
+  const locale = lang === 'pl' ? 'pl' : 'en';
+  const { passwordResetPage } = useDictionary();
   const {
     email,
     password,
@@ -103,7 +108,9 @@ export const LoginForm: LoginFormType = ({ onSuccess }) => {
             />
           </Label>
           <ResetPassword>
-            <Link href={'/'}>Nie pamiętam hasła</Link>
+            <Link href={`/${locale}/reset-password`}>
+              {passwordResetPage.forgotPassword}
+            </Link>
           </ResetPassword>
           <Button
             actionType={ACTION_TYPE.SUBMIT}
