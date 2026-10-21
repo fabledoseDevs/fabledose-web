@@ -69,6 +69,12 @@ export const SettingsProvider: SettingsProviderType = ({
   const { settingsPage } = useDictionary();
   const [user, setUser] = useState<User | null>(null);
   const [settings, setSettings] = useState<Settings | null>(null);
+  const [settingsLoadError, setSettingsLoadError] = useState(false);
+  const [loadRevision, setLoadRevision] = useState(0);
+  const retrySettingsLoad = useCallback(
+    () => setLoadRevision(value => value + 1),
+    [],
+  );
   const settingsRef = useRef<Settings | null>(null);
   const latestPlanRefreshRef = useRef<number>(0);
   const sessionRef = useRef(0);
@@ -82,6 +88,7 @@ export const SettingsProvider: SettingsProviderType = ({
     let active = true;
     const unsubscribe = onAuthStateChanged(auth, user => {
       const session = ++sessionRef.current;
+      setSettingsLoadError(false);
       settingsRef.current = null;
       setSettings(null);
       latestPlanRefreshRef.current = 0;
@@ -196,6 +203,7 @@ export const SettingsProvider: SettingsProviderType = ({
             } else {
               // This is a new user, create their settings document
               const defaultSettings: Settings = {
+                registrationCompleted: false,
                 displayName: user.displayName || 'Anonymous',
                 email: user.email || '',
                 password: DEFAULT_PASSWORD_PLACEHOLDER,
@@ -217,13 +225,22 @@ export const SettingsProvider: SettingsProviderType = ({
                 cookiesAnalytical: true,
                 cookiesMarketing: true,
               };
-              setSettings(defaultSettings);
               await updateUserSettings(user.uid, defaultSettings);
+              if (
+                active &&
+                session === sessionRef.current &&
+                auth.currentUser?.uid === user.uid
+              ) {
+                setSettings(defaultSettings);
+              }
             }
           })
           .catch(error => {
-            if (active && session === sessionRef.current)
+            if (active && session === sessionRef.current) {
+              setSettings(null);
+              setSettingsLoadError(true);
               console.error('Failed to load settings', error);
+            }
           });
       } else {
         setSettings(null);
@@ -235,7 +252,24 @@ export const SettingsProvider: SettingsProviderType = ({
       ++sessionRef.current;
       unsubscribe();
     };
-  }, []);
+  }, [loadRevision]);
+
+  const completeRegistration = useCallback(async (): Promise<void> => {
+    if (!user || !settingsRef.current || auth.currentUser?.uid !== user.uid) {
+      throw new Error('Account settings are not ready.');
+    }
+    if (settingsRef.current.registrationCompleted !== false) return;
+    const session = sessionRef.current;
+    const patch: Partial<Settings> = {
+      plan: DEFAULT_PLAN,
+      registrationCompleted: true,
+    };
+    await updateUserSettings(user.uid, patch);
+    if (session !== sessionRef.current || auth.currentUser?.uid !== user.uid) {
+      throw new Error('Account changed during registration.');
+    }
+    setSettings(previous => (previous ? { ...previous, ...patch } : previous));
+  }, [user]);
 
   const updateSettings = useCallback(
     (newSettings: Partial<Settings>): void => {
@@ -359,6 +393,9 @@ export const SettingsProvider: SettingsProviderType = ({
     <SettingsContext.Provider
       value={{
         settings,
+        settingsLoadError,
+        retrySettingsLoad,
+        completeRegistration,
         updateSettings,
         refreshPlanFromFirebase,
         updateUserEmail,

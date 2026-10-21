@@ -222,6 +222,15 @@ export const DictionaryEn: DictionaryType = {
     emptyResults: 'No matching covers for the current query.',
   },
   registerPage: {
+    flow: {
+      loading: 'Loading account…',
+      saving: 'Saving your plan…',
+      loadError: 'Your account could not be loaded. Please try again.',
+      saveError: 'Your plan could not be saved. Select it again to retry.',
+      retry: 'Try again',
+      paidUnavailable:
+        'Registration is currently available with the free plan. Paid plans will become available when checkout launches.',
+    },
     form: {
       headline: 'Create account',
       stepLabel: 'Step',

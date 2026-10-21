@@ -1,13 +1,12 @@
 import { useCallback, useMemo, useState } from 'react';
 
-import { useSettings } from '@/contexts/SettingsContext';
 import { useDictionary } from '@/lang/DictionaryProvider';
 
 import { createExtendedCards, createSimpleCards } from './PlanSelector.data';
 import type { UsePlanSelector as UsePlanSelectorType } from './PlanSelector.types';
 
 export const usePlanSelector: UsePlanSelectorType = options => {
-  const { updateSettings } = useSettings();
+  const isDisabled = options?.isDisabled ?? false;
   const { registerPage } = useDictionary();
   const onPlanSelected = options?.onPlanSelected;
   const [isDetailViewVisible, setIsDetailViewVisible] =
@@ -18,16 +17,24 @@ export const usePlanSelector: UsePlanSelectorType = options => {
 
   const handlePlanSelect = useCallback(
     (plan: 'free' | 'family' | 'ultimate') => {
-      updateSettings({ plan });
-      onPlanSelected?.(plan);
+      if (!isDisabled && plan === 'free') onPlanSelected?.(plan);
     },
-    [onPlanSelected, updateSettings],
+    [onPlanSelected, isDisabled],
   );
 
-  const simpleCards = useMemo(
-    () => createSimpleCards(registerPage.planSelector, handlePlanSelect),
-    [handlePlanSelect, registerPage.planSelector],
-  );
+  const simpleCards = useMemo(() => {
+    const cards = createSimpleCards(
+      registerPage.planSelector,
+      handlePlanSelect,
+    );
+    cards.forEach((card, index) => {
+      card.buttonParams = {
+        ...card.buttonParams,
+        isDisabled: isDisabled || index !== 0,
+      };
+    });
+    return cards;
+  }, [handlePlanSelect, registerPage.planSelector, isDisabled]);
 
   const extendedCards = useMemo(
     () => createExtendedCards(registerPage.planSelector),

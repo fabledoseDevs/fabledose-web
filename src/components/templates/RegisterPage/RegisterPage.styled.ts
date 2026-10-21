@@ -21,3 +21,10 @@ export const Gradient = styled.div`
   background: ${({ theme }) =>
     theme.palette.byElement.background.gradientPurpleFade};
 `;
+
+export const RegistrationStatus = styled.p`
+  position: relative;
+  color: ${({ theme }) => theme.palette.byElement.text.white};
+  padding: 1.2rem 2.4rem;
+  text-align: center;
+`;
