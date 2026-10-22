@@ -353,6 +353,63 @@ export const DictionaryEn: DictionaryType = {
     },
   },
   settingsPage: {
+    accountSecurity: {
+      deletionIncomplete:
+        'Deletion was not completed. The account is marked for deletion and writes may be blocked. Retry deletion; if the error persists, contact support.',
+      cancel: 'Cancel',
+      close: 'Close',
+      working: 'Working…',
+      currentPassword: 'Current password',
+      newEmail: 'New email address',
+      newPassword: 'New password',
+      confirmPassword: 'Confirm new password',
+      googleConfirmation: 'Confirm your identity in the Google popup.',
+      confirmDeletion:
+        'I understand that my account will be permanently deleted and my favorites, reading progress and settings will be erased.',
+      required: 'Complete the required fields.',
+      invalidEmail: 'Enter a valid email address.',
+      sameEmail: 'This is your current email address.',
+      mismatch: 'The new password and confirmation must match.',
+      wrongPassword: 'The current password is incorrect.',
+      weakPassword:
+        'The password does not meet Firebase requirements. Choose a stronger password.',
+      emailInUse: 'This email address is already in use.',
+      recentLogin: 'Confirm your identity again and retry.',
+      popupCancelled: 'Google confirmation was cancelled. You can try again.',
+      popupBlocked: 'Allow the Google popup and try again.',
+      accountChanged:
+        'The account changed during this operation. Reopen the form.',
+      tooManyRequests: 'Too many attempts. Please wait and retry.',
+      networkError: 'Check your internet connection and try again.',
+      serviceUnavailable:
+        'Account deletion is unavailable. Please try again later.',
+      unsupported:
+        'Reauthentication is not yet supported for this sign-in method.',
+      failure: 'The operation failed. Please try again.',
+      emailConfirmed: 'Your verified email address has been updated.',
+      checkEmail: 'Check verification',
+      email: {
+        title: 'Change email address',
+        description:
+          'Confirm your identity, then follow the link sent to your new address. Your current address remains active until verification.',
+        submit: 'Change email',
+        success:
+          'A verification link was sent to the new address. Follow it, then return here and check verification.',
+      },
+      password: {
+        title: 'Change password',
+        description: 'Confirm your identity and choose a new password.',
+        submit: 'Change password',
+        success: 'Your password has been changed.',
+      },
+      delete: {
+        title: 'Permanently delete account',
+        description:
+          'This cannot be undone. After the account is deleted, Firebase automatically starts erasing its data.',
+        submit: 'Permanently delete account',
+        success: 'Your account has been deleted.',
+      },
+    },
     title: 'Settings',
     tabs: {
       profile_n_account: 'Profile and account',
@@ -375,7 +432,7 @@ export const DictionaryEn: DictionaryType = {
         infoDescription:
           'Your email address is used for login and communication.',
         verificationEmailSent:
-          'Verification email was sent to provided email address. This update will only take place if activation link is clicked in that message. Link is valid for 15 minutes.',
+          'Verification email was sent to provided email address. This update will only take place if activation link is clicked in that message.',
       },
       password: {
         label: 'Password',
@@ -420,6 +477,8 @@ export const DictionaryEn: DictionaryType = {
         infoDescription: 'Change the language of the application.',
       },
       deleteAccount: {
+        deferredNotice:
+          'Account deletion will be available at a later testing stage.',
         label: 'Delete account',
         infoTitle: 'Delete account',
         infoDescription: 'Permanently remove your account and all data.',

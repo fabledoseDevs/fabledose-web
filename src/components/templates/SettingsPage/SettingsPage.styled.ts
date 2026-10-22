@@ -38,6 +38,7 @@ export const SettingsMenuColumn = styled.div`
 `;
 
 export const SettingsContentColumn = styled.div`
+  min-width: 0;
   display: flex;
   flex-direction: column;
   align-content: flex-start;
@@ -53,6 +54,7 @@ export const SettingsContentColumn = styled.div`
 `;
 
 export const Content = styled.div`
+  min-width: 0;
   max-width: 660px;
   display: flex;
   flex-direction: column;
@@ -134,10 +136,12 @@ export const PasswordFieldInput = styled.input`
   font-family: ${({ theme }) => theme.typography.fonts.default};
   font-size: ${({ theme }) => theme.typography.paragraphs.default.fontSize};
   padding: 10px 12px;
+  box-sizing: border-box;
 `;
 
 export const PasswordModalActions = styled.div`
   display: flex;
+  flex-wrap: wrap;
   justify-content: flex-end;
   gap: 12px;
   margin-top: 8px;

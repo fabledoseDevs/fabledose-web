@@ -6,6 +6,7 @@
     "node": ">=20"
   },
   "scripts": {
+    "test:account": "node --test tests/account.test.cjs && npm --prefix functions test",
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",

@@ -363,6 +363,64 @@ export const DictionaryPL: DictionaryType = {
     },
   },
   settingsPage: {
+    accountSecurity: {
+      deletionIncomplete:
+        'Usuwanie nie zostało ukończone. Konto jest oznaczone do usunięcia i zapisy mogą być zablokowane. Ponów usuwanie; jeśli błąd się powtarza, skontaktuj się z pomocą.',
+      cancel: 'Anuluj',
+      close: 'Zamknij',
+      working: 'Trwa operacja…',
+      currentPassword: 'Obecne hasło',
+      newEmail: 'Nowy adres email',
+      newPassword: 'Nowe hasło',
+      confirmPassword: 'Potwierdź nowe hasło',
+      googleConfirmation: 'Potwierdzisz swoją tożsamość w oknie Google.',
+      confirmDeletion:
+        'Rozumiem, że konto zostanie trwale usunięte, a ulubione, postępy czytania i ustawienia zostaną wyczyszczone.',
+      required: 'Wypełnij wymagane pola.',
+      invalidEmail: 'Podaj poprawny adres email.',
+      sameEmail: 'To jest Twój obecny adres email.',
+      mismatch: 'Nowe hasło i potwierdzenie muszą być identyczne.',
+      wrongPassword: 'Obecne hasło jest niepoprawne.',
+      weakPassword:
+        'Hasło nie spełnia wymagań Firebase. Wybierz silniejsze hasło.',
+      emailInUse: 'Ten adres email jest już używany.',
+      recentLogin: 'Potwierdź ponownie swoją tożsamość i spróbuj jeszcze raz.',
+      popupCancelled:
+        'Potwierdzenie Google zostało anulowane. Możesz spróbować ponownie.',
+      popupBlocked: 'Zezwól na wyskakujące okno Google i spróbuj ponownie.',
+      accountChanged:
+        'Konto zmieniło się w trakcie operacji. Otwórz formularz ponownie.',
+      tooManyRequests: 'Zbyt wiele prób. Poczekaj i spróbuj ponownie.',
+      networkError: 'Sprawdź połączenie z internetem i spróbuj ponownie.',
+      serviceUnavailable:
+        'Usługa usuwania konta jest niedostępna. Spróbuj ponownie później.',
+      unsupported:
+        'Ta metoda logowania nie obsługuje jeszcze potwierdzania tożsamości.',
+      failure: 'Nie udało się wykonać operacji. Spróbuj ponownie.',
+      emailConfirmed: 'Potwierdzony adres email został zaktualizowany.',
+      checkEmail: 'Sprawdź potwierdzenie',
+      email: {
+        title: 'Zmiana adresu email',
+        description:
+          'Potwierdź tożsamość, a następnie kliknij link wysłany na nowy adres. Do potwierdzenia obowiązuje obecny adres.',
+        submit: 'Zmień email',
+        success:
+          'Wysłaliśmy link na nowy adres. Po jego kliknięciu wróć tutaj i sprawdź potwierdzenie.',
+      },
+      password: {
+        title: 'Zmiana hasła',
+        description: 'Potwierdź tożsamość i ustaw nowe hasło.',
+        submit: 'Zmień hasło',
+        success: 'Hasło zostało zmienione.',
+      },
+      delete: {
+        title: 'Trwałe usunięcie konta',
+        description:
+          'Tej operacji nie można cofnąć. Po usunięciu konta Firebase automatycznie rozpocznie sprzątanie jego danych.',
+        submit: 'Usuń konto trwale',
+        success: 'Konto zostało usunięte.',
+      },
+    },
     title: 'Ustawienia',
     tabs: {
       profile_n_account: 'Profil i konto',
@@ -384,7 +442,7 @@ export const DictionaryPL: DictionaryType = {
         infoTitle: 'Adres Email',
         infoDescription: 'Twój adres email służy do logowania i komunikacji.',
         verificationEmailSent:
-          'Na podany adres wysłaliśmy email weryfikacyjny. Ta zmiana zostanie zatwierdzona tylko w przypadku kliknięcia w link potwierdzający w wysłanej wiadomości email. Link ważny jest przez 15 minut.',
+          'Na podany adres wysłaliśmy email weryfikacyjny. Ta zmiana zostanie zatwierdzona tylko w przypadku kliknięcia w link potwierdzający w wysłanej wiadomości email.',
       },
       password: {
         label: 'Hasło',
@@ -429,6 +487,8 @@ export const DictionaryPL: DictionaryType = {
         infoDescription: 'Zmień język aplikacji.',
       },
       deleteAccount: {
+        deferredNotice:
+          'Usuwanie konta będzie dostępne w późniejszym etapie testów.',
         label: 'Usuwanie konta',
         infoTitle: 'Usuwanie konta',
         infoDescription: 'Trwale usuń swoje konto i wszystkie dane.',

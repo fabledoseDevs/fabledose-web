@@ -1,8 +1,11 @@
+import { useState } from 'react';
+
 import {
   FOREGROUND_COLOR,
   HEADLINE_TYPE,
 } from '@/atoms/Headline/Headline.types';
 import Paragraph from '@/atoms/Paragraph';
+import { FOREGROUND_COLOR as PARAGRAPH_COLOR } from '@/atoms/Paragraph/Paragraph.types';
 import Separator from '@/atoms/Separator';
 import { SEPARATOR_COLOR } from '@/atoms/Separator/Separator.types';
 import ArticleLink from '@/components/atoms/ArticleLink';
@@ -20,8 +23,10 @@ import SettingsProfiles from '@/components/molecules/SettingsProfiles';
 import SettingsRadio from '@/components/molecules/SettingsRadio';
 import SettingsRangeField from '@/components/molecules/SettingsRangeField';
 import SettingsSwitch from '@/components/molecules/SettingsSwitch';
+import { ACCOUNT_DELETION_ENABLED } from '@/config/account';
 import { useDictionary } from '@/lang/DictionaryProvider';
-import ModalWindow from '@/molecules/ModalWindow';
+import { AccountSecurity } from '@/molecules/AccountSecurity/AccountSecurity';
+import type { AccountAction } from '@/molecules/AccountSecurity/AccountSecurity.types';
 import SettingsStaticInfo from '@/molecules/SettingsStaticInfo';
 
 import { Headline } from '../../atoms/Headline/Headline';
@@ -29,12 +34,6 @@ import { useSettingsPage } from './SettingsPage.hook';
 import {
   Content,
   LegalLinksList,
-  PasswordFieldInput,
-  PasswordFieldLabel,
-  PasswordFormField,
-  PasswordModalActions,
-  PasswordModalContent,
-  PasswordModalError,
   SettingsContentColumn,
   SettingsMenuColumn,
   SettingsPageBody,
@@ -46,33 +45,21 @@ import { SETTINGS_TAB } from './SettingsPage.types';
 
 export const SettingsPage: SettingsPageType = () => {
   const { settingsPage } = useDictionary();
+  const [accountAction, setAccountAction] = useState<AccountAction | null>(
+    null,
+  );
   const {
     activeTab,
     setActiveTab,
     tabs,
     settings,
     displayName,
-    email,
-    isPasswordModalOpen,
-    currentPassword,
-    newPassword,
-    confirmNewPassword,
-    passwordModalFeedback,
-    isPasswordUpdatePending,
     planLabel,
     displayLanguage,
     handleLanguageSelection,
     handleDisplayNameChange,
     handleDisplayNameBlur,
-    handleEmailChange,
-    handleEmailBlur,
     navigateToPlanPage,
-    openPasswordModal,
-    closePasswordModal,
-    handleCurrentPasswordChange,
-    handleNewPasswordChange,
-    handleConfirmNewPasswordChange,
-    handlePasswordUpdate,
     handleFontSizeChange,
     handleFontFamilyChange,
     handleTextBackgroundChange,
@@ -106,17 +93,16 @@ export const SettingsPage: SettingsPageType = () => {
                   settingsPage.profile_n_account.displayName.infoDescription,
               }}
             />
-            <SettingsInputField
+            <SettingsButton
               label={settingsPage.profile_n_account.email.label}
-              variant={FIELD_VARIANT.EMAIL}
-              value={email}
-              onChange={handleEmailChange}
-              onBlur={handleEmailBlur}
               info={{
                 title: settingsPage.profile_n_account.email.infoTitle,
                 description:
                   settingsPage.profile_n_account.email.infoDescription,
               }}
+              customButtonText={settings?.email || ''}
+              customButtonRightText={settingsPage.accountSecurity.email.submit}
+              onCustomButtonClick={() => setAccountAction('email')}
             />
             <SettingsButton
               label={settingsPage.profile_n_account.password.label}
@@ -125,11 +111,11 @@ export const SettingsPage: SettingsPageType = () => {
                 description:
                   settingsPage.profile_n_account.password.infoDescription,
               }}
-              customButtonText={settings?.password || '********'}
+              customButtonText="••••••••"
               customButtonRightText={
                 settingsPage.profile_n_account.password.changeButton
               }
-              onCustomButtonClick={openPasswordModal}
+              onCustomButtonClick={() => setAccountAction('password')}
             />
             <SettingsButton
               label={settingsPage.profile_n_account.plan.label}
@@ -184,9 +170,16 @@ export const SettingsPage: SettingsPageType = () => {
                 text: settingsPage.profile_n_account.deleteAccount.buttonText,
                 width: { widthType: WIDTH_TYPE.PERCENT, widthValue: 100 },
                 actionType: ACTION_TYPE.FUNCTION_TRIGGER,
-                payload: () => console.info('Boo!'),
+                // Deferred on Spark: backend deployment and explicit opt-in are required.
+                isDisabled: !ACCOUNT_DELETION_ENABLED,
+                payload: () => setAccountAction('delete'),
               }}
             />
+            {!ACCOUNT_DELETION_ENABLED && (
+              <Paragraph color={PARAGRAPH_COLOR.WHITE}>
+                {settingsPage.profile_n_account.deleteAccount.deferredNotice}
+              </Paragraph>
+            )}
           </>
         );
       case SETTINGS_TAB.PARENTAL_CONTROL:
@@ -772,83 +765,13 @@ export const SettingsPage: SettingsPageType = () => {
         <Separator color={SEPARATOR_COLOR.WHITE} margin={false} />
         <Content>{renderTabContent()}</Content>
       </SettingsContentColumn>
-      <ModalWindow
-        isOpen={isPasswordModalOpen}
-        onClose={closePasswordModal}
-        closeOnOverlayClick={!isPasswordUpdatePending}
-        title={settingsPage.profile_n_account.password.modalTitle}
-      >
-        <PasswordModalContent>
-          <Paragraph>
-            {settingsPage.profile_n_account.password.modalDescription}
-          </Paragraph>
-          <PasswordFormField>
-            <PasswordFieldLabel htmlFor="settings-current-password">
-              {settingsPage.profile_n_account.password.currentPasswordLabel}
-            </PasswordFieldLabel>
-            <PasswordFieldInput
-              id="settings-current-password"
-              type="password"
-              value={currentPassword}
-              onChange={handleCurrentPasswordChange}
-              disabled={isPasswordUpdatePending}
-              autoComplete="current-password"
-            />
-          </PasswordFormField>
-          <PasswordFormField>
-            <PasswordFieldLabel htmlFor="settings-new-password">
-              {settingsPage.profile_n_account.password.newPasswordLabel}
-            </PasswordFieldLabel>
-            <PasswordFieldInput
-              id="settings-new-password"
-              type="password"
-              value={newPassword}
-              onChange={handleNewPasswordChange}
-              disabled={isPasswordUpdatePending}
-              autoComplete="new-password"
-            />
-          </PasswordFormField>
-          <PasswordFormField>
-            <PasswordFieldLabel htmlFor="settings-confirm-new-password">
-              {settingsPage.profile_n_account.password.confirmPasswordLabel}
-            </PasswordFieldLabel>
-            <PasswordFieldInput
-              id="settings-confirm-new-password"
-              type="password"
-              value={confirmNewPassword}
-              onChange={handleConfirmNewPasswordChange}
-              disabled={isPasswordUpdatePending}
-              autoComplete="new-password"
-              onKeyDown={event => {
-                if (event.key === 'Enter') {
-                  void handlePasswordUpdate();
-                }
-              }}
-            />
-          </PasswordFormField>
-          {passwordModalFeedback && (
-            <PasswordModalError>{passwordModalFeedback}</PasswordModalError>
-          )}
-          <PasswordModalActions>
-            <Button
-              actionType={ACTION_TYPE.FUNCTION_TRIGGER}
-              variant={BUTTON_VARIANT.TRANSPARENT}
-              text={settingsPage.profile_n_account.password.cancelButton}
-              payload={closePasswordModal}
-              isDisabled={isPasswordUpdatePending}
-              width={{ widthType: WIDTH_TYPE.AUTO }}
-            />
-            <Button
-              actionType={ACTION_TYPE.FUNCTION_TRIGGER}
-              variant={BUTTON_VARIANT.RED}
-              text={settingsPage.profile_n_account.password.okButton}
-              payload={handlePasswordUpdate}
-              isDisabled={isPasswordUpdatePending}
-              width={{ widthType: WIDTH_TYPE.AUTO }}
-            />
-          </PasswordModalActions>
-        </PasswordModalContent>
-      </ModalWindow>
+      {accountAction && (
+        <AccountSecurity
+          key={accountAction}
+          action={accountAction}
+          onClose={() => setAccountAction(null)}
+        />
+      )}
     </SettingsPageBody>
   );
 };

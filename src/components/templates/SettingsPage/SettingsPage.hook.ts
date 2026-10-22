@@ -1,4 +1,3 @@
-import { FirebaseError } from 'firebase/app';
 import { useParams, usePathname, useRouter } from 'next/navigation';
 import type { ChangeEvent } from 'react';
 import { useEffect, useState } from 'react';
@@ -21,25 +20,13 @@ export const useSettingsPage: UseSettingsPageType = () => {
   const pathname = usePathname();
   const params = useParams();
   const currentLang = (params?.lang as string) || 'en';
-  const { settings, updateSettings, updateUserEmail, updateUserPassword } =
-    useSettings();
+  const { settings, updateSettings } = useSettings();
   const [displayName, setDisplayName] = useState('');
-  const [email, setEmail] = useState('');
-  const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
-  const [currentPassword, setCurrentPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmNewPassword, setConfirmNewPassword] = useState('');
-  const [passwordModalFeedback, setPasswordModalFeedback] = useState('');
-  const [isPasswordUpdatePending, setIsPasswordUpdatePending] = useState(false);
-
   useEffect(() => {
     if (settings?.displayName) {
       setDisplayName(settings.displayName);
     }
-    if (settings?.email) {
-      setEmail(settings.email);
-    }
-  }, [settings?.displayName, settings?.email]);
+  }, [settings?.displayName]);
 
   const handleDisplayNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setDisplayName(e.target.value);
@@ -48,16 +35,6 @@ export const useSettingsPage: UseSettingsPageType = () => {
   const handleDisplayNameBlur = () => {
     if (settings?.displayName !== displayName) {
       updateSettings({ displayName });
-    }
-  };
-
-  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
-
-  const handleEmailBlur = () => {
-    if (settings?.email !== email) {
-      updateUserEmail(email);
     }
   };
 
@@ -90,85 +67,6 @@ export const useSettingsPage: UseSettingsPageType = () => {
 
   const navigateToPlanPage = () => {
     router.push(`/${currentLang}/plan`);
-  };
-
-  const openPasswordModal = () => {
-    setCurrentPassword('');
-    setNewPassword('');
-    setConfirmNewPassword('');
-    setPasswordModalFeedback('');
-    setIsPasswordModalOpen(true);
-  };
-
-  const closePasswordModal = () => {
-    if (!isPasswordUpdatePending) {
-      setIsPasswordModalOpen(false);
-    }
-  };
-
-  const handleCurrentPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setCurrentPassword(e.target.value);
-  };
-
-  const handleNewPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setNewPassword(e.target.value);
-  };
-
-  const handleConfirmNewPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setConfirmNewPassword(e.target.value);
-  };
-
-  const handlePasswordUpdate = async () => {
-    if (!currentPassword || !newPassword || !confirmNewPassword) {
-      setPasswordModalFeedback(
-        settingsPage.profile_n_account.password.validationRequired,
-      );
-      return;
-    }
-
-    if (newPassword !== confirmNewPassword) {
-      setPasswordModalFeedback(
-        settingsPage.profile_n_account.password.validationMismatch,
-      );
-      return;
-    }
-
-    setPasswordModalFeedback('');
-    setIsPasswordUpdatePending(true);
-
-    try {
-      await updateUserPassword(currentPassword, newPassword);
-      setIsPasswordModalOpen(false);
-    } catch (error) {
-      if (
-        error instanceof FirebaseError &&
-        error.code === 'auth/wrong-password'
-      ) {
-        setPasswordModalFeedback(
-          settingsPage.profile_n_account.password.wrongCurrentPassword,
-        );
-      } else if (
-        error instanceof FirebaseError &&
-        error.code === 'auth/requires-recent-login'
-      ) {
-        setPasswordModalFeedback(
-          settingsPage.profile_n_account.password.recentLoginRequired,
-        );
-      } else if (
-        error instanceof FirebaseError &&
-        error.code === 'auth/weak-password'
-      ) {
-        setPasswordModalFeedback(error.message);
-      } else if (error instanceof Error) {
-        setPasswordModalFeedback(error.message);
-      } else {
-        setPasswordModalFeedback(
-          settingsPage.profile_n_account.password.updateFailed,
-        );
-      }
-    } finally {
-      setIsPasswordUpdatePending(false);
-    }
   };
 
   const handleFontSizeChange = (value: number) => {
@@ -246,28 +144,11 @@ export const useSettingsPage: UseSettingsPageType = () => {
     handleLanguageSelection,
     settings,
     displayName,
-    email,
-    isPasswordModalOpen,
-    currentPassword,
-    newPassword,
-    confirmNewPassword,
-    passwordModalFeedback,
-    isPasswordUpdatePending,
     planLabel,
     updateSettings,
-    updateUserEmail,
-    updateUserPassword,
     handleDisplayNameChange,
     handleDisplayNameBlur,
-    handleEmailChange,
-    handleEmailBlur,
     navigateToPlanPage,
-    openPasswordModal,
-    closePasswordModal,
-    handleCurrentPasswordChange,
-    handleNewPasswordChange,
-    handleConfirmNewPasswordChange,
-    handlePasswordUpdate,
     handleFontSizeChange,
     handleFontFamilyChange,
     handleTextBackgroundChange,

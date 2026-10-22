@@ -144,3 +144,19 @@ This project is licensed under the MIT License.
 
 ### Feedback and Contributions
 We welcome your feedback and contributions! If you encounter any issues or have suggestions for improvements, please feel free to open an issue or submit a pull request.
+
+## Important notice — account deletion deferred
+
+The application is currently being tested on Firebase **Spark**. Deployment of account-deletion Cloud Functions is intentionally postponed; do not upgrade to Blaze or deploy these functions as part of the current test phase. Email changes, password changes and password recovery can still be tested independently.
+
+The deletion implementation is retained for later activation. The delete button is disabled and the frontend does not invoke the deletion backend while `NEXT_PUBLIC_ACCOUNT_DELETION_ENABLED` is absent or not set to `true`. Keep this flag disabled in every test environment for now.
+
+When account deletion is scheduled for release:
+
+1. Deliberately enable Firebase billing (Blaze) for Cloud Functions deployment.
+2. Review and publish the complete [copy-and-paste Firestore rules](docs/firebase/firestore-account-deletion.rules), preserving any newer changes to the deployed rules.
+3. Deploy both `deleteAccount` and `cleanDeletedAccountData`.
+4. Verify the complete flow with a disposable test account, including data cleanup.
+5. Set `NEXT_PUBLIC_ACCOUNT_DELETION_ENABLED=true` and rebuild/restart the frontend.
+
+Deployment details: [Firebase Functions instructions](functions/README.md).
