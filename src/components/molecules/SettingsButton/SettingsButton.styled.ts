@@ -27,6 +27,7 @@ export const Label = styled.div`
 `;
 
 export const ContentWrapper = styled.div`
+  min-width: 0;
   display: flex;
   align-items: center;
   flex: 1;
@@ -41,6 +42,13 @@ export const ActionsWrapper = styled.div`
 `;
 
 export const CustomButton = styled.button`
+  min-width: 0;
+  gap: 12px;
+
+  span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
   display: flex;
   justify-content: space-between;
   align-items: center;

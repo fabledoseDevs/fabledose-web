@@ -45,27 +45,10 @@ export enum SETTINGS_TAB {
  * @property settings - The user's settings object from the SettingsContext.
  * @property updateSettings - Function to update the user's settings.
  * @property displayName - The user's display name.
- * @property email - The user's email address.
- * @property isPasswordModalOpen - Flag indicating if the password modal is open.
- * @property currentPassword - The current password for password update.
- * @property newPassword - The new password for password update.
- * @property confirmNewPassword - The confirmation of the new password.
- * @property passwordModalFeedback - Feedback message for the password modal.
- * @property isPasswordUpdatePending - Flag indicating if a password update is pending.
  * @property planLabel - The label for the current user's plan.
- * @property updateUserEmail - Function to update the user's email address.
- * @property updateUserPassword - Function to update the user's password.
  * @property handleDisplayNameChange - Event handler for changing the display name.
  * @property handleDisplayNameBlur - Event handler for blurring the display name input.
- * @property handleEmailChange - Event handler for changing the email address.
- * @property handleEmailBlur - Event handler for blurring the email address input.
  * @property navigateToPlanPage - Function to navigate to the plan selection page.
- * @property openPasswordModal - Function to open the password modal.
- * @property closePasswordModal - Function to close the password modal.
- * @property handleCurrentPasswordChange - Event handler for changing the current password.
- * @property handleNewPasswordChange - Event handler for changing the new password.
- * @property handleConfirmNewPasswordChange - Event handler for changing the confirmation of the new password.
- * @property handlePasswordUpdate - Function to update the user's password.
  * @property handleFontSizeChange - Event handler for changing the font size.
  * @property handleFontFamilyChange - Event handler for changing the font family.
  * @property handleTextBackgroundChange - Event handler for changing the text background.
@@ -92,31 +75,11 @@ export interface UseSettingsPageReturnValues {
   handleLanguageSelection: (selectedOption: string) => void;
   settings: Settings | null;
   displayName: string;
-  email: string;
-  isPasswordModalOpen: boolean;
-  currentPassword: string;
-  newPassword: string;
-  confirmNewPassword: string;
-  passwordModalFeedback: string;
-  isPasswordUpdatePending: boolean;
   planLabel: string;
   updateSettings: (newSettings: Partial<Settings>) => void;
-  updateUserEmail: (newEmail: string) => Promise<void>;
-  updateUserPassword: (
-    currentPassword: string,
-    newPassword: string,
-  ) => Promise<void>;
   handleDisplayNameChange: (e: ChangeEvent<HTMLInputElement>) => void;
   handleDisplayNameBlur: () => void;
-  handleEmailChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  handleEmailBlur: () => void;
   navigateToPlanPage: () => void;
-  openPasswordModal: () => void;
-  closePasswordModal: () => void;
-  handleCurrentPasswordChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  handleNewPasswordChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  handleConfirmNewPasswordChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  handlePasswordUpdate: () => Promise<void>;
   handleFontSizeChange: (value: number) => void;
   handleFontFamilyChange: (value: string) => void;
   handleTextBackgroundChange: (value: string) => void;

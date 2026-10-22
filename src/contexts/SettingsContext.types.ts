@@ -76,7 +76,14 @@ export interface SettingsContextType {
   completeRegistration: () => Promise<void>;
   updateSettings: (newSettings: Partial<Settings>) => void;
   refreshPlanFromFirebase: () => Promise<UserPlan>;
-  updateUserEmail: (newEmail: string) => Promise<void>;
+  /** Reloads Firebase Auth and persists only the currently confirmed email. */
+  refreshAccountEmail: () => Promise<boolean>;
+  /** Reauthenticates, requests Firebase-side deletion, then signs out after confirmation. */
+  deleteAccount: (currentPassword: string) => Promise<void>;
+  /** Whether reauthentication requires a password rather than Google confirmation. */
+  hasPasswordProvider: boolean;
+  /** Reauthenticates and sends verification; keeps the confirmed address until verification succeeds. */
+  updateUserEmail: (newEmail: string, currentPassword: string) => Promise<void>;
   updateUserPassword: (
     currentPassword: string,
     newPassword: string,

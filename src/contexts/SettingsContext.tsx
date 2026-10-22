@@ -1,13 +1,8 @@
 'use client';
 
 import type { User } from 'firebase/auth';
-import {
-  EmailAuthProvider,
-  onAuthStateChanged,
-  reauthenticateWithCredential,
-  updatePassword,
-  verifyBeforeUpdateEmail,
-} from 'firebase/auth';
+import { onAuthStateChanged, reload } from 'firebase/auth';
+import { useParams } from 'next/navigation';
 import {
   createContext,
   useCallback,
@@ -17,9 +12,14 @@ import {
   useState,
 } from 'react';
 
+import {
+  assertCurrentAccount,
+  changeAccountPassword,
+  deleteAccountWithFirebase,
+  requestEmailChange,
+} from '@/config/account';
 import { auth } from '@/config/firebase';
 import { getUserSettings, updateUserSettings } from '@/config/firestore';
-import { useDictionary } from '@/lang/DictionaryProvider';
 
 import type {
   FableFontFamily,
@@ -66,7 +66,7 @@ export const useSettings: UseSettings = () => {
 export const SettingsProvider: SettingsProviderType = ({
   children,
 }: SettingsProviderProps) => {
-  const { settingsPage } = useDictionary();
+  const { lang } = useParams<{ lang: string }>();
   const [user, setUser] = useState<User | null>(null);
   const [settings, setSettings] = useState<Settings | null>(null);
   const [settingsLoadError, setSettingsLoadError] = useState(false);
@@ -340,53 +340,60 @@ export const SettingsProvider: SettingsProviderType = ({
     }
   }, [user]);
 
-  const updateUserEmail = async (newEmail: string) => {
-    if (!user) {
-      throw new Error('User must be logged in to update email.');
+  const refreshAccountEmail = useCallback(async (): Promise<boolean> => {
+    if (!user) return false;
+    const session = sessionRef.current;
+    await reload(user);
+    assertCurrentAccount(user);
+    if (session !== sessionRef.current) return false;
+    const email = user.email || '';
+    if (email !== settingsRef.current?.email) {
+      await updateUserSettings(user.uid, { email });
+      assertCurrentAccount(user);
+      if (session === sessionRef.current)
+        setSettings(previous => (previous ? { ...previous, email } : previous));
+      return true;
     }
+    return false;
+  }, [user]);
 
-    const actionCodeSettings = {
-      url: window.location.href,
-      handleCodeInApp: true,
+  useEffect(() => {
+    if (!user) return;
+    let pending = false;
+    const refresh = () => {
+      if (pending || document.visibilityState === 'hidden') return;
+      pending = true;
+      void refreshAccountEmail()
+        .catch(() => undefined)
+        .finally(() => {
+          pending = false;
+        });
     };
+    window.addEventListener('focus', refresh);
+    return () => window.removeEventListener('focus', refresh);
+  }, [user, refreshAccountEmail]);
 
-    try {
-      await verifyBeforeUpdateEmail(user, newEmail, actionCodeSettings);
-      updateSettings({ email: newEmail });
-      alert(settingsPage.profile_n_account.email.verificationEmailSent);
-    } catch (error) {
-      console.error('Error sending verification email:', error);
-      if (error instanceof Error) {
-        alert(`Error: ${error.message}`);
-      } else {
-        alert(
-          'An unknown error occurred during email update. Contact support.',
-        );
-      }
-    }
+  const deleteAccount = async (currentPassword: string): Promise<void> => {
+    if (!user) throw new Error('Account is not available.');
+    await deleteAccountWithFirebase(user, currentPassword);
+  };
+
+  const updateUserEmail = async (
+    newEmail: string,
+    currentPassword: string,
+  ): Promise<void> => {
+    if (!user) throw new Error('Account is not available.');
+    auth.languageCode = lang === 'pl' ? 'pl' : 'en';
+    await requestEmailChange(user, newEmail, currentPassword);
   };
 
   const updateUserPassword = async (
     currentPassword: string,
     newPassword: string,
-  ) => {
-    if (!user) {
-      throw new Error('User must be logged in to update password.');
-    }
-
-    if (!user.email) {
-      throw new Error(
-        'User email is missing. Password update is not possible.',
-      );
-    }
-
-    const credential = EmailAuthProvider.credential(
-      user.email,
-      currentPassword,
-    );
-    await reauthenticateWithCredential(user, credential);
-    await updatePassword(user, newPassword);
-    updateSettings({ password: '*'.repeat(Math.max(newPassword.length, 8)) });
+  ): Promise<void> => {
+    if (!user) throw new Error('Account is not available.');
+    await changeAccountPassword(user, currentPassword, newPassword);
+    setSettings(previous => (previous ? { ...previous } : previous));
   };
 
   return (
@@ -398,6 +405,12 @@ export const SettingsProvider: SettingsProviderType = ({
         completeRegistration,
         updateSettings,
         refreshPlanFromFirebase,
+        deleteAccount,
+        refreshAccountEmail,
+        hasPasswordProvider:
+          user?.providerData.some(
+            provider => provider.providerId === 'password',
+          ) ?? false,
         updateUserEmail,
         updateUserPassword,
       }}

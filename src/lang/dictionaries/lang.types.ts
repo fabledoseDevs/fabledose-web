@@ -242,6 +242,55 @@ export type DictionaryType = {
     };
   };
   settingsPage: {
+    /** Identity confirmation, sensitive mutations and retryable service feedback. */
+    accountSecurity: {
+      deletionIncomplete: string;
+      cancel: string;
+      close: string;
+      working: string;
+      currentPassword: string;
+      newEmail: string;
+      newPassword: string;
+      confirmPassword: string;
+      googleConfirmation: string;
+      confirmDeletion: string;
+      required: string;
+      invalidEmail: string;
+      sameEmail: string;
+      mismatch: string;
+      wrongPassword: string;
+      weakPassword: string;
+      emailInUse: string;
+      recentLogin: string;
+      popupCancelled: string;
+      popupBlocked: string;
+      accountChanged: string;
+      tooManyRequests: string;
+      networkError: string;
+      serviceUnavailable: string;
+      unsupported: string;
+      failure: string;
+      emailConfirmed: string;
+      checkEmail: string;
+      email: {
+        title: string;
+        description: string;
+        submit: string;
+        success: string;
+      };
+      password: {
+        title: string;
+        description: string;
+        submit: string;
+        success: string;
+      };
+      delete: {
+        title: string;
+        description: string;
+        submit: string;
+        success: string;
+      };
+    };
     title: string;
     tabs: {
       [key: string]: string;
@@ -299,6 +348,8 @@ export type DictionaryType = {
         infoDescription: string;
       };
       deleteAccount: {
+        /** Explains why account deletion is disabled during the current test phase. */
+        deferredNotice: string;
         label: string;
         infoTitle: string;
         infoDescription: string;

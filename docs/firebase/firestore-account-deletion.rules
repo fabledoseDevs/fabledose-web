@@ -1,0 +1,35 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isOwner(userId) {
+      return request.auth != null
+        && request.auth.uid == userId;
+    }
+
+    function accountIsActive(userId) {
+      return !exists(
+        /databases/$(database)/documents/accountDeletionLocks/$(userId)
+      );
+    }
+
+    match /users/{userId} {
+      allow read: if isOwner(userId);
+      allow write: if isOwner(userId) && accountIsActive(userId);
+
+      match /favorites/{document=**} {
+        allow read: if isOwner(userId);
+        allow write: if isOwner(userId) && accountIsActive(userId);
+      }
+
+      match /readingProgress/{document=**} {
+        allow read: if isOwner(userId);
+        allow write: if isOwner(userId) && accountIsActive(userId);
+      }
+    }
+
+    match /accountDeletionLocks/{userId} {
+      allow read, write: if false;
+    }
+  }
+}
