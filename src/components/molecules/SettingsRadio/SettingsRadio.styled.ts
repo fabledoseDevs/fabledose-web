@@ -38,6 +38,25 @@ export const RadioWrapper = styled.div`
   align-items: center;
   flex: 1;
   gap: 12px;
+
+  &[data-font-selector='true'] {
+    gap: 8px;
+    flex-wrap: wrap;
+
+    > [data-font-value] {
+      min-width: max-content;
+      min-height: 46px;
+      padding-inline: 8px;
+      box-sizing: border-box;
+      white-space: nowrap;
+    }
+
+    > [data-font-value='dyslexic'] {
+      flex: 1.8;
+      font-size: 1.4rem;
+      letter-spacing: 0;
+    }
+  }
 `;
 
 export const RadioOptionBox = styled.div<{

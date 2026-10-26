@@ -14,8 +14,8 @@ import {
   FOREGROUND_COLOR as PAR_COLOR,
   TEXT_ALIGNMENT,
 } from '@/atoms/Paragraph/Paragraph.types';
-import { TagIcon } from '@/atoms/TagIcon/TagIcon';
 import { ResetButton } from '@/atoms/ResetButton';
+import { TagIcon } from '@/atoms/TagIcon/TagIcon';
 import { useDictionary } from '@/lang/DictionaryProvider';
 
 import useStoryCard from './StoryCard.hook';
@@ -44,7 +44,7 @@ export const StoryCard: StoryCardType = ({
   const { isVideoReady, isUnlockedAccount, handleVideoCanPlay } = useStoryCard({
     unlockedAccount,
   });
-  const { storyCard } = useDictionary();
+  const { storyCard, librarySync } = useDictionary();
 
   return (
     <StoryCardBody variant={variant} data-video-ready={isVideoReady}>
@@ -78,11 +78,12 @@ export const StoryCard: StoryCardType = ({
             <ButtonsBlock>
               {isUnlockedAccount ? (
                 <>
-                  <ButtonsRow $hasResetButton={!!onResetProgress}>
+                  <ButtonsRow>
                     {onResetProgress && (
                       <ResetButton
                         onClick={onResetProgress}
-                        title="Reset reading progress"
+                        title={librarySync.resetProgress}
+                        label={librarySync.resetProgress}
                       />
                     )}
                     <Button
@@ -90,14 +91,14 @@ export const StoryCard: StoryCardType = ({
                       variant={BUTTON_VARIANT.RED}
                       text={data.readButtonText || storyCard.readButton}
                       payload={data.readUrl || '#'}
-                      width={{ widthType: WIDTH_TYPE.AUTO }}
+                      width={{ widthType: WIDTH_TYPE.PX, widthValue: 200 }}
                     />
                     <Button
                       actionType={ACTION_TYPE.NAVIGATION}
                       variant={BUTTON_VARIANT.TRANSPARENT}
                       text={storyCard.audiobookButton}
                       payload={data.audiobookUrl || '#'}
-                      width={{ widthType: WIDTH_TYPE.AUTO }}
+                      width={{ widthType: WIDTH_TYPE.PX, widthValue: 200 }}
                     />
                   </ButtonsRow>
                   <Paragraph
@@ -112,26 +113,33 @@ export const StoryCard: StoryCardType = ({
                       variant={BUTTON_VARIANT.TRANSPARENT}
                       text={storyCard.pdfButton}
                       payload={data.pdfUrl || '#'}
-                      width={{ widthType: WIDTH_TYPE.AUTO }}
+                      width={{ widthType: WIDTH_TYPE.PX, widthValue: 200 }}
                     />
                     <Button
                       actionType={ACTION_TYPE.NAVIGATION}
                       variant={BUTTON_VARIANT.TRANSPARENT}
                       text={storyCard.epubButton}
                       payload={data.epubUrl || '#'}
-                      width={{ widthType: WIDTH_TYPE.AUTO }}
+                      width={{ widthType: WIDTH_TYPE.PX, widthValue: 200 }}
                     />
                   </SingleButtonRow>
                 </>
               ) : (
                 <>
                   <SingleButtonRow>
+                    {onResetProgress && (
+                      <ResetButton
+                        onClick={onResetProgress}
+                        title={librarySync.resetProgress}
+                        label={librarySync.resetProgress}
+                      />
+                    )}
                     <Button
                       actionType={ACTION_TYPE.NAVIGATION}
                       variant={BUTTON_VARIANT.RED}
                       text={data.readButtonText || storyCard.readButton}
                       payload={data.readUrl || '#'}
-                      width={{ widthType: WIDTH_TYPE.AUTO }}
+                      width={{ widthType: WIDTH_TYPE.PX, widthValue: 200 }}
                     />
                   </SingleButtonRow>
                   <Paragraph
@@ -146,7 +154,7 @@ export const StoryCard: StoryCardType = ({
                       variant={BUTTON_VARIANT.TRANSPARENT}
                       text={storyCard.unlockButton}
                       payload={'/plan'}
-                      width={{ widthType: WIDTH_TYPE.AUTO }}
+                      width={{ widthType: WIDTH_TYPE.PX, widthValue: 200 }}
                     />
                   </SingleButtonRow>
                 </>
@@ -171,7 +179,7 @@ export const StoryCard: StoryCardType = ({
                 variant={BUTTON_VARIANT.TRANSPARENT}
                 text={storyCard.moreInfoButton}
                 payload={data.moreInfoUrl || '#'}
-                width={{ widthType: WIDTH_TYPE.AUTO }}
+                width={{ widthType: WIDTH_TYPE.PX, widthValue: 200 }}
               />
             </TagsRow>
           </BottomSection>

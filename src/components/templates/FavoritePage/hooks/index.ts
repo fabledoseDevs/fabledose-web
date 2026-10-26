@@ -1,2 +1,2 @@
-export * from './useFavoritesData';
 export * from './useFableTiles';
+export * from './useFavoritesData';

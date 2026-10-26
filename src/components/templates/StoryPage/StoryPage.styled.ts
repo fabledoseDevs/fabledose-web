@@ -1,5 +1,8 @@
 import styled from '@emotion/styled';
 
+import { ResetButtonWrapper } from '@/atoms/ResetButton/ResetButton.styled';
+import { Tooltip } from '@/atoms/TagIcon/TagIcon.styled';
+
 export const StoryPageBody = styled.main<{
   $isIntro?: boolean;
   $sidebarHidden?: boolean;
@@ -38,30 +41,32 @@ export const IntroWrapper = styled.div`
   overflow: hidden;
 `;
 
-export const FavoriteButton = styled.button`
+export const FavoriteControl = styled.div`
   position: fixed;
   top: 24px;
   right: 24px;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  border: none;
-  background-color: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   z-index: 10;
-  transition: all 0.3s ease;
+  width: 54px;
+  height: 54px;
+`;
 
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    transform: scale(1.1);
-  }
+export const FavoriteButton = styled(ResetButtonWrapper)``;
 
-  svg {
-    width: 28px;
-    height: 28px;
+export const FavoriteTooltip = styled(Tooltip)`
+  top: calc(100% + 8px);
+  bottom: auto;
+  left: auto;
+  right: 0;
+  transform: none;
+  width: max-content;
+
+  &::after {
+    top: auto;
+    bottom: 100%;
+    left: auto;
+    right: 21px;
+    transform: none;
+    border-color: transparent transparent
+      ${({ theme }) => theme.palette.byElement.background.white} transparent;
   }
 `;

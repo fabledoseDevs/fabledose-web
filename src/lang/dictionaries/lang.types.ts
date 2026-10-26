@@ -241,6 +241,54 @@ export type DictionaryType = {
       };
     };
   };
+  /**
+   * Localized library labels, persistence status and explicit retry actions.
+   *
+   * @remarks
+   * Success notifications describe acknowledged favorite writes. Read failures and save failures have separate messages so the reader can remain open during a failed save.
+   */
+  librarySync: {
+    /** Page title for saved favorites. */
+    favoritesTitle: string;
+    /** Introduction to the saved library. */
+    favoritesDescription: string;
+    /** Heading for unfinished stories. */
+    continuingTitle: string;
+    /** Heading for favorite stories. */
+    myFavorites: string;
+    /** Empty-library message. */
+    empty: string;
+    /** Library loading message. */
+    loading: string;
+    /** Library read failure message. */
+    loadFailed: string;
+    /** Explicit reload action label. */
+    refresh: string;
+    /** Progress write pending message. */
+    savingProgress: string;
+    /** Progress save failure message. */
+    progressFailed: string;
+    /** Explicit write retry label. */
+    retrySave: string;
+    /** Favorite mutation failure message. */
+    favoriteFailed: string;
+    /** Acknowledged add notification. */
+    favoriteAdded: string;
+    /** Acknowledged removal notification. */
+    favoriteRemoved: string;
+    /** Accessible action name for adding a favorite. */
+    addFavorite: string;
+    /** Accessible action name for removing a favorite. */
+    removeFavorite: string;
+    /** Restart tooltip and accessible action name. */
+    resetProgress: string;
+    /** Saved position read failure message. */
+    progressLoadFailed: string;
+    /** Starting position loading message. */
+    loadingProgress: string;
+    /** Favorite write pending message. */
+    savingFavorite: string;
+  };
   settingsPage: {
     /** Identity confirmation, sensitive mutations and retryable service feedback. */
     accountSecurity: {

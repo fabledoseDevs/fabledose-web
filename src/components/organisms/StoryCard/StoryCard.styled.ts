@@ -105,26 +105,19 @@ export const ButtonsBlock = styled.div`
   gap: 12px;
 `;
 
-export const ButtonsRow = styled.div<{ $hasResetButton?: boolean }>`
-  display: grid;
-  grid-template-columns: 1fr;
+export const ButtonsRow = styled.div`
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
   gap: 12px;
 
-  @media ${theme.media.tablet} {
-    grid-template-columns: ${({ $hasResetButton }) =>
-      $hasResetButton
-        ? 'auto minmax(0, 1fr) minmax(0, 1fr)'
-        : 'repeat(2, minmax(0, 1fr))'};
-    grid-auto-flow: column;
-    justify-content: start;
+  > * {
+    flex: 0 0 auto;
+    max-width: 100%;
   }
 `;
 
-export const SingleButtonRow = styled.div`
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-`;
+export const SingleButtonRow = ButtonsRow;
 
 export const BottomSection = styled.div`
   display: flex;
@@ -137,4 +130,9 @@ export const TagsRow = styled.div`
   align-items: center;
   gap: 10px;
   flex-wrap: wrap;
+
+  > * {
+    flex: 0 0 auto;
+    max-width: 100%;
+  }
 `;

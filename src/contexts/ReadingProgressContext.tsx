@@ -38,8 +38,12 @@ export const ReadingProgressProvider = ({
   }, []);
   useEffect(
     () =>
-      onAuthStateChanged(auth, () => {
-        syncOwner();
+      onAuthStateChanged(auth, user => {
+        const owner = user?.uid ?? null;
+        if (owner !== ownerRef.current) {
+          cacheRef.current.clear();
+          ownerRef.current = owner;
+        }
       }),
     [syncOwner],
   );

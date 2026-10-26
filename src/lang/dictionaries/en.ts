@@ -352,6 +352,28 @@ export const DictionaryEn: DictionaryType = {
       },
     },
   },
+  librarySync: {
+    favoritesTitle: 'Favorites',
+    favoritesDescription: 'Your favorite stories in one place',
+    continuingTitle: 'Continue reading',
+    myFavorites: 'My favorites',
+    empty: 'No saved stories yet. Add a favorite or start reading.',
+    loading: 'Loading saved stories…',
+    loadFailed: 'Saved stories could not be loaded.',
+    refresh: 'Refresh',
+    savingProgress: 'Saving reading progress…',
+    progressFailed: 'Reading progress could not be saved.',
+    retrySave: 'Retry save',
+    favoriteFailed: 'The favorite change could not be saved.',
+    favoriteAdded: 'Added to favorites',
+    favoriteRemoved: 'Removed from favorites',
+    addFavorite: 'Add to favorites',
+    removeFavorite: 'Remove from favorites',
+    resetProgress: 'Read again',
+    progressLoadFailed: 'Your saved reading position could not be loaded.',
+    loadingProgress: 'Loading reading progress…',
+    savingFavorite: 'Saving favorites…',
+  },
   settingsPage: {
     accountSecurity: {
       deletionIncomplete:

@@ -362,6 +362,28 @@ export const DictionaryPL: DictionaryType = {
       },
     },
   },
+  librarySync: {
+    favoritesTitle: 'Ulubione',
+    favoritesDescription: 'Twoje ulubione historie w jednym miejscu',
+    continuingTitle: 'Kontynuuj czytanie',
+    myFavorites: 'Moje ulubione',
+    empty: 'Brak zapisanych historii. Dodaj ulubioną bajkę lub zacznij czytać.',
+    loading: 'Wczytywanie zapisanych historii…',
+    loadFailed: 'Nie udało się wczytać zapisanych historii.',
+    refresh: 'Odśwież',
+    savingProgress: 'Zapisywanie postępu…',
+    progressFailed: 'Nie udało się zapisać postępu czytania.',
+    retrySave: 'Ponów zapis',
+    favoriteFailed: 'Nie udało się zapisać zmiany w ulubionych.',
+    favoriteAdded: 'Dodano do ulubionych',
+    favoriteRemoved: 'Usunięto z ulubionych',
+    addFavorite: 'Dodaj do ulubionych',
+    removeFavorite: 'Usuń z ulubionych',
+    resetProgress: 'Czytaj od nowa',
+    progressLoadFailed: 'Nie udało się wczytać miejsca, na którym skończyłeś.',
+    loadingProgress: 'Wczytywanie postępu czytania…',
+    savingFavorite: 'Zapisywanie ulubionych…',
+  },
   settingsPage: {
     accountSecurity: {
       deletionIncomplete:

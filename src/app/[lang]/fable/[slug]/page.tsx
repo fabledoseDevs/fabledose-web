@@ -85,16 +85,23 @@ const FablePage = async ({
   const locale = normalizeLocale(lang);
   const mode = resolveStoryMode(query);
   const fable = await getFableBySlug(slug, locale);
-  const initialSlide = query.slide ? parseInt(getFirstParam(query.slide) || '0', 10) : 0;
+  const initialSlide = query.slide
+    ? parseInt(getFirstParam(query.slide) || '0', 10)
+    : undefined;
 
   if (!fable) {
     notFound();
   }
 
-  return ( 
+  return (
     <>
       <Sidebar />
-      <StoryPage fable={fable} mode={mode} lang={locale} initialSlide={initialSlide} />
+      <StoryPage
+        fable={fable}
+        mode={mode}
+        lang={locale}
+        initialSlide={initialSlide}
+      />
     </>
   );
 };
