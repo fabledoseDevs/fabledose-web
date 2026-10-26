@@ -82,27 +82,57 @@ export interface StoryCardData {
  * @property variant - Layout variant controlling size and radius.
  * @property unlockedAccount - Controls which CTAs/rows are rendered.
  * @property data - Content object with media, headline, description and tags.
+ * @property onResetProgress - Optional acknowledged restart action; renders a fixed circular control with a localized tooltip.
  */
 export interface StoryCardProps {
   variant: STORY_CARD_VARIANT;
   unlockedAccount?: boolean;
   data: StoryCardData;
-  onResetProgress?: () => void;
+  onResetProgress?: () => void | Promise<void>;
 }
 
+/**
+ * Inputs used to resolve the story card’s available actions.
+ *
+ * @property unlockedAccount - Optional explicit unlock; account settings can also unlock the card.
+ */
 export interface UseStoryCardArgs {
   unlockedAccount?: boolean;
 }
 
+/**
+ * Media readiness and access state used by the story introduction.
+ *
+ * @property isVideoReady - Whether the background video can play.
+ * @property isUnlockedAccount - Whether audiobook and ebook actions are available.
+ * @property handleVideoCanPlay - Updates readiness after the video canplay event.
+ */
 export interface UseStoryCardReturnValues {
   isVideoReady: boolean;
   isUnlockedAccount: boolean;
   handleVideoCanPlay: () => void;
 }
 
+/**
+ * Resolves account access and tracks background video readiness.
+ *
+ * @param args - Optional explicit account access override.
+ * @returns Media handlers and the effective access state.
+ */
 export type UseStoryCard = (args: UseStoryCardArgs) => UseStoryCardReturnValues;
 
 /**
+ * Renders a story introduction with fixed-width actions, metadata and optional restart control.
+ *
+ * @remarks
+ * Action rows wrap on smaller screens. Restart uses a fixed circular control and does not expand neighboring buttons on hover.
+ *
+ * @param props - Layout, content, account access and an optional restart callback.
+ * @returns The story introduction banner.
  * @group Components
+ * @example
+ * ```tsx
+ * <StoryCard variant={STORY_CARD_VARIANT.COMPACT} data={story} onResetProgress={resetProgress} />
+ * ```
  */
 export type StoryCard = (props: StoryCardProps) => ReactElement;

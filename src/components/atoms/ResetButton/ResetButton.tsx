@@ -1,39 +1,75 @@
-import { useState } from 'react';
+import { ArrowPathIcon } from '@heroicons/react/24/outline';
+import { type ReactElement, useEffect, useId, useRef, useState } from 'react';
+
 import {
+  ResetButtonContainer,
   ResetButtonWrapper,
-  IconText,
-  LabelText,
-  ThinkingDot,
+  ResetTooltip,
 } from './ResetButton.styled';
 import type { ResetButtonProps } from './ResetButton.types';
 
-const CLICK_ANIMATION_DELAY = 300;
-const THINKING_DOT_DELAYS = [0, 0.3, 0.6];
+export const ResetButton = ({
+  onClick,
+  title,
+  label = 'Czytaj od nowa',
+}: ResetButtonProps): ReactElement => {
+  const mounted = useRef(true);
+  const pending = useRef(false);
+  const tooltipId = useId();
+  const [isPending, setIsPending] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(false);
+  const actionLabel = title || label;
 
-export const ResetButton = ({ onClick, title }: ResetButtonProps) => {
-  const [isClicked, setIsClicked] = useState(false);
+  useEffect(() => {
+    mounted.current = true;
+    return () => {
+      mounted.current = false;
+    };
+  }, []);
 
-  const handleClick = () => {
-    setIsClicked(true);
-    setTimeout(() => {
-      onClick();
-    }, CLICK_ANIMATION_DELAY);
+  useEffect(() => {
+    if (!showTooltip) return;
+    const dismiss = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setShowTooltip(false);
+    };
+    document.addEventListener('keydown', dismiss);
+    return () => document.removeEventListener('keydown', dismiss);
+  }, [showTooltip]);
+
+  const handleClick = async () => {
+    if (pending.current) return;
+    pending.current = true;
+    setIsPending(true);
+    try {
+      await onClick();
+    } finally {
+      pending.current = false;
+      if (mounted.current) setIsPending(false);
+    }
   };
 
-  if (isClicked) {
-    return (
-      <ResetButtonWrapper $isClicked disabled type="button">
-        {THINKING_DOT_DELAYS.map(delay => (
-          <ThinkingDot key={delay} $delay={delay} />
-        ))}
-      </ResetButtonWrapper>
-    );
-  }
-
   return (
-    <ResetButtonWrapper onClick={handleClick} title={title} type="button">
-      <IconText>×</IconText>
-      <LabelText>Czytaj ponownie</LabelText>
-    </ResetButtonWrapper>
+    <ResetButtonContainer
+      onMouseEnter={() => setShowTooltip(true)}
+      onMouseLeave={() => setShowTooltip(false)}
+      onFocus={() => setShowTooltip(true)}
+      onBlur={() => setShowTooltip(false)}
+    >
+      <ResetButtonWrapper
+        onClick={handleClick}
+        aria-label={actionLabel}
+        aria-describedby={showTooltip ? tooltipId : undefined}
+        aria-busy={isPending}
+        disabled={isPending}
+        type="button"
+      >
+        <ArrowPathIcon aria-hidden="true" />
+      </ResetButtonWrapper>
+      {showTooltip && (
+        <ResetTooltip id={tooltipId} role="tooltip">
+          {actionLabel}
+        </ResetTooltip>
+      )}
+    </ResetButtonContainer>
   );
 };

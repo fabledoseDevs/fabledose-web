@@ -8,6 +8,7 @@ export const FavoritePageBody = styled.main`
   @media ${({ theme }) => theme.media.tablet} {
     padding: 60px 40px;
     margin-left: 70px;
+    width: calc(100% - 70px);
   }
 `;
 

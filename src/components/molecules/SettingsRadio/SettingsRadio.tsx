@@ -20,13 +20,16 @@ export const SettingsRadio: SettingsRadioType = ({
   <SettingsRadioBody>
     <Label>{label}</Label>
     <ContentWrapper>
-      <RadioWrapper>
+      <RadioWrapper
+        data-font-selector={options.some(option => !!option.fontFamily)}
+      >
         {options.map(option => (
           <RadioOptionBox
             key={option.value}
             isSelected={value === option.value}
             isDisabled={option.isDisabled}
             optionFontFamily={option.fontFamily}
+            data-font-value={option.fontFamily ? option.value : undefined}
             data-selected={value === option.value}
             data-disabled={option.isDisabled ? 'true' : 'false'}
             onClick={() => !option.isDisabled && onChange?.(option.value)}

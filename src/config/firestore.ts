@@ -120,6 +120,7 @@ export const getReadingProgress = async (
 export const getContinueReading = async (
   userId: string,
 ): Promise<ReadingProgressData[]> => {
+  await enqueueWrite.waitForPrefix(`progress/${userId}/`);
   const collectionRef = collection(db, 'users', userId, 'readingProgress');
   const q = query(collectionRef, where('isCompleted', '==', false));
   const snapshot = await getDocs(q);
@@ -127,3 +128,9 @@ export const getContinueReading = async (
     .map(doc => doc.data() as ReadingProgressData)
     .sort((a, b) => b.lastUpdated - a.lastUpdated);
 };
+
+/** Waits for acknowledged reading writes before a cached position can be resumed. */
+export const waitForReadingProgressWrites = (
+  userId: string,
+  fableId: string,
+): Promise<void> => enqueueWrite.waitFor(`progress/${userId}/${fableId}`);

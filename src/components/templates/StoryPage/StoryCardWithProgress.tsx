@@ -1,13 +1,15 @@
 'use client';
-
 import type { ReactElement } from 'react';
 import { useCallback, useEffect, useState } from 'react';
 
 import { auth } from '@/config/firebase';
+import { useReaderStart } from '@/hooks/useReaderStart';
 import { useReadingProgress } from '@/hooks/useReadingProgress';
 import { useDictionary } from '@/lang/DictionaryProvider';
+import { SyncStatus } from '@/molecules/SyncStatus/SyncStatus';
 import StoryCard from '@/organisms/StoryCard';
 
+import { StoryPageCenteredContent } from './StoryPage.styled';
 import type { StoryCardWithProgressProps } from './StoryPage.types';
 
 export const StoryCardWithProgress = ({
@@ -16,70 +18,67 @@ export const StoryCardWithProgress = ({
   data,
   fableId,
 }: StoryCardWithProgressProps): ReactElement => {
-  const [userId, setUserId] = useState<string | null>(null);
-  const [readUrl, setReadUrl] = useState(data.readUrl);
-  const [audiobookUrl, setAudiobookUrl] = useState(data.audiobookUrl);
-  const [readButtonText, setReadButtonText] = useState<string | undefined>();
-  const [hasProgress, setHasProgress] = useState(false);
-  const { getProgress, saveProgress } = useReadingProgress(userId);
-  const { storyCard } = useDictionary();
-
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(user => {
-      setUserId(user?.uid ?? null);
-    });
-    return () => unsubscribe();
-  }, []);
-
-  const handleResetProgress = useCallback(async () => {
-    if (
-      !(await saveProgress(fableId, 0, false)) ||
-      auth.currentUser?.uid !== userId
-    )
-      return;
-    setHasProgress(false);
-    setReadUrl(data.readUrl);
-    setAudiobookUrl(data.audiobookUrl);
-    setReadButtonText(undefined);
-  }, [userId, fableId, saveProgress, data.readUrl, data.audiobookUrl]);
-
-  useEffect(() => {
-    let active = true;
-    setHasProgress(false);
-    setReadUrl(data.readUrl);
-    setAudiobookUrl(data.audiobookUrl);
-    setReadButtonText(undefined);
-    const fetchProgress = async () => {
-      if (!userId) return;
-
-      const progress = await getProgress(fableId);
-      if (
-        active &&
-        progress &&
-        !progress.isCompleted &&
-        progress.currentSlide > 0
-      ) {
-        const slideParam = `&slide=${progress.currentSlide}`;
-        setReadUrl(data.readUrl + slideParam);
-        setAudiobookUrl(data.audiobookUrl + slideParam);
-        setReadButtonText(storyCard.readButtonContinue);
-        setHasProgress(true);
-      }
-    };
-
-    void fetchProgress();
-    return () => {
-      active = false;
-    };
-  }, [
-    userId,
+  const [account, setAccount] = useState<{
+    uid: string | null;
+    checked: boolean;
+    revision: number;
+  }>({ uid: null, checked: false, revision: 0 });
+  const { getProgress, saveProgress, saving, readError, saveError, retrySave } =
+    useReadingProgress(account.uid);
+  const { storyCard, librarySync: text } = useDictionary();
+  const reader = useReaderStart({
+    userId: account.uid,
+    authChecked: account.checked,
+    accountRevision: account.revision,
     fableId,
+    enabled: true,
     getProgress,
-    data.readUrl,
-    data.audiobookUrl,
-    storyCard,
-  ]);
-
+  });
+  useEffect(
+    () =>
+      auth.onAuthStateChanged(user => {
+        const uid = user?.uid ?? null;
+        setAccount(previous =>
+          previous.checked && previous.uid === uid
+            ? previous
+            : { uid, checked: true, revision: previous.revision + 1 },
+        );
+      }),
+    [],
+  );
+  const handleResetProgress = useCallback(async () => {
+    if (await saveProgress(fableId, 0, false)) reader.retry();
+  }, [saveProgress, fableId, reader.retry]);
+  if (!reader.ready || saving || readError || saveError)
+    return (
+      <StoryPageCenteredContent>
+        <SyncStatus
+          message={
+            saveError
+              ? text.progressFailed
+              : readError
+              ? text.progressLoadFailed
+              : saving
+              ? text.savingProgress
+              : text.loadingProgress
+          }
+          isError={Boolean(readError || saveError)}
+          onRetry={
+            saveError
+              ? () => {
+                  void retrySave().then(saved => {
+                    if (saved) reader.retry();
+                  });
+                }
+              : readError
+              ? reader.retry
+              : undefined
+          }
+          retryLabel={saveError ? text.retrySave : text.refresh}
+        />
+      </StoryPageCenteredContent>
+    );
+  const hasProgress = reader.slide > 0;
   return (
     <StoryCard
       variant={variant}
@@ -87,9 +86,14 @@ export const StoryCardWithProgress = ({
       onResetProgress={hasProgress ? handleResetProgress : undefined}
       data={{
         ...data,
-        readUrl,
-        audiobookUrl,
-        readButtonText,
+        readUrl: hasProgress
+          ? `${data.readUrl}${data.readUrl?.includes('?') ? '&' : '?'}slide=${
+              reader.slide
+            }`
+          : data.readUrl,
+        readButtonText: hasProgress
+          ? storyCard.readButtonContinue
+          : data.readButtonText,
       }}
     />
   );

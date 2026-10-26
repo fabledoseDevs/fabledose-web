@@ -2,7 +2,7 @@
 
 import { onAuthStateChanged } from 'firebase/auth';
 import { useParams } from 'next/navigation';
-import { type ReactElement, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Headline from '@/atoms/Headline';
 import {
@@ -14,28 +14,40 @@ import {
   FOREGROUND_COLOR as PARAGRAPH_FOREGROUND_COLOR,
   TEXT_ALIGNMENT,
 } from '@/atoms/Paragraph/Paragraph.types';
-import DesktopTilesSlider from '@/organisms/DesktopTilesSlider';
 import { auth } from '@/config/firebase';
 import { useFavorites } from '@/hooks/useFavorites';
+import { useDictionary } from '@/lang/DictionaryProvider';
+import { SyncStatus } from '@/molecules/SyncStatus/SyncStatus';
+import DesktopTilesSlider from '@/organisms/DesktopTilesSlider';
 
 import {
+  CarouselSection,
   FavoritePageBody,
   SectionSpacing,
-  CarouselSection,
 } from './FavoritePage.styled';
 import type { FavoritePage as FavoritePageType } from './FavoritePage.types';
 import { normalizeLocale } from './FavoritePage.utils';
-import { useFavoritesData, useFableTiles } from './hooks';
-
-
+import { useFableTiles, useFavoritesData } from './hooks';
 
 export const FavoritePage: FavoritePageType = () => {
+  const { librarySync: text } = useDictionary();
   const params = useParams();
   const currentLang = normalizeLocale((params?.lang as string) || 'en');
   const [userId, setUserId] = useState<string | null>(null);
 
-  const { favorites, continueReading, loading: loadingFavorites } = useFavorites(userId);
-  const { favoriteFables, continueReadingFables } = useFavoritesData({
+  const {
+    favorites,
+    continueReading,
+    loading: loadingFavorites,
+    error,
+    refreshFavorites,
+  } = useFavorites(userId);
+  const {
+    favoriteFables,
+    continueReadingFables,
+    loadingFables,
+    error: metadataError,
+  } = useFavoritesData({
     favorites,
     continueReading,
     loading: loadingFavorites,
@@ -43,7 +55,10 @@ export const FavoritePage: FavoritePageType = () => {
   });
 
   const favoriteTiles = useFableTiles(favoriteFables, currentLang);
-  const continueReadingTiles = useFableTiles(continueReadingFables, currentLang);
+  const continueReadingTiles = useFableTiles(
+    continueReadingFables,
+    currentLang,
+  );
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, user => {
@@ -60,44 +75,66 @@ export const FavoritePage: FavoritePageType = () => {
           weight={HEADLINE_TYPE.BIG}
           color={HEADLINE_FOREGROUND_COLOR.WHITE}
         >
-          Ulubione
+          {text.favoritesTitle}
         </Headline>
         <Paragraph
           color={PARAGRAPH_FOREGROUND_COLOR.WHITE}
           alignment={TEXT_ALIGNMENT.CENTER}
         >
-          Twoje ulubione historie w jednym miejscu
+          {text.favoritesDescription}
         </Paragraph>
       </SectionSpacing>
 
-      {continueReadingTiles.length > 0 && (
-        <CarouselSection>
-          <DesktopTilesSlider
-            title="Kontynuuj czytanie"
-            tiles={continueReadingTiles}
-          />
-        </CarouselSection>
+      {(loadingFavorites || loadingFables) && !error && (
+        <SyncStatus message={text.loading} />
       )}
+      {(error || metadataError) && (
+        <SyncStatus
+          isError
+          message={text.loadFailed}
+          onRetry={() => void refreshFavorites()}
+          retryLabel={text.refresh}
+        />
+      )}
+      {!loadingFavorites &&
+        !error &&
+        !metadataError &&
+        continueReadingTiles.length > 0 && (
+          <CarouselSection>
+            <DesktopTilesSlider
+              title={text.continuingTitle}
+              tiles={continueReadingTiles}
+            />
+          </CarouselSection>
+        )}
 
-      {favoriteTiles.length > 0 && (
-        <CarouselSection>
-          <DesktopTilesSlider
-            title="Moje ulubione"
-            tiles={favoriteTiles}
-          />
-        </CarouselSection>
-      )}
+      {!loadingFavorites &&
+        !error &&
+        !metadataError &&
+        favoriteTiles.length > 0 && (
+          <CarouselSection>
+            <DesktopTilesSlider
+              title={text.myFavorites}
+              tiles={favoriteTiles}
+            />
+          </CarouselSection>
+        )}
 
-      {favoriteTiles.length === 0 && continueReadingTiles.length === 0 && (
-        <SectionSpacing>
-          <Paragraph
-            color={PARAGRAPH_FOREGROUND_COLOR.WHITE}
-            alignment={TEXT_ALIGNMENT.CENTER}
-          >
-            Brak ulubionych. Zacznij dodawać swoje ulubione historie!
-          </Paragraph>
-        </SectionSpacing>
-      )}
+      {!loadingFavorites &&
+        !loadingFables &&
+        !error &&
+        !metadataError &&
+        favoriteTiles.length === 0 &&
+        continueReadingTiles.length === 0 && (
+          <SectionSpacing>
+            <Paragraph
+              color={PARAGRAPH_FOREGROUND_COLOR.WHITE}
+              alignment={TEXT_ALIGNMENT.CENTER}
+            >
+              {text.empty}
+            </Paragraph>
+          </SectionSpacing>
+        )}
     </FavoritePageBody>
   );
 };

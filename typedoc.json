@@ -1,5 +1,9 @@
 {
-  "entryPoints": ["src/components"],
+  "entryPoints": [
+    "src/components",
+    "src/hooks/*.types.ts",
+    "src/config/writeQueue.types.ts"
+  ],
   "out": "docs",
   "entryPointStrategy": "expand",
   "includeVersion": true,
@@ -19,5 +23,6 @@
     "src/components/**/*.stories.ts",
     "src/components/**/index.ts",
     "src/components/**/*.hook.ts"
-  ]
+  ],
+  "cleanOutputDir": false
 }

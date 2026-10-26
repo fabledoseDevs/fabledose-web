@@ -60,9 +60,21 @@ export interface UseFavoritesDataProps {
  * @property favoriteFables - Indexed favorites; missing catalogue records are omitted.
  * @property continueReadingFables - Indexed entries with saved slides and continuation links.
  * @property loadingFables - Whether metadata and slide counts are being resolved.
+ * @property error - Metadata load failure, separate from account persistence failures.
+ *
+ * @remarks
+ * Entries from older accounts or locales are hidden while replacement metadata loads.
+ *
+ * @example
+ * ```ts
+ * const data = useFavoritesData({ favorites, continueReading, loading, currentLang });
+ * // Render entries only after loadingFables is false and error is null.
+ * ```
  */
 export interface UseFavoritesDataReturnValues {
   favoriteFables: FableWithMeta[];
   continueReadingFables: FableWithMeta[];
   loadingFables: boolean;
+  /** Metadata load failures are surfaced separately from account data failures. */
+  error: Error | null;
 }

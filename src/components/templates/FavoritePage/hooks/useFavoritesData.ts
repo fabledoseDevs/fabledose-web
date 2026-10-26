@@ -17,87 +17,94 @@ export const useFavoritesData = ({
   loading,
   currentLang,
 }: UseFavoritesDataProps): UseFavoritesDataReturnValues => {
-  const [favoriteFables, setFavoriteFables] = useState<FableWithMeta[]>([]);
-  const [continueReadingFables, setContinueReadingFables] = useState<
-    FableWithMeta[]
-  >([]);
-  const [loadingFables, setLoadingFables] = useState(true);
-
+  const [snapshot, setSnapshot] = useState<{
+    favorites: typeof favorites;
+    continueReading: typeof continueReading;
+    lang: typeof currentLang;
+    favoriteFables: FableWithMeta[];
+    continueReadingFables: FableWithMeta[];
+    error: Error | null;
+  } | null>(null);
   useEffect(() => {
+    if (loading) return;
     let active = true;
-    const loadFableData = async () => {
-      if (loading) {
-        return;
-      }
-
-      if (favorites.length === 0 && continueReading.length === 0) {
-        setFavoriteFables([]);
-        setContinueReadingFables([]);
-        setLoadingFables(false);
-        return;
-      }
-
+    const load = async () => {
       try {
-        setLoadingFables(true);
-        const fablesIndex = await getFablesIndexClient();
-
-        const favs = favorites
-          .map(fav => {
-            const fable = fablesIndex.find(f => f.meta.id === fav.fableId);
-            if (fable) {
-              return {
-                meta: fable.meta,
-                url: getFableUrl(fable.meta, currentLang),
-                currentSlide: undefined,
-              } as FableWithMeta;
-            }
-            return null;
-          })
-          .filter((f): f is FableWithMeta => f !== null);
-
-        const continuing = await Promise.all(
-          continueReading.map(async cr => {
-            const fable = fablesIndex.find(f => f.meta.id === cr.fableId);
-            if (fable) {
-              const slideParam =
-                cr.currentSlide > 0 ? `&slide=${cr.currentSlide}` : '';
-              const storyPath = fable.meta.contentPointers.story;
-              const totalSlides = await getTotalSlides(storyPath);
-              return {
-                meta: fable.meta,
-                url: `${getFableUrl(
-                  fable.meta,
-                  currentLang,
-                )}?mode=slideshow${slideParam}`,
-                currentSlide: cr.currentSlide,
-                totalSlides,
-              } as FableWithMeta;
-            }
-            return null;
+        if (!favorites.length && !continueReading.length) {
+          setSnapshot({
+            favorites,
+            continueReading,
+            lang: currentLang,
+            favoriteFables: [],
+            continueReadingFables: [],
+            error: null,
+          });
+          return;
+        }
+        const index = await getFablesIndexClient();
+        const favoriteFables = favorites.flatMap(saved => {
+          const fable = index.find(item => item.meta.id === saved.fableId);
+          return fable
+            ? [{ meta: fable.meta, url: getFableUrl(fable.meta, currentLang) }]
+            : [];
+        });
+        const resolved = await Promise.all(
+          continueReading.map(async saved => {
+            const fable = index.find(item => item.meta.id === saved.fableId);
+            if (!fable) return null;
+            return {
+              meta: fable.meta,
+              url: `${getFableUrl(
+                fable.meta,
+                currentLang,
+              )}?mode=slideshow&slide=${saved.currentSlide}`,
+              currentSlide: saved.currentSlide,
+              totalSlides: await getTotalSlides(
+                fable.meta.contentPointers.story,
+              ),
+            };
           }),
-        ).then(results =>
-          results.filter((f): f is FableWithMeta => f !== null),
         );
-
-        if (!active) return;
-        setFavoriteFables(favs);
-        setContinueReadingFables(continuing);
-      } catch (error) {
-        console.error('Error loading fable data:', error);
-      } finally {
-        if (active) setLoadingFables(false);
+        if (active)
+          setSnapshot({
+            favorites,
+            continueReading,
+            lang: currentLang,
+            favoriteFables,
+            continueReadingFables: resolved.filter(
+              (item): item is NonNullable<typeof item> => item !== null,
+            ),
+            error: null,
+          });
+      } catch (cause: unknown) {
+        if (active)
+          setSnapshot({
+            favorites,
+            continueReading,
+            lang: currentLang,
+            favoriteFables: [],
+            continueReadingFables: [],
+            error:
+              cause instanceof Error
+                ? cause
+                : new Error('Failed to load story metadata'),
+          });
       }
     };
-
-    void loadFableData();
+    void load();
     return () => {
       active = false;
     };
   }, [loading, favorites, continueReading, currentLang]);
-
+  const visible =
+    !loading &&
+    snapshot?.favorites === favorites &&
+    snapshot.continueReading === continueReading &&
+    snapshot.lang === currentLang;
   return {
-    favoriteFables,
-    continueReadingFables,
-    loadingFables,
+    favoriteFables: visible ? snapshot.favoriteFables : [],
+    continueReadingFables: visible ? snapshot.continueReadingFables : [],
+    loadingFables: loading || !visible,
+    error: visible ? snapshot.error : null,
   };
 };
