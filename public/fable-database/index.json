@@ -48,7 +48,7 @@
           "moderation"
         ],
         "covers": {
-          "tileCover": "",
+          "tileCover": "tales/goldilocks/img/tileCover.jpg",
           "mainCover": "",
           "fullCover": "",
           "audioCover": "",
@@ -118,7 +118,7 @@
           "diligence"
         ],
         "covers": {
-          "tileCover": "tales/three-little-pigs/img/thumb-piggies.png",
+          "tileCover": "tales/three-little-pigs/img/tileCover.jpg",
           "mainCover": "tales/three-little-pigs/img/cover_1920x1080.webm",
           "fullCover": "tales/three-little-pigs/img/fullCover.jpg",
           "audioCover": "tales/three-little-pigs/img/audioCover.jpg",
