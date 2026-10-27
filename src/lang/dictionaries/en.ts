@@ -352,6 +352,31 @@ export const DictionaryEn: DictionaryType = {
       },
     },
   },
+  storyDetails: {
+    close: 'Close',
+    tags: 'Themes and guidance',
+    comment: 'Notes for parents',
+    synopsis: 'Synopsis',
+    guidance:
+      'Read the synopsis if you are unsure whether this story is suitable for your child.',
+    spoilers: 'The full plot, including the ending, is described below.',
+  },
+  audiobook: {
+    close: 'Close audiobook player',
+    progress: 'Listening progress',
+    speed: 'Playback speed',
+    backward: 'Go back 10 seconds',
+    forward: 'Skip forward 10 seconds',
+    play: 'Play audiobook',
+    pause: 'Pause audiobook',
+    playbackFailed:
+      'The recording could not be played. Try again or return to the story.',
+    loading: 'Loading listening position…',
+    loadFailed: 'The listening position could not be loaded.',
+    saving: 'Saving listening position…',
+    saveFailed: 'The listening position could not be saved.',
+    unavailable: 'The recording is not available in this language yet.',
+  },
   librarySync: {
     favoritesTitle: 'Favorites',
     favoritesDescription: 'Your favorite stories in one place',

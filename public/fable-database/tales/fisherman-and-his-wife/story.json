@@ -3,42 +3,82 @@
     "slides": [
       {
         "scene": "img_1",
-        "layout": "top-left"
+        "layout": "bottom-left"
       },
       {
         "scene": "img_1",
+        "layout": "bottom-left"
+      },
+      {
+        "scene": "img_1",
+        "layout": "bottom-left"
+      },
+      {
+        "scene": "img_2",
         "layout": "top-left"
       },
       {
         "scene": "img_2",
-        "layout": "top-right"
+        "layout": "top-left"
+      },
+      {
+        "scene": "img_2",
+        "layout": "top-left"
+      },
+      {
+        "scene": "img_2",
+        "layout": "top-left"
       },
       {
         "scene": "img_3",
-        "layout": "middle-right"
+        "layout": "top-right"
       },
       {
         "scene": "img_4",
-        "layout": "top-right"
+        "layout": "top-left"
+      },
+      {
+        "scene": "img_4",
+        "layout": "top-left"
       },
       {
         "scene": "img_5",
-        "layout": "bottom-left"
+        "layout": "top-left"
+      },
+      {
+        "scene": "img_5",
+        "layout": "top-left"
       },
       {
         "scene": "img_6",
-        "layout": "top-right"
+        "layout": "top-left"
+      },
+      {
+        "scene": "img_6",
+        "layout": "top-left"
       },
       {
         "scene": "img_7",
-        "layout": "top-right"
+        "layout": "top-left"
+      },
+      {
+        "scene": "img_7",
+        "layout": "top-left"
+      },
+      {
+        "scene": "img_7",
+        "layout": "top-left"
       },
       {
         "scene": "img_8",
-        "layout": "top-right"
+        "layout": "top-left"
       },
       {
-        "scene": "img_9",
+        "scene": "img_8",
+        "layout": "top-left"
+      },
+      {
+        "scene": "img_8",
         "layout": "top-left"
       },
       {
@@ -47,7 +87,11 @@
       },
       {
         "scene": "img_10",
-        "layout": "top-center"
+        "layout": "top-right"
+      },
+      {
+        "scene": "img_10",
+        "layout": "top-right"
       },
       {
         "scene": "img_11",
@@ -55,19 +99,31 @@
       },
       {
         "scene": "img_12",
-        "layout": "bottom-center"
+        "layout": "top-left"
+      },
+      {
+        "scene": "img_12",
+        "layout": "top-left"
+      },
+      {
+        "scene": "img_12",
+        "layout": "top-left"
       },
       {
         "scene": "img_13",
-        "layout": "bottom-center"
+        "layout": "top-right"
       },
       {
         "scene": "img_14",
-        "layout": "bottom-center"
+        "layout": "top-center"
       },
       {
         "scene": "img_14",
-        "layout": "bottom-center"
+        "layout": "top-center"
+      },
+      {
+        "scene": "img_14",
+        "layout": "top-center"
       }
     ]
   }

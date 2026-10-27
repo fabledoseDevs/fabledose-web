@@ -145,6 +145,28 @@ This project is licensed under the MIT License.
 ### Feedback and Contributions
 We welcome your feedback and contributions! If you encounter any issues or have suggestions for improvements, please feel free to open an issue or submit a pull request.
 
+## Audiobook progress
+
+Audiobook favorites use the same saved favorites as the story introduction. Listening position is independent of slide progress and is stored per account, story and recording language:
+
+```text
+users/{uid}/readingProgress/{fableId}/audioProgress/{pl|en}
+```
+
+The checkpoint contains the recording URL, position and duration in seconds, completion state and timestamp. A changed URL does not reuse the previous recording's position. Finished recordings start at zero on the next visit. Loading a checkpoint does not start playback automatically.
+
+Progress is submitted every 15 seconds while dirty and on pause, seek, completion, player close, hidden tabs and navigation cleanup. Page shutdown submission is best effort; the browser may terminate pending network work. Save failures offer a retry of the newest position without blocking the controls. Ordinary saving feedback is delayed by 5 seconds. Failed reads require retry before restoring playback. Labels and feedback support Polish and English. Missing language-specific audio is reported instead of silently using a different language.
+
+The existing recursive owner rule `match /readingProgress/{document=**}` covers these nested documents. No new Firestore collection rule, Cloud Function or Firebase billing upgrade is required when this documented rule is deployed. A narrower rule without the recursive wildcard would need adjustment. Listening entries do not create parent slide-progress records and do not appear in the Continue Reading query.
+
+Run `npm run test:audio` for playback and persistence regressions. Browser checks use a separate test copy with mocked Firebase and a real MP3; they do not verify deployed Firebase rules or account access.
+
+## Story details for parents
+
+The More info button opens the shared modal from story introductions and library carousel cards. The dialog shows localized tag explanations, parent notes and a full spoiler-inclusive synopsis, including the ending. Edit `meta.fullDescription.pl` and `.en` in `public/fable-database/index.json`; blank lines in the synopsis separate paragraphs. Content should describe this adaptation, not another version of the traditional tale.
+
+The modal has a single scrollable content area, persistent title and close controls, keyboard focus containment and focus restoration to the opener. `TagIcon` supports `showDescription` for always-visible explanations on a light background. Existing compact tags retain their tooltip behavior.
+
 ## Important notice — account deletion deferred
 
 The application is currently being tested on Firebase **Spark**. Deployment of account-deletion Cloud Functions is intentionally postponed; do not upgrade to Blaze or deploy these functions as part of the current test phase. Email changes, password changes and password recovery can still be tested independently.

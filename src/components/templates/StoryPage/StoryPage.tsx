@@ -9,6 +9,8 @@ import { Toast } from '@/atoms/Toast';
 import { auth } from '@/config/firebase';
 import { useSettings } from '@/contexts/SettingsContext';
 import { useSidebarState } from '@/contexts/SidebarContext';
+import { getTileCover } from '@/fables/fables.covers';
+import { useAudiobookProgress } from '@/hooks/useAudiobookProgress';
 import { useFavorites } from '@/hooks/useFavorites';
 import type { FavoriteWriteResult } from '@/hooks/useFavorites.types';
 import { updateReaderLocation, useReaderStart } from '@/hooks/useReaderStart';
@@ -22,6 +24,7 @@ import { STORY_CARD_VARIANT } from '@/organisms/StoryCard/StoryCard.types';
 
 import { StoryCardWithProgress } from './StoryCardWithProgress';
 import {
+  AudioPageContent,
   FavoriteButton,
   FavoriteControl,
   FavoriteTooltip,
@@ -70,7 +73,7 @@ export const StoryPage: StoryPageType = ({
   const router = useRouter();
   const { settings, refreshPlanFromFirebase } = useSettings();
   const { isHidden: sidebarHidden, setEnableAutoHide } = useSidebarState();
-  const { librarySync: text } = useDictionary();
+  const { librarySync: text, audiobook: audioText } = useDictionary();
   const [account, setAccount] = useState<{
     uid: string | null;
     checked: boolean;
@@ -131,6 +134,34 @@ export const StoryPage: StoryPageType = ({
   const slideshowQuality = isUnlockedAccount ? 'high' : 'low';
   const effectiveMode =
     mode === 'audiobook' && !isUnlockedAccount ? 'slideshow' : mode;
+
+  const audioSource = toPublicUrl(fable.content.audio.files[lang] || '');
+  const audioIdentity = JSON.stringify([
+    account.revision,
+    userId,
+    fable.meta.id,
+    lang,
+    audioSource,
+  ]);
+  const audioProgress = useAudiobookProgress({
+    userId,
+    fableId: fable.meta.id,
+    locale: lang,
+    source: audioSource,
+    enabled: account.checked && effectiveMode === 'audiobook',
+  });
+  const [slowAudioIdentity, setSlowAudioIdentity] = useState<string | null>(
+    null,
+  );
+  useEffect(() => {
+    setSlowAudioIdentity(null);
+    if (!audioProgress.saving) return;
+    const timer = window.setTimeout(
+      () => setSlowAudioIdentity(audioIdentity),
+      5000,
+    );
+    return () => window.clearTimeout(timer);
+  }, [audioProgress.saving, audioIdentity]);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
@@ -225,26 +256,89 @@ export const StoryPage: StoryPageType = ({
   if (effectiveMode === 'audiobook') {
     return (
       <StoryPageBody $sidebarHidden={sidebarHidden}>
-        {syncNotice}
-        <StoryPageCenteredContent>
-          <Audiobook
-            source={{
-              title,
-              coverUrl: toPublicUrl(
-                fable.meta.covers.audioCover ||
-                  fable.meta.covers.fullCover ||
-                  fable.meta.covers.tileCover ||
-                  fable.meta.covers.mainCover ||
-                  '',
-              ),
-              audioUrl: toPublicUrl(fable.content.audio.selected || ''),
-              sourceType: AUDIOBOOK_SOURCE_TYPE.LOCAL,
-            }}
-            onClose={() => {
-              router.push(introUrl);
-            }}
-          />
-        </StoryPageCenteredContent>
+        <AudioPageContent>
+          {audioProgress.saveError ? (
+            <SyncStatus
+              isError
+              message={audioText.saveFailed}
+              onRetry={audioProgress.retrySave}
+              retryLabel={text.retrySave}
+            />
+          ) : audioProgress.saving && slowAudioIdentity === audioIdentity ? (
+            <SyncStatus message={audioText.saving} />
+          ) : null}
+          {audioProgress.ready && favoritesError ? (
+            <SyncStatus
+              isError
+              message={canRetryFavorite ? text.favoriteFailed : text.loadFailed}
+              onRetry={
+                canRetryFavorite
+                  ? () => void handleRetryFavorite()
+                  : () => void refreshFavorites()
+              }
+              retryLabel={canRetryFavorite ? text.retrySave : text.refresh}
+            />
+          ) : isPending(fable.meta.id) ? (
+            <SyncStatus message={text.savingFavorite} />
+          ) : null}
+          {!audioSource ? (
+            <SyncStatus
+              message={audioText.unavailable}
+              onRetry={() => router.push(introUrl)}
+              retryLabel={audioText.close}
+            />
+          ) : !audioProgress.ready || audioProgress.readError ? (
+            <SyncStatus
+              message={
+                audioProgress.readError
+                  ? audioText.loadFailed
+                  : audioText.loading
+              }
+              isError={Boolean(audioProgress.readError)}
+              onRetry={
+                audioProgress.readError
+                  ? () => {
+                      audioProgress.retryRead();
+                      void refreshFavorites();
+                    }
+                  : undefined
+              }
+              retryLabel={text.refresh}
+            />
+          ) : (
+            <Audiobook
+              key={audioIdentity}
+              initialPositionSeconds={audioProgress.initialPosition}
+              liked={isFavorited(fable.meta.id)}
+              likeDisabled={
+                !userId ||
+                favoritesLoading ||
+                isPending(fable.meta.id) ||
+                Boolean(favoritesError && !canRetryFavorite)
+              }
+              onLikeChange={() => {
+                void handleToggleFavorite();
+              }}
+              onPlaybackPositionChange={audioProgress.record}
+              onPlaybackCommit={audioProgress.commit}
+              source={{
+                title,
+                coverUrl: toPublicUrl(
+                  fable.meta.covers.audioCover ||
+                    fable.meta.covers.fullCover ||
+                    getTileCover(fable.meta.covers, lang) ||
+                    fable.meta.covers.mainCover ||
+                    '',
+                ),
+                audioUrl: audioSource,
+                sourceType: AUDIOBOOK_SOURCE_TYPE.LOCAL,
+              }}
+              onClose={() => {
+                router.push(introUrl);
+              }}
+            />
+          )}
+        </AudioPageContent>
       </StoryPageBody>
     );
   }
@@ -333,6 +427,10 @@ export const StoryPage: StoryPageType = ({
             backgroundVideoUrl: toPublicUrl(fable.meta.covers.mainCover || ''),
             backgroundPosterUrl: toPublicUrl(fable.meta.covers.fullCover || ''),
             headline: title,
+            fullDescription:
+              fable.meta.fullDescription[lang] ||
+              fable.meta.fullDescription.en ||
+              fable.meta.fullDescription.pl,
             description,
             tags: fable.meta.tags.map(tag => ({
               name: tag,

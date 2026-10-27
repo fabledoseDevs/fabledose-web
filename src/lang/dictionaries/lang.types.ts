@@ -241,6 +241,50 @@ export type DictionaryType = {
       };
     };
   };
+  /** Labels and spoiler disclosure for the parent-facing story details dialog. */
+  storyDetails: {
+    /** Shared close icon and footer label. */
+    close: string;
+    /** Heading for permanently explained story tags. */
+    tags: string;
+    /** Heading for parental context and sensitive themes. */
+    comment: string;
+    /** Heading for the complete plot. */
+    synopsis: string;
+    /** Small introductory text helping parents decide whether to read the spoilers. */
+    guidance: string;
+    /** Explicit disclosure that the ending is included. */
+    spoilers: string;
+  };
+  /** Localized audiobook controls and account checkpoint feedback. */
+  audiobook: {
+    /** Close audiobook player */
+    close: string;
+    /** Listening progress */
+    progress: string;
+    /** Playback speed */
+    speed: string;
+    /** Go back 10 seconds */
+    backward: string;
+    /** Skip forward 10 seconds */
+    forward: string;
+    /** Play audiobook */
+    play: string;
+    /** Pause audiobook */
+    pause: string;
+    /** The recording could not be played. Try again or return to the story. */
+    playbackFailed: string;
+    /** Loading listening position… */
+    loading: string;
+    /** The listening position could not be loaded. */
+    loadFailed: string;
+    /** Saving listening position… */
+    saving: string;
+    /** The listening position could not be saved. */
+    saveFailed: string;
+    /** The recording is not available in this language yet. */
+    unavailable: string;
+  };
   /**
    * Localized library labels, persistence status and explicit retry actions.
    *

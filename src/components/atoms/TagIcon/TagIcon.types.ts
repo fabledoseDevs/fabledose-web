@@ -38,8 +38,20 @@ export enum TAG_NAME {
  *
  * @property icon - Enum name of the icon to render (one of {@link TAG_NAME}).
  * @property isWarning - When true, the icon appears more vivid to indicate a warning state.
+ *
+ * @remarks
+ * Compact icons expose their explanation in a tooltip. Set showDescription in
+ * parent guidance dialogs to show the same localized title and text persistently
+ * beside a decorative icon on a light surface, without a hover interaction.
+ *
+ * @example
+ * ```tsx
+ * <TagIcon icon={TAG_NAME.TOXIC_RELATIONS} isWarning showDescription />
+ * ```
  */
 export interface TagIconProps {
+  /** Displays a full explanation beside the icon instead of a compact tooltip. Defaults to false. */
+  showDescription?: boolean;
   icon: TAG_NAME;
   isWarning?: boolean;
 }

@@ -2,7 +2,9 @@
   "entryPoints": [
     "src/components",
     "src/hooks/*.types.ts",
-    "src/config/writeQueue.types.ts"
+    "src/config/writeQueue.types.ts",
+    "src/config/audioProgress.types.ts",
+    "src/fables/fables.types.ts"
   ],
   "out": "docs",
   "entryPointStrategy": "expand",

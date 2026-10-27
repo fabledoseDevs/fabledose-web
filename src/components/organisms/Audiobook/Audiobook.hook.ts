@@ -1,213 +1,188 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
-import {
-  type UseAudiobook as UseAudiobookType,
-  AUDIOBOOK_SOURCE_TYPE,
-} from './Audiobook.types';
+import { type UseAudiobook as UseAudiobookType } from './Audiobook.types';
 
 const SEEK_SECONDS = 10;
 const PLAYBACK_SPEEDS = [1, 1.25, 1.5, 2];
-const POLLING_INTERVAL_MS = 500;
-
 const clamp = (value: number, min: number, max: number): number =>
   Math.min(max, Math.max(min, value));
 
-export const useAudiobook: UseAudiobookType = ({
-  source,
-  onLikeChange,
-  onPlaybackPositionChange,
-  initialLiked = false,
-  initialSpeedIndex = 0,
-}) => {
+export const useAudiobook: UseAudiobookType = props => {
+  const {
+    source,
+    initialLiked = false,
+    liked,
+    initialSpeedIndex = 0,
+    initialPositionSeconds = 0,
+  } = props;
+  const callbacks = useRef(props);
+  callbacks.current = props;
   const audioRef = useRef<HTMLAudioElement>(null);
-  const [isPlaying, setIsPlaying] = useState<boolean>(false);
-  const [isLiked, setIsLiked] = useState<boolean>(initialLiked);
-  const [currentTime, setCurrentTime] = useState<number>(0);
-  const [duration, setDuration] = useState<number>(0);
-  const [bufferedPercent, setBufferedPercent] = useState<number>(0);
-  const [speedIndex, setSpeedIndex] = useState<number>(
+  const restored = useRef(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [localLiked, setLocalLiked] = useState(initialLiked);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [bufferedPercent, setBufferedPercent] = useState(0);
+  const [playbackError, setPlaybackError] = useState(false);
+  const [speedIndex, setSpeedIndex] = useState(
     clamp(initialSpeedIndex, 0, PLAYBACK_SPEEDS.length - 1),
   );
 
-  const syncPlaybackState = () => {
+  const sync = useCallback((notify = true) => {
     const audio = audioRef.current;
-
-    if (!audio) {
-      return;
-    }
-
-    const nextCurrentTime = Number.isFinite(audio.currentTime)
-      ? audio.currentTime
-      : 0;
-    const nextDuration =
+    if (!audio || !restored.current) return;
+    const seconds = Number.isFinite(audio.currentTime) ? audio.currentTime : 0;
+    const length =
       Number.isFinite(audio.duration) && audio.duration > 0
         ? audio.duration
         : 0;
-
-    setCurrentTime(nextCurrentTime);
-    setDuration(nextDuration);
-    onPlaybackPositionChange?.(nextCurrentTime);
-
-    if (audio.buffered.length > 0 && nextDuration > 0) {
-      const lastBufferedIndex = audio.buffered.length - 1;
-      const bufferedEnd = audio.buffered.end(lastBufferedIndex);
-      setBufferedPercent(clamp((bufferedEnd / nextDuration) * 100, 0, 100));
-      return;
-    }
-
-    setBufferedPercent(0);
-  };
-
-  const handlePlayToggle = async (): Promise<void> => {
+    setCurrentTime(seconds);
+    setDuration(length);
+    if (notify && length > 0 && !audio.ended)
+      callbacks.current.onPlaybackPositionChange?.(seconds, length);
+    setBufferedPercent(
+      audio.buffered.length && length > 0
+        ? clamp(
+            (audio.buffered.end(audio.buffered.length - 1) / length) * 100,
+            0,
+            100,
+          )
+        : 0,
+    );
+  }, []);
+  const commit = useCallback((completed = false) => {
     const audio = audioRef.current;
-
-    if (!audio) {
+    if (
+      !audio ||
+      !restored.current ||
+      !Number.isFinite(audio.duration) ||
+      audio.duration <= 0
+    )
       return;
-    }
-
-    if (audio.paused) {
-      try {
-        await audio.play();
-        setIsPlaying(true);
-      } catch {
-        setIsPlaying(false);
-      }
-      return;
-    }
-
-    audio.pause();
-    setIsPlaying(false);
-  };
-
-  const handleSeek = (delta: number) => {
-    const audio = audioRef.current;
-
-    if (!audio || !Number.isFinite(audio.duration) || audio.duration <= 0) {
-      return;
-    }
-
-    audio.currentTime = clamp(audio.currentTime + delta, 0, audio.duration);
-    syncPlaybackState();
-  };
-
-  const handleSeekForward = () => {
-    handleSeek(SEEK_SECONDS);
-  };
-
-  const handleSeekBackward = () => {
-    handleSeek(-SEEK_SECONDS);
-  };
-
-  const handleSpeedCycle = () => {
-    const audio = audioRef.current;
-    const nextSpeedIndex = (speedIndex + 1) % PLAYBACK_SPEEDS.length;
-    const nextSpeed = PLAYBACK_SPEEDS[nextSpeedIndex];
-
-    setSpeedIndex(nextSpeedIndex);
-
-    if (audio) {
-      audio.playbackRate = nextSpeed;
-    }
-  };
-
-  const handleLikeToggle = () => {
-    setIsLiked(previousIsLiked => {
-      const nextIsLiked = !previousIsLiked;
-      onLikeChange?.(nextIsLiked);
-      return nextIsLiked;
-    });
-  };
-
-  const handleProgressSeek = (nextPercent: number) => {
-    const audio = audioRef.current;
-
-    if (!audio || !Number.isFinite(audio.duration) || audio.duration <= 0) {
-      return;
-    }
-
-    audio.currentTime = (clamp(nextPercent, 0, 100) / 100) * audio.duration;
-    syncPlaybackState();
-  };
-
-  const handleLoadedMetadata = () => {
-    syncPlaybackState();
-  };
-
-  const handleTimeUpdate = () => {
-    syncPlaybackState();
-  };
-
-  const handleProgress = () => {
-    syncPlaybackState();
-  };
-
-  const handleEnded = () => {
-    setIsPlaying(false);
-    syncPlaybackState();
-  };
-
+    callbacks.current.onPlaybackCommit?.(
+      audio.currentTime,
+      audio.duration,
+      completed || audio.ended,
+    );
+  }, []);
   useEffect(() => {
     const audio = audioRef.current;
-
-    if (!audio) {
-      return;
-    }
-
+    restored.current = false;
     setIsPlaying(false);
     setCurrentTime(0);
     setDuration(0);
     setBufferedPercent(0);
+    setPlaybackError(false);
     setSpeedIndex(clamp(initialSpeedIndex, 0, PLAYBACK_SPEEDS.length - 1));
-
-    audio.pause();
-    audio.currentTime = 0;
-  }, [initialSpeedIndex, source.audioUrl]);
-
+    audio?.pause();
+    if (audio) audio.currentTime = 0;
+  }, [source.audioUrl, initialSpeedIndex]);
   useEffect(() => {
-    const audio = audioRef.current;
-
-    if (!audio) {
-      return;
-    }
-
-    audio.playbackRate = PLAYBACK_SPEEDS[speedIndex];
+    if (audioRef.current)
+      audioRef.current.playbackRate = PLAYBACK_SPEEDS[speedIndex];
   }, [speedIndex]);
 
   useEffect(() => {
-    const shouldPoll =
-      isPlaying || source.sourceType === AUDIOBOOK_SOURCE_TYPE.SERVER;
+    const audio = audioRef.current;
+    return () => {
+      audio?.pause();
+    };
+  }, [source.audioUrl]);
 
-    if (!shouldPoll) {
+  const handleLoadedMetadata = () => {
+    const audio = audioRef.current;
+    if (!audio || !Number.isFinite(audio.duration) || audio.duration <= 0)
+      return;
+    if (!restored.current) {
+      // A shortened/replaced recording must not start already ended.
+      audio.currentTime =
+        Number.isFinite(initialPositionSeconds) &&
+        initialPositionSeconds >= 0 &&
+        initialPositionSeconds < audio.duration
+          ? initialPositionSeconds
+          : 0;
+      restored.current = true;
+    }
+    sync(false);
+  };
+  const handlePlayToggle = async () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    if (!audio.paused) {
+      audio.pause();
       return;
     }
-
-    const pollingInterval = window.setInterval(() => {
-      syncPlaybackState();
-    }, POLLING_INTERVAL_MS);
-
-    return () => {
-      window.clearInterval(pollingInterval);
-    };
-  }, [isPlaying, source.sourceType]);
-
+    try {
+      await audio.play();
+      setPlaybackError(false);
+    } catch {
+      setPlaybackError(true);
+      setIsPlaying(false);
+    }
+  };
+  const seek = (seconds: number) => {
+    const audio = audioRef.current;
+    if (
+      !audio ||
+      !restored.current ||
+      !Number.isFinite(audio.duration) ||
+      audio.duration <= 0
+    )
+      return;
+    audio.currentTime = clamp(seconds, 0, audio.duration);
+    sync();
+    commit(audio.currentTime >= audio.duration);
+  };
+  const handleLikeToggle = () => {
+    const next = !(liked ?? localLiked);
+    if (liked === undefined) setLocalLiked(next);
+    callbacks.current.onLikeChange?.(next);
+  };
+  const handlePause = () => {
+    setIsPlaying(false);
+    commit();
+  };
+  const handleEnded = () => {
+    setIsPlaying(false);
+    sync(false);
+    commit(true);
+  };
+  const handleClose = () => {
+    audioRef.current?.pause();
+    commit();
+    callbacks.current.onClose();
+  };
   return {
     audioRef,
     isPlaying,
-    isLiked,
+    isLiked: liked ?? localLiked,
+    playbackError,
     speedLabel: `x${PLAYBACK_SPEEDS[speedIndex]
       .toFixed(2)
       .replace(/\.00$/, '')}`,
     playedPercent: duration > 0 ? (currentTime / duration) * 100 : 0,
     bufferedPercent,
     handlePlayToggle,
-    handleSeekForward,
-    handleSeekBackward,
-    handleSpeedCycle,
+    handleSeekForward: () =>
+      seek((audioRef.current?.currentTime || 0) + SEEK_SECONDS),
+    handleSeekBackward: () =>
+      seek((audioRef.current?.currentTime || 0) - SEEK_SECONDS),
+    handleProgressSeek: percent =>
+      seek((clamp(percent, 0, 100) / 100) * (audioRef.current?.duration || 0)),
+    handleSpeedCycle: () =>
+      setSpeedIndex(value => (value + 1) % PLAYBACK_SPEEDS.length),
     handleLikeToggle,
-    handleProgressSeek,
     handleLoadedMetadata,
-    handleTimeUpdate,
-    handleProgress,
+    handleTimeUpdate: () => sync(),
+    handleProgress: () => sync(false),
+    handlePlay: () => setIsPlaying(true),
+    handlePause,
     handleEnded,
+    handleClose,
+    handleError: () => {
+      setPlaybackError(true);
+      setIsPlaying(false);
+    },
   };
 };

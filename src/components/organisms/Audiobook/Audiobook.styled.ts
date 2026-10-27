@@ -68,3 +68,9 @@ export const ActionsRow = styled.div`
     gap: 22px;
   }
 `;
+
+export const PlaybackError = styled.p`
+  color: ${theme.palette.byElement.text.purple};
+  font-size: 1.4rem;
+  line-height: 1.5;
+`;

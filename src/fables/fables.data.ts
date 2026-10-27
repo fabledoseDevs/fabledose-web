@@ -186,6 +186,7 @@ const normalizeCovers = (value: unknown): FableCovers => {
   const candidate = value as Record<string, unknown>;
 
   return {
+    tileCovers: normalizeLocalizedStrings(candidate.tileCovers),
     ...(isNonEmptyString(candidate.tileCover)
       ? { tileCover: candidate.tileCover.trim() }
       : {}),
@@ -498,6 +499,7 @@ const resolveCovers = (
   covers: FableCovers,
   taleBasePath: string,
 ): FableCovers => ({
+  tileCovers: covers.tileCovers,
   tileCover:
     covers.tileCover || joinUrlPath(taleBasePath, 'img', 'tileCover.jpg'),
   mainCover:

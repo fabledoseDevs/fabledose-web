@@ -1,6 +1,7 @@
 import type { ReactElement } from 'react';
 
 import type { TAG_NAME } from '@/atoms/TagIcon/TagIcon.types';
+import type { FableFullDescription } from '@/fables/fables.types';
 
 import type {
   FOREGROUND_COLOR as HEADLINE_COLOR,
@@ -52,7 +53,8 @@ export enum STORY_CARD_VARIANT {
  * @property readButtonText - Optional custom text for the read button (defaults to "Read").
  * @property audiobookUrl - Optional target URL used by "Audiobook" button.
  * @property unlockUrl - Optional target URL used by "Unlock" button.
- * @property moreInfoUrl - Optional target URL used by "More info" button.
+ * @property fullDescription - Localized parent commentary and complete synopsis displayed by the More info dialog.
+ * @property moreInfoUrl - Deprecated legacy field; details now open in a modal.
  * @property pdfUrl - Optional target URL used by "PDF" button.
  * @property epubUrl - Optional target URL used by "EPUB" button.
  */
@@ -71,7 +73,10 @@ export interface StoryCardData {
   readButtonText?: string;
   audiobookUrl?: string;
   unlockUrl?: string;
+  /** @deprecated Details are displayed in a modal using fullDescription. */
   moreInfoUrl?: string;
+  /** Localized parent commentary and full spoiler-inclusive synopsis used by the More information dialog. */
+  fullDescription?: FableFullDescription;
   pdfUrl?: string;
   epubUrl?: string;
 }
