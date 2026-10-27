@@ -111,3 +111,49 @@ export const TooltipTitle = styled.div`
 export const TooltipDesc = styled.div`
   opacity: 0.85;
 `;
+
+export const ExpandedTagBody = styled.div<{ $isWarning: boolean }>`
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid
+    ${({ theme }) => theme.palette.byElement.highlights.palePurple};
+  border-radius: 16px;
+  background: ${({ theme }) => theme.palette.byElement.background.white};
+  color: ${({ theme, $isWarning }) =>
+    $isWarning
+      ? theme.palette.byColor.red.regular
+      : theme.palette.byElement.text.purple};
+
+  ${IconCircle} {
+    flex: 0 0 54px;
+    border-color: currentColor;
+    background: ${({ theme }) => theme.palette.byElement.highlights.palePurple};
+  }
+  ${IconMask} {
+    background-color: currentColor;
+  }
+  ${FallbackGlyph} {
+    color: inherit;
+  }
+`;
+
+export const ExpandedTagText = styled.div`
+  min-width: 0;
+  color: ${({ theme }) => theme.palette.byElement.text.purple};
+  overflow-wrap: anywhere;
+`;
+
+export const ExpandedTagTitle = styled.h4`
+  margin: 0 0 4px;
+  font-size: 1.7rem;
+  line-height: 1.3;
+`;
+
+export const ExpandedTagDescription = styled.p`
+  margin: 0;
+  font-size: 1.5rem;
+  line-height: 1.5;
+`;

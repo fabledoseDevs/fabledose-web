@@ -1,3 +1,5 @@
+import { useCallback, useState } from 'react';
+
 import { Button } from '@/atoms/Button/Button';
 import {
   ACTION_TYPE,
@@ -17,6 +19,7 @@ import {
 import { ResetButton } from '@/atoms/ResetButton';
 import { TagIcon } from '@/atoms/TagIcon/TagIcon';
 import { useDictionary } from '@/lang/DictionaryProvider';
+import { StoryDetailsModal } from '@/molecules/StoryDetailsModal/StoryDetailsModal';
 
 import useStoryCard from './StoryCard.hook';
 import {
@@ -45,146 +48,166 @@ export const StoryCard: StoryCardType = ({
     unlockedAccount,
   });
   const { storyCard, librarySync } = useDictionary();
+  const [detailsOpen, setDetailsOpen] = useState(false);
+  const closeDetails = useCallback(() => setDetailsOpen(false), []);
 
   return (
-    <StoryCardBody variant={variant} data-video-ready={isVideoReady}>
-      <MediaLayer>
-        <BackgroundVideo
-          poster={data.backgroundPosterUrl}
-          autoPlay
-          playsInline
-          muted
-          loop
-          onCanPlay={handleVideoCanPlay}
-        >
-          <source src={data.backgroundVideoUrl} type="video/webm" />
-        </BackgroundVideo>
-      </MediaLayer>
-      <GradientShade />
+    <>
+      <StoryCardBody variant={variant} data-video-ready={isVideoReady}>
+        <MediaLayer>
+          <BackgroundVideo
+            poster={data.backgroundPosterUrl}
+            autoPlay
+            playsInline
+            muted
+            loop
+            onCanPlay={handleVideoCanPlay}
+          >
+            <source src={data.backgroundVideoUrl} type="video/webm" />
+          </BackgroundVideo>
+        </MediaLayer>
+        <GradientShade />
 
-      <ContentLayer>
-        <LeftColumn>
-          <TopSection>
-            <Headline
-              weight={data.headlineType || HEADLINE_TYPE.JUMBO}
-              color={data.headlineColor || HEADLINE_COLOR.WHITE}
-            >
-              {data.headline}
-            </Headline>
-            <Paragraph color={PAR_COLOR.WHITE} alignment={TEXT_ALIGNMENT.LEFT}>
-              {data.description}
-            </Paragraph>
+        <ContentLayer>
+          <LeftColumn>
+            <TopSection>
+              <Headline
+                weight={data.headlineType || HEADLINE_TYPE.JUMBO}
+                color={data.headlineColor || HEADLINE_COLOR.WHITE}
+              >
+                {data.headline}
+              </Headline>
+              <Paragraph
+                color={PAR_COLOR.WHITE}
+                alignment={TEXT_ALIGNMENT.LEFT}
+              >
+                {data.description}
+              </Paragraph>
 
-            <ButtonsBlock>
-              {isUnlockedAccount ? (
-                <>
-                  <ButtonsRow>
-                    {onResetProgress && (
-                      <ResetButton
-                        onClick={onResetProgress}
-                        title={librarySync.resetProgress}
-                        label={librarySync.resetProgress}
+              <ButtonsBlock>
+                {isUnlockedAccount ? (
+                  <>
+                    <ButtonsRow>
+                      {onResetProgress && (
+                        <ResetButton
+                          onClick={onResetProgress}
+                          title={librarySync.resetProgress}
+                          label={librarySync.resetProgress}
+                        />
+                      )}
+                      <Button
+                        actionType={ACTION_TYPE.NAVIGATION}
+                        variant={BUTTON_VARIANT.RED}
+                        text={data.readButtonText || storyCard.readButton}
+                        payload={data.readUrl || '#'}
+                        width={{ widthType: WIDTH_TYPE.PX, widthValue: 200 }}
                       />
-                    )}
-                    <Button
-                      actionType={ACTION_TYPE.NAVIGATION}
-                      variant={BUTTON_VARIANT.RED}
-                      text={data.readButtonText || storyCard.readButton}
-                      payload={data.readUrl || '#'}
-                      width={{ widthType: WIDTH_TYPE.PX, widthValue: 200 }}
-                    />
-                    <Button
-                      actionType={ACTION_TYPE.NAVIGATION}
-                      variant={BUTTON_VARIANT.TRANSPARENT}
-                      text={storyCard.audiobookButton}
-                      payload={data.audiobookUrl || '#'}
-                      width={{ widthType: WIDTH_TYPE.PX, widthValue: 200 }}
-                    />
-                  </ButtonsRow>
-                  <Paragraph
-                    color={PAR_COLOR.WHITE}
-                    alignment={TEXT_ALIGNMENT.LEFT}
-                  >
-                    {storyCard.downloadCta}
-                  </Paragraph>
-                  <SingleButtonRow>
-                    <Button
-                      actionType={ACTION_TYPE.NAVIGATION}
-                      variant={BUTTON_VARIANT.TRANSPARENT}
-                      text={storyCard.pdfButton}
-                      payload={data.pdfUrl || '#'}
-                      width={{ widthType: WIDTH_TYPE.PX, widthValue: 200 }}
-                    />
-                    <Button
-                      actionType={ACTION_TYPE.NAVIGATION}
-                      variant={BUTTON_VARIANT.TRANSPARENT}
-                      text={storyCard.epubButton}
-                      payload={data.epubUrl || '#'}
-                      width={{ widthType: WIDTH_TYPE.PX, widthValue: 200 }}
-                    />
-                  </SingleButtonRow>
-                </>
-              ) : (
-                <>
-                  <SingleButtonRow>
-                    {onResetProgress && (
-                      <ResetButton
-                        onClick={onResetProgress}
-                        title={librarySync.resetProgress}
-                        label={librarySync.resetProgress}
+                      <Button
+                        actionType={ACTION_TYPE.NAVIGATION}
+                        variant={BUTTON_VARIANT.TRANSPARENT}
+                        text={storyCard.audiobookButton}
+                        payload={data.audiobookUrl || '#'}
+                        width={{ widthType: WIDTH_TYPE.PX, widthValue: 200 }}
                       />
-                    )}
-                    <Button
-                      actionType={ACTION_TYPE.NAVIGATION}
-                      variant={BUTTON_VARIANT.RED}
-                      text={data.readButtonText || storyCard.readButton}
-                      payload={data.readUrl || '#'}
-                      width={{ widthType: WIDTH_TYPE.PX, widthValue: 200 }}
-                    />
-                  </SingleButtonRow>
-                  <Paragraph
-                    color={PAR_COLOR.WHITE}
-                    alignment={TEXT_ALIGNMENT.LEFT}
-                  >
-                    {storyCard.unlockCta}
-                  </Paragraph>
-                  <SingleButtonRow>
-                    <Button
-                      actionType={ACTION_TYPE.NAVIGATION}
-                      variant={BUTTON_VARIANT.TRANSPARENT}
-                      text={storyCard.unlockButton}
-                      payload={'/plan'}
-                      width={{ widthType: WIDTH_TYPE.PX, widthValue: 200 }}
-                    />
-                  </SingleButtonRow>
-                </>
-              )}
-            </ButtonsBlock>
-          </TopSection>
+                    </ButtonsRow>
+                    <Paragraph
+                      color={PAR_COLOR.WHITE}
+                      alignment={TEXT_ALIGNMENT.LEFT}
+                    >
+                      {storyCard.downloadCta}
+                    </Paragraph>
+                    <SingleButtonRow>
+                      <Button
+                        actionType={ACTION_TYPE.NAVIGATION}
+                        variant={BUTTON_VARIANT.TRANSPARENT}
+                        text={storyCard.pdfButton}
+                        payload={data.pdfUrl || '#'}
+                        width={{ widthType: WIDTH_TYPE.PX, widthValue: 200 }}
+                      />
+                      <Button
+                        actionType={ACTION_TYPE.NAVIGATION}
+                        variant={BUTTON_VARIANT.TRANSPARENT}
+                        text={storyCard.epubButton}
+                        payload={data.epubUrl || '#'}
+                        width={{ widthType: WIDTH_TYPE.PX, widthValue: 200 }}
+                      />
+                    </SingleButtonRow>
+                  </>
+                ) : (
+                  <>
+                    <SingleButtonRow>
+                      {onResetProgress && (
+                        <ResetButton
+                          onClick={onResetProgress}
+                          title={librarySync.resetProgress}
+                          label={librarySync.resetProgress}
+                        />
+                      )}
+                      <Button
+                        actionType={ACTION_TYPE.NAVIGATION}
+                        variant={BUTTON_VARIANT.RED}
+                        text={data.readButtonText || storyCard.readButton}
+                        payload={data.readUrl || '#'}
+                        width={{ widthType: WIDTH_TYPE.PX, widthValue: 200 }}
+                      />
+                    </SingleButtonRow>
+                    <Paragraph
+                      color={PAR_COLOR.WHITE}
+                      alignment={TEXT_ALIGNMENT.LEFT}
+                    >
+                      {storyCard.unlockCta}
+                    </Paragraph>
+                    <SingleButtonRow>
+                      <Button
+                        actionType={ACTION_TYPE.NAVIGATION}
+                        variant={BUTTON_VARIANT.TRANSPARENT}
+                        text={storyCard.unlockButton}
+                        payload={'/plan'}
+                        width={{ widthType: WIDTH_TYPE.PX, widthValue: 200 }}
+                      />
+                    </SingleButtonRow>
+                  </>
+                )}
+              </ButtonsBlock>
+            </TopSection>
 
-          <BottomSection>
-            <Paragraph color={PAR_COLOR.WHITE} alignment={TEXT_ALIGNMENT.LEFT}>
-              {storyCard.infoDisclaimer}
-            </Paragraph>
-            <TagsRow>
-              {data.tags.map(tag => (
-                <TagIcon
-                  key={tag.name}
-                  icon={tag.name}
-                  isWarning={tag.warning}
+            <BottomSection>
+              <Paragraph
+                color={PAR_COLOR.WHITE}
+                alignment={TEXT_ALIGNMENT.LEFT}
+              >
+                {storyCard.infoDisclaimer}
+              </Paragraph>
+              <TagsRow>
+                {data.tags.map(tag => (
+                  <TagIcon
+                    key={tag.name}
+                    icon={tag.name}
+                    isWarning={tag.warning}
+                  />
+                ))}
+                <Button
+                  actionType={ACTION_TYPE.FUNCTION_TRIGGER}
+                  variant={BUTTON_VARIANT.TRANSPARENT}
+                  text={storyCard.moreInfoButton}
+                  payload={() => setDetailsOpen(true)}
+                  isDisabled={!data.fullDescription}
+                  width={{ widthType: WIDTH_TYPE.PX, widthValue: 200 }}
                 />
-              ))}
-              <Button
-                actionType={ACTION_TYPE.NAVIGATION}
-                variant={BUTTON_VARIANT.TRANSPARENT}
-                text={storyCard.moreInfoButton}
-                payload={data.moreInfoUrl || '#'}
-                width={{ widthType: WIDTH_TYPE.PX, widthValue: 200 }}
-              />
-            </TagsRow>
-          </BottomSection>
-        </LeftColumn>
-      </ContentLayer>
-    </StoryCardBody>
+              </TagsRow>
+            </BottomSection>
+          </LeftColumn>
+        </ContentLayer>
+      </StoryCardBody>
+      {data.fullDescription && (
+        <StoryDetailsModal
+          isOpen={detailsOpen}
+          onClose={closeDetails}
+          title={data.headline}
+          tags={data.tags}
+          description={data.fullDescription}
+        />
+      )}
+    </>
   );
 };

@@ -11,10 +11,26 @@ export type FableLocale = 'pl' | 'en';
 export type FableLocalized<T> = Partial<Record<FableLocale, T>>;
 
 /**
- * Describes the long metadata text for one locale.
+ * Parent-facing commentary and a complete plot synopsis for one locale.
+ *
+ * @remarks
+ * The details modal displays commentary before the synopsis and explicitly warns
+ * that the synopsis reveals the ending. Separate paragraphs with blank lines.
+ * Describe this adaptation, including frightening scenes and how they resolve;
+ * do not substitute a generic synopsis of a different version of the tale.
+ *
+ * @example
+ * ```ts
+ * const description: FableFullDescription = {
+ *   comment: 'The wolf threatens the pigs but does not die.',
+ *   synopsis: 'The brothers build three houses.\n\nThey escape to the stone house and the wolf flees.',
+ * };
+ * ```
  */
 export interface FableFullDescription {
+  /** Complete plot, including resolution and ending, shown after the spoiler disclosure. */
   synopsis: string;
+  /** Parent-facing themes and concrete content guidance specific to this adaptation. */
   comment: string;
 }
 
@@ -30,12 +46,31 @@ export interface FableCredits {
 }
 
 /**
- * Cover-image set used by different UI contexts.
+ * Cover-image set used by the catalogue, search results and story views.
+ *
+ * @remarks
+ * Tile consumers choose tileCovers for the page locale before falling back to
+ * the legacy tileCover and fullCover. Other cover roles keep their own images.
+ * Locale-specific covers must not silently fall back to the other language.
+ *
+ * @example
+ * ```ts
+ * const covers: FableCovers = {
+ *   tileCovers: { pl: 'tales/goldilocks/img/tileCoverPL.jpg', en: 'tales/goldilocks/img/tileCoverEN.jpg' },
+ *   tileCover: 'tales/goldilocks/img/tileCover.jpg',
+ * };
+ * ```
  */
 export interface FableCovers {
+  /** Tile covers keyed by page locale; paths may be database-relative or absolute URLs. */
+  tileCovers?: FableLocalized<string>;
+  /** Legacy, language-neutral tile cover used when a localized entry is absent. */
   tileCover?: string;
+  /** Animated background for story introductions. */
   mainCover?: string;
+  /** Full-size static image and final tile-image fallback. */
   fullCover?: string;
+  /** Dedicated audiobook cover, preferred over tile covers by the player. */
   audioCover?: string;
 }
 

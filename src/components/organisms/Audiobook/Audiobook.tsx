@@ -10,6 +10,7 @@ import {
   HEADLINE_TYPE,
 } from '@/atoms/Headline/Headline.types';
 import StoryProgressBar from '@/atoms/StoryProgressBar';
+import { useDictionary } from '@/lang/DictionaryProvider';
 
 import { useAudiobook } from './Audiobook.hook';
 import {
@@ -17,6 +18,7 @@ import {
   AudiobookBody,
   ControlsArea,
   CoverWrapper,
+  PlaybackError,
   ProgressRow,
   TitleRow,
   TopBar,
@@ -24,9 +26,15 @@ import {
 import type { Audiobook as AudiobookType } from './Audiobook.types';
 
 export const Audiobook: AudiobookType = props => {
-  const { source, onClose } = props;
+  const { source, likeDisabled } = props;
+  const { audiobook: text, librarySync } = useDictionary();
   const {
     audioRef,
+    playbackError,
+    handlePlay,
+    handlePause,
+    handleClose,
+    handleError,
     isPlaying,
     isLiked,
     speedLabel,
@@ -49,8 +57,8 @@ export const Audiobook: AudiobookType = props => {
       <TopBar>
         <AudoButtons
           variant={AUDIO_BUTTON_VARIANT.CLOSE}
-          onClick={onClose}
-          ariaLabel="Close audiobook player"
+          onClick={handleClose}
+          ariaLabel={text.close}
         />
       </TopBar>
 
@@ -74,12 +82,15 @@ export const Audiobook: AudiobookType = props => {
           </Headline>
         </TitleRow>
 
+        {playbackError && (
+          <PlaybackError role="alert">{text.playbackFailed}</PlaybackError>
+        )}
         <ProgressRow>
           <StoryProgressBar
             playedPercent={playedPercent}
             bufferedPercent={bufferedPercent}
             onSeek={handleProgressSeek}
-            ariaLabel={`Playback progress for ${source.title}`}
+            ariaLabel={`${text.progress}: ${source.title}`}
           />
         </ProgressRow>
 
@@ -87,13 +98,13 @@ export const Audiobook: AudiobookType = props => {
           <AudoButtons
             variant={AUDIO_BUTTON_VARIANT.SPEED}
             onClick={handleSpeedCycle}
-            ariaLabel={`Change playback speed, current ${speedLabel}`}
+            ariaLabel={`${text.speed}: ${speedLabel}`}
             speedLabel={speedLabel}
           />
           <AudoButtons
             variant={AUDIO_BUTTON_VARIANT.SEEK_BACKWARD}
             onClick={handleSeekBackward}
-            ariaLabel="Go back 10 seconds"
+            ariaLabel={text.backward}
             seekAmount={10}
           />
           <AudoButtons
@@ -101,19 +112,22 @@ export const Audiobook: AudiobookType = props => {
             onClick={() => {
               void handlePlayToggle();
             }}
-            ariaLabel={isPlaying ? 'Pause audiobook' : 'Play audiobook'}
+            ariaLabel={isPlaying ? text.pause : text.play}
             isPlaying={isPlaying}
           />
           <AudoButtons
             variant={AUDIO_BUTTON_VARIANT.SEEK_FORWARD}
             onClick={handleSeekForward}
-            ariaLabel="Skip forward 10 seconds"
+            ariaLabel={text.forward}
             seekAmount={10}
           />
           <AudoButtons
             variant={AUDIO_BUTTON_VARIANT.LIKE}
             onClick={handleLikeToggle}
-            ariaLabel={isLiked ? 'Remove from favorites' : 'Add to favorites'}
+            ariaLabel={
+              isLiked ? librarySync.removeFavorite : librarySync.addFavorite
+            }
+            disabled={likeDisabled}
             isLiked={isLiked}
           />
         </ActionsRow>
@@ -127,6 +141,9 @@ export const Audiobook: AudiobookType = props => {
         onTimeUpdate={handleTimeUpdate}
         onProgress={handleProgress}
         onEnded={handleEnded}
+        onPlay={handlePlay}
+        onPause={handlePause}
+        onError={handleError}
       />
     </AudiobookBody>
   );

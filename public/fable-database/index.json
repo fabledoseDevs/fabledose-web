@@ -17,12 +17,12 @@
         },
         "fullDescription": {
           "en": {
-            "synopsis": "Goldilocks wanders into the bears' home while they are away. She tastes their porridge, tries their chairs, and falls asleep in the smallest bed until the family returns.",
-            "comment": "This fairy tale works well for discussing boundaries, respect for others' property, and how curiosity can lead to consequences."
+            "comment": "In this version, the story does not end with Goldilocks running away. She realises that she has wronged the bears, returns, apologises and helps put things right. It offers a starting point for talking about privacy, respect for other people’s belongings and taking responsibility. The bears express anger and disappointment, but accept her apology and let her make amends. One frightening moment shows Goldilocks waking surrounded by bears and jumping out of a window into bushes. She is not injured, and nobody chases her.",
+            "synopsis": "Papa Bear, Mama Bear and their grumbling Little Bear live in a cosy house at the edge of a forest. One beautiful morning they go for a walk, leaving their unfinished porridge with honey and blueberries on the table. Goldilocks, a curious girl who often gets into mischief, is walking nearby. When she discovers the cottage, she goes inside without an invitation.\n\nShe tastes porridge from all three bowls. One is too hot, another too cold, but Little Bear’s is just right, so she eats every bit. Next she tries the armchairs. The biggest is too stiff, the middle-sized one too bouncy, and the smallest comfortable. As she settles into it, one of its legs breaks. Feeling tired, she goes upstairs, disturbs the bedding and falls asleep in Little Bear’s bed.\n\nThe bears return to find that someone has eaten their food, damaged the little armchair and made a mess of their beds. They discover Goldilocks asleep upstairs. Their voices wake her, and the sight of the bears frightens her so much that she jumps out of the window into the bushes and runs into the forest. While running, she begins to feel guilty about taking their food and damaging their belongings. She decides to return and put everything right.\n\nGoldilocks knocks and apologises. Papa Bear sternly lists what she has done wrong, but Mama Bear persuades him to give her a chance. She helps Mama Bear make fresh porridge, mends the armchair with Papa Bear and makes the beds with Little Bear. They finish the day sharing supper and cake. The ending stresses that mistakes should be followed by a sincere apology and practical efforts to repair the harm."
           },
           "pl": {
-            "synopsis": "Złotowłosa trafia do domu niedźwiedzi, gdy ich nie ma. Próbuje ich owsianki, testuje krzesła i zasypia w najmniejszym łóżku, aż rodzina wraca.",
-            "comment": "Ta bajka dobrze nadaje się do rozmowy o granicach, szacunku do cudzej własności i o tym, że ciekawość może mieć konsekwencje."
+            "comment": "Ta wersja opowieści nie kończy się na ucieczce Złotowłosej. Dziewczynka sama dostrzega, że skrzywdziła gospodarzy, wraca, przeprasza i pomaga naprawić szkody. Bajka daje okazję do rozmowy o prywatności, szanowaniu cudzych rzeczy i odpowiedzialności za własne zachowanie. Misie okazują złość i niezadowolenie, ale przyjmują przeprosiny oraz pozwalają dziewczynce zadośćuczynić. W historii pojawia się moment strachu: Złotowłosa budzi się otoczona przez niedźwiedzie i wyskakuje przez okno w krzaki. Nie odnosi obrażeń i nikt jej nie ściga.",
+            "synopsis": "Na skraju lasu mieszka rodzina trzech misiów: Tata Miś, Mama Miś i marudny Mały Miś. Pewnego pięknego poranka wychodzą na spacer, zostawiając na stole niedokończoną owsiankę z miodem i jagodami. W tym samym czasie w pobliżu spaceruje ciekawska, skłonna do psot Złotowłosa. Widząc przytulny domek, wchodzi do środka bez zaproszenia.\n\nDziewczynka próbuje owsianki z trzech misek. Jedna porcja jest za gorąca, druga za zimna, a porcja Małego Misia okazuje się w sam raz. Złotowłosa zjada ją w całości. Potem wypróbowuje fotele: duży jest zbyt sztywny, średni zbyt sprężysty, a najmniejszy wygodny. Gdy w nim siada, łamie się noga fotelika. Zmęczona zwiedzaniem dziewczynka idzie do sypialni, rozgrzebuje posłania i zasypia w łóżku Małego Misia.\n\nPo powrocie misie odkrywają naruszone jedzenie, połamany fotelik i bałagan w łóżkach. W sypialni znajdują śpiącą Złotowłosą. Obudzona ich głosami dziewczynka przeraża się widokiem niedźwiedzi, wyskakuje przez okno w zarośla i ucieka do lasu. Dopiero w biegu zaczyna rozumieć, że zjadła cudze jedzenie i zniszczyła cudze rzeczy. Postanawia wrócić i wszystko naprawić.\n\nZłotowłosa puka do drzwi i przeprasza. Tata Miś surowo wylicza jej przewinienia, a Mama Miś przekonuje go, by dać dziewczynce szansę. Złotowłosa pomaga ugotować nową owsiankę, naprawia fotelik z Tatą Misiem i ścieli łóżka razem z Małym Misiem. Wieczorem wszyscy siadają do wspólnej kolacji i ciasta. Zakończenie podkreśla, że po błędzie należy przeprosić i naprawić wyrządzoną szkodę."
           }
         },
         "credits": {
@@ -48,10 +48,14 @@
           "moderation"
         ],
         "covers": {
-          "tileCover": "",
+          "tileCover": "tales/goldilocks/img/tileCover.jpg",
           "mainCover": "",
           "fullCover": "",
-          "audioCover": ""
+          "audioCover": "",
+          "tileCovers": {
+            "pl": "tales/goldilocks/img/tileCoverPL.jpg",
+            "en": "tales/goldilocks/img/tileCoverEN.jpg"
+          }
         },
         "contentPointers": {
           "story": "tales/goldilocks/story.json",
@@ -83,12 +87,12 @@
         },
         "fullDescription": {
           "en": {
-            "synopsis": "Each pig chooses a different building material: straw, wood, and brick. When the wolf arrives, only careful planning and effort prove strong enough to keep everyone safe.",
-            "comment": "This tale naturally supports conversations about patience, long-term thinking, and why quality work matters."
+            "comment": "A story about care, patience and brothers helping one another. The third pig builds with stone. The danger is explicit: the wolf lies, lunges at a pig, threatens to eat the brothers and destroys their homes. The wooden house collapses onto the pigs, but they escape without described injuries. At the end, the wolf lands bottom-first in hot water, howls in pain and flees. This is presented comically; the wolf does not die. Parents can use the story to discuss deception, safety and the consequences of rushing important work.",
+            "synopsis": "Crunchy, Oinky and Eusebius leave their mother’s home. Before they go, she reminds them that hard work and doing things properly are the foundations of a peaceful life. Each brother chooses a place and builds a home. Crunchy wants plenty of time to sleep, so he makes a straw hut in a flowery meadow in one day. Oinky prefers fishing, so he spends three days building a wooden house by a stream, complete with a window and shutters. Eusebius works for three weeks on a stone house with strong oak doors, shutters and a chimney.\n\nA hungry wolf arrives. He knocks at Crunchy’s door, pretending to be a kindly farmer delivering snacks. Crunchy opens the door but slams it on the attacker’s nose just in time. The wolf threatens to eat him, then destroys the straw house with one mighty puff. Crunchy runs to Oinky’s house.\n\nThe wolf repeats his farmer story, but Oinky has been warned and spots the wolf’s tail through the window. Furious, the wolf blows three times. First the house shakes, then planks come loose, and finally the whole building collapses onto the pigs. The brothers escape to Eusebius, who has just finished building. All three shelter in his stone house and bolt the door.\n\nThis time neither the wolf’s lies nor his repeated puffing get him inside. He becomes exhausted but does not give up. The brothers realise that he will try the chimney. They light a fire and hang a pot of water over it. When the wolf climbs down, he lands bottom-first in the hot water. Howling in pain, he shoots out of the chimney like a rocket, making the pigs laugh.\n\nEusebius’s careful work saves all three brothers. The narrator explains that effort benefits both ourselves and those we love. The wolf never returns. A humorous epilogue reports a rumour that he really became a kindly farmer and began handing out snacks, leaving readers to decide whether to believe it."
           },
           "pl": {
-            "synopsis": "Każda świnka wybiera inny materiał na dom: słomę, drewno i cegłę. Gdy pojawia się wilk, tylko rozsądne planowanie i solidna praca zapewniają bezpieczeństwo.",
-            "comment": "Ta historia dobrze wspiera rozmowę o cierpliwości, myśleniu długoterminowym i o tym, dlaczego warto robić coś porządnie."
+            "comment": "To opowieść o staranności, cierpliwości i pomocy między braćmi. Trzecia świnka buduje dom z kamienia. Fabuła zawiera wyraźne zagrożenie: wilk kłamie, rzuca się na świnkę, grozi zjedzeniem braci i burzy ich domy. Drewniany dom przewraca się na świnki, lecz uciekają bez opisanych obrażeń. W finale wilk wpada pupą do gorącej wody, wyje z bólu i ucieka. Scena ma komiczny charakter; wilk nie ginie. Rodzic może wykorzystać historię do rozmowy o oszustwie, bezpieczeństwie i skutkach pochopnego działania.",
+            "synopsis": "Trzej bracia, Chrupek, Chrumcio i Euzebiusz, opuszczają dom mamy. Przed rozstaniem mama przypomina im, że spokojne życie wymaga pracy i solidności. Każdy brat wybiera inne miejsce i sposób budowy własnego domu. Chrupek chce mieć dużo czasu na sen: w jeden dzień stawia słomiany szałas na kwiecistej łące. Chrumcio woli wędkowanie, więc w trzy dni buduje nad rzeczką drewniany dom z oknem i okiennicami. Euzebiusz poświęca trzy tygodnie na kamienny dom z mocnymi dębowymi drzwiami, okiennicami i kominem.\n\nW okolicy pojawia się głodny wilk. Puka do Chrupka, udając życzliwego rolnika przynoszącego przekąski. Świnka otwiera drzwi, ale w ostatniej chwili zatrzaskuje je napastnikowi na nosie. Wilk grozi, że ją zje, a następnie jednym potężnym dmuchnięciem niszczy słomiany dom. Chrupek ucieka do Chrumcia.\n\nWilk ponownie przedstawia się jako rolnik. Ostrzeżony Chrumcio nie daje się oszukać i widzi przez okno wilczą kitę. Wściekły wilk dmucha trzy razy: najpierw dom się trzęsie, potem odrywają się deski, a w końcu cała konstrukcja rozpada się na świnki. Bracia uciekają do Euzebiusza, który właśnie skończył budowę. Wszystkie trzy świnki chronią się w jego kamiennym domu i ryglują drzwi.\n\nTym razem oszustwo nie działa, a kolejne dmuchnięcia wilka nie poruszają solidnych ścian. Wilk męczy się, ale nie rezygnuje. Bracia domyślają się, że spróbuje wejść kominem. Rozpalają ogień i wieszają nad nim kociołek z wodą. Gdy wilk schodzi przez komin, wpada pupą do gorącej wody. Wyjąc z bólu, wyskakuje z komina jak rakieta, ku rozbawieniu świnek.\n\nStaranność Euzebiusza ocala wszystkich trzech braci. Narrator podkreśla, że wysiłek przynosi korzyści zarówno nam, jak i naszym bliskim. Wilk już nie wraca. W żartobliwym epilogu pojawia się pogłoska, że naprawdę został poczciwym rolnikiem i zaczął rozdawać przekąski; ocenę jej wiarygodności narrator pozostawia czytelnikowi."
           }
         },
         "credits": {
@@ -114,10 +118,14 @@
           "diligence"
         ],
         "covers": {
-          "tileCover": "tales/three-little-pigs/img/thumb-piggies.png",
+          "tileCover": "tales/three-little-pigs/img/tileCover.jpg",
           "mainCover": "tales/three-little-pigs/img/cover_1920x1080.webm",
           "fullCover": "tales/three-little-pigs/img/fullCover.jpg",
-          "audioCover": "tales/three-little-pigs/img/audioCover.jpg"
+          "audioCover": "tales/three-little-pigs/img/audioCover.jpg",
+          "tileCovers": {
+            "pl": "tales/three-little-pigs/img/tileCoverPL.jpg",
+            "en": "tales/three-little-pigs/img/tileCoverEN.jpg"
+          }
         },
         "contentPointers": {
           "story": "tales/three-little-pigs/story.json",
@@ -128,6 +136,74 @@
           "audio": {
             "en": "tales/three-little-pigs/audio/mock-01.mp3",
             "pl": "tales/three-little-pigs/audio/mock-01.mp3"
+          }
+        }
+      }
+    },
+    {
+      "meta": {
+        "id": "fisherman-and-his-wife",
+        "slug": {
+          "en": "fisherman-and-his-wife",
+          "pl": "rybak-i-zlota-rybka"
+        },
+        "title": {
+          "en": "The Fisherman and His Wife",
+          "pl": "O rybaku i zzłotej rybce"
+        },
+        "shortDescription": {
+          "en": "A fisherman releases a golden fish, but his wife’s growing wishes draw him back to an increasingly restless sea.",
+          "pl": "Rybak uwalnia złotą rybkę, lecz rosnące życzenia jego żony każą mu wracać na coraz bardziej wzburzone morze."
+        },
+        "fullDescription": {
+          "en": {
+            "comment": "This version combines gratitude and moderation with a troubled marriage. The wife pressures the fisherman, dismisses his fears and eventually threatens him with imprisonment to force a dangerous journey. Tension grows as the weather worsens. The climax includes a violent storm, a shipwreck, fear of death and drowning. The fisherman does not die: he regains consciousness on the beach and his wife cares for him. The ending is hopeful, although his boat remains destroyed. These scenes may be intense for children sensitive to danger or family conflict.",
+            "synopsis": "A fisherman and his wife live in a poor seaside cottage but love one another. One day he catches a golden flounder that speaks in a human voice and offers to grant a wish in return for freedom. He releases it without asking for a reward. He believes that his strong hands and small, sturdy boat already give him everything he needs.\n\nWhen his wife hears the story, she persuades him to ask for a more comfortable home. The fish grants the request, replacing their cottage with a spacious house and garden. Her happiness soon fades, and she sends him back to ask for a nobleman’s manor with servants and a carriage. The weather turns colder and the sea rougher, but the fish, grateful for its freedom, grants this wish too.\n\nBefore long, his wife demands to become a queen and live in a castle. The fisherman goes out despite dark clouds, wind and rain. The fish warns that these demands are disturbing the peace of its world, but grants the request one final time and tells him never to return. The manor becomes a magnificent castle. His wife sits on a throne, treats him indifferently and sends him to a separate chamber.\n\nDuring a night-time storm, she wakes him with another demand: she wants to be a god and rule the whole world. He warns her about the storm, but she threatens to have him thrown into a dungeon. He goes to sea and finds the flounder. Angry, the fish refuses this wish, tells him that his wife will be back in their old cottage, and says goodbye forever.\n\nThe storm worsens. His boat splits, fills with water and sinks. He falls into the sea and sinks into darkness, losing the boat he considered his whole life. He is not shown to have died: in the next scene, he wakes on the familiar beach among the wreckage. He sees their old cottage. His wife runs out, embraces him lovingly and helps him home.\n\nThe sea calms, the clouds part and sunlight returns. The story closes with the same image of hope for a better day that opened it. The couple lose their new riches, and the fisherman loses his boat, but the ending offers survival and closeness rather than further demands."
+          },
+          "pl": {
+            "comment": "Ta wersja baśni łączy temat wdzięczności i umiaru z trudną relacją małżeńską. Żona naciska na rybaka, ignoruje jego obawy i ostatecznie grozi mu lochami, aby wymusić niebezpieczną wyprawę. Napięcie stopniowo rośnie wraz z coraz groźniejszą pogodą. Kulminacja obejmuje sztorm, rozbicie łodzi, lęk przed śmiercią i tonięcie. Rybak nie umiera: odzyskuje przytomność na plaży i zostaje otoczony opieką żony. Finał jest pełen nadziei, ale łódź pozostaje zniszczona. Te sceny mogą być intensywne dla dziecka wrażliwego na zagrożenie życia lub konflikty rodzinne.",
+            "synopsis": "Rybak i jego żona żyją ubogo w nadmorskiej lepiance, lecz kochają się. Pewnego dnia rybak łowi złotą flądrę, która przemawia ludzkim głosem i w zamian za wolność obiecuje spełnić jego życzenie. Rybak wypuszcza ją bez żądania nagrody. Uważa, że silne ręce i mała, solidna łódź dają mu wszystko, czego potrzebuje.\n\nGdy żona dowiaduje się o spotkaniu, przekonuje męża, by poprosił o wygodniejszy dom. Rybka spełnia prośbę i zastępuje lepiankę przestronnym domem z ogrodem. Zadowolenie żony trwa jednak krótko. Wysyła męża ponownie, tym razem po szlachecki dwór ze służbą i karocą. Morze staje się chłodniejsze i bardziej wzburzone, ale wdzięczna za ocalenie rybka spełnia także to życzenie.\n\nWkrótce żona żąda, by została królową i zamieszkała w zamku. Rybak wypływa mimo ciemnych chmur, wiatru i deszczu. Rybka mówi, że kolejne żądania burzą spokój jej świata, jednak po raz ostatni spełnia prośbę. Nakazuje rybakowi więcej nie wracać. Dwór zamienia się we wspaniały zamek, a żona zasiada na tronie. Odnosi się do męża obojętnie i odsyła go do osobnej komnaty.\n\nW czasie nocnej burzy żona budzi rybaka z nowym żądaniem: chce być bogiem i rządzić całym światem. Mąż ostrzega przed sztormem, lecz ona grozi mu wtrąceniem do lochu. Rybak wyrusza na morze i odnajduje flądrę. Rozgniewana rybka odmawia spełnienia tego życzenia, zapowiada powrót żony do lepianki i żegna się z rybakiem na zawsze.\n\nSztorm narasta. Łódź pęka, nabiera wody i tonie. Rybak wpada do morza i pogrąża się w ciemności, tracąc łódź, którą uważał za całe swoje życie. Nie zostaje jednak pokazany jako zmarły: w następnej scenie budzi się na znajomej plaży wśród szczątków łodzi. Widzi dawną lepiankę. Żona wybiega, obejmuje go z miłością i pomaga mu wrócić do domu.\n\nMorze się uspokaja, chmury ustępują i ponownie pojawiają się promienie słońca. Opowieść wraca do początkowego motywu nadziei na lepszy dzień. Para traci zdobyte bogactwa, a rybak również swoją łódź, lecz zakończenie pokazuje ocalenie i bliskość zamiast dalszych żądań."
+          }
+        },
+        "credits": {
+          "authors": [
+            "Paweł Modzelewski"
+          ],
+          "illustrators": [
+            "Edyta Petrzak"
+          ],
+          "animators": [
+            "Arutiun Sargsyan"
+          ],
+          "lectors": [],
+          "translators": []
+        },
+        "tags": [
+          "age-5",
+          "classic-fable",
+          "moderation",
+          "family",
+          "toxic-relations"
+        ],
+        "covers": {
+          "tileCover": "tales/fisherman-and-his-wife/img/tileCover.jpg",
+          "tileCovers": {
+            "pl": "tales/fisherman-and-his-wife/img/tileCoverPL.jpg",
+            "en": "tales/fisherman-and-his-wife/img/tileCoverEN.jpg"
+          },
+          "mainCover": "tales/fisherman-and-his-wife/img/cover_1920x1080.webm",
+          "fullCover": "tales/fisherman-and-his-wife/img/fullCover.jpg",
+          "audioCover": "tales/fisherman-and-his-wife/img/audioCover.jpg"
+        },
+        "contentPointers": {
+          "story": "tales/fisherman-and-his-wife/story.json",
+          "text": {
+            "pl": "tales/fisherman-and-his-wife/txt/pl.json",
+            "en": "tales/fisherman-and-his-wife/txt/en.json"
+          },
+          "audio": {
+            "pl": "tales/fisherman-and-his-wife/audio/mock-01.mp3",
+            "en": "tales/fisherman-and-his-wife/audio/mock-01.mp3"
           }
         }
       }

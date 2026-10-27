@@ -33,6 +33,15 @@ export const StoryPageCenteredContent = styled.section`
   box-sizing: border-box;
 `;
 
+export const AudioPageContent = styled(StoryPageCenteredContent)`
+  flex-direction: column;
+  gap: 16px;
+
+  > * {
+    max-width: 1024px;
+  }
+`;
+
 export const IntroWrapper = styled.div`
   position: relative;
   width: 100%;

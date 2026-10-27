@@ -24,11 +24,20 @@ export interface ModalWindowProps {
   closeOnOverlayClick?: boolean;
   title?: string;
   width?: number;
+  /** Localized label shared by the existing close icon and optional footer button; defaults preserve legacy labels. */
+  closeLabel?: string;
 }
 
 /**
  * Component renders a modal window with a darkened and blurred background.
- * It locks the body scroll when open and provides several ways to close it.
+ * It locks body scroll and renders through a portal so cards cannot clip the overlay.
+ * The portal targets the active fullscreen element when present, otherwise the document body.
+ * Keyboard focus stays in the dialog and returns to the opener on close.
+ * Escape, the close icon and the optional footer button all use onClose.
+ *
+ * @remarks
+ * Header and footer remain outside the single scrollable content region. Use closeLabel
+ * for localized dialogs and a stable onClose handler when possible.
  *
  * @param props - The component properties.
  *

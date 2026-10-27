@@ -43,7 +43,13 @@ export const ModalHeader = styled.div`
 export const ModalTitle = styled.h2`
   margin: 0;
   font-family: ${({ theme }) => theme.typography.fonts.headline};
-  font-size: ${({ theme }) => theme.typography.headlines.small.fontSize};
+  font-size: clamp(
+    2.2rem,
+    4vw,
+    ${({ theme }) => theme.typography.headlines.small.fontSize}
+  );
+  line-height: 1.2;
+  overflow-wrap: anywhere;
   color: ${({ theme }) => theme.palette.byElement.text.purple};
 `;
 
@@ -66,6 +72,13 @@ export const CloseIconButton = styled.button`
     color: ${({ theme }) => theme.palette.byElement.text.purple};
   }
 
+  border-radius: 50%;
+
+  &:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.palette.byElement.text.purple};
+    outline-offset: 2px;
+  }
+
   &:hover {
     opacity: 0.7;
   }
@@ -83,7 +96,8 @@ export const ModalContent = styled.div`
 `;
 
 export const ModalFooter = styled.div`
-  padding: 16px 32px 32px;
+  flex-shrink: 0;
+  padding: 12px 24px 20px;
   display: flex;
   justify-content: center;
 `;

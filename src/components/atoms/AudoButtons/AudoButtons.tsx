@@ -47,7 +47,7 @@ const getAudoButtonIcon: GetAudoButtonIconType = ({
 };
 
 export const AudoButtons: AudoButtonsType = props => {
-  const { variant, onClick, ariaLabel, disabled = false } = props;
+  const { variant, onClick, ariaLabel, isLiked, disabled = false } = props;
   const { icon, badge, helperLabel }: GetAudoButtonIconValues =
     getAudoButtonIcon(props);
 
@@ -57,6 +57,9 @@ export const AudoButtons: AudoButtonsType = props => {
       variant={variant}
       onClick={onClick}
       aria-label={ariaLabel}
+      aria-pressed={
+        variant === AUDIO_BUTTON_VARIANT.LIKE ? Boolean(isLiked) : undefined
+      }
       disabled={disabled}
     >
       {icon}

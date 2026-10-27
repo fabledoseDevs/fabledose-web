@@ -1,9 +1,11 @@
 import Fade from 'embla-carousel-fade';
 import useEmblaCarousel from 'embla-carousel-react';
+import { useParams } from 'next/navigation';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { useSettings } from '@/contexts/SettingsContext';
 import type { FableFontFamily } from '@/contexts/SettingsContext.types';
+import { getTileCover } from '@/fables/fables.covers';
 import { SLIDE_TEXT_POSITION } from '@/molecules/SingleSlide';
 
 import type { UseSlideshow as UseSlideshowType } from './Slideshow.types';
@@ -100,6 +102,13 @@ export const useSlideshow: UseSlideshowType = ({
   initialSlide = 0,
 }) => {
   const { updateSettings } = useSettings();
+  const params = useParams<{ lang?: string }>();
+  const coverLocale =
+    params?.lang === 'pl'
+      ? 'pl'
+      : params?.lang === 'en'
+      ? 'en'
+      : fable.content.locale;
   const startSlide = Number.isFinite(initialSlide)
     ? Math.max(
         0,
@@ -361,7 +370,7 @@ export const useSlideshow: UseSlideshowType = ({
   );
 
   const fallbackStaticCover = toPublicUrl(
-    fable.meta.covers.fullCover || fable.meta.covers.tileCover || '',
+    fable.meta.covers.fullCover || getTileCover(fable.meta.covers, coverLocale),
   );
 
   const slides = useMemo(

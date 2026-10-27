@@ -362,6 +362,31 @@ export const DictionaryPL: DictionaryType = {
       },
     },
   },
+  storyDetails: {
+    close: 'Zamknij',
+    tags: 'Tematy i oznaczenia',
+    comment: 'Komentarz',
+    synopsis: 'Streszczenie',
+    guidance:
+      'Zapoznaj się ze streszczeniem bajki, jeżeli masz wątpliwości, czy ta bajka jest odpowiednia dla twojego dziecka.',
+    spoilers: 'Poniżej znajdziesz pełną fabułę wraz z zakończeniem.',
+  },
+  audiobook: {
+    close: 'Zamknij odtwarzacz',
+    progress: 'Postęp odsłuchu',
+    speed: 'Prędkość odtwarzania',
+    backward: 'Cofnij o 10 sekund',
+    forward: 'Przewiń o 10 sekund',
+    play: 'Odtwórz audiobook',
+    pause: 'Wstrzymaj audiobook',
+    playbackFailed:
+      'Nie udało się odtworzyć nagrania. Spróbuj ponownie lub wróć do bajki.',
+    loading: 'Wczytywanie miejsca odsłuchu…',
+    loadFailed: 'Nie udało się wczytać miejsca odsłuchu.',
+    saving: 'Zapisywanie miejsca odsłuchu…',
+    saveFailed: 'Nie udało się zapisać miejsca odsłuchu.',
+    unavailable: 'Nagranie nie jest jeszcze dostępne w tym języku.',
+  },
   librarySync: {
     favoritesTitle: 'Ulubione',
     favoritesDescription: 'Twoje ulubione historie w jednym miejscu',

@@ -3,6 +3,7 @@ import type { FableTileProps } from '@/molecules/FableTile/FableTile.types';
 import type { StoryCardData } from '@/organisms/StoryCard/StoryCard.types';
 import index from '@/public/fable-database/index.json';
 
+import { getTileCover } from './fables.covers';
 import type { FableLocale, FableLocalized, FableMeta } from './fables.types';
 
 /**
@@ -44,6 +45,12 @@ export const resolveLibraryMeta = (meta: FableMeta): FableMeta => {
   return {
     ...meta,
     covers: {
+      tileCovers: Object.fromEntries(
+        Object.entries(meta.covers.tileCovers || {}).map(([locale, value]) => [
+          locale,
+          toFableDatabaseUrl(value),
+        ]),
+      ),
       tileCover: cover(meta.covers.tileCover, 'tileCover.jpg'),
       mainCover: cover(meta.covers.mainCover, 'cover_1920x1080.webm'),
       fullCover: cover(meta.covers.fullCover, 'fullCover.jpg'),
@@ -79,7 +86,7 @@ export const toFableTile = (
   meta: FableMeta,
   locale: FableLocale,
 ): FableTileProps => ({
-  imageUrl: meta.covers.tileCover || meta.covers.fullCover || '',
+  imageUrl: toFableDatabaseUrl(getTileCover(meta.covers, locale)),
   fableTitle: pickLocalized(meta.title, locale, meta.id),
   fableDescription: pickLocalized(meta.shortDescription, locale),
   fableUrl: getFableUrl(meta, locale),
@@ -93,6 +100,10 @@ export const toStoryCardData = (
   locale: FableLocale,
 ): StoryCardData => ({
   headline: pickLocalized(meta.title, locale, meta.id),
+  fullDescription:
+    meta.fullDescription[locale] ||
+    meta.fullDescription.en ||
+    meta.fullDescription.pl,
   description: pickLocalized(meta.shortDescription, locale),
   backgroundVideoUrl: meta.covers.mainCover || '',
   backgroundPosterUrl: meta.covers.fullCover || '',

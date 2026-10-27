@@ -133,8 +133,8 @@ export const theme: Theme = {
     higher: '3',
     top: '4',
     veryTop: '5',
-    overlay: '6',
-    modalContent: '7',
-    guard: '8',
+    overlay: '1000',
+    modalContent: '1001',
+    guard: '1002',
   },
 };

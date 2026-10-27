@@ -33,7 +33,20 @@ export interface AudiobookSource {
 }
 
 /**
- * Interface for Audiobook component props.
+ * Persistent or standalone audiobook player inputs.
+ *
+ * @remarks
+ * Mount the player only after loading its saved position. Remount it when the account,
+ * language or recording changes. Controlled liked state must follow acknowledged writes;
+ * the player never changes a controlled heart optimistically.
+ * Errors in persistence are owned by the parent; media failures are reported by the player.
+ *
+ * @example
+ * ```tsx
+ * <Audiobook source={source} onClose={close} initialPositionSeconds={42}
+ *   liked={isFavorited} likeDisabled={pending} onLikeChange={toggleFavorite}
+ *   onPlaybackPositionChange={record} onPlaybackCommit={commit} />
+ * ```
  *
  * @property source - Source object describing title, cover and audio URL.
  * @property onClose - Callback fired when user clicks close/back button.
@@ -46,7 +59,19 @@ export interface AudiobookProps {
   source: AudiobookSource;
   onClose: () => void;
   onLikeChange?: (isLiked: boolean) => void;
-  onPlaybackPositionChange?: (seconds: number) => void;
+  onPlaybackPositionChange?: (seconds: number, duration: number) => void;
+  /** Explicit checkpoint on pause, seek, close or completion; periodic updates remain local. */
+  onPlaybackCommit?: (
+    seconds: number,
+    duration: number,
+    completed: boolean,
+  ) => void;
+  /** Saved seconds applied once after metadata loads; invalid or past-end positions restart at zero. */
+  initialPositionSeconds?: number;
+  /** Controlled acknowledged favorite state. When omitted, initialLiked supplies local-only behavior. */
+  liked?: boolean;
+  /** Disables the heart during loading, signed-out playback or an outstanding favorite mutation. */
+  likeDisabled?: boolean;
   initialLiked?: boolean;
   initialSpeedIndex?: number;
 }
@@ -73,6 +98,8 @@ export interface AudiobookProps {
  */
 export interface UseAudiobookReturnValues {
   audioRef: RefObject<HTMLAudioElement | null>;
+  /** True after a media load or play failure; cleared by a successful play attempt or source change. */
+  playbackError: boolean;
   isPlaying: boolean;
   isLiked: boolean;
   speedLabel: string;
@@ -88,6 +115,14 @@ export interface UseAudiobookReturnValues {
   handleTimeUpdate: () => void;
   handleProgress: () => void;
   handleEnded: () => void;
+  /** Mirrors native play events, including external media controls. */
+  handlePlay: () => void;
+  /** Commits the latest position when playback pauses. */
+  handlePause: () => void;
+  /** Pauses, commits and invokes the close callback. */
+  handleClose: () => void;
+  /** Surfaces media loading and decoding errors. */
+  handleError: () => void;
 }
 
 /**
