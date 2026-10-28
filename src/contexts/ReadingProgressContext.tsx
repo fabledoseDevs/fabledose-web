@@ -48,8 +48,14 @@ export const ReadingProgressProvider = ({
     [syncOwner],
   );
   const getProgress = useCallback(
-    (userId: string, fableId: string): ReadingProgressData | null =>
-      syncOwner() === userId ? cacheRef.current.get(fableId) || null : null,
+    (
+      userId: string,
+      fableId: string,
+      profileId?: string | null,
+    ): ReadingProgressData | null =>
+      syncOwner() === userId
+        ? cacheRef.current.get(`${profileId ?? 'parent'}/${fableId}`) || null
+        : null,
     [syncOwner],
   );
   const setProgress = useCallback(
@@ -57,16 +63,18 @@ export const ReadingProgressProvider = ({
       userId: string,
       fableId: string,
       progress: ReadingProgressData,
+      profileId?: string | null,
     ): boolean => {
       if (syncOwner() !== userId) return false;
-      cacheRef.current.set(fableId, progress);
+      cacheRef.current.set(`${profileId ?? 'parent'}/${fableId}`, progress);
       return true;
     },
     [syncOwner],
   );
   const clearProgress = useCallback(
-    (userId: string, fableId: string): void => {
-      if (syncOwner() === userId) cacheRef.current.delete(fableId);
+    (userId: string, fableId: string, profileId?: string | null): void => {
+      if (syncOwner() === userId)
+        cacheRef.current.delete(`${profileId ?? 'parent'}/${fableId}`);
     },
     [syncOwner],
   );

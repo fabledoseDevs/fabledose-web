@@ -8,10 +8,16 @@ import {
   toFableTile,
   toStoryCardData,
 } from '@/fables/fables.library';
+import { useChildAccess } from '@/hooks/useChildAccess';
 
 import type { UseUserDesktop as UseUserDesktopType } from './UserDesktop.types';
 
 export const useUserDesktop: UseUserDesktopType = (lang: string) => {
+  const { canDiscover } = useChildAccess();
+  const visibleFables = useMemo(
+    () => libraryFables.filter(meta => canDiscover(meta.id)),
+    [canDiscover],
+  );
   const [viewportRef, emblaApi] = useEmblaCarousel(
     {
       dragFree: false,
@@ -33,12 +39,12 @@ export const useUserDesktop: UseUserDesktopType = (lang: string) => {
   const [slideCount, setSlideCount] = useState(0);
   const locale = normalizeLocale(lang);
   const storyCards = useMemo(
-    () => libraryFables.map(meta => toStoryCardData(meta, locale)),
-    [locale],
+    () => visibleFables.map(meta => toStoryCardData(meta, locale)),
+    [locale, visibleFables],
   );
   const tiles = useMemo(
-    () => libraryFables.map(meta => toFableTile(meta, locale)),
-    [locale],
+    () => visibleFables.map(meta => toFableTile(meta, locale)),
+    [locale, visibleFables],
   );
 
   const onSelect = useCallback(() => {

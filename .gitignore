@@ -43,7 +43,11 @@ yarn-error.log*
 next-env.d.ts
 
 # docs
-/docs
+/docs/*
+!/docs/firebase/
+/docs/firebase/*
+!/docs/firebase/firestore-account-deletion.rules
+!/docs/firebase/child-profiles.md
 # Firebase Functions
 /functions/node_modules/
 /.firebase/

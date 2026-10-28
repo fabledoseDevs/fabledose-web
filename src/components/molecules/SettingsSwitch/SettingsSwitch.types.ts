@@ -8,7 +8,9 @@ import type { InfoTooltipContent } from '@/atoms/InfoTooltip';
  */
 
 /**
- * Interface for SettingsSwitch component props.
+ * Interface for an accessible switch.
+ * @remarks When value is provided, it is controlled: the visible state changes only
+ * when the parent acknowledges a new value. The native button supports Space/Enter.
  *
  * @property label - The label of the switch field.
  * @property info - The content for the info tooltip.
@@ -17,7 +19,15 @@ import type { InfoTooltipContent } from '@/atoms/InfoTooltip';
  */
 export interface SettingsSwitchProps {
   label: string;
-  info: InfoTooltipContent;
+  info?: InfoTooltipContent;
+  /** Disables changes while a persistence operation is pending. */
+  isDisabled?: boolean;
+  /** Optional contextual state labels, e.g. Available / Excluded. */
+  stateLabels?: { enabled: string; disabled: string };
+  /** Show green/red availability text, intended for light surfaces. */
+  useStatusColors?: boolean;
+  /** Surface tone controls text and unchecked-track contrast, including white dialogs. */
+  surface?: 'light' | 'dark';
   value?: boolean;
   onChange?: (value: boolean) => void;
 }

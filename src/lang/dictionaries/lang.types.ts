@@ -1,4 +1,8 @@
+import type { ChildProfilesText } from '@/molecules/SettingsProfiles/SettingsProfiles.types';
+
 export type DictionaryType = {
+  /** Localized persistent child-profile management and selection. */
+  childProfiles: ChildProfilesText;
   common: {
     login: string;
     logout: string;

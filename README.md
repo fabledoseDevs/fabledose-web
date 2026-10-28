@@ -182,3 +182,41 @@ When account deletion is scheduled for release:
 5. Set `NEXT_PUBLIC_ACCOUNT_DELETION_ENABLED=true` and rebuild/restart the frontend.
 
 Deployment details: [Firebase Functions instructions](functions/README.md).
+
+
+### Child profiles (Spark)
+
+Profiles are real Firestore documents at `users/{uid}/childProfiles/{profileId}`.
+Names/pseudonyms, one of twelve bundled avatars and an optional age group can be
+created and edited in Settings → Parental control. The profile picker in the
+navigation switches between children and the parent library. Selection is local
+to the current device and stored separately for each Firebase account.
+
+Favourites, reading progress and PL/EN audiobook checkpoints are isolated under
+the selected child document. The parent retains all existing library data;
+profiles previously shown as examples were never persisted and are not migrated.
+Deleting a child requires confirmation and removes only that child's data.
+Interrupted deletion leaves a tombstone and can be retried from the profile list.
+Audio-only child checkpoints also create a discoverable parent marker for cleanup;
+this marker is not shown as slideshow progress.
+
+**Important notice:** publish the complete updated rules from
+[`docs/firebase/firestore-account-deletion.rules`](docs/firebase/firestore-account-deletion.rules)
+before testing profiles against Firebase. See the [step-by-step guide](docs/firebase/child-profiles.md).
+No production rules, billing settings or Cloud Functions are deployed by this change.
+Story exclusions and weekday/weekend access windows now work as Spark preferences.
+In parent mode, the arrow beside the favourite button opens one availability switch
+per child. Excluded stories disappear from library, catalogue/search and favourites;
+direct story routes are also blocked. Hours are stored per child in an IANA timezone,
+with an inclusive start and exclusive end. Equal/overnight windows are rejected.
+The application stops reading/audio outside the window and preserves progress.
+
+**Parent PIN is not enabled.** Switching profiles and editing preferences are not
+protected by a server-verified parent session. These are application-level limits:
+the browser clock can be changed and public media assets remain accessible directly.
+Secure parent authorization and media delivery require a separate backend design;
+no PIN is stored in Firestore or browser storage. No plan limits or automatic parent
+library migration are introduced. Profiles and policy changes require the **latest**
+copy of the rules linked above, including the new optional `policy` field.
+
+Validation: `npm run test:profiles`, `npm run test:library`, `npm run test:audio`.

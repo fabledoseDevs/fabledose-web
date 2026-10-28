@@ -17,6 +17,65 @@ service cloud.firestore {
       allow read: if isOwner(userId);
       allow write: if isOwner(userId) && accountIsActive(userId);
 
+      // Child identities share the parent login; PIN authorization is not enabled yet.
+      match /childProfiles/{profileId} {
+        function validWindow(window) {
+          return window is map
+            && window.keys().hasAll(['enabled', 'start', 'end'])
+            && window.keys().hasOnly(['enabled', 'start', 'end'])
+            && window.enabled is bool
+            && window.start is string && window.end is string
+            && window.start.matches('([01][0-9]|2[0-3]):[0-5][0-9]')
+            && window.end.matches('([01][0-9]|2[0-3]):[0-5][0-9]')
+            && window.start < window.end;
+        }
+        function validPolicy(policy) {
+          return policy is map
+            && policy.keys().hasAll(['excludedStories', 'scheduleEnabled', 'timeZone', 'weekdays', 'weekends'])
+            && policy.keys().hasOnly(['excludedStories', 'scheduleEnabled', 'timeZone', 'weekdays', 'weekends'])
+            && policy.excludedStories is list && policy.excludedStories.size() <= 1000
+            && policy.scheduleEnabled is bool
+            && policy.timeZone is string && policy.timeZone.size() > 0 && policy.timeZone.size() <= 100
+            && validWindow(policy.weekdays) && validWindow(policy.weekends);
+        }
+        function validProfile(data) {
+          return data.keys().hasAll(['name', 'imageUrl', 'ageGroup', 'createdAt'])
+            && data.keys().hasOnly(['name', 'imageUrl', 'ageGroup', 'createdAt', 'deleting', 'policy'])
+            && data.name is string && data.name.size() > 0 && data.name.size() <= 40
+            && data.imageUrl.matches('/avatars/av([1-9]|1[0-2])[.]jpg')
+            && data.ageGroup in ['', '0-4', '5-7', '8-10', '11+']
+            && data.createdAt is number
+            && (!('deleting' in data) || data.deleting is bool)
+            && (!('policy' in data) || validPolicy(data.policy));
+        }
+        function childIsActive() {
+          let path = /databases/$(database)/documents/users/$(userId)/childProfiles/$(profileId);
+          return exists(path) && get(path).data.get('deleting', false) == false;
+        }
+        allow read: if isOwner(userId);
+        allow create: if isOwner(userId) && accountIsActive(userId)
+          && validProfile(request.resource.data)
+          && request.resource.data.get('deleting', false) == false;
+        allow update: if isOwner(userId) && accountIsActive(userId)
+          && validProfile(request.resource.data)
+          && request.resource.data.createdAt == resource.data.createdAt
+          && (resource.data.get('deleting', false) == false
+            || request.resource.data == resource.data);
+        allow delete: if isOwner(userId) && accountIsActive(userId)
+          && resource.data.get('deleting', false) == true;
+
+        match /favorites/{document=**} {
+          allow read: if isOwner(userId);
+          allow create, update: if isOwner(userId) && accountIsActive(userId) && childIsActive();
+          allow delete: if isOwner(userId) && accountIsActive(userId);
+        }
+        match /readingProgress/{document=**} {
+          allow read: if isOwner(userId);
+          allow create, update: if isOwner(userId) && accountIsActive(userId) && childIsActive();
+          allow delete: if isOwner(userId) && accountIsActive(userId);
+        }
+      }
+
       match /favorites/{document=**} {
         allow read: if isOwner(userId);
         allow write: if isOwner(userId) && accountIsActive(userId);

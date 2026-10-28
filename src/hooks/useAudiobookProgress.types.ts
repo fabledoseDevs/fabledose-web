@@ -20,6 +20,8 @@ import type { FableLocale } from '@/fables/fables.types';
 export interface AudiobookProgressOptions {
   /** Current authenticated UID or null. */
   userId: string | null;
+  /** Child library ID; omitted or null keeps existing parent checkpoints. */
+  profileId?: string | null;
   /** Stable story identifier. */
   fableId: string;
   /** Recording language. */

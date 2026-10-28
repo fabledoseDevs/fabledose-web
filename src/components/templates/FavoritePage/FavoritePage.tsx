@@ -1,5 +1,4 @@
 'use client';
-
 import { onAuthStateChanged } from 'firebase/auth';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -15,8 +14,11 @@ import {
   TEXT_ALIGNMENT,
 } from '@/atoms/Paragraph/Paragraph.types';
 import { auth } from '@/config/firebase';
+import { useChildProfiles } from '@/contexts/ChildProfilesContext';
+import { useChildAccess } from '@/hooks/useChildAccess';
 import { useFavorites } from '@/hooks/useFavorites';
 import { useDictionary } from '@/lang/DictionaryProvider';
+import { ProfileAccessNotice } from '@/molecules/SettingsProfiles/ProfileAccessNotice';
 import { SyncStatus } from '@/molecules/SyncStatus/SyncStatus';
 import DesktopTilesSlider from '@/organisms/DesktopTilesSlider';
 
@@ -30,6 +32,8 @@ import { normalizeLocale } from './FavoritePage.utils';
 import { useFableTiles, useFavoritesData } from './hooks';
 
 export const FavoritePage: FavoritePageType = () => {
+  const { activeProfileId, loading: profilesLoading } = useChildProfiles();
+  const { canDiscover } = useChildAccess();
   const { librarySync: text } = useDictionary();
   const params = useParams();
   const currentLang = normalizeLocale((params?.lang as string) || 'en');
@@ -41,7 +45,7 @@ export const FavoritePage: FavoritePageType = () => {
     loading: loadingFavorites,
     error,
     refreshFavorites,
-  } = useFavorites(userId);
+  } = useFavorites(profilesLoading ? null : userId, activeProfileId);
   const {
     favoriteFables,
     continueReadingFables,
@@ -50,13 +54,16 @@ export const FavoritePage: FavoritePageType = () => {
   } = useFavoritesData({
     favorites,
     continueReading,
-    loading: loadingFavorites,
+    loading: loadingFavorites || profilesLoading,
     currentLang,
   });
 
-  const favoriteTiles = useFableTiles(favoriteFables, currentLang);
+  const favoriteTiles = useFableTiles(
+    favoriteFables.filter(item => canDiscover(item.meta.id)),
+    currentLang,
+  );
   const continueReadingTiles = useFableTiles(
-    continueReadingFables,
+    continueReadingFables.filter(item => canDiscover(item.meta.id)),
     currentLang,
   );
 
@@ -70,6 +77,7 @@ export const FavoritePage: FavoritePageType = () => {
 
   return (
     <FavoritePageBody>
+      <ProfileAccessNotice />
       <SectionSpacing>
         <Headline
           weight={HEADLINE_TYPE.BIG}

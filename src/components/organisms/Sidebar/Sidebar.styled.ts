@@ -11,6 +11,10 @@ export const SidebarBody = styled.aside<{ $isHidden?: boolean }>`
     theme.palette.byElement.background.extraDarkPurple};
   z-index: ${({ theme }) => theme.zIndex.top};
 
+  > button {
+    visibility: ${({ $isHidden }) => ($isHidden ? 'hidden' : 'visible')};
+  }
+
   display: flex;
   flex-direction: row;
   align-items: center;

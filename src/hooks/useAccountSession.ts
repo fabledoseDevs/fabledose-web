@@ -11,8 +11,13 @@ import type {
 
 export const useAccountSession = (
   userId: string | null,
+  profileId: string | null = null,
 ): AccountSessionGuard => {
   const session = useRef({ uid: auth.currentUser?.uid ?? null, epoch: 0 });
+  const scope = useRef({ profileId, epoch: 0 });
+  if (scope.current.profileId !== profileId)
+    scope.current = { profileId, epoch: scope.current.epoch + 1 };
+  const scopeEpoch = scope.current.epoch;
   const mounted = useRef(false);
   const [revision, setRevision] = useState(0);
   useEffect(() => {
@@ -35,10 +40,12 @@ export const useAccountSession = (
       mounted.current &&
       userId &&
       auth.currentUser?.uid === userId &&
-      session.current.uid === userId
-        ? { uid: userId, epoch: session.current.epoch }
+      session.current.uid === userId &&
+      scope.current.profileId === profileId &&
+      scope.current.epoch === scopeEpoch
+        ? { uid: userId, epoch: session.current.epoch, profileId, scopeEpoch }
         : null,
-    [userId],
+    [userId, profileId, scopeEpoch],
   );
   const isCurrent = useCallback(
     (token: AccountSession | null): boolean =>
@@ -47,9 +54,11 @@ export const useAccountSession = (
           token &&
           token.uid === auth.currentUser?.uid &&
           token.uid === session.current.uid &&
-          token.epoch === session.current.epoch,
+          token.epoch === session.current.epoch &&
+          token.profileId === scope.current.profileId &&
+          token.scopeEpoch === scope.current.epoch,
       ),
     [],
   );
-  return { capture, isCurrent, revision };
+  return { capture, isCurrent, revision: revision + scopeEpoch };
 };

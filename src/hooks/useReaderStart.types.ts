@@ -22,7 +22,7 @@ export interface ReaderStartOptions {
   userId: string | null;
   /** Whether the first authentication result has arrived. */
   authChecked: boolean;
-  /** Revision that invalidates positions when authentication changes. */
+  /** Combined revision that invalidates positions when authentication or the selected child changes. */
   accountRevision: number;
   /** Stable catalogue identifier of the story. */
   fableId: string;

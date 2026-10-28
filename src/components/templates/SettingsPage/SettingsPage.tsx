@@ -18,7 +18,6 @@ import {
 import SettingsButton from '@/components/molecules/SettingsButton';
 import SettingsDropdown from '@/components/molecules/SettingsDropdown';
 import SettingsInputField from '@/components/molecules/SettingsInputField';
-import { FIELD_VARIANT } from '@/components/molecules/SettingsInputField/SettingsInputField.types';
 import SettingsProfiles from '@/components/molecules/SettingsProfiles';
 import SettingsRadio from '@/components/molecules/SettingsRadio';
 import SettingsRangeField from '@/components/molecules/SettingsRangeField';
@@ -44,7 +43,7 @@ import type { SettingsPage as SettingsPageType } from './SettingsPage.types';
 import { SETTINGS_TAB } from './SettingsPage.types';
 
 export const SettingsPage: SettingsPageType = () => {
-  const { settingsPage } = useDictionary();
+  const { settingsPage, childProfiles } = useDictionary();
   const [accountAction, setAccountAction] = useState<AccountAction | null>(
     null,
   );
@@ -185,45 +184,9 @@ export const SettingsPage: SettingsPageType = () => {
       case SETTINGS_TAB.PARENTAL_CONTROL:
         return (
           <>
-            <SettingsSwitch
-              label={settingsPage.parental_control.status.label}
-              info={{
-                title: settingsPage.parental_control.status.infoTitle,
-                description:
-                  settingsPage.parental_control.status.infoDescription,
-              }}
-            />
-            <SettingsInputField
-              label={settingsPage.parental_control.pin.label}
-              variant={FIELD_VARIANT.PASSWORD}
-              info={{
-                title: settingsPage.parental_control.pin.infoTitle,
-                description: settingsPage.parental_control.pin.infoDescription,
-              }}
-            />
-            <SettingsInputField
-              label={settingsPage.parental_control.screenLimit.label}
-              info={{
-                title: settingsPage.parental_control.screenLimit.infoTitle,
-                description:
-                  settingsPage.parental_control.screenLimit.infoDescription,
-              }}
-            />
-            <SettingsInputField
-              label={settingsPage.parental_control.excludeHours.label}
-              info={{
-                title: settingsPage.parental_control.excludeHours.infoTitle,
-                description:
-                  settingsPage.parental_control.excludeHours.infoDescription,
-              }}
-            />
-            <SettingsSwitch
-              label={settingsPage.parental_control.ads.label}
-              info={{
-                title: settingsPage.parental_control.ads.infoTitle,
-                description: settingsPage.parental_control.ads.infoDescription,
-              }}
-            />
+            <Paragraph color={PARAGRAPH_COLOR.WHITE}>
+              {childProfiles.parentalDeferred}
+            </Paragraph>
             <SettingsProfiles />
           </>
         );

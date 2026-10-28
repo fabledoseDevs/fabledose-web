@@ -6,6 +6,7 @@ import type { AccountSession } from './useAccountSession.types';
  * @module
  * Persistent reading progress.
  *
+ * Library data is isolated by the optional child profile ID; null retains the parent library.
  * Defines contracts shared by the library UI and its session-aware persistence layer.
  */
 

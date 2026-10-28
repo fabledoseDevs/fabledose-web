@@ -13,10 +13,13 @@ export const SettingsSwitchBody = styled.div`
   }
 `;
 
-export const Label = styled.div`
+export const Label = styled.div<{ $light?: boolean }>`
   font-family: ${({ theme }) => theme.typography.fonts.default};
   font-size: ${({ theme }) => theme.typography.paragraphs.default.fontSize};
-  color: ${({ theme }) => theme.palette.byElement.text.white};
+  color: ${({ theme, $light }) =>
+    $light
+      ? theme.palette.byElement.text.purple
+      : theme.palette.byElement.text.white};
   margin-bottom: 8px;
   min-width: 200px;
 
@@ -40,12 +43,27 @@ export const SwitchWrapper = styled.div`
   gap: 16px;
 `;
 
-export const ToggleTrack = styled.div<{ isActive: boolean }>`
+export const ToggleTrack = styled.button<{
+  isActive: boolean;
+  $light?: boolean;
+}>`
   width: 48px;
   height: 24px;
-  background: ${({ theme, isActive }) =>
+  padding: 0;
+  flex-shrink: 0;
+  &:disabled {
+    cursor: wait;
+    opacity: 0.6;
+  }
+  &:focus-visible {
+    outline: 2px solid #4485ff;
+    outline-offset: 4px;
+  }
+  background: ${({ theme, isActive, $light }) =>
     isActive
       ? '#4485FF' // Adjusted based on image - standard toggle blue
+      : $light
+      ? '#9a92ad'
       : theme.palette.byElement.background.transparentWhite['30']};
   border-radius: 12px;
   position: relative;
@@ -65,10 +83,20 @@ export const ToggleThumb = styled.div<{ isActive: boolean }>`
   transition: left 0.3s ease;
 `;
 
-export const StateLabel = styled.div`
+export const StateLabel = styled.div<{
+  $status?: 'available' | 'excluded';
+  $light?: boolean;
+}>`
   font-family: ${({ theme }) => theme.typography.fonts.default};
   font-size: ${({ theme }) => theme.typography.paragraphs.default.fontSize};
-  color: ${({ theme }) => theme.palette.byElement.text.white};
+  color: ${({ theme, $status, $light }) =>
+    $status === 'available'
+      ? '#16723e'
+      : $status === 'excluded'
+      ? '#ac2337'
+      : $light
+      ? theme.palette.byElement.text.purple
+      : theme.palette.byElement.text.white};
 `;
 
 export const ActionsWrapper = styled.div`

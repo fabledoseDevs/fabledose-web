@@ -29,8 +29,11 @@ const emptySnapshot = (): FavoritesSnapshot => ({
   pendingIds: [],
 });
 
-export const useFavorites = (userId: string | null): UseFavoritesResult => {
-  const { capture, isCurrent, revision } = useAccountSession(userId);
+export const useFavorites = (
+  userId: string | null,
+  profileId: string | null = null,
+): UseFavoritesResult => {
+  const { capture, isCurrent, revision } = useAccountSession(userId, profileId);
   const [snapshot, setSnapshot] = useState<FavoritesSnapshot>(emptySnapshot);
   const current = useRef(snapshot);
   const reads = useRef(0);
@@ -71,8 +74,8 @@ export const useFavorites = (userId: string | null): UseFavoritesResult => {
       );
       if (!isCurrent(session) || request !== reads.current) return;
       const [favorites, continueReading] = await Promise.all([
-        getFavorites(session.uid),
-        getContinueReading(session.uid),
+        getFavorites(session.uid, session.profileId),
+        getContinueReading(session.uid, session.profileId),
       ]);
       if (!isCurrent(session) || request !== reads.current) return;
       apply(previous => ({
@@ -119,7 +122,7 @@ export const useFavorites = (userId: string | null): UseFavoritesResult => {
         current.current.loading
       )
         return Promise.resolve(null);
-      const key = `${session.uid}/${fableId}`;
+      const key = `${session.uid}/${session.profileId}/${session.scopeEpoch}/${fableId}`;
       const existing = pending.current.get(key);
       if (existing && isCurrent(existing.mutation.session))
         return Promise.resolve(null);
@@ -136,8 +139,9 @@ export const useFavorites = (userId: string | null): UseFavoritesResult => {
         await Promise.resolve();
         try {
           if (!isCurrent(session)) return null;
-          if (wanted) await addFavorite(session.uid, fableId);
-          else await removeFavorite(session.uid, fableId);
+          if (wanted)
+            await addFavorite(session.uid, fableId, session.profileId);
+          else await removeFavorite(session.uid, fableId, session.profileId);
           if (!isCurrent(session)) return null;
           apply(previous => ({
             ...previous,
