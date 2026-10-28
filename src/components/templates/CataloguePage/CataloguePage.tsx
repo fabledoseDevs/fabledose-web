@@ -1,5 +1,4 @@
 'use client';
-
 import { useParams } from 'next/navigation';
 
 import Headline from '@/atoms/Headline';
@@ -15,6 +14,7 @@ import {
   TEXT_ALIGNMENT,
 } from '@/atoms/Paragraph/Paragraph.types';
 import { useDictionary } from '@/lang/DictionaryProvider';
+import { ProfileAccessNotice } from '@/molecules/SettingsProfiles/ProfileAccessNotice';
 import AlphabeticalList from '@/organisms/AlphabeticalList';
 import SearchResults from '@/organisms/SearchResults';
 
@@ -51,6 +51,7 @@ export const CataloguePage: CataloguePageType = () => {
 
   return (
     <CataloguePageBody>
+      <ProfileAccessNotice />
       <TopSection>
         <Headline
           weight={HEADLINE_TYPE.BIG}

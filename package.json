@@ -19,7 +19,8 @@
     "lint:fix": "eslint --fix",
     "typedoc": "typedoc",
     "docs:serve": "typedoc && npx http-server docs -p 8080 -o",
-    "docs:watch": "typedoc --watch"
+    "docs:watch": "typedoc --watch",
+    "test:profiles": "node --test tests/profiles.test.cjs"
   },
   "dependencies": {
     "@emotion/cache": "^11.14.0",

@@ -3,6 +3,7 @@ import type { ReactElement } from 'react';
 import { useCallback, useEffect, useState } from 'react';
 
 import { auth } from '@/config/firebase';
+import { useChildProfiles } from '@/contexts/ChildProfilesContext';
 import { useReaderStart } from '@/hooks/useReaderStart';
 import { useReadingProgress } from '@/hooks/useReadingProgress';
 import { useDictionary } from '@/lang/DictionaryProvider';
@@ -18,18 +19,23 @@ export const StoryCardWithProgress = ({
   data,
   fableId,
 }: StoryCardWithProgressProps): ReactElement => {
+  const {
+    activeProfileId,
+    loading: profilesLoading,
+    revision: profileRevision,
+  } = useChildProfiles();
   const [account, setAccount] = useState<{
     uid: string | null;
     checked: boolean;
     revision: number;
   }>({ uid: null, checked: false, revision: 0 });
   const { getProgress, saveProgress, saving, readError, saveError, retrySave } =
-    useReadingProgress(account.uid);
+    useReadingProgress(profilesLoading ? null : account.uid, activeProfileId);
   const { storyCard, librarySync: text } = useDictionary();
   const reader = useReaderStart({
     userId: account.uid,
-    authChecked: account.checked,
-    accountRevision: account.revision,
+    authChecked: account.checked && !profilesLoading,
+    accountRevision: account.revision + profileRevision,
     fableId,
     enabled: true,
     getProgress,

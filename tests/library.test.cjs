@@ -22,9 +22,9 @@ const runtime = hook => {
     useEffect: (fn, deps) => { const i = cursor++; const previous = slots[i]; if (!previous || !equal(previous.deps, deps)) { slots[i] = { deps, cleanup: previous?.cleanup }; effects.push(() => { previous?.cleanup?.(); slots[i].cleanup = fn(); }); } },
   };
   const progressCache = {
-    getProgress: (uid, id) => uid === auth.currentUser?.uid ? cache.get(id) || null : null,
-    setProgress: (uid, id, value) => { if (uid !== auth.currentUser?.uid) return false; cache.set(id, value); return true; },
-    clearProgress: (uid, id) => { if (uid === auth.currentUser?.uid) cache.delete(id); },
+    getProgress: (uid, id, pid) => uid === auth.currentUser?.uid ? cache.get(pid ? `${pid}/${id}` : id) || null : null,
+    setProgress: (uid, id, value, pid) => { if (uid !== auth.currentUser?.uid) return false; cache.set(pid ? `${pid}/${id}` : id, value); return true; },
+    clearProgress: (uid, id, pid) => { if (uid === auth.currentUser?.uid) cache.delete(pid ? `${pid}/${id}` : id); },
   };
   const load = file => {
     if (modules.has(file)) return modules.get(file);
@@ -36,7 +36,8 @@ const runtime = hook => {
     modules.set(file, exports); return exports;
   };
   const useHook = load(hook)[hook];
-  const render = (uid = auth.currentUser?.uid ?? null) => { cursor = 0; const result = useHook(uid); effects.splice(0).forEach(effect => effect()); return result; };
+  let profile = null;
+  const render = (uid = auth.currentUser?.uid ?? null, profileId = profile) => { profile = profileId; cursor = 0; const result = useHook(uid, profileId); effects.splice(0).forEach(effect => effect()); return result; };
   const switchUser = uid => { auth.currentUser = uid ? { uid } : null; cache.clear(); [...authListeners].forEach(listener => listener(auth.currentUser)); };
   const unmount = () => { slots.forEach(slot => slot?.cleanup?.()); };
   return { api, auth, cache, render, switchUser, unmount, events, browser, exports: modules.get(hook) };
@@ -99,11 +100,11 @@ test('progress: retry restores the exact failed position and completion flag', a
   const h = runtime('useReadingProgress'); h.render(); let calls = 0, saved;
   h.api.updateReadingProgress = async (...args) => { if (++calls === 1) throw Error('offline'); saved = args; };
   assert.equal(await h.render().saveProgress('fable', 12, true), false); assert.equal(h.cache.size, 0); assert.equal(h.render().canRetrySave, true); assert.equal(h.render().saving, false);
-  assert.equal(await h.render().retrySave(), true); assert.deepEqual(saved, ['A', 'fable', 12, true]); assert.equal(h.render().error, null);
+  assert.equal(await h.render().retrySave(), true); assert.deepEqual(saved, ['A', 'fable', 12, true, null]); assert.equal(h.render().error, null);
 });
 test('progress: reset persists slide zero and rejects invalid positions', async () => {
   const h = runtime('useReadingProgress'); h.render(); const calls = []; h.api.updateReadingProgress = async (...args) => { calls.push(args); };
-  assert.equal(await h.render().saveProgress('fable', 0, false), true); assert.deepEqual(calls[0], ['A', 'fable', 0, false]); assert.equal(await h.render().saveProgress('fable', -1), false); assert.equal(calls.length, 1);
+  assert.equal(await h.render().saveProgress('fable', 0, false), true); assert.deepEqual(calls[0], ['A', 'fable', 0, false, null]); assert.equal(await h.render().saveProgress('fable', -1), false); assert.equal(calls.length, 1);
 });
 test('progress: read errors can be retried, late writes cannot report into a different account', async () => {
   const h = runtime('useReadingProgress'); h.render(); h.api.getReadingProgress = async () => { throw Error('offline'); }; await h.render().getProgress('fable'); assert.ok(h.render().readError);
@@ -175,4 +176,36 @@ test('metadata: account changes hide old tiles immediately and discard late asyn
 test('metadata: catalogue errors are visible and a refreshed source can retry', async () => {
   const h = runtime('useFavoritesData'); h.api.getFablesIndexClient = async () => { throw Error('offline'); }; const input = { favorites: [{ fableId: 'A' }], continueReading: [], loading: false, currentLang: 'pl' }; h.render(input); await settle(); assert.ok(h.render(input).error);
   h.api.getFablesIndexClient = async () => [{ meta: { id: 'A' } }]; const retry = { ...input, favorites: [...input.favorites] }; h.render(retry); await settle(); assert.equal(h.render(retry).error, null); assert.equal(h.render(retry).favoriteFables[0].meta.id, 'A');
+});
+
+test('child favorites: switching A → B → A discards old reads and keeps each scope separate', async () => {
+  const h = runtime('useFavorites'); const old = deferred(); let aReads = 0;
+  h.api.getFavorites = async (uid, profile) => profile === 'child-a' && ++aReads === 1 ? old.promise : [{ fableId: profile || 'parent', addedAt: 1 }];
+  h.render('A', 'child-a'); await settle();
+  assert.equal(h.render('A', 'child-b').favorites.length, 0); await settle();
+  assert.equal(h.render().favorites[0].fableId, 'child-b');
+  h.render('A', 'child-a'); await settle(); old.resolve([{ fableId: 'stale', addedAt: 1 }]); await settle();
+  assert.equal(h.render().favorites[0].fableId, 'child-a');
+  h.render('A', null); await settle(); assert.equal(h.render().favorites[0].fableId, 'parent');
+});
+test('child favorites: a pending write never updates the next child and retains its original path', async () => {
+  const h = runtime('useFavorites'); const gate = deferred(); const writes = [];
+  h.api.addFavorite = async (...args) => { writes.push(args); await gate.promise; };
+  h.render('A', 'asia'); await settle(); const saved = h.render().toggleFavorite('fish'); await settle();
+  h.render('A', 'stas'); await settle(); gate.resolve(); await saved;
+  assert.deepEqual(writes[0], ['A', 'fish', 'asia']); assert.equal(h.render().favorites.length, 0);
+});
+test('child reading: cached positions and retries belong to the selected child', async () => {
+  const h = runtime('useReadingProgress'); const writes = [];
+  h.api.updateReadingProgress = async (...args) => writes.push(args);
+  h.render('A', 'asia'); await h.render().saveProgress('fish', 7);
+  h.render('A', 'stas'); assert.equal(await h.render().getProgress('fish'), null);
+  await h.render().saveProgress('fish', 3);
+  h.render('A', 'asia'); assert.equal((await h.render().getProgress('fish')).currentSlide, 7);
+  assert.deepEqual(writes.map(args => args.slice(2)), [[7, false, 'asia'], [3, false, 'stas']]);
+});
+test('child session: an event handler from the previous profile cannot capture a new session', () => {
+  const h = runtime('useAccountSession'); const first = h.render('A', 'asia');
+  assert.ok(first.capture()); h.render('A', 'stas'); assert.equal(first.capture(), null);
+  h.render('A', 'asia'); assert.equal(first.capture(), null);
 });

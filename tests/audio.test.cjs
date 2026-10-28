@@ -6,7 +6,7 @@ const vm = require('node:vm');
 const ts = require('typescript');
 const settle = () => new Promise(resolve => setImmediate(resolve));
 const deferred = () => {let resolve,reject;const promise=new Promise((a,b)=>{resolve=a;reject=b});return {promise,resolve,reject};};
-const evaluate = (file,mocks,globals={}) => {const exports={};const code=ts.transpileModule(fs.readFileSync(path.join(__dirname,'../src',file),'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2020}}).outputText;vm.runInNewContext(code,{exports,require:name=>{if(!(name in mocks))throw Error(name);return mocks[name]},Error,console,...globals});return exports;};
+const evaluate = (file,mocks,globals={}) => {const exports={};const code=ts.transpileModule(fs.readFileSync(path.join(__dirname,'../src',file),'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2020}}).outputText;vm.runInNewContext(code,{exports,require:name=>{if(name==='./profileScope')return evaluate('config/profileScope.ts',{});if(!(name in mocks))throw Error(name);return mocks[name]},Error,console,...globals});return exports;};
 const runtime = player => {
  let cursor=0;const slots=[],effects=[],layouts=[],listeners=new Set(),intervals=new Set(),events=new Map();
  const auth={currentUser:{uid:'A'}};const api={getAudioProgress:async()=>null,saveAudioProgress:async()=>{}};
@@ -46,3 +46,24 @@ test('audio checkpoint: an older failed write cannot replace a newer successful 
 test('audio persistence: a write started during a remote read forces a fresh acknowledged snapshot',async()=>{const key='users/A/readingProgress/story/audioProgress/pl';let data={fableId:'story',locale:'pl',source:'story.mp3',positionSeconds:10,durationSeconds:100,isCompleted:false,lastUpdated:1};const old=deferred();let reads=0;const firebase={doc:(_, ...parts)=>parts.join('/'),getDoc:async()=>{if(++reads===1)return old.promise;return {exists:()=>true,data:()=>data}},setDoc:async(_,next)=>{data=next}};const queue=evaluate('config/writeQueue.ts',{});const api=evaluate('config/audioProgress.ts',{'firebase/firestore':firebase,'./firebase':{db:{}},'./writeQueue':queue});const load=api.getAudioProgress('A','story','pl','story.mp3');await settle();const previous=data;await api.saveAudioProgress('A',{...data,positionSeconds:20});old.resolve({exists:()=>true,data:()=>previous});assert.equal((await load).positionSeconds,20);assert.equal(reads,2);});
 test('audio player: leaving the player pauses its media element',()=>{const h=runtime(true);const v=h.render();v.audioRef.current=audio();h.render({source:{audioUrl:'new.mp3'}});v.audioRef.current.paused=false;h.unmount();assert.equal(v.audioRef.current.paused,true);});
 test('audio checkpoint: an inactive route cannot mount or save a player before auth resolves',async()=>{const h=runtime();let reads=0,writes=0;h.api.getAudioProgress=async()=>{reads++;return null};h.api.saveAudioProgress=async()=>writes++;h.render({enabled:false});await settle();const inactive=h.render();assert.equal(inactive.ready,false);inactive.commit(15,100);h.tick();assert.equal(reads,0);assert.equal(writes,0);h.render({enabled:true});await settle();assert.equal(h.render().ready,true);});
+
+test('child audio: switches discard stale restores, and writes stay with their child', async () => {
+ const h=runtime(false), old=deferred(), writes=[];
+ h.api.getAudioProgress=async(uid,id,locale,source,profile)=>profile==='asia'?old.promise:{positionSeconds:18,isCompleted:false};
+ h.render({profileId:'asia'});await settle();h.render({profileId:'stas'});await settle();
+ old.resolve({positionSeconds:99,isCompleted:false});await settle();assert.equal(h.render().initialPosition,18);
+ h.api.saveAudioProgress=async(...args)=>writes.push(args);
+ h.render().commit(25,120);await settle();assert.equal(writes[0][2],'stas');
+});
+test('child audio: switching flush event commits dirty audio before profile ownership changes', async()=>{
+ const h=runtime(false),writes=[];h.api.saveAudioProgress=async(...args)=>writes.push(args);
+ h.render({profileId:'asia'});await settle();h.render().record(35,120);
+ h.events.get('fabledose:profile-changing')();h.render({profileId:'stas'});await settle();
+ assert.equal(writes.length,1);assert.equal(writes[0][2],'asia');assert.equal(writes[0][1].positionSeconds,35);
+});
+
+test('Spark hours: disabling a mounted child player flushes its last dirty checkpoint',async()=>{
+ const h=runtime(false),writes=[];h.api.saveAudioProgress=async(...args)=>writes.push(args);
+ h.render({profileId:'asia'});await settle();h.render().record(42,120);
+ h.render({enabled:false});await settle();assert.equal(writes.length,1);assert.equal(writes[0][2],'asia');assert.equal(writes[0][1].positionSeconds,42);assert.equal(h.render().ready,false);
+});

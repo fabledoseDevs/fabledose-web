@@ -5,6 +5,7 @@ import type { AccountSession } from './useAccountSession.types';
  * @module
  * Account favorites and continuation records.
  *
+ * Library data is isolated by the optional child profile ID; null retains the parent library.
  * Defines contracts shared by the library UI and its session-aware persistence layer.
  */
 

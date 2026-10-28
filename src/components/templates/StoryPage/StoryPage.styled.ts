@@ -79,3 +79,20 @@ export const FavoriteTooltip = styled(Tooltip)`
       ${({ theme }) => theme.palette.byElement.background.white} transparent;
   }
 `;
+
+export const AccessNotice = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  width: 100%;
+  max-width: 560px;
+  text-align: center;
+
+  p {
+    margin: 0;
+    font-size: clamp(1.8rem, 2.5vw, 2rem);
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+  }
+`;

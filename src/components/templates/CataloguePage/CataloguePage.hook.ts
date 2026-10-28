@@ -6,6 +6,7 @@ import {
   pickLocalized,
   toFableTile,
 } from '@/fables/fables.library';
+import { useChildAccess } from '@/hooks/useChildAccess';
 
 import type {
   CatalogueItems,
@@ -18,38 +19,43 @@ const getLocale = (lang: string): string => (lang === 'pl' ? 'pl' : 'en');
 const normalizeValue = (value: string, lang: string): string =>
   value.toLocaleLowerCase(getLocale(lang)).trim();
 
-const createCatalogueItems = (lang: string): CatalogueItems => {
+const createCatalogueItems = (
+  lang: string,
+  canDiscover: (id: string) => boolean,
+): CatalogueItems => {
   const locale = normalizeLocale(lang);
   const authors = new Map<string, CatalogueListItem>();
-  const titles: CatalogueListItem[] = libraryFables.map(meta => {
-    const tile = toFableTile(meta, locale);
-    const book = {
-      id: meta.id,
-      title: tile.fableTitle,
-      description: tile.fableDescription,
-      cover: tile.imageUrl,
-      storyUrl: tile.fableUrl,
-    };
-    for (const name of new Set(
-      meta.credits.authors.map(author => author.trim()).filter(Boolean),
-    )) {
-      const entry = authors.get(name) || {
-        id: `author-${name}`,
-        label: name,
-        type: 'author' as const,
-        books: [],
+  const titles: CatalogueListItem[] = libraryFables
+    .filter(meta => canDiscover(meta.id))
+    .map(meta => {
+      const tile = toFableTile(meta, locale);
+      const book = {
+        id: meta.id,
+        title: tile.fableTitle,
+        description: tile.fableDescription,
+        cover: tile.imageUrl,
+        storyUrl: tile.fableUrl,
       };
-      entry.books.push(book);
-      authors.set(name, entry);
-    }
-    return {
-      id: `title-${meta.id}`,
-      label: pickLocalized(meta.title, locale, meta.id),
-      type: 'title',
-      books: [book],
-      helperText: meta.credits.authors.join(', '),
-    };
-  });
+      for (const name of new Set(
+        meta.credits.authors.map(author => author.trim()).filter(Boolean),
+      )) {
+        const entry = authors.get(name) || {
+          id: `author-${name}`,
+          label: name,
+          type: 'author' as const,
+          books: [],
+        };
+        entry.books.push(book);
+        authors.set(name, entry);
+      }
+      return {
+        id: `title-${meta.id}`,
+        label: pickLocalized(meta.title, locale, meta.id),
+        type: 'title',
+        books: [book],
+        helperText: meta.credits.authors.join(', '),
+      };
+    });
   return { titles, authors: [...authors.values()] };
 };
 
@@ -62,9 +68,13 @@ const sortByLabel = (
   );
 
 export const useCataloguePage: UseCataloguePageType = lang => {
+  const { canDiscover } = useChildAccess();
   const [query, setQuery] = useState('');
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  const items = useMemo(() => createCatalogueItems(lang), [lang]);
+  const items = useMemo(
+    () => createCatalogueItems(lang, canDiscover),
+    [lang, canDiscover],
+  );
   const titleItems = useMemo(
     () => sortByLabel(items.titles, lang),
     [items, lang],

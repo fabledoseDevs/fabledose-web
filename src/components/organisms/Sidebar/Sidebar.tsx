@@ -2,6 +2,7 @@
 import Image from 'next/image';
 
 import { useSidebarState } from '@/contexts/SidebarContext';
+import { ProfilePicker } from '@/molecules/SettingsProfiles/ProfilePicker';
 import SidebarMenu from '@/molecules/SidebarMenu';
 
 import {
@@ -23,6 +24,7 @@ export const Sidebar: SidebarType = () => {
 
   return (
     <SidebarBody $isHidden={isHidden}>
+      <ProfilePicker />
       <LogoWrapper>
         <Image
           src="/icons/logo-icon.png"

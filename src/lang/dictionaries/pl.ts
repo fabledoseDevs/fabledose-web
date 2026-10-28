@@ -1,6 +1,61 @@
 import type { DictionaryType } from './lang.types';
 
 export const DictionaryPL: DictionaryType = {
+  childProfiles: {
+    noAvailableStories: 'Dla tego profilu nie ma obecnie dostępnych bajek.',
+    availability: 'Dostępność dla dzieci',
+    available: 'Dostępna',
+    excluded: 'Wykluczona',
+    hours: 'Godziny dostępu',
+    scheduleEnabled: 'Ogranicz godziny dostępu',
+    weekdays: 'Dni robocze',
+    weekends: 'Weekend',
+    allowedDay: 'Dostęp w te dni',
+    start: 'Od',
+    end: 'Do',
+    timeZone: 'Strefa czasowa',
+    scheduleHint:
+      'Godzina końcowa musi być późniejsza od początkowej. Koniec przedziału zatrzymuje bajkę. Wyłączony dzień oznacza brak dostępu.',
+    blockedExcluded: 'Ta bajka jest wykluczona dla wybranego profilu.',
+    blockedHours:
+      'Teraz jest czas na przerwę. Bajki będą dostępne w godzinach ustawionych dla tego profilu.',
+    unprotected:
+      'Wykluczenia i godziny działają w aplikacji. PIN nie jest uruchomiony — przełączanie profili i zmiana ustawień nie są jeszcze chronione.',
+    policyError:
+      'Nie udało się zapisać ustawień. Sprawdź godziny i strefę czasową, a następnie spróbuj ponownie.',
+    backLibrary: 'Wróć do biblioteki',
+
+    title: 'Profile dzieci',
+    parent: 'Rodzic',
+    add: 'Dodaj profil',
+    edit: 'Edytuj',
+    remove: 'Usuń profil',
+    createTitle: 'Nowy profil dziecka',
+    editTitle: 'Edytuj profil dziecka',
+    name: 'Imię lub pseudonim',
+    placeholder: 'Wpisz imię…',
+    avatar: 'Wybierz awatar',
+    age: 'Przedział wiekowy',
+    unspecified: 'Nie podano',
+    cancel: 'Anuluj',
+    save: 'Zapisz',
+    confirmTitle: 'Usunąć profil?',
+    confirmBody:
+      'Usunięcie obejmie ulubione i postępy tego dziecka. Nie można tego cofnąć.',
+    loading: 'Wczytywanie profili…',
+    saving: 'Zapisywanie…',
+    error: 'Nie udało się wczytać lub zapisać profili. Spróbuj ponownie.',
+    retry: 'Spróbuj ponownie',
+    empty:
+      'Dodaj pierwszy profil dziecka. Każde dziecko będzie miało własne ulubione i postępy.',
+    signIn: 'Zaloguj się, aby zarządzać profilami dzieci.',
+    pick: 'Wybierz profil',
+    close: 'Zamknij',
+    deleting: 'Usuwanie niedokończone — ponów',
+    parentalDeferred:
+      'Wykluczenia i godziny działają w aplikacji. PIN nie jest uruchomiony — przełączanie profili i zmiana ustawień nie są jeszcze chronione.',
+    legacy: 'Dotychczasowe ulubione i postępy pozostają w profilu rodzica.',
+  },
   common: {
     login: 'Zaloguj się',
     logout: 'Wyloguj się',

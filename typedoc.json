@@ -4,7 +4,10 @@
     "src/hooks/*.types.ts",
     "src/config/writeQueue.types.ts",
     "src/config/audioProgress.types.ts",
-    "src/fables/fables.types.ts"
+    "src/fables/fables.types.ts",
+    "src/config/childProfiles.types.ts",
+    "src/contexts/ChildProfilesContext.types.ts",
+    "src/config/childPolicy.types.ts"
   ],
   "out": "docs",
   "entryPointStrategy": "expand",

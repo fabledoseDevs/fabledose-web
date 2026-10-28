@@ -1,5 +1,4 @@
 'use client';
-
 import { useParams } from 'next/navigation';
 
 import Container from '@/atoms/Container';
@@ -10,6 +9,7 @@ import {
   FLEX_DIRECTION,
 } from '@/atoms/Container/Container.types';
 import { useDictionary } from '@/lang/DictionaryProvider';
+import { ProfileAccessNotice } from '@/molecules/SettingsProfiles/ProfileAccessNotice';
 import DesktopTilesSlider from '@/organisms/DesktopTilesSlider';
 import { FooterSimple } from '@/organisms/FooterSimple';
 import StoryCard from '@/organisms/StoryCard';
@@ -42,6 +42,7 @@ export const UserDesktop: UserDesktopType = () => {
   return (
     <>
       <UserDesktopBody>
+        <ProfileAccessNotice />
         <Container
           containerType={CONTAINER_ELEMENT.SECTION}
           backgroundColor={BACKGROUND_COLOR.PURPLE}

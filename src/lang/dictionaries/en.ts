@@ -1,6 +1,62 @@
 import type { DictionaryType } from './lang.types';
 
 export const DictionaryEn: DictionaryType = {
+  childProfiles: {
+    noAvailableStories:
+      'There are currently no available stories for this profile.',
+    availability: 'Availability for children',
+    available: 'Available',
+    excluded: 'Excluded',
+    hours: 'Access hours',
+    scheduleEnabled: 'Limit access hours',
+    weekdays: 'Weekdays',
+    weekends: 'Weekend',
+    allowedDay: 'Allow access on these days',
+    start: 'From',
+    end: 'Until',
+    timeZone: 'Time zone',
+    scheduleHint:
+      'End time must be later than start time. Stories stop at the end of the window. A disabled day has no access.',
+    blockedExcluded: 'This story is excluded for the selected profile.',
+    blockedHours:
+      'Time for a break. Stories will be available during the hours set for this profile.',
+    unprotected:
+      'Exclusions and hours apply within the app. Parent PIN is not enabled: profile switching and settings changes are not protected yet.',
+    policyError:
+      'Settings could not be saved. Check the hours and time zone, then try again.',
+    backLibrary: 'Back to library',
+
+    title: 'Child profiles',
+    parent: 'Parent',
+    add: 'Add profile',
+    edit: 'Edit',
+    remove: 'Delete profile',
+    createTitle: 'New child profile',
+    editTitle: 'Edit child profile',
+    name: 'Name or nickname',
+    placeholder: 'Enter a name…',
+    avatar: 'Choose an avatar',
+    age: 'Age group',
+    unspecified: 'Not specified',
+    cancel: 'Cancel',
+    save: 'Save',
+    confirmTitle: 'Delete this profile?',
+    confirmBody:
+      'This deletes the child’s favourites and progress. This cannot be undone.',
+    loading: 'Loading profiles…',
+    saving: 'Saving…',
+    error: 'Profiles could not be loaded or saved. Please try again.',
+    retry: 'Try again',
+    empty:
+      'Add the first child profile. Each child will have their own favourites and progress.',
+    signIn: 'Sign in to manage child profiles.',
+    pick: 'Choose profile',
+    close: 'Close',
+    deleting: 'Deletion incomplete — retry',
+    parentalDeferred:
+      'Exclusions and hours apply within the app. Parent PIN is not enabled: profile switching and settings changes are not protected yet.',
+    legacy: 'Existing favourites and progress remain in the parent profile.',
+  },
   common: {
     login: 'Login',
     logout: 'Logout',

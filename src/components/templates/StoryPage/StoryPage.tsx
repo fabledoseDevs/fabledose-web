@@ -5,17 +5,31 @@ import { HeartIcon as HeartSolidIcon } from '@heroicons/react/24/solid';
 import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useId, useState } from 'react';
 
+import Button from '@/atoms/Button';
+import {
+  ACTION_TYPE,
+  BUTTON_VARIANT,
+  WIDTH_TYPE,
+} from '@/atoms/Button/Button.types';
+import Paragraph from '@/atoms/Paragraph';
+import {
+  FOREGROUND_COLOR,
+  TEXT_ALIGNMENT,
+} from '@/atoms/Paragraph/Paragraph.types';
 import { Toast } from '@/atoms/Toast';
 import { auth } from '@/config/firebase';
+import { useChildProfiles } from '@/contexts/ChildProfilesContext';
 import { useSettings } from '@/contexts/SettingsContext';
 import { useSidebarState } from '@/contexts/SidebarContext';
 import { getTileCover } from '@/fables/fables.covers';
 import { useAudiobookProgress } from '@/hooks/useAudiobookProgress';
+import { useChildAccess } from '@/hooks/useChildAccess';
 import { useFavorites } from '@/hooks/useFavorites';
 import type { FavoriteWriteResult } from '@/hooks/useFavorites.types';
 import { updateReaderLocation, useReaderStart } from '@/hooks/useReaderStart';
 import { useReadingProgress } from '@/hooks/useReadingProgress';
 import { useDictionary } from '@/lang/DictionaryProvider';
+import { StoryAccessControl } from '@/molecules/SettingsProfiles/StoryAccessControl';
 import { SyncStatus } from '@/molecules/SyncStatus/SyncStatus';
 import Audiobook from '@/organisms/Audiobook';
 import { AUDIOBOOK_SOURCE_TYPE } from '@/organisms/Audiobook/Audiobook.types';
@@ -24,6 +38,7 @@ import { STORY_CARD_VARIANT } from '@/organisms/StoryCard/StoryCard.types';
 
 import { StoryCardWithProgress } from './StoryCardWithProgress';
 import {
+  AccessNotice,
   AudioPageContent,
   FavoriteButton,
   FavoriteControl,
@@ -70,6 +85,14 @@ export const StoryPage: StoryPageType = ({
   lang,
   initialSlide,
 }: StoryPageProps) => {
+  const {
+    activeProfileId,
+    loading: profilesLoading,
+    revision: profileRevision,
+  } = useChildProfiles();
+  const access = useChildAccess();
+  const accessReason = access.reason(fable.meta.id);
+  const childText = useDictionary().childProfiles;
   const router = useRouter();
   const { settings, refreshPlanFromFirebase } = useSettings();
   const { isHidden: sidebarHidden, setEnableAutoHide } = useSidebarState();
@@ -92,8 +115,8 @@ export const StoryPage: StoryPageType = ({
   }, [showFavoriteTooltip]);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const { saveProgress, getProgress, saving, saveError, readError, retrySave } =
-    useReadingProgress(userId);
-  const progressSaveKey = `${account.revision}/${userId}/${fable.meta.id}`;
+    useReadingProgress(profilesLoading ? null : userId, activeProfileId);
+  const progressSaveKey = `${account.revision}/${profileRevision}/${userId}/${fable.meta.id}`;
   const [slowProgressSaveKey, setSlowProgressSaveKey] = useState<string | null>(
     null,
   );
@@ -116,7 +139,7 @@ export const StoryPage: StoryPageType = ({
     canRetryFavorite,
     retryFavorite,
     refreshFavorites,
-  } = useFavorites(userId);
+  } = useFavorites(profilesLoading ? null : userId, activeProfileId);
 
   useEffect(() => {
     if (mode === 'intro') {
@@ -138,6 +161,8 @@ export const StoryPage: StoryPageType = ({
   const audioSource = toPublicUrl(fable.content.audio.files[lang] || '');
   const audioIdentity = JSON.stringify([
     account.revision,
+    profileRevision,
+    activeProfileId,
     userId,
     fable.meta.id,
     lang,
@@ -145,10 +170,15 @@ export const StoryPage: StoryPageType = ({
   ]);
   const audioProgress = useAudiobookProgress({
     userId,
+    profileId: activeProfileId,
     fableId: fable.meta.id,
     locale: lang,
     source: audioSource,
-    enabled: account.checked && effectiveMode === 'audiobook',
+    enabled:
+      account.checked &&
+      !profilesLoading &&
+      !accessReason &&
+      effectiveMode === 'audiobook',
   });
   const [slowAudioIdentity, setSlowAudioIdentity] = useState<string | null>(
     null,
@@ -219,10 +249,10 @@ export const StoryPage: StoryPageType = ({
   }, [retryFavorite, showFavoriteResult]);
   const reader = useReaderStart({
     userId,
-    authChecked: account.checked,
-    accountRevision: account.revision,
+    authChecked: account.checked && !profilesLoading,
+    accountRevision: account.revision + profileRevision,
     fableId: fable.meta.id,
-    enabled: effectiveMode === 'slideshow',
+    enabled: !accessReason && effectiveMode === 'slideshow',
     initialSlide,
     getProgress,
   });
@@ -252,6 +282,37 @@ export const StoryPage: StoryPageType = ({
       message={showSavingProgress ? text.savingProgress : text.savingFavorite}
     />
   ) : null;
+
+  if (accessReason)
+    return (
+      <StoryPageBody $sidebarHidden={sidebarHidden}>
+        <StoryPageCenteredContent>
+          <AccessNotice>
+            <div role="status">
+              <Paragraph
+                color={FOREGROUND_COLOR.WHITE}
+                alignment={TEXT_ALIGNMENT.CENTER}
+              >
+                {accessReason === 'loading'
+                  ? childText.loading
+                  : accessReason === 'excluded'
+                  ? childText.blockedExcluded
+                  : childText.blockedHours}
+              </Paragraph>
+            </div>
+            {accessReason !== 'loading' && (
+              <Button
+                text={childText.backLibrary}
+                actionType={ACTION_TYPE.NAVIGATION}
+                variant={BUTTON_VARIANT.RED}
+                payload={`/${lang}/library`}
+                width={{ widthType: WIDTH_TYPE.PX, widthValue: 240 }}
+              />
+            )}
+          </AccessNotice>
+        </StoryPageCenteredContent>
+      </StoryPageBody>
+    );
 
   if (effectiveMode === 'audiobook') {
     return (
@@ -363,7 +424,7 @@ export const StoryPage: StoryPageType = ({
       <StoryPageBody $sidebarHidden={sidebarHidden}>
         {syncNotice}
         <Slideshow
-          key={`${account.revision}/${fable.meta.id}`}
+          key={`${account.revision}/${profileRevision}/${fable.meta.id}`}
           fable={fable}
           settings={settings}
           quality={slideshowQuality}
@@ -384,6 +445,7 @@ export const StoryPage: StoryPageType = ({
     <StoryPageBody $isIntro $sidebarHidden={sidebarHidden}>
       {syncNotice}
       <IntroWrapper>
+        <StoryAccessControl storyId={fable.meta.id} />
         {userId && (
           <FavoriteControl
             onMouseEnter={() => setShowFavoriteTooltip(true)}

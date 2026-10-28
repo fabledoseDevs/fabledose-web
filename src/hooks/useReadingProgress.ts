@@ -18,8 +18,9 @@ import type {
 
 export const useReadingProgress = (
   userId: string | null,
+  profileId: string | null = null,
 ): UseReadingProgressResult => {
-  const { capture, isCurrent, revision } = useAccountSession(userId);
+  const { capture, isCurrent, revision } = useAccountSession(userId, profileId);
   const [errors, setErrors] = useState<{
     session: AccountSession | null;
     read: Error | null;
@@ -90,7 +91,7 @@ export const useReadingProgress = (
         setError(session, 'save', new Error('Invalid reading position'));
         return false;
       }
-      const writeKey = `${session.uid}/${session.epoch}/${fableId}`;
+      const writeKey = `${session.uid}/${session.profileId}/${session.scopeEpoch}/${session.epoch}/${fableId}`;
       const version = (versions.current.get(writeKey) || 0) + 1;
       versions.current.set(writeKey, version);
       const progress: ReadingProgressData = {
@@ -99,7 +100,7 @@ export const useReadingProgress = (
         isCompleted,
         lastUpdated: Date.now(),
       };
-      setProgress(session.uid, fableId, progress);
+      setProgress(session.uid, fableId, progress, session.profileId);
       failed.current = null;
       setError(session, 'save', null);
       count(session, 0, 1);
@@ -109,6 +110,7 @@ export const useReadingProgress = (
           fableId,
           currentSlide,
           isCompleted,
+          session.profileId,
         );
         if (!isCurrent(session)) return false;
         if (versions.current.get(writeKey) === version) {
@@ -117,8 +119,10 @@ export const useReadingProgress = (
         }
         return true;
       } catch (cause: unknown) {
-        if (cachedProgress(session.uid, fableId) === progress)
-          clearProgress(session.uid, fableId);
+        if (
+          cachedProgress(session.uid, fableId, session.profileId) === progress
+        )
+          clearProgress(session.uid, fableId, session.profileId);
         if (isCurrent(session) && versions.current.get(writeKey) === version) {
           failed.current = { session, fableId, currentSlide, isCompleted };
           setError(
@@ -152,14 +156,18 @@ export const useReadingProgress = (
       count(session, 1, 0);
       setError(session, 'read', null);
       try {
-        await waitForReadingProgressWrites(session.uid, fableId);
+        await waitForReadingProgressWrites(
+          session.uid,
+          fableId,
+          session.profileId,
+        );
         if (!isCurrent(session)) return null;
-        const cached = cachedProgress(session.uid, fableId);
+        const cached = cachedProgress(session.uid, fableId, session.profileId);
         if (cached) return cached;
-        const key = `${session.uid}/${session.epoch}/${fableId}`;
+        const key = `${session.uid}/${session.profileId}/${session.scopeEpoch}/${session.epoch}/${fableId}`;
         let request = pendingReads.current.get(key);
         if (!request) {
-          request = getReadingProgress(session.uid, fableId);
+          request = getReadingProgress(session.uid, fableId, session.profileId);
           pendingReads.current.set(key, request);
           const pending = request;
           void pending
@@ -171,11 +179,16 @@ export const useReadingProgress = (
         }
         const progress = await request;
         // A save may have started while the remote read was in flight.
-        await waitForReadingProgressWrites(session.uid, fableId);
+        await waitForReadingProgressWrites(
+          session.uid,
+          fableId,
+          session.profileId,
+        );
         if (!isCurrent(session)) return null;
-        const newer = cachedProgress(session.uid, fableId);
+        const newer = cachedProgress(session.uid, fableId, session.profileId);
         if (newer) return newer;
-        if (progress) setProgress(session.uid, fableId, progress);
+        if (progress)
+          setProgress(session.uid, fableId, progress, session.profileId);
         setError(session, 'read', null);
         return progress;
       } catch (cause: unknown) {

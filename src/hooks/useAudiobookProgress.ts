@@ -18,15 +18,17 @@ import type {
 
 export const useAudiobookProgress = ({
   userId,
+  profileId = null,
   fableId,
   locale,
   source,
   enabled,
 }: AudiobookProgressOptions): AudiobookProgressResult => {
-  const { capture, isCurrent, revision } = useAccountSession(userId);
+  const { capture, isCurrent, revision } = useAccountSession(userId, profileId);
   const identity = JSON.stringify([
     revision,
     userId,
+    profileId,
     fableId,
     locale,
     source,
@@ -68,7 +70,11 @@ export const useAudiobookProgress = ({
       writes: previous.identity === entry.identity ? previous.writes + 1 : 1,
       error: previous.identity === entry.identity ? previous.error : null,
     }));
-    void saveAudioProgress(entry.session.uid, entry.data)
+    void saveAudioProgress(
+      entry.session.uid,
+      entry.data,
+      entry.session.profileId,
+    )
       .then(() => {
         acknowledged.current = Math.max(acknowledged.current, entry.version);
         if (
@@ -114,7 +120,13 @@ export const useAudiobookProgress = ({
       return;
     }
     if (!session) return;
-    void getAudioProgress(session.uid, fableId, locale, source)
+    void getAudioProgress(
+      session.uid,
+      fableId,
+      locale,
+      source,
+      session.profileId,
+    )
       .then(data => {
         if (active && isCurrent(session))
           setStart({
@@ -224,10 +236,12 @@ export const useAudiobookProgress = ({
     };
     document.addEventListener('visibilitychange', hide);
     window.addEventListener('pagehide', flush);
+    window.addEventListener('fabledose:profile-changing', flush);
     return () => {
       window.clearInterval(interval);
       document.removeEventListener('visibilitychange', hide);
       window.removeEventListener('pagehide', flush);
+      window.removeEventListener('fabledose:profile-changing', flush);
     };
   }, [enabled, flush]);
   const current = start.identity === identity;

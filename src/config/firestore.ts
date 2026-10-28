@@ -14,6 +14,7 @@ import {
 import type { Settings } from '@/contexts/SettingsContext.types';
 
 import { db } from './firebase';
+import { profilePath } from './profileScope';
 import { createWriteQueue } from './writeQueue';
 
 const enqueueWrite = createWriteQueue();
@@ -70,8 +71,12 @@ export interface ReadingProgressData {
 export const addFavorite = async (
   userId: string,
   fableId: string,
+  profileId?: string | null,
 ): Promise<void> => {
-  const docRef = doc(db, 'users', userId, 'favorites', fableId);
+  const docRef = doc(
+    db,
+    `${profilePath(userId, profileId)}/favorites/${fableId}`,
+  );
   await setDoc(docRef, {
     fableId,
     addedAt: Date.now(),
@@ -81,13 +86,23 @@ export const addFavorite = async (
 export const removeFavorite = async (
   userId: string,
   fableId: string,
+  profileId?: string | null,
 ): Promise<void> => {
-  const docRef = doc(db, 'users', userId, 'favorites', fableId);
+  const docRef = doc(
+    db,
+    `${profilePath(userId, profileId)}/favorites/${fableId}`,
+  );
   await deleteDoc(docRef);
 };
 
-export const getFavorites = async (userId: string): Promise<FavoriteData[]> => {
-  const collectionRef = collection(db, 'users', userId, 'favorites');
+export const getFavorites = async (
+  userId: string,
+  profileId?: string | null,
+): Promise<FavoriteData[]> => {
+  const collectionRef = collection(
+    db,
+    `${profilePath(userId, profileId)}/favorites`,
+  );
   const snapshot = await getDocs(collectionRef);
   return snapshot.docs.map(doc => doc.data() as FavoriteData);
 };
@@ -97,35 +112,63 @@ export const updateReadingProgress = async (
   fableId: string,
   currentSlide: number,
   isCompleted = false,
+  profileId?: string | null,
 ): Promise<void> =>
-  enqueueWrite(`progress/${userId}/${fableId}`, async () => {
-    const docRef = doc(db, 'users', userId, 'readingProgress', fableId);
-    await setDoc(docRef, {
-      fableId,
-      currentSlide,
-      lastUpdated: Date.now(),
-      isCompleted,
-    });
-  });
+  enqueueWrite(
+    `progress/${profilePath(userId, profileId)}/${fableId}`,
+    async () => {
+      const docRef = doc(
+        db,
+        `${profilePath(userId, profileId)}/readingProgress/${fableId}`,
+      );
+      await setDoc(
+        docRef,
+        {
+          fableId,
+          currentSlide,
+          lastUpdated: Date.now(),
+          isCompleted,
+        },
+        { merge: true },
+      );
+    },
+  );
 
 export const getReadingProgress = async (
   userId: string,
   fableId: string,
+  profileId?: string | null,
 ): Promise<ReadingProgressData | null> => {
-  const docRef = doc(db, 'users', userId, 'readingProgress', fableId);
+  const docRef = doc(
+    db,
+    `${profilePath(userId, profileId)}/readingProgress/${fableId}`,
+  );
   const docSnap = await getDoc(docRef);
-  return docSnap.exists() ? (docSnap.data() as ReadingProgressData) : null;
+  if (!docSnap.exists()) return null;
+  const data = docSnap.data() as ReadingProgressData;
+  return Number.isInteger(data.currentSlide) && data.currentSlide >= 0
+    ? data
+    : null;
 };
 
 export const getContinueReading = async (
   userId: string,
+  profileId?: string | null,
 ): Promise<ReadingProgressData[]> => {
-  await enqueueWrite.waitForPrefix(`progress/${userId}/`);
-  const collectionRef = collection(db, 'users', userId, 'readingProgress');
+  await enqueueWrite.waitForPrefix(
+    `progress/${profilePath(userId, profileId)}/`,
+  );
+  const collectionRef = collection(
+    db,
+    `${profilePath(userId, profileId)}/readingProgress`,
+  );
   const q = query(collectionRef, where('isCompleted', '==', false));
   const snapshot = await getDocs(q);
   return snapshot.docs
     .map(doc => doc.data() as ReadingProgressData)
+    .filter(
+      item => Number.isInteger(item.currentSlide) && item.currentSlide >= 0,
+    )
     .sort((a, b) => b.lastUpdated - a.lastUpdated);
 };
 
@@ -133,4 +176,6 @@ export const getContinueReading = async (
 export const waitForReadingProgressWrites = (
   userId: string,
   fableId: string,
-): Promise<void> => enqueueWrite.waitFor(`progress/${userId}/${fableId}`);
+  profileId?: string | null,
+): Promise<void> =>
+  enqueueWrite.waitFor(`progress/${profilePath(userId, profileId)}/${fableId}`);

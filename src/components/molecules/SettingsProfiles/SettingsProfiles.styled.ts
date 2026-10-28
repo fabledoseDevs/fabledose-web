@@ -87,7 +87,15 @@ export const ProfileName = styled.span<{ isActive?: boolean }>`
   white-space: nowrap;
 `;
 
-export const AddProfileButton = styled.div`
+export const AddProfileButton = styled.button`
+  border: 0;
+  padding: 0;
+  background: transparent;
+  font: inherit;
+  &:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 4px;
+  }
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -159,9 +167,26 @@ export const GalleryItem = styled.button<{ isSelected: boolean }>`
 `;
 
 export const ProfileForm = styled.div`
+  > div div {
+    color: inherit;
+    min-width: 0;
+  }
+  fieldset > div div {
+    color: inherit;
+    min-width: 0;
+  }
   display: flex;
   flex-direction: column;
   gap: 20px;
+  select {
+    min-height: 44px;
+    width: 100%;
+    border-radius: 12px;
+    padding: 10px;
+    font: inherit;
+    color: inherit;
+    background: white;
+  }
   width: 100%;
   min-width: 0;
 `;
@@ -219,7 +244,7 @@ export const ModalFooter = styled.div`
   justify-content: flex-end;
   gap: 12px;
   > div {
-    flex: 1 1 120px;
+    flex: 0 1 auto;
   }
   button {
     min-height: 44px;
