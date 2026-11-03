@@ -3,6 +3,7 @@ import useEmblaCarousel from 'embla-carousel-react';
 import { useParams } from 'next/navigation';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
+import { getAnimationMediaProfile, getAnimationQuality } from '@/config/plans';
 import { useSettings } from '@/contexts/SettingsContext';
 import type { FableFontFamily } from '@/contexts/SettingsContext.types';
 import { getTileCover } from '@/fables/fables.covers';
@@ -144,9 +145,10 @@ export const useSlideshow: UseSlideshowType = ({
   const fontSize = settings?.fontSize || 16;
   const fontFamily: FableFontFamily = settings?.fontFamily || 'sans';
   const useAnimatedBackground = settings?.illustrationAnimation ?? true;
-  const userAnimationQuality = settings?.animationQuality || 'auto';
-  const animationQualityValue =
-    userAnimationQuality === 'high' ? 'hd' : userAnimationQuality;
+  const animationQualityValue = getAnimationQuality(
+    settings?.plan,
+    settings?.animationQuality,
+  );
 
   useEffect(() => {
     const handleResize = () => {
@@ -161,17 +163,14 @@ export const useSlideshow: UseSlideshowType = ({
     };
   }, []);
 
-  const mediaProfile = useMemo<'desktop' | 'mobile'>(() => {
-    if (quality === 'low' || userAnimationQuality === 'sd') {
-      return 'mobile';
-    }
-
-    if (userAnimationQuality === 'auto') {
-      return isCompactViewport ? 'mobile' : 'desktop';
-    }
-
-    return 'desktop';
-  }, [quality, userAnimationQuality, isCompactViewport]);
+  const mediaProfile =
+    quality === 'low'
+      ? 'mobile'
+      : getAnimationMediaProfile(
+          settings?.plan,
+          settings?.animationQuality,
+          isCompactViewport,
+        );
 
   const syncEmblaState = useCallback(() => {
     if (!emblaApi) {
@@ -364,9 +363,11 @@ export const useSlideshow: UseSlideshowType = ({
 
   const handleAnimationQualityChange = useCallback(
     (value: string) => {
-      updateSettings({ animationQuality: value });
+      updateSettings({
+        animationQuality: getAnimationQuality(settings?.plan, value),
+      });
     },
-    [updateSettings],
+    [updateSettings, settings?.plan],
   );
 
   const fallbackStaticCover = toPublicUrl(

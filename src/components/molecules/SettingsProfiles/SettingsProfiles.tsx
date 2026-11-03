@@ -13,7 +13,10 @@ import type {
   ChildProfile,
   ChildProfileDraft,
 } from '@/config/childProfiles.types';
+import { canCreateChildProfile, getPlanEntitlements } from '@/config/plans';
 import { useChildProfiles } from '@/contexts/ChildProfilesContext';
+import { usePlanAccess } from '@/contexts/PlanAccessContext';
+import { useSettings } from '@/contexts/SettingsContext';
 import { useDictionary } from '@/lang/DictionaryProvider';
 import ModalWindow from '@/molecules/ModalWindow';
 
@@ -51,6 +54,10 @@ export const SettingsProfiles: SettingsProfilesType = ({
   onSelect,
 }) => {
   const text = useDictionary().childProfiles;
+  const planText = useDictionary().planAccess;
+  const { settings } = useSettings();
+  const { requestUpgrade } = usePlanAccess();
+  const access = getPlanEntitlements(settings?.plan);
   const {
     profiles,
     userId,
@@ -75,8 +82,29 @@ export const SettingsProfiles: SettingsProfilesType = ({
     setEditor(null);
     setHours(null);
     setRemoving(null);
-  }, [userId]);
+  }, [userId, settings?.plan]);
+  useEffect(() => {
+    const closeRestrictedEditor = () => {
+      setEditor(null);
+      setHours(null);
+      setRemoving(null);
+    };
+    window.addEventListener('fabledose:plan-restricted', closeRestrictedEditor);
+    return () =>
+      window.removeEventListener(
+        'fabledose:plan-restricted',
+        closeRestrictedEditor,
+      );
+  }, []);
   const choose = (id: string | null) => {
+    if (
+      id &&
+      access.childProfileLimit !== null &&
+      profiles.findIndex(item => item.id === id) >= access.childProfileLimit
+    ) {
+      requestUpgrade('profiles');
+      return;
+    }
     selectProfile(id);
     onSelect?.();
   };
@@ -85,6 +113,19 @@ export const SettingsProfiles: SettingsProfilesType = ({
   };
   if (loading) return <p role="status">{text.loading}</p>;
   if (!userId) return <p>{text.signIn}</p>;
+  if (!access.parentalControl)
+    return (
+      <SettingsProfilesWrapper>
+        <p>{planText.parental}</p>
+        <Button
+          text={planText.manageProfiles}
+          actionType={ACTION_TYPE.FUNCTION_TRIGGER}
+          payload={() => requestUpgrade('parental')}
+          variant={BUTTON_VARIANT.RED}
+          width={{ widthType: WIDTH_TYPE.PX, widthValue: 240 }}
+        />
+      </SettingsProfilesWrapper>
+    );
   return (
     <SettingsProfilesWrapper>
       <ProfilesTitle>{text.title}</ProfilesTitle>
@@ -174,7 +215,11 @@ export const SettingsProfiles: SettingsProfilesType = ({
           <AddProfileButton
             type="button"
             disabled={saving}
-            onClick={() => setEditor({ draft: emptyDraft() })}
+            onClick={() => {
+              if (canCreateChildProfile(settings?.plan, profiles.length))
+                setEditor({ draft: emptyDraft() });
+              else requestUpgrade('profiles');
+            }}
             aria-label={text.add}
           >
             <AddIconWrapper aria-hidden="true">+</AddIconWrapper>

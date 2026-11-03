@@ -3,7 +3,10 @@ import styled from '@emotion/styled';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { useEffect, useRef } from 'react';
 
+import { getPlanEntitlements } from '@/config/plans';
 import { useChildProfiles } from '@/contexts/ChildProfilesContext';
+import { usePlanAccess } from '@/contexts/PlanAccessContext';
+import { useSettings } from '@/contexts/SettingsContext';
 import { useDictionary } from '@/lang/DictionaryProvider';
 import SettingsSwitch from '@/molecules/SettingsSwitch';
 
@@ -69,6 +72,8 @@ const Menu = styled.details`
 
 export const StoryAccessControl: StoryAccessControlType = ({ storyId }) => {
   const text = useDictionary().childProfiles;
+  const { settings } = useSettings();
+  const { requestUpgrade } = usePlanAccess();
   const {
     profiles,
     activeProfileId,
@@ -102,7 +107,15 @@ export const StoryAccessControl: StoryAccessControlType = ({ storyId }) => {
         }
       }}
     >
-      <summary aria-label={text.availability}>
+      <summary
+        aria-label={text.availability}
+        onClick={event => {
+          if (!getPlanEntitlements(settings?.plan).parentalControl) {
+            event.preventDefault();
+            requestUpgrade('parental');
+          }
+        }}
+      >
         <ChevronDownIcon width={24} height={24} aria-hidden="true" />
       </summary>
       <section aria-label={text.availability}>

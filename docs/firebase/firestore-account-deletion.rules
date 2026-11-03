@@ -19,6 +19,10 @@ service cloud.firestore {
 
       // Child identities share the parent login; PIN authorization is not enabled yet.
       match /childProfiles/{profileId} {
+        function profilesEnabled() {
+          let account = get(/databases/$(database)/documents/users/$(userId));
+          return account.data.settings.plan in ['family', 'ultimate'];
+        }
         function validWindow(window) {
           return window is map
             && window.keys().hasAll(['enabled', 'start', 'end'])
@@ -53,10 +57,10 @@ service cloud.firestore {
           return exists(path) && get(path).data.get('deleting', false) == false;
         }
         allow read: if isOwner(userId);
-        allow create: if isOwner(userId) && accountIsActive(userId)
+        allow create: if isOwner(userId) && accountIsActive(userId) && profilesEnabled()
           && validProfile(request.resource.data)
           && request.resource.data.get('deleting', false) == false;
-        allow update: if isOwner(userId) && accountIsActive(userId)
+        allow update: if isOwner(userId) && accountIsActive(userId) && profilesEnabled()
           && validProfile(request.resource.data)
           && request.resource.data.createdAt == resource.data.createdAt
           && (resource.data.get('deleting', false) == false
@@ -66,12 +70,12 @@ service cloud.firestore {
 
         match /favorites/{document=**} {
           allow read: if isOwner(userId);
-          allow create, update: if isOwner(userId) && accountIsActive(userId) && childIsActive();
+          allow create, update: if isOwner(userId) && accountIsActive(userId) && profilesEnabled() && childIsActive();
           allow delete: if isOwner(userId) && accountIsActive(userId);
         }
         match /readingProgress/{document=**} {
           allow read: if isOwner(userId);
-          allow create, update: if isOwner(userId) && accountIsActive(userId) && childIsActive();
+          allow create, update: if isOwner(userId) && accountIsActive(userId) && profilesEnabled() && childIsActive();
           allow delete: if isOwner(userId) && accountIsActive(userId);
         }
       }

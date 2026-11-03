@@ -18,7 +18,9 @@ import {
 } from '@/atoms/Paragraph/Paragraph.types';
 import { Toast } from '@/atoms/Toast';
 import { auth } from '@/config/firebase';
+import { canAccessStory } from '@/config/plans';
 import { useChildProfiles } from '@/contexts/ChildProfilesContext';
+import { usePlanAccess } from '@/contexts/PlanAccessContext';
 import { useSettings } from '@/contexts/SettingsContext';
 import { useSidebarState } from '@/contexts/SidebarContext';
 import { getTileCover } from '@/fables/fables.covers';
@@ -94,6 +96,8 @@ export const StoryPage: StoryPageType = ({
   const accessReason = access.reason(fable.meta.id);
   const childText = useDictionary().childProfiles;
   const router = useRouter();
+  const { requestUpgrade } = usePlanAccess();
+  const planText = useDictionary().planAccess;
   const { settings, refreshPlanFromFirebase } = useSettings();
   const { isHidden: sidebarHidden, setEnableAutoHide } = useSidebarState();
   const { librarySync: text, audiobook: audioText } = useDictionary();
@@ -154,9 +158,13 @@ export const StoryPage: StoryPageType = ({
   const introUrl = `/${lang}/fable/${localeSlug}`;
   const isUnlockedAccount =
     settings?.plan === 'family' || settings?.plan === 'ultimate';
-  const slideshowQuality = isUnlockedAccount ? 'high' : 'low';
-  const effectiveMode =
-    mode === 'audiobook' && !isUnlockedAccount ? 'slideshow' : mode;
+  const slideshowQuality = 'high';
+  const storyAllowed = canAccessStory(settings?.plan, fable.meta.availability);
+  const effectiveMode = mode;
+  useEffect(() => {
+    if (settings && !storyAllowed && effectiveMode !== 'intro')
+      requestUpgrade('story');
+  }, [settings, storyAllowed, effectiveMode, requestUpgrade]);
 
   const audioSource = toPublicUrl(fable.content.audio.files[lang] || '');
   const audioIdentity = JSON.stringify([
@@ -178,6 +186,7 @@ export const StoryPage: StoryPageType = ({
       account.checked &&
       !profilesLoading &&
       !accessReason &&
+      storyAllowed &&
       effectiveMode === 'audiobook',
   });
   const [slowAudioIdentity, setSlowAudioIdentity] = useState<string | null>(
@@ -248,11 +257,12 @@ export const StoryPage: StoryPageType = ({
     showFavoriteResult(await retryFavorite());
   }, [retryFavorite, showFavoriteResult]);
   const reader = useReaderStart({
+    profileId: activeProfileId,
     userId,
     authChecked: account.checked && !profilesLoading,
     accountRevision: account.revision + profileRevision,
     fableId: fable.meta.id,
-    enabled: !accessReason && effectiveMode === 'slideshow',
+    enabled: !accessReason && storyAllowed && effectiveMode === 'slideshow',
     initialSlide,
     getProgress,
   });
@@ -282,6 +292,29 @@ export const StoryPage: StoryPageType = ({
       message={showSavingProgress ? text.savingProgress : text.savingFavorite}
     />
   ) : null;
+
+  if (!storyAllowed && effectiveMode !== 'intro')
+    return (
+      <StoryPageBody $sidebarHidden={sidebarHidden}>
+        <StoryPageCenteredContent>
+          <AccessNotice>
+            <Paragraph
+              color={FOREGROUND_COLOR.WHITE}
+              alignment={TEXT_ALIGNMENT.CENTER}
+            >
+              {planText.story}
+            </Paragraph>
+            <Button
+              text={planText.allPlans}
+              actionType={ACTION_TYPE.FUNCTION_TRIGGER}
+              payload={() => requestUpgrade('story')}
+              variant={BUTTON_VARIANT.RED}
+              width={{ widthType: WIDTH_TYPE.PX, widthValue: 240 }}
+            />
+          </AccessNotice>
+        </StoryPageCenteredContent>
+      </StoryPageBody>
+    );
 
   if (accessReason)
     return (
@@ -424,7 +457,7 @@ export const StoryPage: StoryPageType = ({
       <StoryPageBody $sidebarHidden={sidebarHidden}>
         {syncNotice}
         <Slideshow
-          key={`${account.revision}/${profileRevision}/${fable.meta.id}`}
+          key={`${account.revision}/${profileRevision}/${activeProfileId}/${fable.meta.id}`}
           fable={fable}
           settings={settings}
           quality={slideshowQuality}
@@ -489,6 +522,7 @@ export const StoryPage: StoryPageType = ({
             backgroundVideoUrl: toPublicUrl(fable.meta.covers.mainCover || ''),
             backgroundPosterUrl: toPublicUrl(fable.meta.covers.fullCover || ''),
             headline: title,
+            availability: fable.meta.availability,
             fullDescription:
               fable.meta.fullDescription[lang] ||
               fable.meta.fullDescription.en ||

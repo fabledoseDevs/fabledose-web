@@ -1,4 +1,5 @@
 import type { TAG_NAME } from '@/components/atoms/TagIcon/TagIcon.types';
+import type { StoryAvailability } from '@/config/plans.types';
 
 /**
  * Supported locales for fable data.
@@ -87,6 +88,8 @@ export interface FableContentPointers {
  * All metadata stored for a single fairy tale.
  */
 export interface FableMeta {
+  /** Selection is readable/listenable in Free; seasonal/subscription require a paid plan. Omitted means selection. */
+  availability?: StoryAvailability;
   id: string;
   slug: FableLocalized<string>;
   title: FableLocalized<string>;

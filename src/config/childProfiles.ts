@@ -4,7 +4,6 @@ import {
   getDoc,
   getDocs,
   runTransaction,
-  setDoc,
   writeBatch,
 } from 'firebase/firestore';
 
@@ -12,6 +11,7 @@ import { normalizeChildPolicy } from './childPolicy';
 import type { ChildPolicy } from './childPolicy.types';
 import type { ChildProfile, ChildProfileDraft } from './childProfiles.types';
 import { db } from './firebase';
+import { canCreateChildProfile, getPlanEntitlements } from './plans';
 import { profilePath } from './profileScope';
 
 export const PROFILE_AVATARS = Array.from(
@@ -47,7 +47,23 @@ export const createChildProfile = async (
 ): Promise<string> => {
   const data = normalizeChildProfile(draft);
   const reference = doc(collection(db, `${profilePath(uid)}/childProfiles`));
-  await setDoc(reference, { ...data, createdAt: Date.now() });
+  await runTransaction(db, async transaction => {
+    const parent = doc(db, profilePath(uid));
+    const account = await transaction.get(parent);
+    const plan = account.exists() ? account.data().settings?.plan : 'free';
+    if (!getPlanEntitlements(plan).parentalControl)
+      throw new Error('plan/parental');
+    const existing = await getDocs(
+      collection(db, `${profilePath(uid)}/childProfiles`),
+    );
+    if (!canCreateChildProfile(plan, existing.size))
+      throw new Error('plan/profiles');
+    transaction.set(reference, { ...data, createdAt: Date.now() });
+    transaction.update(parent, {
+      childProfileRevision:
+        (Number(account.data()?.childProfileRevision) || 0) + 1,
+    });
+  });
   return reference.id;
 };
 

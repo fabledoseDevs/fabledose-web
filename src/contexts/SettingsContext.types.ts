@@ -43,6 +43,11 @@ export interface Settings {
   backgroundIntensity: number;
   storyLanguage: string;
   illustrationAnimation: boolean;
+  /**
+   * Persisted animation preference: auto, sd, hd or 2k. Legacy high and 4k values
+   * remain readable; shared plan helpers normalize them before display/delivery.
+   * 2K is Ultimate-only and currently resolves to available HD assets.
+   */
   animationQuality: string;
   narration: boolean;
   narrationVolume: number;

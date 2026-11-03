@@ -1,6 +1,9 @@
+import type { PlanAccessText } from '@/contexts/PlanAccessContext.types';
 import type { ChildProfilesText } from '@/molecules/SettingsProfiles/SettingsProfiles.types';
 
 export type DictionaryType = {
+  /** Shared plan restriction and missing-file explanations. */
+  planAccess: PlanAccessText;
   /** Localized persistent child-profile management and selection. */
   childProfiles: ChildProfilesText;
   common: {

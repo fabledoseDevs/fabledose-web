@@ -1,6 +1,23 @@
 import type { DictionaryType } from './lang.types';
 
 export const DictionaryEn: DictionaryType = {
+  planAccess: {
+    title: 'This feature requires another plan',
+    allPlans: 'See all plans',
+    close: 'Close',
+    story:
+      'This story is not in the Free selection. Family and Ultimate include the full library and seasonal stories.',
+    ebooks:
+      'PDF and EPUB ebook downloads are available with Family and Ultimate.',
+    parental:
+      'Child profiles and parental controls are available with Family and Ultimate. Free includes one user account.',
+    profiles:
+      'Family allows up to 6 child profiles. Ultimate has no child-profile limit.',
+    ebookPendingTitle: 'Ebook coming soon',
+    ebookPending:
+      'Your plan includes this format, but the file for this story has not been added yet.',
+    manageProfiles: 'Child profiles and parental controls',
+  },
   childProfiles: {
     noAvailableStories:
       'There are currently no available stories for this profile.',
@@ -135,7 +152,7 @@ export const DictionaryEn: DictionaryType = {
       {
         question: 'Do I have to pay to access the content?',
         answer:
-          'Fabledose offers both free stories with ads and full ad-free access with a paid subscription. The premium plan includes animated fairy tales, audiobooks, and ebooks. The cheapest plan costs 14.99 PLN per month. This gives you unlimited access to the entire library, without interruptions.',
+          'Free includes a selection of animated stories in SD, and audiobooks. At launch, the selection includes every current story. Family and Ultimate include the full library, seasonal stories, and PDF and EPUB ebooks once files are added. Family supports up to 6 child profiles; Ultimate has no profile limit.',
       },
       {
         question: 'Are the stories suitable for different age groups?',
@@ -145,7 +162,7 @@ export const DictionaryEn: DictionaryType = {
       {
         question: 'Can I use Fabledose offline?',
         answer:
-          'Yes, but only for audiobooks and ebooks available within the subscription. You can download them and play them without Internet access, for example while traveling or before bedtime. Animated fairy tales, due to their nature, are available online only. Even the cheapest subscription plan allows offline use.',
+          'Animated stories and audiobooks played on the website require an Internet connection. Family and Ultimate include PDF and EPUB ebook downloads for offline reading. Ebook files are being prepared; the app explains when a file is not available yet.',
       },
       {
         question: 'Is Fabledose safe for children?',
@@ -260,7 +277,7 @@ export const DictionaryEn: DictionaryType = {
     pdfButton: 'Illustrated PDF',
     epubButton: 'ePUB',
     unlockCta:
-      'Upgrade your subscription to grant access to audiobooks and ebooks',
+      'Choose Family or Ultimate for the full library and PDF and EPUB ebooks',
     unlockButton: 'Manage subscription',
     infoDisclaimer:
       'Check tag icons below or press the "More info" button to confirm that this story is suitable for your child.',
@@ -341,69 +358,56 @@ export const DictionaryEn: DictionaryType = {
       backToTop: 'Back to top',
       plans: {
         free: {
-          title: 'Starter',
+          title: 'Free',
           description:
-            'Access to a selected number of stories in animated book format.',
-          optionalParagraphs: [
-            'Stories quality: SD.',
-            'One user profile.',
-            'No fees.',
-            'Sponsored account (includes ads).',
-          ],
-          button: 'Keep Starter',
+            'Access to a selection of animated stories and audiobooks.\nNo parental controls.',
+          optionalParagraphs: ['Sponsored account (includes ads).'],
+          button: 'Choose Free',
         },
         family: {
           title: 'Family',
           description:
-            'Access to the full collection in animated book, audiobook, and ebook formats.',
-          optionalParagraphs: [
-            'Stories quality: SD, HD.',
-            'Three child profiles.',
-          ],
+            'Access to all stories as animated stories, audiobooks and ebooks. Animated stories in HD quality.\nParental controls for up to 6 child profiles.',
+          optionalParagraphs: [],
           button: 'Choose Family',
         },
         ultimate: {
           title: 'Ultimate',
           description:
-            'Access to the full collection in animated book, audiobook, and ebook formats.',
-          optionalParagraphs: [
-            'Stories quality: SD, HD, 2K, and 4K.',
-            'Multiple child profiles.',
-            'Public display license.',
-          ],
+            'Access to all stories as animated stories, audiobooks and ebooks. Animated stories in HD and QHD quality.\nParental controls for an unlimited number of child profiles.',
+          optionalParagraphs: ['Licence for public screenings.'],
           button: 'Choose Ultimate',
         },
       },
       extended: {
         contentTitle: 'Content access',
         qualityTitle: 'Story quality',
-        childrenTitle: 'Children accounts',
+        childrenTitle: 'Parental controls',
         licenseTitle: 'License type',
         monthlyCostLabel: 'Monthly cost',
         free: {
-          contentParagraph:
-            'Access to selected titles in the following formats:',
-          contentList: ['animated book'],
+          contentParagraph: 'Access to selected stories:',
+          contentList: ['animated story', 'audiobook'],
           qualityList: ['SD (720p)'],
-          childrenParagraph: 'Base account only.',
+          childrenParagraph:
+            'One account. Child profiles and parental controls are disabled.',
           licenseParagraph:
-            'This plan includes a private-use license limited to your immediate family.',
+            'Licence for private viewing within the immediate family.',
         },
         family: {
-          contentParagraph: 'Full access to titles in the following formats:',
-          contentList: ['animated book', 'audiobook', 'ebook'],
+          contentParagraph: 'All stories, including seasonal titles:',
+          contentList: ['animated story', 'audiobook', 'PDF and EPUB ebooks'],
           qualityList: ['SD (720p)', 'HD (1080p)'],
-          childrenParagraph: 'Three.',
+          childrenParagraph: 'Up to 6 child profiles and parental controls.',
           licenseParagraph:
-            'This plan includes a private-use license limited to your immediate family.',
+            'Licence for private viewing within the immediate family.',
         },
         ultimate: {
-          contentParagraph: 'Full access to titles in the following formats:',
-          contentList: ['animated book', 'audiobook', 'ebook'],
-          qualityList: ['SD (720p)', 'HD (1080p)', '2K', '4K'],
-          childrenParagraph: 'Unlimited.',
-          licenseParagraph:
-            'This plan includes both private and public display licenses. Enjoy Fabledose content without limits.',
+          contentParagraph: 'All stories, including seasonal titles:',
+          contentList: ['animated story', 'audiobook', 'PDF and EPUB ebooks'],
+          qualityList: ['SD (720p)', 'HD (1080p)', 'QHD (2K)'],
+          childrenParagraph: 'Unlimited child profiles and parental controls.',
+          licenseParagraph: 'Licence for private and public screenings.',
         },
       },
     },
@@ -660,7 +664,8 @@ export const DictionaryEn: DictionaryType = {
       animationQuality: {
         label: 'Animation quality:',
         infoTitle: 'Animation Quality',
-        infoDescription: 'Choose the quality of the displayed animations.',
+        infoDescription:
+          'AUTO adapts to screen size within your plan limits. SD (720p) is available in every plan, HD (1080p) in Family and Ultimate, and 2K in Ultimate. Until 2K animations are added, this option plays HD.',
       },
       narration: {
         label: 'Narration:',

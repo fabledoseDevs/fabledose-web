@@ -23,6 +23,10 @@ import SettingsRadio from '@/components/molecules/SettingsRadio';
 import SettingsRangeField from '@/components/molecules/SettingsRangeField';
 import SettingsSwitch from '@/components/molecules/SettingsSwitch';
 import { ACCOUNT_DELETION_ENABLED } from '@/config/account';
+import {
+  getAnimationQuality,
+  getAnimationQualityOptions,
+} from '@/config/plans';
 import { useDictionary } from '@/lang/DictionaryProvider';
 import { AccountSecurity } from '@/molecules/AccountSecurity/AccountSecurity';
 import type { AccountAction } from '@/molecules/AccountSecurity/AccountSecurity.types';
@@ -184,9 +188,11 @@ export const SettingsPage: SettingsPageType = () => {
       case SETTINGS_TAB.PARENTAL_CONTROL:
         return (
           <>
-            <Paragraph color={PARAGRAPH_COLOR.WHITE}>
-              {childProfiles.parentalDeferred}
-            </Paragraph>
+            {settings && settings.plan !== 'free' && (
+              <Paragraph color={PARAGRAPH_COLOR.WHITE}>
+                {childProfiles.parentalDeferred}
+              </Paragraph>
+            )}
             <SettingsProfiles />
           </>
         );
@@ -300,14 +306,11 @@ export const SettingsPage: SettingsPageType = () => {
             />
             <SettingsRadio
               label={settingsPage.display_n_audio.animationQuality.label}
-              options={[
-                { label: 'AUTO', value: 'auto' },
-                { label: 'SD', value: 'sd' },
-                { label: 'HD', value: 'hd' },
-                { label: '2K', value: '2k', isDisabled: true },
-                { label: '4K', value: '4k', isDisabled: true },
-              ]}
-              value={settings?.animationQuality || 'high'}
+              options={getAnimationQualityOptions(settings?.plan)}
+              value={getAnimationQuality(
+                settings?.plan,
+                settings?.animationQuality,
+              )}
               onChange={handleAnimationQualityChange}
               info={{
                 title: settingsPage.display_n_audio.animationQuality.infoTitle,

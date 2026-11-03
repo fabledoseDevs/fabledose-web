@@ -21,6 +21,17 @@ export interface InfoCardSimpleProps {
   title: string;
   description: string;
   optionalParagraphs?: string[];
+  /**
+   * Optional emphasis for supplementary paragraphs, independent of the title.
+   * @remarks Use red for sponsorship notices and green for public-screening
+   * licences. Emphasized text is bold; omitted tone preserves standard styling.
+   * Only simple cards use this presentation setting; extended comparison is unchanged.
+   * @example
+   * ```ts
+   * const tone: InfoCardSimpleProps['optionalParagraphTone'] = 'green';
+   * ```
+   */
+  optionalParagraphTone?: 'red' | 'green';
   priceParams: PriceTagProps;
   buttonParams: ButtonProps;
 }

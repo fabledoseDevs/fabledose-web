@@ -19,6 +19,7 @@ export const createSimpleCards = (
     title: planSelector.plans.free.title,
     description: planSelector.plans.free.description,
     optionalParagraphs: planSelector.plans.free.optionalParagraphs,
+    optionalParagraphTone: 'red',
     priceParams: {
       period: PERIOD.MONTHLY,
       currency: CURRENCY.PLN,
@@ -59,6 +60,7 @@ export const createSimpleCards = (
     title: planSelector.plans.ultimate.title,
     description: planSelector.plans.ultimate.description,
     optionalParagraphs: planSelector.plans.ultimate.optionalParagraphs,
+    optionalParagraphTone: 'green',
     priceParams: {
       period: PERIOD.MONTHLY,
       currency: CURRENCY.PLN,

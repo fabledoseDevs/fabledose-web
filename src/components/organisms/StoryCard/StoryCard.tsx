@@ -18,6 +18,9 @@ import {
 } from '@/atoms/Paragraph/Paragraph.types';
 import { ResetButton } from '@/atoms/ResetButton';
 import { TagIcon } from '@/atoms/TagIcon/TagIcon';
+import { canAccessStory, getPlanEntitlements } from '@/config/plans';
+import { usePlanAccess } from '@/contexts/PlanAccessContext';
+import { useSettings } from '@/contexts/SettingsContext';
 import { useDictionary } from '@/lang/DictionaryProvider';
 import { StoryDetailsModal } from '@/molecules/StoryDetailsModal/StoryDetailsModal';
 
@@ -40,13 +43,33 @@ import type { StoryCard as StoryCardType } from './StoryCard.types';
 
 export const StoryCard: StoryCardType = ({
   variant,
-  unlockedAccount,
   data,
   onResetProgress,
 }) => {
-  const { isVideoReady, isUnlockedAccount, handleVideoCanPlay } = useStoryCard({
-    unlockedAccount,
-  });
+  const { isVideoReady, handleVideoCanPlay } = useStoryCard();
+  const { settings } = useSettings();
+  const { requestUpgrade, showEbookUnavailable } = usePlanAccess();
+  const entitlements = getPlanEntitlements(settings?.plan);
+  const storyAllowed = canAccessStory(settings?.plan, data.availability);
+  const storyAction = (url?: string) =>
+    storyAllowed
+      ? { actionType: ACTION_TYPE.NAVIGATION, payload: url || '#' }
+      : {
+          actionType: ACTION_TYPE.FUNCTION_TRIGGER,
+          payload: () => requestUpgrade('story'),
+        };
+  const ebookAction = (url?: string) =>
+    !entitlements.ebooks
+      ? {
+          actionType: ACTION_TYPE.FUNCTION_TRIGGER,
+          payload: () => requestUpgrade('ebooks'),
+        }
+      : !url
+      ? {
+          actionType: ACTION_TYPE.FUNCTION_TRIGGER,
+          payload: showEbookUnavailable,
+        }
+      : { actionType: ACTION_TYPE.NAVIGATION, payload: url };
   const { storyCard, librarySync } = useDictionary();
   const [detailsOpen, setDetailsOpen] = useState(false);
   const closeDetails = useCallback(() => setDetailsOpen(false), []);
@@ -85,31 +108,31 @@ export const StoryCard: StoryCardType = ({
               </Paragraph>
 
               <ButtonsBlock>
-                {isUnlockedAccount ? (
+                <ButtonsRow>
+                  {onResetProgress && storyAllowed && (
+                    <ResetButton
+                      onClick={onResetProgress}
+                      title={librarySync.resetProgress}
+                      label={librarySync.resetProgress}
+                    />
+                  )}
+                  <Button
+                    {...storyAction(data.readUrl)}
+                    variant={BUTTON_VARIANT.RED}
+                    text={data.readButtonText || storyCard.readButton}
+                    width={{ widthType: WIDTH_TYPE.PX, widthValue: 200 }}
+                  />
+                  {data.audiobookUrl && (
+                    <Button
+                      {...storyAction(data.audiobookUrl)}
+                      variant={BUTTON_VARIANT.TRANSPARENT}
+                      text={storyCard.audiobookButton}
+                      width={{ widthType: WIDTH_TYPE.PX, widthValue: 200 }}
+                    />
+                  )}
+                </ButtonsRow>
+                {(data.audiobookUrl || data.pdfUrl || data.epubUrl) && (
                   <>
-                    <ButtonsRow>
-                      {onResetProgress && (
-                        <ResetButton
-                          onClick={onResetProgress}
-                          title={librarySync.resetProgress}
-                          label={librarySync.resetProgress}
-                        />
-                      )}
-                      <Button
-                        actionType={ACTION_TYPE.NAVIGATION}
-                        variant={BUTTON_VARIANT.RED}
-                        text={data.readButtonText || storyCard.readButton}
-                        payload={data.readUrl || '#'}
-                        width={{ widthType: WIDTH_TYPE.PX, widthValue: 200 }}
-                      />
-                      <Button
-                        actionType={ACTION_TYPE.NAVIGATION}
-                        variant={BUTTON_VARIANT.TRANSPARENT}
-                        text={storyCard.audiobookButton}
-                        payload={data.audiobookUrl || '#'}
-                        width={{ widthType: WIDTH_TYPE.PX, widthValue: 200 }}
-                      />
-                    </ButtonsRow>
                     <Paragraph
                       color={PAR_COLOR.WHITE}
                       alignment={TEXT_ALIGNMENT.LEFT}
@@ -118,51 +141,15 @@ export const StoryCard: StoryCardType = ({
                     </Paragraph>
                     <SingleButtonRow>
                       <Button
-                        actionType={ACTION_TYPE.NAVIGATION}
+                        {...ebookAction(data.pdfUrl)}
                         variant={BUTTON_VARIANT.TRANSPARENT}
                         text={storyCard.pdfButton}
-                        payload={data.pdfUrl || '#'}
                         width={{ widthType: WIDTH_TYPE.PX, widthValue: 200 }}
                       />
                       <Button
-                        actionType={ACTION_TYPE.NAVIGATION}
+                        {...ebookAction(data.epubUrl)}
                         variant={BUTTON_VARIANT.TRANSPARENT}
                         text={storyCard.epubButton}
-                        payload={data.epubUrl || '#'}
-                        width={{ widthType: WIDTH_TYPE.PX, widthValue: 200 }}
-                      />
-                    </SingleButtonRow>
-                  </>
-                ) : (
-                  <>
-                    <SingleButtonRow>
-                      {onResetProgress && (
-                        <ResetButton
-                          onClick={onResetProgress}
-                          title={librarySync.resetProgress}
-                          label={librarySync.resetProgress}
-                        />
-                      )}
-                      <Button
-                        actionType={ACTION_TYPE.NAVIGATION}
-                        variant={BUTTON_VARIANT.RED}
-                        text={data.readButtonText || storyCard.readButton}
-                        payload={data.readUrl || '#'}
-                        width={{ widthType: WIDTH_TYPE.PX, widthValue: 200 }}
-                      />
-                    </SingleButtonRow>
-                    <Paragraph
-                      color={PAR_COLOR.WHITE}
-                      alignment={TEXT_ALIGNMENT.LEFT}
-                    >
-                      {storyCard.unlockCta}
-                    </Paragraph>
-                    <SingleButtonRow>
-                      <Button
-                        actionType={ACTION_TYPE.NAVIGATION}
-                        variant={BUTTON_VARIANT.TRANSPARENT}
-                        text={storyCard.unlockButton}
-                        payload={'/plan'}
                         width={{ widthType: WIDTH_TYPE.PX, widthValue: 200 }}
                       />
                     </SingleButtonRow>

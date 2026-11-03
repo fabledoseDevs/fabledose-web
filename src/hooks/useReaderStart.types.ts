@@ -20,6 +20,8 @@ import type { ReadingProgressData } from '@/config/firestore';
 export interface ReaderStartOptions {
   /** Current Firebase UID, or null for a signed-out reader. */
   userId: string | null;
+  /** Child library identity, independently invalidating the visible starting position. */
+  profileId?: string | null;
   /** Whether the first authentication result has arrived. */
   authChecked: boolean;
   /** Combined revision that invalidates positions when authentication or the selected child changes. */

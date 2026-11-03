@@ -11,6 +11,7 @@ import PriceTag from '@/atoms/PriceTag';
 
 import {
   CtaContainer,
+  HighlightedNotice,
   InfoCardSimpleBody,
   InfoContainer,
 } from './InfoCardSimple.styled';
@@ -20,6 +21,7 @@ export const InfoCardSimple: InfoCardSimpleType = ({
   title,
   description,
   optionalParagraphs,
+  optionalParagraphTone,
   priceParams,
   buttonParams,
 }) => (
@@ -28,9 +30,15 @@ export const InfoCardSimple: InfoCardSimpleType = ({
       <Headline weight={HEADLINE_TYPE.BIG} color={HEADLINE_COLOR.PURPLE}>
         {title}
       </Headline>
-      <Paragraph color={PARAGRAPH_COLOR.PURPLE} alignment={TEXT_ALIGNMENT.LEFT}>
-        {description}
-      </Paragraph>
+      {description.split('\n').map((paragraph, index) => (
+        <Paragraph
+          key={`description-${index}`}
+          color={PARAGRAPH_COLOR.PURPLE}
+          alignment={TEXT_ALIGNMENT.LEFT}
+        >
+          {paragraph}
+        </Paragraph>
+      ))}
       {optionalParagraphs &&
         optionalParagraphs.map(paragraph => (
           <Paragraph
@@ -38,7 +46,13 @@ export const InfoCardSimple: InfoCardSimpleType = ({
             color={PARAGRAPH_COLOR.PURPLE}
             alignment={TEXT_ALIGNMENT.LEFT}
           >
-            {paragraph}
+            {optionalParagraphTone ? (
+              <HighlightedNotice tone={optionalParagraphTone}>
+                {paragraph}
+              </HighlightedNotice>
+            ) : (
+              paragraph
+            )}
           </Paragraph>
         ))}
     </InfoContainer>

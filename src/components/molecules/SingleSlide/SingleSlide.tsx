@@ -49,6 +49,7 @@ export const SingleSlide: SingleSlideType = props => {
       <BackgroundLayer>
         {useAnimatedBackground ? (
           <BackgroundVideo
+            key={mediaUrl}
             ref={videoRef}
             autoPlay={isActive}
             preload={isActive ? 'auto' : 'none'}

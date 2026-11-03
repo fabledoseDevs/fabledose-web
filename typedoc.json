@@ -7,7 +7,9 @@
     "src/fables/fables.types.ts",
     "src/config/childProfiles.types.ts",
     "src/contexts/ChildProfilesContext.types.ts",
-    "src/config/childPolicy.types.ts"
+    "src/config/childPolicy.types.ts",
+    "src/config/plans.types.ts",
+    "src/contexts/PlanAccessContext.types.ts"
   ],
   "out": "docs",
   "entryPointStrategy": "expand",

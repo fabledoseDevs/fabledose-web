@@ -6,7 +6,7 @@ const vm = require('node:vm');
 const ts = require('typescript');
 
 const runtime = () => {
-  const docs = new Map(), loaded = new Map();
+  const docs = new Map([['users/A',{settings:{plan:'family'}}],['users/parent',{settings:{plan:'family'}}]]), loaded = new Map();
   let sequence = 0, failDeleteBatch = false;
   const ref = path => ({ path, id: path.split('/').at(-1) });
   const join = (base, parts) => [base?.path, ...parts].filter(Boolean).join('/');
@@ -15,13 +15,13 @@ const runtime = () => {
     doc: (base, ...parts) => parts.length ? ref(join(base, parts)) : ref(`${base.path}/id-${++sequence}`),
     collection: (base, ...parts) => ref(join(base, parts)),
     getDoc: async reference => snapshot(reference),
-    getDocs: async reference => ({ docs: [...docs.keys()].filter(key => key.startsWith(`${reference.path}/`) && key.split('/').length === reference.path.split('/').length + 1).map(key => snapshot(ref(key))) }),
+    getDocs: async reference => {const entries=[...docs.keys()].filter(key => key.startsWith(`${reference.path}/`) && key.split('/').length === reference.path.split('/').length + 1).map(key => snapshot(ref(key)));return {docs:entries,size:entries.length};},
     setDoc: async (reference, data, options) => docs.set(reference.path, options?.merge ? { ...docs.get(reference.path), ...data } : data),
     updateDoc: async (reference, data) => { if (!docs.has(reference.path)) throw {code:'not-found'}; docs.set(reference.path, { ...docs.get(reference.path), ...data }); },
     deleteDoc: async reference => docs.delete(reference.path),
     query: reference => reference,
     where: () => undefined,
-    runTransaction: async (_, operation) => operation({get: reference => firestore.getDoc(reference), update: (reference, data) => docs.set(reference.path, {...docs.get(reference.path), ...data})}),
+    runTransaction: async (_, operation) => operation({get: reference => firestore.getDoc(reference), set: (reference,data) => docs.set(reference.path,data), update: (reference, data) => docs.set(reference.path, {...docs.get(reference.path), ...data})}),
     writeBatch: () => {
       const changes = [];
       return { set: (...args) => changes.push(['set', ...args]), delete: reference => changes.push(['delete', reference]), commit: async () => {
@@ -51,7 +51,7 @@ test('profiles: create/edit validate fields and retain stable identity and times
  assert.equal(h.docs.get(key).name,'Asia');await api.editChildProfile('parent',id,{...draft,name:'Joasia'});
  assert.equal(h.docs.get(key).createdAt,created);assert.equal(h.docs.get(key).name,'Joasia');
  for(const bad of [{...draft,name:' '},{...draft,name:'a'.repeat(41)},{...draft,imageUrl:'https://example.com/a.jpg'},{...draft,ageGroup:'adult'}]) await assert.rejects(api.createChildProfile('parent',bad));
- assert.equal(h.docs.size,1);
+ assert.equal([...h.docs.keys()].filter(key=>key.includes('/childProfiles/')).length,1);
 });
 test('profiles: deletion is scoped, cleans both audio locales and can resume after interrupted cleanup',async()=>{
  const h=runtime(), api=h.load('childProfiles'), id=await api.createChildProfile('parent',draft);
@@ -77,7 +77,7 @@ test('profiles: audio-only writes create discoverable child markers and never be
  assert.equal((await reading.getReadingProgress('A','fish',id)).currentSlide,4);
  await audio.saveAudioProgress('A',{...data,positionSeconds:30},id);
  assert.equal((await reading.getReadingProgress('A','fish',id)).currentSlide,4);
- await profiles.deleteChildProfile('A',id);assert.equal(h.docs.size,0);
+ await profiles.deleteChildProfile('A',id);assert.equal([...h.docs.keys()].filter(key=>key.includes('/childProfiles/')).length,0);
 });
 test('profiles: parent and children have separate favourites, reading and audio paths',async()=>{
  const h=runtime(), reading=h.load('firestore');
@@ -125,4 +125,17 @@ test('Spark schedule: daylight saving changes retain wall-clock access hours',()
  assert.equal(api.childAccessReason(p,'fish',new Date('2026-10-24T07:00:00Z')),null);
  assert.equal(api.childAccessReason(p,'fish',new Date('2026-10-25T07:00:00Z')),'hours');
  assert.equal(api.childAccessReason(p,'fish',new Date('2026-10-25T08:00:00Z')),null);
+});
+
+
+test('plans: Free cannot create children, Family stops at six, Ultimate allows more', async()=>{
+ const h=runtime(),api=h.load('childProfiles');h.docs.set('users/A',{settings:{plan:'free'}});
+ await assert.rejects(api.createChildProfile('A',draft),/plan\/parental/);
+ h.docs.set('users/A',{settings:{plan:'family'}});
+ for(let i=0;i<6;i++)await api.createChildProfile('A',{...draft,name:'Child '+i});
+ await assert.rejects(api.createChildProfile('A',draft),/plan\/profiles/);
+ assert.equal(h.docs.get('users/A').childProfileRevision,6);
+ h.docs.set('users/A',{...h.docs.get('users/A'),settings:{plan:'ultimate'}});
+ await api.createChildProfile('A',draft);
+ assert.equal([...h.docs.keys()].filter(key=>key.startsWith('users/A/childProfiles/')).length,7);
 });
