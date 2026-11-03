@@ -215,8 +215,53 @@ The application stops reading/audio outside the window and preserves progress.
 protected by a server-verified parent session. These are application-level limits:
 the browser clock can be changed and public media assets remain accessible directly.
 Secure parent authorization and media delivery require a separate backend design;
-no PIN is stored in Firestore or browser storage. No plan limits or automatic parent
-library migration are introduced. Profiles and policy changes require the **latest**
+no PIN is stored in Firestore or browser storage. Plan-specific profile limits are applied; no automatic parent-library migration is introduced. Profiles and policy changes require the **latest**
 copy of the rules linked above, including the new optional `policy` field.
 
 Validation: `npm run test:profiles`, `npm run test:library`, `npm run test:audio`.
+
+
+## Plan access — initial Spark implementation
+
+| Feature | Free | Family | Ultimate |
+| --- | --- | --- | --- |
+| Animated stories and audiobooks | Selection (currently all four stories) | Full library, including seasonal stories | Full library, including seasonal stories |
+| Animation quality | AUTO / SD | AUTO / SD / HD | AUTO / SD / HD / 2K (currently HD assets) |
+| PDF / EPUB | Unavailable | Included when files exist | Included when files exist |
+| Child profiles / parental preferences | Disabled; parent account only | Up to 6 | Unlimited |
+| Existing licence description | Private family viewing | Private family viewing | Private and public screenings |
+
+`src/config/plans.ts` centralizes these permissions. Catalogue `meta.availability`
+accepts `selection`, `subscription` or `seasonal`; omitted values retain selection
+access for legacy content. Every current story explicitly belongs to selection.
+Story cards and direct reader/audio routes apply the same catalogue permission.
+All plans include animation and the audiobook player. AUTO respects the plan ceiling: Free uses 720p, paid plans use 720p on compact viewports and 1080p on larger screens. Explicit SD/HD settings select actual 720p/1080p assets. Ultimate 2K currently resolves to HD until QHD files are supplied. Legacy high maps to HD; removed 4K maps to AUTO. Quality changes remount the video source so the browser loads the new asset immediately, without resetting the selected slide.
+
+Unavailable plan actions use the shared modal and a locale-aware “See all plans”
+button. Missing PDF/EPUB files are explained separately for paid accounts; no fake
+`#` download link or suggestion to upgrade again is shown. Ebook assets still need
+to be supplied and linked via the story card's `pdfUrl` / `epubUrl`.
+
+Profile creation checks the stored account plan in a Firestore transaction and
+serializes creators through the parent document's `childProfileRevision`. Family
+creation counts all existing profiles, including unfinished deletions, before
+allowing another. After downgrading to Family only the first six profiles (creation
+time / ID order) can be selected; extra records remain stored and selecting one
+opens the upgrade dialog. Free selects the parent library and disables profile
+management and parental preferences. Upgrading restores access without data loss.
+
+**Publish the updated complete Firestore rules again** before testing: child
+profile creation/updates and child-library writes now require the stored Family
+or Ultimate plan. Existing ownership/deletion-lock conditions remain in place.
+No rule deployment, Functions, Blaze or payment integration is performed here.
+
+**Important notice:** configured plans are still part of the existing test account
+settings workflow. This change is not verified payment entitlement enforcement:
+server-issued subscription authority and protected media delivery remain future
+backend work. The Family count is enforced by application transactions; the rules
+check paid-plan access but do not independently count collection documents. PIN
+verification is still deferred. Existing account data is not migrated or removed.
+
+Run `npm run test:plans`, `npm run test:profiles`, `npm run test:library` and
+`npm run test:audio`. Browser checks use mocked Firebase, including downgrade and
+quota cases; they do not validate deployed production rules.

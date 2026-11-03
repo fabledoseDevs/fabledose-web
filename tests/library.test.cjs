@@ -209,3 +209,9 @@ test('child session: an event handler from the previous profile cannot capture a
   assert.ok(first.capture()); h.render('A', 'stas'); assert.equal(first.capture(), null);
   h.render('A', 'asia'); assert.equal(first.capture(), null);
 });
+
+test('reader: changing child with unchanged auth revision immediately hides the old slide and ignores its URL override',async()=>{
+ const h=runtime('useReaderStart');const base={userId:'A',authChecked:true,accountRevision:1,fableId:'fish',enabled:true,initialSlide:9,profileId:'asia',getProgress:async()=>({currentSlide:7,isCompleted:false})};
+ h.render(base);await settle();assert.equal(h.render(base).slide,9);
+ const next={...base,profileId:'stas',getProgress:async()=>({currentSlide:2,isCompleted:false})};assert.equal(h.render(next).ready,false);await settle();assert.equal(h.render(next).slide,2);
+});

@@ -95,7 +95,7 @@ export interface PlanComparisonExtendedProps {
  *       },
  *       sectionQuality: {
  *        title: "Quality",
- *        list: ["SD (720p)", "HD (1080p)", 2K, 4K],
+ *        list: ["SD (720p)", "HD (1080p)", "QHD (2K)"],
  *       },
  *       sectionChildrenAccounts: {
  *        title: "Children accounts",

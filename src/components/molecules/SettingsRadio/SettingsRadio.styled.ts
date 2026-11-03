@@ -39,6 +39,16 @@ export const RadioWrapper = styled.div`
   flex: 1;
   gap: 12px;
 
+  &[data-quality-selector='true'] {
+    gap: 8px;
+    flex-wrap: wrap;
+    > div {
+      min-width: 46px;
+      padding-inline: 8px;
+      box-sizing: border-box;
+    }
+  }
+
   &[data-font-selector='true'] {
     gap: 8px;
     flex-wrap: wrap;

@@ -3,7 +3,9 @@ import styled from '@emotion/styled';
 import { useState } from 'react';
 
 import Avatar, { AVATAR_SIZE } from '@/atoms/Avatar';
+import { getPlanEntitlements } from '@/config/plans';
 import { useChildProfiles } from '@/contexts/ChildProfilesContext';
+import { usePlanAccess } from '@/contexts/PlanAccessContext';
 import { useSettings } from '@/contexts/SettingsContext';
 import { useDictionary } from '@/lang/DictionaryProvider';
 import ModalWindow from '@/molecules/ModalWindow';
@@ -64,6 +66,7 @@ const Trigger = styled.button`
 export const ProfilePicker: ProfilePickerType = () => {
   const text = useDictionary().childProfiles;
   const { settings } = useSettings();
+  const { requestUpgrade } = usePlanAccess();
   const { profiles, userId, activeProfileId, loading } = useChildProfiles();
   const [open, setOpen] = useState(false);
   if (!userId || loading) return null;
@@ -77,7 +80,11 @@ export const ProfilePicker: ProfilePickerType = () => {
         aria-label={`${text.pick}: ${label}`}
         aria-haspopup="dialog"
         aria-expanded={open}
-        onClick={() => setOpen(true)}
+        onClick={() => {
+          if (getPlanEntitlements(settings?.plan).parentalControl)
+            setOpen(true);
+          else requestUpgrade('parental');
+        }}
       >
         {profile?.imageUrl ? (
           <Avatar

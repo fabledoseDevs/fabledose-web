@@ -24,11 +24,14 @@ import type {
   ChildProfileDraft,
 } from '@/config/childProfiles.types';
 import { auth, db } from '@/config/firebase';
+import { canCreateChildProfile, getPlanEntitlements } from '@/config/plans';
 
 import type {
   ChildProfilesContextValue,
   ChildProfilesProviderProps,
 } from './ChildProfilesContext.types';
+import { usePlanAccess } from './PlanAccessContext';
+import { useSettings } from './SettingsContext';
 
 const Context = createContext<ChildProfilesContextValue | null>(null);
 const storageKey = (uid: string) => `fabledose:profile:${uid}`;
@@ -43,6 +46,12 @@ const readSelection = (uid: string): string | null => {
 export const ChildProfilesProvider = ({
   children,
 }: ChildProfilesProviderProps): ReactElement => {
+  const { settings } = useSettings();
+  const { requestUpgrade } = usePlanAccess();
+  const plan = settings?.plan;
+  const settingsReady = Boolean(settings);
+  const profileLimit = getPlanEntitlements(plan).childProfileLimit;
+  const childAccess = getPlanEntitlements(plan).parentalControl;
   const [userId, setUserId] = useState<string | null>(null);
   const [profiles, setProfiles] = useState<ChildProfile[]>([]);
   const [activeProfileId, setActive] = useState<string | null>(null);
@@ -83,6 +92,11 @@ export const ChildProfilesProvider = ({
       setRevision(value => value + 1);
       setUserId(user?.uid ?? null);
       if (!user) return;
+      if (!settingsReady) return;
+      if (!childAccess) {
+        setLoading(false);
+        return;
+      }
       let first = true;
       unsubscribe = onSnapshot(
         collection(db, 'users', user.uid, 'childProfiles'),
@@ -118,7 +132,9 @@ export const ChildProfilesProvider = ({
           first = false;
           select(
             user.uid,
-            next.some(item => item.id === wanted && !item.deleting)
+            next
+              .slice(0, profileLimit ?? undefined)
+              .some(item => item.id === wanted && !item.deleting)
               ? wanted
               : null,
           );
@@ -137,7 +153,7 @@ export const ChildProfilesProvider = ({
       unsubscribe();
       stopAuth();
     };
-  }, [reload, select]);
+  }, [reload, select, childAccess, settingsReady, profileLimit]);
   const mutate = async (
     operation: (uid: string) => Promise<unknown>,
   ): Promise<boolean> => {
@@ -150,8 +166,20 @@ export const ChildProfilesProvider = ({
     try {
       await operation(userId);
       return token === epoch.current && auth.currentUser?.uid === userId;
-    } catch {
-      if (token === epoch.current) setError(true);
+    } catch (cause: unknown) {
+      if (token === epoch.current) {
+        setError(true);
+        if (
+          cause instanceof Error &&
+          (cause.message === 'plan/parental' ||
+            cause.message === 'plan/profiles')
+        ) {
+          window.dispatchEvent(new Event('fabledose:plan-restricted'));
+          requestUpgrade(
+            cause.message === 'plan/profiles' ? 'profiles' : 'parental',
+          );
+        }
+      }
       return false;
     } finally {
       if (token === epoch.current) {
@@ -165,7 +193,7 @@ export const ChildProfilesProvider = ({
       value={{
         userId,
         profiles,
-        activeProfileId,
+        activeProfileId: childAccess ? activeProfileId : null,
         revision,
         loading,
         saving,
@@ -176,21 +204,30 @@ export const ChildProfilesProvider = ({
             userId &&
             !loading &&
             !saving &&
+            childAccess &&
             (id === null ||
-              profiles.some(item => item.id === id && !item.deleting))
+              profiles
+                .slice(0, profileLimit ?? undefined)
+                .some(item => item.id === id && !item.deleting))
           )
             select(userId, id);
         },
         saveProfile: (draft, id) =>
-          mutate(uid =>
-            id
-              ? editChildProfile(uid, id, draft)
-              : createChildProfile(uid, draft),
-          ),
+          !childAccess || (!id && !canCreateChildProfile(plan, profiles.length))
+            ? Promise.resolve(false)
+            : mutate(uid =>
+                id
+                  ? editChildProfile(uid, id, draft)
+                  : createChildProfile(uid, draft),
+              ),
         setStoryAvailable: (id, storyId, available) =>
-          mutate(uid => updateChildPolicy(uid, id, { storyId, available })),
+          childAccess
+            ? mutate(uid => updateChildPolicy(uid, id, { storyId, available }))
+            : Promise.resolve(false),
         saveSchedule: (id, schedule) =>
-          mutate(uid => updateChildPolicy(uid, id, { schedule })),
+          childAccess
+            ? mutate(uid => updateChildPolicy(uid, id, { schedule }))
+            : Promise.resolve(false),
         removeProfile: id => mutate(uid => deleteChildProfile(uid, id)),
       }}
     >

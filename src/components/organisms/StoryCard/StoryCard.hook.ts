@@ -4,9 +4,9 @@ import { useSettings } from '@/contexts/SettingsContext';
 
 import type { UseStoryCard as UseStoryCardType } from './StoryCard.types';
 
-const useStoryCard: UseStoryCardType = ({ unlockedAccount }) => {
+const useStoryCard: UseStoryCardType = () => {
   const [isVideoReady, setIsVideoReady] = useState<boolean>(false);
-  const { settings, refreshPlanFromFirebase } = useSettings();
+  const { refreshPlanFromFirebase } = useSettings();
 
   const handleVideoCanPlay = useCallback(() => {
     setIsVideoReady(true);
@@ -16,11 +16,7 @@ const useStoryCard: UseStoryCardType = ({ unlockedAccount }) => {
     void refreshPlanFromFirebase();
   }, [refreshPlanFromFirebase]);
 
-  const isUnlockedFromSettings =
-    settings?.plan === 'family' || settings?.plan === 'ultimate';
-  const isUnlockedAccount = Boolean(unlockedAccount) || isUnlockedFromSettings;
-
-  return { isVideoReady, isUnlockedAccount, handleVideoCanPlay };
+  return { isVideoReady, handleVideoCanPlay };
 };
 
 export default useStoryCard;

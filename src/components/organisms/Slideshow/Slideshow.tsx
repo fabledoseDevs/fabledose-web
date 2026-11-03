@@ -3,6 +3,7 @@
 import SlideshowButtons, {
   SLIDESHOW_BUTTON_VARIANT,
 } from '@/atoms/SlideshowButtons';
+import { getAnimationQualityOptions } from '@/config/plans';
 import { useDictionary } from '@/lang/DictionaryProvider';
 import ModalWindow from '@/molecules/ModalWindow';
 import SettingsRadio from '@/molecules/SettingsRadio';
@@ -235,11 +236,7 @@ export const Slideshow: SlideshowType = ({
           />
           <SettingsRadio
             label={settingsPage.display_n_audio.animationQuality.label}
-            options={[
-              { label: 'AUTO', value: 'auto' },
-              { label: 'SD', value: 'sd' },
-              { label: 'HD', value: 'hd' },
-            ]}
+            options={getAnimationQualityOptions(settings?.plan)}
             value={animationQualityValue}
             onChange={handleAnimationQualityChange}
             info={{

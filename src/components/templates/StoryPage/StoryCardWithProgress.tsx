@@ -33,6 +33,7 @@ export const StoryCardWithProgress = ({
     useReadingProgress(profilesLoading ? null : account.uid, activeProfileId);
   const { storyCard, librarySync: text } = useDictionary();
   const reader = useReaderStart({
+    profileId: activeProfileId,
     userId: account.uid,
     authChecked: account.checked && !profilesLoading,
     accountRevision: account.revision + profileRevision,

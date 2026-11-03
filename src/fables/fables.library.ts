@@ -1,4 +1,5 @@
 import { TAG_NAME } from '@/atoms/TagIcon/TagIcon.types';
+import { normalizeStoryAvailability } from '@/config/plans';
 import type { FableTileProps } from '@/molecules/FableTile/FableTile.types';
 import type { StoryCardData } from '@/organisms/StoryCard/StoryCard.types';
 import index from '@/public/fable-database/index.json';
@@ -67,6 +68,7 @@ export const resolveLibraryMeta = (meta: FableMeta): FableMeta => {
 export const libraryFables: FableMeta[] = index.tales.map(({ meta }) =>
   resolveLibraryMeta({
     ...meta,
+    availability: normalizeStoryAvailability(meta.availability),
     tags: meta.tags.filter((tag): tag is TAG_NAME =>
       Object.values(TAG_NAME).includes(tag as TAG_NAME),
     ),
@@ -99,6 +101,7 @@ export const toStoryCardData = (
   meta: FableMeta,
   locale: FableLocale,
 ): StoryCardData => ({
+  availability: meta.availability,
   headline: pickLocalized(meta.title, locale, meta.id),
   fullDescription:
     meta.fullDescription[locale] ||

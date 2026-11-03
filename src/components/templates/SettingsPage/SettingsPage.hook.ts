@@ -2,6 +2,7 @@ import { useParams, usePathname, useRouter } from 'next/navigation';
 import type { ChangeEvent } from 'react';
 import { useEffect, useState } from 'react';
 
+import { getAnimationQuality } from '@/config/plans';
 import { useSettings } from '@/contexts/SettingsContext';
 import type { FableFontFamily } from '@/contexts/SettingsContext.types';
 import { useDictionary } from '@/lang/DictionaryProvider';
@@ -100,7 +101,9 @@ export const useSettingsPage: UseSettingsPageType = () => {
   };
 
   const handleAnimationQualityChange = (value: string) => {
-    updateSettings({ animationQuality: value });
+    updateSettings({
+      animationQuality: getAnimationQuality(settings?.plan, value),
+    });
   };
 
   const handleNarrationChange = (value: boolean) => {

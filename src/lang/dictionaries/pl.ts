@@ -1,6 +1,23 @@
 import type { DictionaryType } from './lang.types';
 
 export const DictionaryPL: DictionaryType = {
+  planAccess: {
+    title: 'Ta opcja wymaga innego planu',
+    allPlans: 'Zobacz wszystkie plany',
+    close: 'Zamknij',
+    story:
+      'Ta bajka nie należy do selekcji planu Free. Pełna biblioteka i bajki sezonowe są dostępne w Family oraz Ultimate.',
+    ebooks:
+      'Pobieranie ebooków PDF i EPUB jest dostępne w planach Family i Ultimate.',
+    parental:
+      'Profile dzieci i kontrola rodzicielska są dostępne w planach Family i Ultimate. Free obejmuje jedno konto użytkownika.',
+    profiles:
+      'Plan Family pozwala utworzyć do 6 profili dzieci. Ultimate nie ma limitu liczby profili.',
+    ebookPendingTitle: 'Ebook jest w przygotowaniu',
+    ebookPending:
+      'Ten format jest dostępny w Twoim planie, ale plik tej bajki nie został jeszcze dodany.',
+    manageProfiles: 'Profile dzieci i kontrola rodzicielska',
+  },
   childProfiles: {
     noAvailableStories: 'Dla tego profilu nie ma obecnie dostępnych bajek.',
     availability: 'Dostępność dla dzieci',
@@ -134,7 +151,7 @@ export const DictionaryPL: DictionaryType = {
       {
         question: 'Czy muszę płacić za dostęp do treści?',
         answer:
-          'Fabledose oferuje zarówno darmowe bajki z reklamami, jak i pełny dostęp bez reklam w ramach płatnej subskrypcji. Wersja premium obejmuje animowane baśnie, audiobooki oraz ebooki. Najtańszy abonament kosztuje 14,99 PLN miesięcznie. Dzięki temu masz nieograniczony dostęp do całej biblioteki, bez przerywników.',
+          'Plan Free zapewnia selekcję bajek z animacjami w SD, oraz audiobookami. Na start selekcja obejmuje wszystkie obecne bajki. Family i Ultimate obejmują całą bibliotekę, w tym bajki sezonowe, oraz ebooki PDF i EPUB po dodaniu plików. Family pozwala utworzyć do 6 profili dzieci, a Ultimate nie ogranicza ich liczby.',
       },
       {
         question: 'Czy bajki są odpowiednie dla różnych grup wiekowych?',
@@ -144,7 +161,7 @@ export const DictionaryPL: DictionaryType = {
       {
         question: 'Czy mogę korzystać z Fabledose offline?',
         answer:
-          'Tak, ale dotyczy to tylko audiobooków i ebooków dostępnych w ramach subskrypcji. Można je pobrać i odtwarzać bez dostępu do Internetu, np. w podróży lub wieczorem przed snem. Animowane baśnie ze względu na swój charakter są dostępne wyłącznie online. Już najtańszy plan abonamentowy umożliwia korzystanie offline.',
+          'Animowane bajki i audiobooki odtwarzane na stronie wymagają Internetu. Plany Family i Ultimate obejmują pobieranie ebooków PDF i EPUB, które po pobraniu można czytać offline. Pliki ebooków są w przygotowaniu; jeżeli plik nie jest jeszcze dostępny, aplikacja wyświetli informację.',
       },
       {
         question: 'Czy Fabledose jest bezpieczne dla dzieci?',
@@ -266,7 +283,7 @@ export const DictionaryPL: DictionaryType = {
     pdfButton: 'Ilustrowany PDF',
     epubButton: 'ePUB',
     unlockCta:
-      'Ulepsz konto i uzyskaj dostęp do bajek w formie audiobooków oraz ebooków.',
+      'Wybierz Family lub Ultimate, aby uzyskać dostęp do całej biblioteki oraz ebooków PDF i EPUB.',
     unlockButton: 'Zmień typ konta',
     infoDisclaimer:
       'Sprawdź ikony poniżej lub naciśnij przycisk "Więcej infomacji" aby upewnić się, czy ta historyjka jest odpowiednia dla twojego dziecka',
@@ -341,78 +358,64 @@ export const DictionaryPL: DictionaryType = {
       stepLabel: 'Krok',
       stepHighlight: '2 z 2',
       registrationDescription:
-        'Konto zostało założone. Domyślnie zostało ustawione na Starter.<br />Jeżeli interesuje cię szerszy zakres usługi, tutaj wybierzesz konto dopasowane do Twoich oczekiwań.',
+        'Konto zostało założone. Domyślnie zostało ustawione na plan Free.<br />Jeżeli interesuje cię szerszy zakres usługi, tutaj wybierzesz konto dopasowane do Twoich oczekiwań.',
       standaloneDescription: 'Wybierz plan dopasowany do Twoich oczekiwań.',
       showDetails: 'Zobacz pełne porównanie',
       hideDetails: 'Ukryj pełne porównanie',
       backToTop: 'Powrót do góry',
       plans: {
         free: {
-          title: 'Starter',
+          title: 'Free',
           description:
-            'Dostęp do wyselekcjonowanej liczby bajek w formacie animowanej książki.',
-          optionalParagraphs: [
-            'Bajki w jakości: SD.',
-            'Jeden profil użytkownika.',
-            'Brak opłat',
-            'Konto sponsorowane (zawiera reklamy).',
-          ],
-          button: 'Pozostaję przy Starter',
+            'Dostęp do selekcji animowanych bajek oraz audiobooków.\nBrak kontroli rodzicielskiej.',
+          optionalParagraphs: ['Konto sponsorowane (zawiera reklamy).'],
+          button: 'Wybieram Free',
         },
         family: {
           title: 'Family',
           description:
-            'Dostęp do pełnej kolekcji bajek w formatach animowanej książki, audiobooków oraz ebooków.',
-          optionalParagraphs: [
-            'Bajki w jakości: SD, HD.',
-            'Trzy profile dla dzieci.',
-          ],
+            'Dostęp do wszystkich bajek w formatach animowanych historyjek, audiobooków oraz ebooków. Animowane historyjki w jakości HD.\nKontrola rodzicielska dla maksymalnie 6 profili dzieci.',
+          optionalParagraphs: [],
           button: 'Wybieram Family',
         },
         ultimate: {
           title: 'Ultimate',
           description:
-            'Dostęp do pełnej kolekcji bajek w formatach animowanej książki, audiobooków oraz ebooków.',
-          optionalParagraphs: [
-            'Bajki w jakości: SD, HD, 2K oraz 4K.',
-            'Wiele profili dla dzieci.',
-            'Licencja na pokazy publiczne.',
-          ],
+            'Dostęp do wszystkich bajek w formatach animowanych historyjek, audiobooków oraz ebooków. Animowane historyjki w jakości HD oraz QHD.\nKontrola rodzicielska dla nieograniczonej liczby profili dzieci.',
+          optionalParagraphs: ['Licencja na pokazy publiczne.'],
           button: 'Wybieram Ultimate',
         },
       },
       extended: {
         contentTitle: 'Dostęp do treści',
         qualityTitle: 'Jakość bajek',
-        childrenTitle: 'Liczba kont dla dzieci',
+        childrenTitle: 'Kontrola rodzicielska',
         licenseTitle: 'Rodzaj licencji',
         monthlyCostLabel: 'Miesięczny koszt',
         free: {
-          contentParagraph:
-            'Dostęp do wybranych tytułów w następujących formatach:',
-          contentList: ['animowana książka'],
+          contentParagraph: 'Dostęp do selekcji bajek:',
+          contentList: ['animowana książka', 'audiobook'],
           qualityList: ['SD (720p)'],
-          childrenParagraph: 'Tylko konto podstawowe.',
+          childrenParagraph:
+            'Jedno konto. Profile dzieci i kontrola rodzicielska wyłączone.',
           licenseParagraph:
-            'Konto zawiera licencję na pokazy prywatne, wyłącznie w gronie najbliższej rodziny.',
+            'Licencja na pokazy prywatne w gronie najbliższej rodziny.',
         },
         family: {
-          contentParagraph:
-            'Pełen dostęp do tytułów w następujących formatach:',
-          contentList: ['animowana książka', 'audiobook', 'ebook'],
+          contentParagraph: 'Wszystkie bajki, również sezonowe:',
+          contentList: ['animowana książka', 'audiobook', 'ebook PDF i EPUB'],
           qualityList: ['SD (720p)', 'HD (1080p)'],
-          childrenParagraph: 'Trzy.',
+          childrenParagraph: 'Do 6 profili dzieci i kontrola rodzicielska.',
           licenseParagraph:
-            'Konto zawiera licencję na pokazy prywatne, wyłącznie w gronie najbliższej rodziny',
+            'Licencja na pokazy prywatne w gronie najbliższej rodziny.',
         },
         ultimate: {
-          contentParagraph:
-            'Pełen dostęp do tytułów w następujących formatach:',
-          contentList: ['animowana książka', 'audiobook', 'ebook'],
-          qualityList: ['SD (720p)', 'HD (1080p)', '2K', '4K'],
-          childrenParagraph: 'Bez ograniczeń.',
-          licenseParagraph:
-            'Konto zawiera licencję na pokazy prywatne oraz publiczne. Ciesz się treściami Fabledose bez ograniczeń!',
+          contentParagraph: 'Wszystkie bajki, również sezonowe:',
+          contentList: ['animowana książka', 'audiobook', 'ebook PDF i EPUB'],
+          qualityList: ['SD (720p)', 'HD (1080p)', 'QHD (2K)'],
+          childrenParagraph:
+            'Nieograniczona liczba profili dzieci i kontrola rodzicielska.',
+          licenseParagraph: 'Licencja na pokazy prywatne i publiczne.',
         },
       },
     },
@@ -670,7 +673,8 @@ export const DictionaryPL: DictionaryType = {
       animationQuality: {
         label: 'Jakość animacji:',
         infoTitle: 'Jakość animacji',
-        infoDescription: 'Wybierz jakość wyświetlanych animacji.',
+        infoDescription:
+          'AUTO dobiera jakość do ekranu w granicach planu. SD (720p) jest dostępne dla każdego, HD (1080p) od Family, a 2K w Ultimate. Do czasu dodania animacji 2K ta opcja odtwarza HD.',
       },
       narration: {
         label: 'Narracja:',

@@ -5,6 +5,7 @@ import { existsSync } from 'node:fs';
 import path from 'node:path';
 
 import { TAG_NAME } from '@/components/atoms/TagIcon/TagIcon.types';
+import { normalizeStoryAvailability } from '@/config/plans';
 
 import type {
   FableContentPointers,
@@ -233,6 +234,7 @@ const normalizeMeta = (value: unknown): FableMeta | null => {
 
   return {
     id,
+    availability: normalizeStoryAvailability(candidate.availability),
     slug,
     title,
     shortDescription,

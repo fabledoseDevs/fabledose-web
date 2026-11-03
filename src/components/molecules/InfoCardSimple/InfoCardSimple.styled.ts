@@ -28,3 +28,10 @@ export const CtaContainer = styled.div`
   align-items: flex-end;
   gap: 12px;
 `;
+
+/** Semantic emphasis keeps notices readable against the white plan card. */
+export const HighlightedNotice = styled.strong<{ tone: 'red' | 'green' }>`
+  color: ${({ theme, tone }) =>
+    tone === 'red' ? theme.palette.byColor.red.regular : '#18733B'};
+  font-weight: 700;
+`;

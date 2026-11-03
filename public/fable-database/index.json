@@ -67,7 +67,8 @@
             "en": "tales/goldilocks/audio/mock-01.mp3",
             "pl": "tales/goldilocks/audio/mock-01.mp3"
           }
-        }
+        },
+        "availability": "selection"
       }
     },
     {
@@ -137,7 +138,8 @@
             "en": "tales/three-little-pigs/audio/mock-01.mp3",
             "pl": "tales/three-little-pigs/audio/mock-01.mp3"
           }
-        }
+        },
+        "availability": "selection"
       }
     },
     {
@@ -205,7 +207,8 @@
             "pl": "tales/fisherman-and-his-wife/audio/mock-01.mp3",
             "en": "tales/fisherman-and-his-wife/audio/mock-01.mp3"
           }
-        }
+        },
+        "availability": "selection"
       }
     },
     {
@@ -277,7 +280,8 @@
             "pl": "tales/fifi-is-planting-a-garden/audio/mock-01.mp3",
             "en": "tales/fifi-is-planting-a-garden/audio/mock-01.mp3"
           }
-        }
+        },
+        "availability": "selection"
       }
     }
   ]

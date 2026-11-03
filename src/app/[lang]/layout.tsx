@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import React from 'react';
 
 import { ChildProfilesProvider } from '@/contexts/ChildProfilesContext';
+import { PlanAccessProvider } from '@/contexts/PlanAccessContext';
 import { ReadingProgressProvider } from '@/contexts/ReadingProgressContext';
 import { SettingsProvider } from '@/contexts/SettingsContext';
 import { SidebarProvider } from '@/contexts/SidebarContext';
@@ -33,14 +34,16 @@ export default async function RootLayout({
         <DictionaryProvider dictionary={dict}>
           <ThemeProvider>
             <SettingsProvider>
-              <ChildProfilesProvider>
-                <ReadingProgressProvider>
-                  <SidebarProvider>
-                    <GlobalStyle />
-                    {children}
-                  </SidebarProvider>
-                </ReadingProgressProvider>
-              </ChildProfilesProvider>
+              <PlanAccessProvider>
+                <ChildProfilesProvider>
+                  <ReadingProgressProvider>
+                    <SidebarProvider>
+                      <GlobalStyle />
+                      {children}
+                    </SidebarProvider>
+                  </ReadingProgressProvider>
+                </ChildProfilesProvider>
+              </PlanAccessProvider>
             </SettingsProvider>
           </ThemeProvider>
         </DictionaryProvider>

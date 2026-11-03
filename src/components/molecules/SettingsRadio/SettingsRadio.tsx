@@ -22,6 +22,10 @@ export const SettingsRadio: SettingsRadioType = ({
     <ContentWrapper>
       <RadioWrapper
         data-font-selector={options.some(option => !!option.fontFamily)}
+        data-quality-selector={
+          options.some(option => option.value === 'auto') &&
+          options.some(option => option.value === 'sd')
+        }
       >
         {options.map(option => (
           <RadioOptionBox

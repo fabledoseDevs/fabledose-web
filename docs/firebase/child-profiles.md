@@ -22,7 +22,7 @@ Nie otwiera dostępu innym użytkownikom. Reguły nie są publikowane automatycz
 
 ## Sprawdzenie w aplikacji
 
-1. W Ustawienia → Kontrola rodzicielska dodaj Asię i Stasia.
+1. Na koncie Family lub Ultimate w Ustawienia → Kontrola rodzicielska dodaj Asię i Stasia.
 2. Wybierz Asię, dodaj bajkę do ulubionych i przeczytaj kilka slajdów.
 3. Wybierz Stasia w nawigacji. Jego ulubione i postęp powinny być niezależne.
 4. Wróć do Asi i odśwież stronę — wybrany profil i zapisane dane powinny pozostać.
@@ -68,3 +68,20 @@ pliki bajek można otworzyć poza aplikacją. Nie jest to zabezpieczenie dostęp
 plików ani nieprzekraczalna kontrola rodzicielska. Nie przechowujemy jawnego PIN-u
 ani jego skrótu dostępnego klientowi. Pełna ochrona wymaga osobno uzgodnionego
 backendu i sposobu dostarczania treści.
+
+
+## Profile a plan konta
+
+Free ma jedno konto rodzica, bez profili dzieci i preferencji rodzicielskich.
+Family pozwala utworzyć do 6 profili; Ultimate nie ogranicza ich liczby.
+Po zmianie planu na Free zapisane profile zostają w bazie, ale nie są używane.
+Po zmianie z Ultimate na Family wybieralne jest pierwszych sześć profili
+(według daty utworzenia i ID). Pozostałe można ponownie wykorzystać po ulepszeniu
+planu. Nie usuwamy danych automatycznie.
+
+Użyj najnowszego pliku reguł: zapisy profili i ich bibliotek wymagają teraz
+`settings.plan` równego `family` lub `ultimate`. Tworzenie profilu aktualizuje
+też pole `childProfileRevision` w dokumencie rodzica, aby serializować równoległe
+operacje. Konto i plan muszą istnieć przed utworzeniem profilu.
+Na etapie testów plan nadal jest ustawieniem konta; potwierdzanie opłaconego
+abonamentu przez backend i serwerowa autoryzacja PIN-em pozostają do wdrożenia.

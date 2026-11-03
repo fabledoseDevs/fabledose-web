@@ -275,6 +275,8 @@ export const SettingsProvider: SettingsProviderType = ({
     (newSettings: Partial<Settings>): void => {
       if (!user || !settingsRef.current || auth.currentUser?.uid !== user.uid)
         return;
+      if (newSettings.plan && newSettings.plan !== settingsRef.current.plan)
+        window.dispatchEvent(new Event('fabledose:profile-changing'));
       setSettings(previous =>
         previous ? { ...previous, ...newSettings } : previous,
       );
