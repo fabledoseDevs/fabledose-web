@@ -1,6 +1,65 @@
 import type { DictionaryType } from './lang.types';
 
 export const DictionaryEn: DictionaryType = {
+  helpCenter: {
+    title: 'Help centre',
+    intro:
+      'How can we help? Start with a quick answer or choose an article. All guides and legal information are available without signing in.',
+    home: 'Home',
+    open: 'Open help centre',
+    faqTitle: 'Frequently asked questions',
+    articlesTitle: 'Articles and guides',
+    guides: 'Accounts and using Fabledose',
+    project: 'About the project and contact',
+    legal: 'Privacy and terms',
+    other: 'Other articles',
+    contactTitle: 'Still need help?',
+    contactDescription:
+      'Tell us what happened. The contact article includes our email address and tips on what to include in a support request.',
+    contactButton: 'Contact',
+    faq: [
+      {
+        question: 'Do I have to pay to use Fabledose?',
+        answer:
+          'No. Free includes a selection of stories and audiobooks, currently every published title. Payments have not launched; changing plans currently tests features.',
+      },
+      {
+        question: 'How can I sign in?',
+        answer:
+          'Use an email address and password, or Google. For an email account, use password recovery on the sign-in screen if needed. Apple Sign In is planned.',
+      },
+      {
+        question: 'How many child profiles can I create?',
+        answer:
+          'Family allows up to 6 child profiles; Ultimate has no profile limit. Free does not include child profiles or parental controls. Downgrading does not delete saved profiles.',
+      },
+      {
+        question: 'What is the difference between SD, HD and 2K?',
+        answer:
+          'SD is 720p and HD is 1080p. HD is available from Family; 2K is available in Ultimate. Until QHD files are added, 2K plays HD. AUTO adapts to the screen within plan limits.',
+      },
+      {
+        question: 'How do I continue a story?',
+        answer:
+          'Sign in, select the correct profile and choose Continue. Reading and listening progress are saved separately. The round restart control starts reading from the beginning.',
+      },
+      {
+        question: 'Why is a story unavailable for a child?',
+        answer:
+          'Check story exclusions and the profile schedule, including its time zone. A parental PIN is not available yet; these preferences do not replace adult supervision.',
+      },
+      {
+        question: 'Can I download a story or listen offline?',
+        answer:
+          'PDF and EPUB ebooks are intended for Family and Ultimate, but files must be supplied first. Website animations and audiobooks need Internet access; offline audiobook downloads are not available.',
+      },
+      {
+        question: 'How do I report a problem or request account deletion?',
+        answer:
+          'Email fabledose@gmail.com. For a problem, include the story or screen, language and browser. For an account request, use its registered email address. Never send your password; automatic account deletion is currently deferred.',
+      },
+    ],
+  },
   planAccess: {
     title: 'This feature requires another plan',
     allPlans: 'See all plans',
@@ -711,24 +770,6 @@ export const DictionaryEn: DictionaryType = {
       headline: 'Privacy and data',
       description:
         'Privacy and data are important to us. Here you can manage your personal information, cookie settings, and view legal documents regarding your data protection.',
-      personalData: {
-        name: {
-          label: 'Full name:',
-          infoTitle: 'Full name',
-          infoDescription: 'Change your full name displayed in your profile.',
-        },
-        email: {
-          label: 'Email/login:',
-          infoTitle: 'Email/login',
-          infoDescription:
-            'Your login email address. Locked for security reasons.',
-        },
-        address: {
-          label: 'Address:',
-          infoTitle: 'Address',
-          infoDescription: 'Your residential address for billing purposes.',
-        },
-      },
       cookies: {
         label: 'Cookies:',
         infoTitle: 'Cookie management',
@@ -775,19 +816,17 @@ export const DictionaryEn: DictionaryType = {
     support_n_feedback: {
       headline: 'Support and feedback',
       description:
-        'Privacy and data are important to us. Here you can manage your personal information, cookie settings, and view legal documents regarding your data protection.',
+        'Find guides to using Fabledose, account information and help with stories. If you cannot find a solution, get in touch.',
       contactButton: 'Contact',
       helpArticles: {
         headline: 'Help articles:',
         links: {
-          faq: 'FAQ',
           howToReadAnimated: 'How to read animated fables? (tutorial)',
           displayAudioSettings: 'Display and audio settings',
-          account: 'Accounts.',
+          account: 'Accounts and plans',
           paymentsRefunds: 'Payments and refunds',
           techSupport: 'Contact technical support',
-          loremIpsum: 'Lorem ipsum',
-          sitAmet: 'Sit amet',
+          parentalControls: 'Parental controls',
         },
       },
       legalInfo: {

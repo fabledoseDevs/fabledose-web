@@ -1,5 +1,12 @@
+import { useParams } from 'next/navigation';
 import { useState } from 'react';
 
+import Container from '@/atoms/Container';
+import {
+  CONTAINER_ELEMENT,
+  FLEX_ALIGNMENT,
+  PADDING,
+} from '@/atoms/Container/Container.types';
 import {
   FOREGROUND_COLOR,
   HEADLINE_TYPE,
@@ -47,7 +54,9 @@ import type { SettingsPage as SettingsPageType } from './SettingsPage.types';
 import { SETTINGS_TAB } from './SettingsPage.types';
 
 export const SettingsPage: SettingsPageType = () => {
-  const { settingsPage, childProfiles } = useDictionary();
+  const { settingsPage, childProfiles, helpCenter } = useDictionary();
+  const { lang } = useParams<{ lang: string }>();
+  const locale = lang === 'pl' ? 'pl' : 'en';
   const [accountAction, setAccountAction] = useState<AccountAction | null>(
     null,
   );
@@ -418,33 +427,6 @@ export const SettingsPage: SettingsPageType = () => {
             <Paragraph color={FOREGROUND_COLOR.WHITE}>
               {settingsPage.privacy_n_data.description}
             </Paragraph>
-            <SettingsInputField
-              label={settingsPage.privacy_n_data.personalData.name.label}
-              info={{
-                title: settingsPage.privacy_n_data.personalData.name.infoTitle,
-                description:
-                  settingsPage.privacy_n_data.personalData.name.infoDescription,
-              }}
-            />
-            <SettingsInputField
-              label={settingsPage.privacy_n_data.personalData.email.label}
-              info={{
-                title: settingsPage.privacy_n_data.personalData.email.infoTitle,
-                description:
-                  settingsPage.privacy_n_data.personalData.email
-                    .infoDescription,
-              }}
-            />
-            <SettingsInputField
-              label={settingsPage.privacy_n_data.personalData.address.label}
-              info={{
-                title:
-                  settingsPage.privacy_n_data.personalData.address.infoTitle,
-                description:
-                  settingsPage.privacy_n_data.personalData.address
-                    .infoDescription,
-              }}
-            />
             <Headline
               weight={HEADLINE_TYPE.SMALL}
               color={FOREGROUND_COLOR.WHITE}
@@ -490,27 +472,27 @@ export const SettingsPage: SettingsPageType = () => {
             </Headline>
             <LegalLinksList>
               <li>
-                <ArticleLink>
+                <ArticleLink href={`/${locale}/article/privacy-policy`}>
                   {settingsPage.privacy_n_data.legal.links.dataAdmin}
                 </ArticleLink>
               </li>
               <li>
-                <ArticleLink>
+                <ArticleLink href={`/${locale}/article/privacy-policy`}>
                   {settingsPage.privacy_n_data.legal.links.privacyPolicy}
                 </ArticleLink>
               </li>
               <li>
-                <ArticleLink>
+                <ArticleLink href={`/${locale}/article/cookies`}>
                   {settingsPage.privacy_n_data.legal.links.cookies}
                 </ArticleLink>
               </li>
               <li>
-                <ArticleLink>
+                <ArticleLink href={`/${locale}/article/privacy-policy`}>
                   {settingsPage.privacy_n_data.legal.links.partners}
                 </ArticleLink>
               </li>
               <li>
-                <ArticleLink>
+                <ArticleLink href={`/${locale}/article/privacy-policy`}>
                   {settingsPage.privacy_n_data.legal.links.howToEdit}
                 </ArticleLink>
               </li>
@@ -519,134 +501,35 @@ export const SettingsPage: SettingsPageType = () => {
         );
       case SETTINGS_TAB.SUPPORT_N_FEEDBACK:
         return (
-          <>
+          <Container
+            containerType={CONTAINER_ELEMENT.SECTION}
+            verticalPadding={PADDING.STANDARD}
+            alignItems={FLEX_ALIGNMENT.START}
+            gap
+          >
             <Paragraph color={FOREGROUND_COLOR.WHITE}>
-              {settingsPage.support_n_feedback.description}
+              {helpCenter.intro}
             </Paragraph>
-            <Button
-              actionType={ACTION_TYPE.FUNCTION_TRIGGER}
-              variant={BUTTON_VARIANT.RED}
-              text={settingsPage.support_n_feedback.contactButton}
-              width={{ widthType: WIDTH_TYPE.PX, widthValue: 120 }}
-              payload={() => console.info('Contact clicked!')}
-            />
-            <SupportSection>
-              <Headline
-                weight={HEADLINE_TYPE.SMALL}
-                color={FOREGROUND_COLOR.WHITE}
-              >
-                {settingsPage.support_n_feedback.helpArticles.headline}
-              </Headline>
-              <LegalLinksList>
-                <li>
-                  <ArticleLink>
-                    {settingsPage.support_n_feedback.helpArticles.links.faq}
-                  </ArticleLink>
-                </li>
-                <li>
-                  <ArticleLink>
-                    {
-                      settingsPage.support_n_feedback.helpArticles.links
-                        .howToReadAnimated
-                    }
-                  </ArticleLink>
-                </li>
-                <li>
-                  <ArticleLink>
-                    {
-                      settingsPage.support_n_feedback.helpArticles.links
-                        .displayAudioSettings
-                    }
-                  </ArticleLink>
-                </li>
-                <li>
-                  <ArticleLink>
-                    {settingsPage.support_n_feedback.helpArticles.links.account}
-                  </ArticleLink>
-                </li>
-                <li>
-                  <ArticleLink>
-                    {
-                      settingsPage.support_n_feedback.helpArticles.links
-                        .paymentsRefunds
-                    }
-                  </ArticleLink>
-                </li>
-                <li>
-                  <ArticleLink>
-                    {
-                      settingsPage.support_n_feedback.helpArticles.links
-                        .techSupport
-                    }
-                  </ArticleLink>
-                </li>
-                <li>
-                  <ArticleLink>
-                    {
-                      settingsPage.support_n_feedback.helpArticles.links
-                        .loremIpsum
-                    }
-                  </ArticleLink>
-                </li>
-                <li>
-                  <ArticleLink>
-                    {settingsPage.support_n_feedback.helpArticles.links.sitAmet}
-                  </ArticleLink>
-                </li>
-              </LegalLinksList>
-            </SupportSection>
-            <SupportSection>
-              <Headline
-                weight={HEADLINE_TYPE.SMALL}
-                color={FOREGROUND_COLOR.WHITE}
-              >
-                {settingsPage.support_n_feedback.legalInfo.headline}
-              </Headline>
-              <LegalLinksList>
-                <li>
-                  <ArticleLink>
-                    {settingsPage.support_n_feedback.legalInfo.links.termsOfUse}
-                  </ArticleLink>
-                </li>
-                <li>
-                  <ArticleLink>
-                    {
-                      settingsPage.support_n_feedback.legalInfo.links
-                        .privacyPolicy
-                    }
-                  </ArticleLink>
-                </li>
-                <li>
-                  <ArticleLink>
-                    {settingsPage.support_n_feedback.legalInfo.links.cookies}
-                  </ArticleLink>
-                </li>
-              </LegalLinksList>
-            </SupportSection>
-            <SupportSection>
-              <Headline
-                weight={HEADLINE_TYPE.SMALL}
-                color={FOREGROUND_COLOR.WHITE}
-              >
-                {settingsPage.support_n_feedback.feedback.headline}
-              </Headline>
-              <LegalLinksList>
-                <li>
-                  <ArticleLink>
-                    {
-                      settingsPage.support_n_feedback.feedback.links
-                        .sendDirectFeedback
-                    }
-                  </ArticleLink>
-                </li>
-                <li>
-                  <ArticleLink>
-                    {settingsPage.support_n_feedback.feedback.links.rateApp}
-                  </ArticleLink>
-                </li>
-              </LegalLinksList>
-            </SupportSection>
-          </>
+            <Container
+              containerType={CONTAINER_ELEMENT.DIV}
+              alignItems={FLEX_ALIGNMENT.START}
+            >
+              <Button
+                text={helpCenter.open}
+                actionType={ACTION_TYPE.NAVIGATION}
+                variant={BUTTON_VARIANT.RED}
+                payload={`/${locale}/help`}
+                width={{ widthType: WIDTH_TYPE.PERCENT, widthValue: 100 }}
+              />
+              <Button
+                text={helpCenter.contactButton}
+                actionType={ACTION_TYPE.NAVIGATION}
+                variant={BUTTON_VARIANT.WHITE}
+                payload={`/${locale}/article/contact`}
+                width={{ widthType: WIDTH_TYPE.PERCENT, widthValue: 100 }}
+              />
+            </Container>
+          </Container>
         );
       case SETTINGS_TAB.INFO:
         return (

@@ -1,0 +1,109 @@
+{
+  "url": "cookies",
+  "translations": {
+    "pl": {
+      "title": "Ciasteczka i pamięć przeglądarki",
+      "sections": [
+        {
+          "title": "Po co ten dokument?",
+          "paragraphs": [
+            "Ciasteczka i podobne mechanizmy pozwalają stronie zapamiętywać informacje w przeglądarce. Fabledose korzysta również z localStorage i mechanizmów sesji Firebase. Nie każdy zapis w przeglądarce jest reklamą ani plikiem cookie.",
+            "Za Fabledose odpowiada Paweł Modzelewski. Kontakt: fabledose@gmail.com. To szkic z 4 listopada 2026 r. Opis wymaga uzupełnienia o inwentaryzację produkcyjnych zapisów i działający mechanizm zgód przed publikacją."
+          ]
+        },
+        {
+          "title": "Działanie konta i preferencji",
+          "paragraphs": [
+            "Mechanizmy uwierzytelniania pozwalają rozpoznać sesję po zalogowaniu. Fabledose zapamiętuje też wybrany profil dziecka w localStorage, osobno dla konta. Sama historia bajek, ulubione i ustawienia konta są przechowywane również w bazie danych, a nie wyłącznie w ciasteczkach.",
+            "Przeglądarka może pamiętać preferencję języka NEXT_LOCALE. Usunięcie danych witryny może wylogować użytkownika lub zresetować lokalne preferencje; nie jest równoznaczne z usunięciem konta i danych w bazie."
+          ]
+        },
+        {
+          "title": "Analityka — obecny stan wymaga poprawki",
+          "paragraphs": [
+            "Kod portalu inicjalizuje Google Analytics przez Firebase po stronie przeglądarki. Faktyczny zakres zapisów i wysyłanych danych zależy od konfiguracji oraz musi zostać sprawdzony w wersji produkcyjnej.",
+            "Przełączniki analityki i marketingu w ustawieniach zapisują preferencje konta, ale obecnie nie sterują inicjalizacją Analytics. Nie należy traktować ich jako działającego mechanizmu blokowania wszystkich opcjonalnych technologii. Przed publikacją potrzebne jest rzeczywiste wstrzymanie opcjonalnej analityki do czasu uzyskania wymaganej zgody."
+          ]
+        },
+        {
+          "title": "Marketing i strony zewnętrzne",
+          "paragraphs": [
+            "Plan Free jest przewidziany jako sponsorowany. Nie oznacza to, że działa już konkretna sieć reklamowa ani że ustaliliśmy listę jej technologii. Nie przypisujemy fikcyjnych nazw ani czasów działania ciasteczkom reklamowym.",
+            "Linki do Substack i serwisów społecznościowych prowadzą do innych stron. Po przejściu na nie obowiązują zasady ich operatorów. Osadzone narzędzia zewnętrzne, jeśli pojawią się w portalu, będą wymagały osobnej oceny i aktualizacji tego opisu."
+          ]
+        },
+        {
+          "title": "Jak powinien działać wybór?",
+          "paragraphs": [
+            "Docelowo link „Ustawienia ciasteczek” otworzy dostępny bez logowania panel. Pozwoli zaakceptować lub odrzucić opcjonalne kategorie i później zmienić decyzję. Brak zgody na opcjonalną analitykę lub marketing nie powinien sam w sobie wyłączać podstawowej usługi.",
+            "To opis planowanego działania, nie potwierdzenie gotowej funkcji. Kategorie niezbędne technicznie trzeba odróżnić od opcjonalnych i uzasadnić ich zastosowanie. Zapisanie zgody musi mieć rzeczywisty wpływ na uruchamiane narzędzia."
+          ]
+        },
+        {
+          "title": "Co możesz zrobić w przeglądarce?",
+          "paragraphs": [
+            "Ustawienia przeglądarki pozwalają usuwać dane witryny lub ograniczać ich zapisywanie. Może to wpłynąć na logowanie i zapamiętywanie preferencji. Usunięcie zapisów z przeglądarki nie cofa danych już wysłanych do dostawcy analityki i nie zastępuje kontaktu w sprawie usunięcia danych konta."
+          ]
+        },
+        {
+          "title": "Co uzupełnimy przed publikacją?",
+          "paragraphs": [
+            "Potwierdzimy nazwy, dostawców, cele i okresy działania ciasteczek oraz innych identyfikatorów. Sprawdzimy ruch sieciowy przed zgodą, po odmowie, po zgodzie i po jej wycofaniu, także dla osoby niezalogowanej. Dopiero wtedy opublikujemy tabelę zgodną z rzeczywistym działaniem portalu."
+          ]
+        }
+      ]
+    },
+    "en": {
+      "title": "Cookies and browser storage",
+      "sections": [
+        {
+          "title": "What is this document for?",
+          "paragraphs": [
+            "Cookies and similar technologies allow a website to remember information in your browser. Fabledose also uses localStorage and Firebase session mechanisms. Not everything stored in a browser is an advertisement or a cookie.",
+            "Fabledose is operated by Paweł Modzelewski. Contact: fabledose@gmail.com. This draft is dated 4 November 2026. A production storage inventory and working consent controls are needed before publication."
+          ]
+        },
+        {
+          "title": "Accounts and preferences",
+          "paragraphs": [
+            "Authentication mechanisms recognise your signed-in session. Fabledose also stores the selected child profile in localStorage, separately for each account. Reading history, favourites and account settings are also kept in the database, not solely in cookies.",
+            "Your browser may retain a NEXT_LOCALE language preference. Clearing site data may sign you out or reset local preferences; it does not delete your account or database records."
+          ]
+        },
+        {
+          "title": "Analytics — the current implementation needs correction",
+          "paragraphs": [
+            "The browser code initialises Google Analytics through Firebase. Actual identifiers and data collection depend on configuration and need checking in production.",
+            "The analytics and marketing switches save account preferences but currently do not control Analytics initialisation. They should not be treated as working controls blocking all optional technologies. Before publication, optional analytics must actually remain blocked until any required consent is obtained."
+          ]
+        },
+        {
+          "title": "Marketing and external websites",
+          "paragraphs": [
+            "Free is intended to be sponsored. This does not mean a particular advertising network is already running or that its technologies have been identified. We do not invent advertising cookie names or lifetimes.",
+            "Substack and social media links lead to external websites governed by their operators’ policies. Any future embedded external tools will require a separate assessment and an update to this description."
+          ]
+        },
+        {
+          "title": "How should choices work?",
+          "paragraphs": [
+            "The planned “Cookie settings” link will open a panel available without signing in. It will allow optional categories to be accepted or rejected and choices to be changed later. Refusing optional analytics or marketing should not in itself disable the basic service.",
+            "This describes planned behaviour, not a completed feature. Strictly necessary storage must be distinguished from optional technologies and its purpose justified. Saving a choice must actually control which tools run."
+          ]
+        },
+        {
+          "title": "What can you do in your browser?",
+          "paragraphs": [
+            "Browser settings allow you to clear site data or restrict storage. This may affect sign-in and saved preferences. Clearing browser storage does not undo data already sent to an analytics provider or replace an account erasure request."
+          ]
+        },
+        {
+          "title": "What needs completing before publication?",
+          "paragraphs": [
+            "We will confirm the names, providers, purposes and lifetimes of cookies and other identifiers. Network requests must be checked before consent, after refusal, after acceptance and after withdrawal, including while signed out. Only then will we publish an inventory matching the actual service."
+          ]
+        }
+      ]
+    }
+  }
+}

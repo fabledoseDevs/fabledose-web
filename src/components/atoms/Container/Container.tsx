@@ -21,6 +21,7 @@ export const containerSelector: ContainerSelectorType = ({
   mobilePadding,
   gap,
   backgroundColor,
+  rounded,
   children,
 }) => {
   const commonProps = {
@@ -32,6 +33,7 @@ export const containerSelector: ContainerSelectorType = ({
     mobilePadding,
     gap,
     backgroundColor,
+    rounded,
     children,
   };
 

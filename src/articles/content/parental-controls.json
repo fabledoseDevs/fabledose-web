@@ -1,0 +1,93 @@
+{
+  "url": "parental-controls",
+  "translations": {
+    "pl": {
+      "title": "Kontrola rodzicielska",
+      "sections": [
+        {
+          "title": "Dla kogo jest ta funkcja?",
+          "paragraphs": [
+            "Kontrola rodzicielska jest dostępna w Family i Ultimate. Family pozwala korzystać z maksymalnie 6 profili dzieci, Ultimate nie ogranicza ich liczby. W Free profile dzieci i ustawienia kontroli rodzicielskiej są niedostępne."
+          ]
+        },
+        {
+          "title": "Utwórz i wybierz profil dziecka",
+          "paragraphs": [
+            "W ustawieniach profili dodaj profil, podaj imię lub pseudonim, wybierz awatar i grupę wiekową. Nie jest potrzebny osobny adres e-mail ani hasło dziecka. Okrągły przycisk awatara umożliwia przełączanie między profilem rodzica i dziećmi.",
+            "Każdy profil ma własne ulubione oraz postęp czytania i słuchania. Przed uruchomieniem bajki sprawdź, czy aktywny jest właściwy profil."
+          ]
+        },
+        {
+          "title": "Wykluczanie konkretnej bajki",
+          "paragraphs": [
+            "Przy bajce otwórz kontrolę dostępności dla profili dzieci. Przełącznik obok danego dziecka pozwala oznaczyć bajkę jako dostępną albo wykluczoną. Zmiana dla jednego dziecka nie musi zmieniać dostępu pozostałych.",
+            "Wykluczona bajka nie uruchomi się w aplikacji dla tego profilu. Rodzic może ponownie zmienić decyzję po przełączeniu na swoje konto i otwarciu tych samych ustawień."
+          ]
+        },
+        {
+          "title": "Godziny dostępu",
+          "paragraphs": [
+            "W ustawieniach profilu dziecka włącz harmonogram, sprawdź strefę czasową i ustaw osobno dni robocze oraz weekendy. Możesz określić godziny dostępu albo wyłączyć dostęp dla danej grupy dni.",
+            "Poza dozwolonymi godzinami aplikacja pokazuje komunikat o przerwie. Jeżeli harmonogram zachowuje się inaczej niż oczekujesz, sprawdź strefę czasową i zapisane godziny."
+          ]
+        },
+        {
+          "title": "Ważne ograniczenie",
+          "paragraphs": [
+            "PIN rodzicielski nie jest jeszcze dostępny. Ustawienia są preferencjami respektowanymi przez aplikację; nie stanowią zabezpieczenia przed osobą mającą dostęp do zalogowanego konta rodzica lub publicznych adresów plików. Nie zastępują obecności i nadzoru opiekuna."
+          ]
+        },
+        {
+          "title": "Co przy zmianie planu?",
+          "paragraphs": [
+            "Obniżenie planu nie usuwa zapisanych profili. W Free ich używanie jest wyłączone; w Family dostępnych jest do 6 profili. Przywrócenie odpowiedniego planu pozwala ponownie korzystać z zachowanych danych. Zmiany planów są na razie funkcją testową, bez płatności."
+          ]
+        }
+      ]
+    },
+    "en": {
+      "title": "Parental controls",
+      "sections": [
+        {
+          "title": "Who can use this feature?",
+          "paragraphs": [
+            "Parental controls are available in Family and Ultimate. Family supports up to 6 child profiles; Ultimate has no profile limit. Free does not include child profiles or parental-control preferences."
+          ]
+        },
+        {
+          "title": "Create and select a child profile",
+          "paragraphs": [
+            "Add a profile in profile settings, enter a name or nickname and choose an avatar and age group. Children do not need separate email addresses or passwords. Use the round avatar control to switch between the parent and child profiles.",
+            "Each profile has separate favourites and reading and listening progress. Check which profile is active before starting a story."
+          ]
+        },
+        {
+          "title": "Excluding a particular story",
+          "paragraphs": [
+            "Open the child-profile availability control beside a story. The switch next to each child marks the story as available or excluded. Changing one child’s access need not change anyone else’s.",
+            "An excluded story will not start for that profile in the app. A parent can change the decision by returning to the parent profile and the same settings."
+          ]
+        },
+        {
+          "title": "Permitted hours",
+          "paragraphs": [
+            "Enable the schedule in the child profile settings, check the time zone and configure weekdays and weekends separately. Set access hours or disable access for that group of days.",
+            "Outside permitted hours, the app shows a break notice. If the schedule behaves unexpectedly, check the saved time zone and hours."
+          ]
+        },
+        {
+          "title": "An important limitation",
+          "paragraphs": [
+            "A parental PIN is not available yet. These are preferences respected by the app, not protection against someone with access to the signed-in parent account or public file URLs. They do not replace adult supervision."
+          ]
+        },
+        {
+          "title": "Changing plans",
+          "paragraphs": [
+            "Downgrading does not delete profiles. Free disables their use; Family allows up to 6 profiles. Returning to an appropriate plan makes retained data usable again. Plan changes are currently a test feature without payments."
+          ]
+        }
+      ]
+    }
+  }
+}

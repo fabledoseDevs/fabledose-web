@@ -1,0 +1,69 @@
+{
+  "url": "payments",
+  "translations": {
+    "pl": {
+      "title": "Płatności i abonamenty",
+      "sections": [
+        {
+          "title": "Teraz: testujemy bez pobierania opłat",
+          "paragraphs": [
+            "Płatności nie są jeszcze uruchomione. Zmiana planu w ustawieniach służy testowaniu funkcji i nie uruchamia abonamentu. Nie podawaj danych karty mailowo ani w zgłoszeniu pomocy."
+          ]
+        },
+        {
+          "title": "Jak ma działać abonament?",
+          "paragraphs": [
+            "Planujemy cykliczne rozliczanie Family i Ultimate. Przed potwierdzeniem zakupu pokażemy cenę, okres rozliczeniowy i zasady odnowienia. Docelowo będzie można w dowolnym momencie wyłączyć kolejne odnowienie; szczegóły i czas zachowania dostępu podamy przed startem sprzedaży.",
+            "Ceny widoczne dziś na kartach planów prezentują planowaną ofertę. Nie oznaczają, że możesz już dokonać płatności."
+          ]
+        },
+        {
+          "title": "Kto będzie obsługiwać płatność?",
+          "paragraphs": [
+            "Planujemy Stripe jako operatora płatności, z integracją Firebase służącą powiązaniu abonamentu z kontem. Firebase nie jest sam w sobie operatorem karty.",
+            "Przy planowanej integracji Stripe Checkout dane karty będą przekazywane bezpośrednio do Stripe. Dokładny zakres danych otrzymywanych przez Fabledose oraz zasady ich przechowywania opiszemy po wdrożeniu i sprawdzeniu integracji. Nie opisujemy tej funkcji jako już działającej."
+          ]
+        },
+        {
+          "title": "Anulowanie, reklamacje i zwroty",
+          "paragraphs": [
+            "Panel zarządzania abonamentem oraz obsługa anulowania i rozliczeń nie są jeszcze gotowe. Przed uruchomieniem sprzedaży opublikujemy konkretne instrukcje, zasady reklamacji oraz informacje o prawie odstąpienia od umowy.",
+            "Nie zakładamy, że samo odtworzenie bajki automatycznie wyłącza ustawowe prawa konsumenta. Jeżeli masz pytanie, napisz na fabledose@gmail.com. Obecna wersja nie przyjmuje płatności, więc nie ma w niej transakcji do zwrotu."
+          ]
+        }
+      ]
+    },
+    "en": {
+      "title": "Payments and subscriptions",
+      "sections": [
+        {
+          "title": "Now: testing without charges",
+          "paragraphs": [
+            "Payments have not launched. Changing plans in settings tests features and does not start a subscription. Never send card details by email or in a support request."
+          ]
+        },
+        {
+          "title": "How are subscriptions intended to work?",
+          "paragraphs": [
+            "We plan recurring billing for Family and Ultimate. Before purchase, we will show the price, billing period and renewal terms. The intended model lets you stop the next renewal at any time; exact access and cancellation arrangements will be published before sales begin.",
+            "Prices currently shown on plan cards describe the planned offer. They do not mean checkout is already available."
+          ]
+        },
+        {
+          "title": "Who will process payments?",
+          "paragraphs": [
+            "Stripe is the planned payment processor. Firebase integration will connect the subscription to your account; Firebase itself is not the card processor.",
+            "With the planned Stripe Checkout integration, card details will go directly to Stripe. We will explain which payment information Fabledose receives and keeps after the integration has been implemented and checked. This is not a currently working feature."
+          ]
+        },
+        {
+          "title": "Cancellation, complaints and refunds",
+          "paragraphs": [
+            "Subscription management, cancellation and billing tools are not ready yet. Before sales begin, we will publish instructions, complaints arrangements and information about statutory withdrawal rights.",
+            "Simply playing a story is not assumed to remove statutory consumer rights. Send questions to fabledose@gmail.com. The current version takes no payments, so it has no transactions to refund."
+          ]
+        }
+      ]
+    }
+  }
+}

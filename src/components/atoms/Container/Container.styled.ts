@@ -69,6 +69,10 @@ const sharedStyles = ({
   max-width: ${props.maxWidth ? `${props.maxWidth}px` : '100%'};
   background-color: ${getBackgroundColor(theme, props.backgroundColor)};
   box-sizing: border-box;
+  ${props.rounded &&
+  css`
+    border-radius: 16px;
+  `}
   overflow-x: clip;
 
   @media ${theme.media.desktop} {

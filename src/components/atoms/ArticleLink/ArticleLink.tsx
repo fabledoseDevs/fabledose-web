@@ -6,8 +6,14 @@ export const ArticleLink: ArticleLinkType = ({
   href = '#',
   onClick,
   className,
+  ...linkAttributes
 }) => (
-  <StyledArticleLink href={href} onClick={onClick} className={className}>
+  <StyledArticleLink
+    href={href}
+    onClick={onClick}
+    className={className}
+    {...linkAttributes}
+  >
     {children}
   </StyledArticleLink>
 );

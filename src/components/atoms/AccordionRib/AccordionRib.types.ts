@@ -6,6 +6,10 @@ import type { ReactElement } from 'react';
 
 /**
  * Interface for AccordionRib component props.
+ * @remarks The shared rib exposes aria-expanded and aria-controls on its native
+ * button. Closed content is inert and hidden from assistive technology. Answers
+ * expand to their natural content height, including multiline mobile content;
+ * no per-breakpoint fixed answer height or clipping is required.
  *
  * @property mainText - The main text to display as the accordion header.
  * @property children - The content to be displayed when the accordion is expanded.

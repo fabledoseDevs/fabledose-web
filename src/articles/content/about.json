@@ -1,0 +1,63 @@
+{
+  "url": "about",
+  "translations": {
+    "pl": {
+      "title": "O nas",
+      "sections": [
+        {
+          "title": "Opowieści, do których chce się wracać",
+          "paragraphs": [
+            "Fabledose powstaje z pasji do opowieści i ilustracji. Tworzymy bibliotekę bajek dla dzieci, łącząc tekst, ruchomy obraz i dźwięk. Chcemy, żeby wspólne czytanie było małym wydarzeniem, na które znajduje się czas."
+          ]
+        },
+        {
+          "title": "Projekt, który rośnie",
+          "paragraphs": [
+            "Za Fabledose stoi grupa pasjonatów. Rozwijamy portal krok po kroku: dodajemy historie, ilustracje, nagrania i funkcje ułatwiające rodzinom korzystanie z biblioteki. Nie wszystko jest jeszcze gotowe, dlatego otwarcie opisujemy, które elementy są dostępne, a które dopiero przygotowujemy."
+          ]
+        },
+        {
+          "title": "Miejsce także dla rodzica",
+          "paragraphs": [
+            "Streszczenia, oznaczenia treści i ustawienia profili mają pomagać opiekunom świadomie wybierać bajki. Technologia jest tu narzędziem — najważniejsze pozostają historia i czas spędzony razem."
+          ]
+        },
+        {
+          "title": "Porozmawiajmy",
+          "paragraphs": [
+            "Masz pomysł, uwagę albo chcesz dołożyć do Fabledose coś swojego? Napisz na fabledose@gmail.com. Projekt prowadzi Paweł Modzelewski."
+          ]
+        }
+      ]
+    },
+    "en": {
+      "title": "About us",
+      "sections": [
+        {
+          "title": "Stories worth returning to",
+          "paragraphs": [
+            "Fabledose grows out of a love of stories and illustration. We are creating a children’s story library combining text, moving pictures and sound. We want shared reading to become a small occasion worth making time for."
+          ]
+        },
+        {
+          "title": "A growing project",
+          "paragraphs": [
+            "Fabledose is built by a group of enthusiasts. We develop the portal step by step, adding stories, illustrations, recordings and features that help families enjoy the library. Not everything is finished, so we explain what is available and what is still being prepared."
+          ]
+        },
+        {
+          "title": "A place for parents too",
+          "paragraphs": [
+            "Summaries, content tags and profile preferences help guardians make informed choices. Technology is a tool; the story and time spent together come first."
+          ]
+        },
+        {
+          "title": "Get in touch",
+          "paragraphs": [
+            "Have an idea, feedback or something you would like to contribute? Email fabledose@gmail.com. The project is operated by Paweł Modzelewski."
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -7,8 +7,6 @@ export const ArticlePageBody = styled.main`
   padding: 28px 16px 82px;
 
   @media ${({ theme }) => theme.media.tablet} {
-    margin-left: 70px;
-    width: calc(100% - 70px);
     padding: 36px 32px;
   }
 
@@ -60,5 +58,21 @@ export const BulletList = styled.ul`
 
   p {
     margin: 0;
+  }
+`;
+
+export const PublicArticleNavigation = styled.nav`
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  max-width: 836px;
+  margin: 0 auto;
+  padding: 24px 16px 0;
+  > a {
+    color: ${({ theme }) => theme.palette.byColor.white.full};
+  }
+  > a[aria-current='page'] {
+    font-weight: 700;
   }
 `;

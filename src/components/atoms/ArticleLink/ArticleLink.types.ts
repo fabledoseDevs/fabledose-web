@@ -1,4 +1,4 @@
-import type { ReactElement, ReactNode } from 'react';
+import type { AnchorHTMLAttributes, ReactElement, ReactNode } from 'react';
 
 /**
  * Interface for ArticleLink component props.
@@ -7,8 +7,15 @@ import type { ReactElement, ReactNode } from 'react';
  * @property href - Target URL for the link. Defaults to "#".
  * @property onClick - Optional click handler for the link.
  * @property className - Optional CSS class for additional styling.
+ * @remarks Standard lang, hrefLang and aria-current attributes are forwarded
+ * unchanged. This preserves language/current-page navigation semantics while
+ * reusing the shared presentation. Set aria-current="page" on the active locale.
  */
-export interface ArticleLinkProps {
+export interface ArticleLinkProps
+  extends Pick<
+    AnchorHTMLAttributes<HTMLAnchorElement>,
+    'lang' | 'hrefLang' | 'aria-current'
+  > {
   children: ReactNode;
   href?: string;
   onClick?: () => void;

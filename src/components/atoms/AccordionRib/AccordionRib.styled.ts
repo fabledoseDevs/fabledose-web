@@ -20,10 +20,17 @@ export const StaticBar = styled.button`
   background: none;
   cursor: pointer;
   user-select: none;
+  &:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.palette.byElement.text.purple};
+    outline-offset: 2px;
+  }
 `;
 
 export const MainText = styled.p`
-  font-size: 2rem;
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  font-size: ${({ theme }) => theme.typography.headlines.small.fontSize};
   font-weight: ${({ theme }) => theme.typography.fontWeights.medium};
   color: ${({ theme }) => theme.palette.byElement.text.purple};
 `;
@@ -32,6 +39,7 @@ export const ExpandButton = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-shrink: 0;
   width: 32px;
   height: 32px;
   padding: 0;
@@ -47,21 +55,14 @@ export const ExpandButton = styled.div`
 `;
 
 export const ExpandableContent = styled.div<{ isOpen: boolean }>`
-  overflow: hidden;
-  height: ${({ isOpen }) => (isOpen ? '210px' : '0')};
-  transition: height 0.3s ease-in-out, padding 0.3s ease-in-out;
-  padding: ${({ isOpen }) => (isOpen ? '0 24px 24px' : '0 24px 0')};
-  will-change: height, padding;
-
-  @media ${({ theme }) => theme.media.tablet} {
-    height: ${({ isOpen }) => (isOpen ? '110px' : '0')};
+  display: grid;
+  grid-template-rows: ${({ isOpen }) => (isOpen ? '1fr' : '0fr')};
+  transition: grid-template-rows 0.3s ease-in-out;
+  > div {
+    min-height: 0;
+    overflow: hidden;
   }
-
-  @media ${({ theme }) => theme.media.laptop} {
-    height: ${({ isOpen }) => (isOpen ? '170px' : '0')};
-  }
-
-  @media ${({ theme }) => theme.media.desktop} {
-    height: ${({ isOpen }) => (isOpen ? '130px' : '0')};
+  > div > div {
+    padding: 0 24px 24px;
   }
 `;

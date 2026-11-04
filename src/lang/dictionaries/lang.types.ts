@@ -1,7 +1,10 @@
+import type { HelpCenterText } from '@/components/templates/HelpCenter/HelpCenter.types';
 import type { PlanAccessText } from '@/contexts/PlanAccessContext.types';
 import type { ChildProfilesText } from '@/molecules/SettingsProfiles/SettingsProfiles.types';
 
 export type DictionaryType = {
+  /** Public FAQ and article-directory copy, also used by in-app entry points. */
+  helpCenter: HelpCenterText;
   /** Shared plan restriction and missing-file explanations. */
   planAccess: PlanAccessText;
   /** Localized persistent child-profile management and selection. */
@@ -570,23 +573,6 @@ export type DictionaryType = {
     privacy_n_data: {
       headline: string;
       description: string;
-      personalData: {
-        name: {
-          label: string;
-          infoTitle: string;
-          infoDescription: string;
-        };
-        email: {
-          label: string;
-          infoTitle: string;
-          infoDescription: string;
-        };
-        address: {
-          label: string;
-          infoTitle: string;
-          infoDescription: string;
-        };
-      };
       cookies: {
         label: string;
         infoTitle: string;
@@ -635,14 +621,12 @@ export type DictionaryType = {
       helpArticles: {
         headline: string;
         links: {
-          faq: string;
           howToReadAnimated: string;
           displayAudioSettings: string;
           account: string;
           paymentsRefunds: string;
           techSupport: string;
-          loremIpsum: string;
-          sitAmet: string;
+          parentalControls: string;
         };
       };
       legalInfo: {

@@ -1,0 +1,159 @@
+{
+  "url": "privacy-policy",
+  "translations": {
+    "pl": {
+      "title": "Polityka prywatności",
+      "sections": [
+        {
+          "title": "Kto odpowiada za Twoje dane?",
+          "paragraphs": [
+            "Za Fabledose odpowiada Paweł Modzelewski, administrator danych osobowych użytkowników. W sprawach prywatności napisz na fabledose@gmail.com.",
+            "Ten tekst jest pierwszą wersją roboczą z 4 listopada 2026 r. Przed publikacją uzupełnimy dane adresowe administratora i potwierdzimy ustawienia usług, okresy przechowywania oraz mechanizm zgód."
+          ]
+        },
+        {
+          "title": "Jakie dane trafiają do Fabledose?",
+          "paragraphs": [
+            "Przy zakładaniu konta używamy adresu e-mail i identyfikatora konta. Przy logowaniu przez Google otrzymujemy dane udostępnione w ramach tego logowania, w szczególności identyfikator, adres e-mail oraz — zależnie od konta — nazwę i zdjęcie profilowe. Uwierzytelnianie, w tym obsługę hasła, zapewnia Firebase Authentication.",
+            "Zapisujemy ustawienia konta i odtwarzania, wybrany plan testowy, ulubione bajki oraz postęp czytania i słuchania. Profil dziecka może zawierać imię lub pseudonim, wybrany awatar, grupę wiekową i ustawienia dostępu do bajek. Nie potrzebujemy nazwiska dziecka ani jego dokładnej daty urodzenia.",
+            "Przeglądarka i dostawcy infrastruktury mogą przetwarzać dane techniczne, takie jak adres IP, informacje o urządzeniu i przeglądarce oraz dane potrzebne do działania sesji. Gdy piszesz do nas, przetwarzamy adres nadawcy i treść korespondencji."
+          ]
+        },
+        {
+          "title": "Po co nam te informacje?",
+          "paragraphs": [
+            "Dane konta, ustawień i biblioteki służą udostępnianiu Fabledose oraz wykonywaniu umowy o korzystanie z portalu: logowaniu, synchronizacji i zapamiętywaniu postępu (art. 6 ust. 1 lit. b RODO).",
+            "Dane niezbędne do zapewnienia bezpieczeństwa, zapobiegania nadużyciom, obsługi korespondencji niezwiązanej z umową oraz ustalania lub obrony roszczeń możemy przetwarzać w naszym prawnie uzasadnionym interesie (art. 6 ust. 1 lit. f RODO). Obowiązki wynikające z przepisów realizujemy na podstawie art. 6 ust. 1 lit. c RODO.",
+            "Opcjonalna analityka i marketing wymagają właściwej podstawy prawnej, w tym zgody tam, gdzie jest wymagana (art. 6 ust. 1 lit. a RODO). Obecny mechanizm zgód wymaga poprawienia przed publikacją tej polityki: Analytics jest inicjalizowane w kodzie bez powiązania z przełącznikami zgód."
+          ]
+        },
+        {
+          "title": "Konta rodziców i profile dzieci",
+          "paragraphs": [
+            "Konto służy rodzicowi lub opiekunowi, który zarządza profilami dzieci. Profil dziecka nie jest oddzielnym kontem logowania. Zalecamy używanie pseudonimu i podawanie tylko danych potrzebnych do korzystania z portalu.",
+            "Wykluczenia bajek i godziny dostępu są ustawieniami aplikacji. Nie zastępują nadzoru opiekuna i nie stanowią gwarancji zablokowania publicznie dostępnych plików. PIN rodzicielski nie został jeszcze uruchomiony."
+          ]
+        },
+        {
+          "title": "Kto pomaga nam obsługiwać portal?",
+          "paragraphs": [
+            "Korzystamy z Google Firebase do uwierzytelniania i zapisywania danych aplikacji. Hosting wersji internetowej jest obsługiwany przez Vercel. Zakres usług, właściwe podmioty umowne i konfigurację produkcyjną potwierdzimy przed publikacją. Dostawcy otrzymują dane potrzebne do realizowania swoich usług.",
+            "Logowanie przez Google, poczta oraz zewnętrzne strony, takie jak Substack, mogą wiązać się także z przetwarzaniem danych przez ich operatorów na zasadach opisanych w ich politykach. Samo kliknięcie zewnętrznego odnośnika nie oznacza zgody na newsletter.",
+            "Stripe jest planowanym operatorem płatności. Płatności nie zostały jeszcze uruchomione, więc nie opisujemy Stripe jako aktywnego odbiorcy danych płatniczych w Fabledose."
+          ]
+        },
+        {
+          "title": "Czy dane mogą trafić poza Europejski Obszar Gospodarczy?",
+          "paragraphs": [
+            "Usługi dostawców o zasięgu międzynarodowym mogą obejmować przetwarzanie danych poza EOG. Przed publikacją potwierdzimy region bazy danych, zakres transferów oraz stosowane podstawy i zabezpieczenia, np. odpowiednią decyzję Komisji Europejskiej lub standardowe klauzule umowne. Nie deklarujemy, że wszystkie dane pozostają w Polsce lub w Unii Europejskiej."
+          ]
+        },
+        {
+          "title": "Jak długo przechowujemy dane?",
+          "paragraphs": [
+            "Dane potrzebne do prowadzenia konta i biblioteki przechowujemy co do zasady przez czas korzystania z konta. Po otrzymaniu żądania usunięcia ustalamy dane, które należy usunąć, oraz ewentualne informacje, których dalsze przechowywanie uzasadniają przepisy lub konkretne roszczenia.",
+            "Dokładne terminy dla korespondencji, logów, analityki i kopii zapasowych wymagają zatwierdzenia oraz sprawdzenia ustawień dostawców. Ten szkic nie oznacza, że usunięcie konta natychmiast usuwa każdą kopię danych u wszystkich dostawców."
+          ]
+        },
+        {
+          "title": "Jakie masz prawa?",
+          "paragraphs": [
+            "Możesz poprosić o dostęp do swoich danych, ich sprostowanie lub usunięcie, ograniczenie przetwarzania, a w przypadkach przewidzianych prawem także o przeniesienie danych. Możesz wnieść sprzeciw wobec przetwarzania opartego na prawnie uzasadnionym interesie.",
+            "Jeżeli przetwarzanie opiera się na zgodzie, możesz ją wycofać. Nie zmienia to zgodności z prawem działań sprzed wycofania zgody. W sprawach danych napisz na fabledose@gmail.com; możemy poprosić o potwierdzenie, że chodzi o Twoje konto.",
+            "Możesz złożyć skargę do Prezesa Urzędu Ochrony Danych Osobowych lub właściwego organu nadzorczego. Co do zasady odpowiadamy na żądania dotyczące praw w ciągu miesiąca; w ustawowo określonych sytuacjach termin może zostać przedłużony, o czym poinformujemy."
+          ]
+        },
+        {
+          "title": "Usuwanie konta i podawanie danych",
+          "paragraphs": [
+            "Automatyczne usuwanie konta jest obecnie funkcją odłożoną. Do czasu jej uruchomienia żądanie możesz wysłać na fabledose@gmail.com. Brak przycisku nie odbiera Ci praw do danych.",
+            "Dane niezbędne do utworzenia konta są potrzebne do świadczenia funkcji wymagających logowania. Nie musisz tworzyć profili dzieci, aby czytać publiczne artykuły. Nie opisujemy automatycznego dobierania statystyk jako decyzji wywołujących skutki prawne; obecny portal nie ma takiego mechanizmu."
+          ]
+        },
+        {
+          "title": "Zmiany polityki",
+          "paragraphs": [
+            "Gdy zmieni się sposób działania portalu lub zakres przetwarzania danych, zaktualizujemy politykę i datę jej wersji. Istotne zmiany wyjaśnimy użytkownikom; aktualizacja tekstu nie zastępuje zgody, jeżeli dana zmiana jej wymaga."
+          ]
+        }
+      ]
+    },
+    "en": {
+      "title": "Privacy policy",
+      "sections": [
+        {
+          "title": "Who is responsible for your data?",
+          "paragraphs": [
+            "Fabledose is operated by Paweł Modzelewski, the controller of users’ personal data. For privacy enquiries, email fabledose@gmail.com.",
+            "This is a first working draft dated 4 November 2026. Before publication, we will complete the controller’s address and confirm service settings, retention arrangements and consent controls."
+          ]
+        },
+        {
+          "title": "What information do we use?",
+          "paragraphs": [
+            "An account uses your email address and account identifier. Google sign-in provides information shared through that sign-in, particularly an identifier and email address, and, depending on the account, a display name and profile picture. Firebase Authentication handles authentication, including passwords.",
+            "We save account and playback settings, the selected test plan, favourites, and reading and listening progress. Child profiles may contain a name or nickname, selected avatar, age group and story access preferences. We do not need a child’s surname or exact date of birth.",
+            "Your browser and infrastructure providers may process technical information such as IP address, device and browser information and session data. If you contact us, we process your email address and correspondence."
+          ]
+        },
+        {
+          "title": "Why do we use this information?",
+          "paragraphs": [
+            "Account, settings and library data enable sign-in, synchronisation and saved progress. This is processing needed to provide the service under our agreement with you (GDPR Article 6(1)(b)).",
+            "Security, abuse prevention, correspondence outside the service agreement and establishing or defending claims may rely on our legitimate interests (Article 6(1)(f)). Legal obligations rely on Article 6(1)(c).",
+            "Optional analytics and marketing require an appropriate legal basis, including consent where required (Article 6(1)(a)). Consent controls need correction before this policy is published: the current code initialises Analytics independently of the consent switches."
+          ]
+        },
+        {
+          "title": "Parents’ accounts and child profiles",
+          "paragraphs": [
+            "The account is intended for a parent or guardian who manages child profiles. A child profile is not a separate sign-in account. Please use a nickname and provide only information needed for the service.",
+            "Story exclusions and permitted hours are application preferences. They do not replace adult supervision or guarantee that publicly available media files cannot be accessed. A parental PIN has not yet been launched."
+          ]
+        },
+        {
+          "title": "Who helps us run Fabledose?",
+          "paragraphs": [
+            "We use Google Firebase for authentication and application data. The web application is hosted through Vercel. Before publication, we will confirm the production configuration, services and relevant contracting entities. Providers receive information necessary to deliver their services.",
+            "Google sign-in, email and external websites such as Substack may also involve processing by their operators under their own policies. Following an external link does not itself subscribe you to a newsletter.",
+            "Stripe is the planned payment processor. Payments have not been launched, so this draft does not describe Stripe as an active recipient of Fabledose payment data."
+          ]
+        },
+        {
+          "title": "Can data leave the European Economic Area?",
+          "paragraphs": [
+            "International providers may process data outside the EEA. Before publication, we will confirm the database region, transfers and applicable safeguards, such as an appropriate European Commission adequacy decision or standard contractual clauses. We do not claim that all data stays in Poland or the EU."
+          ]
+        },
+        {
+          "title": "How long do we keep data?",
+          "paragraphs": [
+            "We generally keep account and library data while you use your account. Following an erasure request, we identify information to delete and any information that must remain for legal obligations or specific claims.",
+            "Exact periods for correspondence, logs, analytics and backups still require approval and checks against provider settings. This draft does not promise that account deletion instantly removes every provider backup."
+          ]
+        },
+        {
+          "title": "Your choices and rights",
+          "paragraphs": [
+            "You can request access, correction, erasure or restriction of your personal data and, where applicable, data portability. You can object to processing based on legitimate interests.",
+            "Where processing relies on consent, you can withdraw it without affecting the lawfulness of earlier processing. Email fabledose@gmail.com to exercise your rights; we may ask you to verify ownership of the account.",
+            "You may complain to Poland’s President of the Personal Data Protection Office (UODO) or another competent supervisory authority. We normally respond to rights requests within one month; statutory extensions may apply, in which case we will inform you."
+          ]
+        },
+        {
+          "title": "Account deletion and providing information",
+          "paragraphs": [
+            "Automatic account deletion is currently deferred. Until it is available, send your request to fabledose@gmail.com. The absence of a button does not remove your data protection rights.",
+            "Information needed to create an account is required for signed-in features. You do not need a child profile to read public articles. The current portal does not make automated decisions producing legal or similarly significant effects."
+          ]
+        },
+        {
+          "title": "Changes to this policy",
+          "paragraphs": [
+            "We will update this policy and its version date when the service or processing changes. Significant changes will be explained; changing this text does not replace consent where consent is required."
+          ]
+        }
+      ]
+    }
+  }
+}

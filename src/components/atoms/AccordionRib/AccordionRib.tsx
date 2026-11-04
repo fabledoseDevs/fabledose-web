@@ -1,4 +1,5 @@
 import { MinusCircleIcon, PlusCircleIcon } from '@heroicons/react/24/outline';
+import { useId } from 'react';
 
 import { useAccordionRib } from './AccordionRib.hook';
 import {
@@ -17,6 +18,7 @@ export const AccordionRib: AccordionRibType = ({
   isSelfControlled = false,
   onToggle,
 }) => {
+  const contentId = useId();
   const { isOpen, handleToggle } = useAccordionRib({
     isOpen: isOpenProp,
     isSelfControlled,
@@ -25,13 +27,27 @@ export const AccordionRib: AccordionRibType = ({
 
   return (
     <AccordionRibBody>
-      <StaticBar onClick={handleToggle}>
+      <StaticBar
+        type="button"
+        onClick={handleToggle}
+        aria-expanded={isOpen}
+        aria-controls={contentId}
+      >
         <MainText>{mainText}</MainText>
         <ExpandButton>
           {isOpen ? <MinusCircleIcon /> : <PlusCircleIcon />}
         </ExpandButton>
       </StaticBar>
-      <ExpandableContent isOpen={isOpen}>{children}</ExpandableContent>
+      <ExpandableContent
+        id={contentId}
+        isOpen={isOpen}
+        aria-hidden={!isOpen}
+        inert={!isOpen}
+      >
+        <div>
+          <div>{children}</div>
+        </div>
+      </ExpandableContent>
     </AccordionRibBody>
   );
 };

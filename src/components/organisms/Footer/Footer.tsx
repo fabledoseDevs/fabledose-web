@@ -1,3 +1,5 @@
+import { useParams } from 'next/navigation';
+
 import LinksList from '@/atoms/LinksList';
 import { LINK_VARIANT, LIST_LAYOUT } from '@/atoms/LinksList/LinksList.types';
 import { useDictionary } from '@/lang/DictionaryProvider';
@@ -16,6 +18,8 @@ import type { Footer as FooterType } from './Footer.types';
 
 export const Footer: FooterType = () => {
   const { footer } = useDictionary();
+  const { lang } = useParams<{ lang: string }>();
+  const locale = lang === 'pl' ? 'pl' : 'en';
 
   return (
     <FooterBody>
@@ -28,15 +32,15 @@ export const Footer: FooterType = () => {
             layout={LIST_LAYOUT.VERTICAL}
             links={[
               {
-                href: '#',
+                href: `/${locale}/article/account-and-plans`,
                 label: footer.linkList[0].links[0].title,
               },
               {
-                href: '#',
+                href: `/${locale}/article/payments`,
                 label: footer.linkList[0].links[1].title,
               },
               {
-                href: '#',
+                href: `/${locale}/help`,
                 label: footer.linkList[0].links[2].title,
               },
             ]}
@@ -47,15 +51,15 @@ export const Footer: FooterType = () => {
             layout={LIST_LAYOUT.VERTICAL}
             links={[
               {
-                href: '#',
+                href: `/${locale}/article/about`,
                 label: footer.linkList[1].links[0].title,
               },
               {
-                href: '#',
+                href: `/${locale}/article/collaboration`,
                 label: footer.linkList[1].links[1].title,
               },
               {
-                href: '#',
+                href: `/${locale}/article/contact`,
                 label: footer.linkList[1].links[2].title,
               },
             ]}
@@ -98,9 +102,18 @@ export const Footer: FooterType = () => {
         <Legal>{footer.legalText}</Legal>
         <LegalLinksContainer>
           {[
-            { href: '#', title: footer.legalLinks[0].title },
-            { href: '#', title: footer.legalLinks[1].title },
-            { href: '#', title: footer.legalLinks[2].title },
+            {
+              href: `/${locale}/article/privacy-policy`,
+              title: footer.legalLinks[0].title,
+            },
+            {
+              href: `/${locale}/article/terms-of-use`,
+              title: footer.legalLinks[1].title,
+            },
+            {
+              href: `/${locale}/article/cookies`,
+              title: footer.legalLinks[2].title,
+            },
           ].map(({ href, title }, idx) => (
             <LegalLink key={`legal-link-${idx}`} href={href}>
               {title}

@@ -1,0 +1,125 @@
+{
+  "url": "account-and-plans",
+  "translations": {
+    "pl": {
+      "title": "Konto i plany",
+      "sections": [
+        {
+          "title": "Jedno konto, własna biblioteka",
+          "paragraphs": [
+            "Konto Fabledose pozwala wracać do ulubionych bajek oraz zapamiętywać postęp czytania i słuchania. Jest prowadzone przez rodzica lub opiekuna; profile dzieci są częścią tego konta, a nie oddzielnymi loginami."
+          ]
+        },
+        {
+          "title": "Jak się zalogować?",
+          "paragraphs": [
+            "Możesz założyć konto za pomocą adresu e-mail i hasła albo zalogować się przez Google. Przy korzystaniu z Google wybierz właściwe konto w oknie logowania. Logowanie przez Apple jest planowane i obecnie niedostępne.",
+            "Jeśli nie pamiętasz hasła do konta utworzonego przez e-mail, skorzystaj z odzyskiwania hasła na ekranie logowania. Jeżeli logujesz się przez Google, dostępem do konta Google zarządzasz u tego dostawcy."
+          ]
+        },
+        {
+          "title": "Gdzie zmienić dane konta?",
+          "paragraphs": [
+            "W Ustawieniach, w zakładce „Profil i konto”, możesz zmienić nazwę wyświetlaną oraz skorzystać z opcji zmiany adresu e-mail lub hasła. Przy wrażliwych zmianach może być wymagane ponowne potwierdzenie tożsamości. Zmiana e-maila wymaga przejścia przez wiadomości potwierdzające.",
+            "Nie potrzebujemy osobnych pól na imię i nazwisko ani adres zamieszkania. Nazwa wyświetlana nie musi być Twoim pełnym imieniem i nazwiskiem."
+          ]
+        },
+        {
+          "title": "Free — na dobry początek",
+          "paragraphs": [
+            "Free daje dostęp do selekcji animowanych bajek i audiobooków. Obecnie selekcja obejmuje wszystkie opublikowane bajki. AUTO i SD są dostępne; profile dzieci i kontrola rodzicielska są wyłączone.",
+            "To plan przewidziany jako sponsorowany. Reklamy nie zostały jeszcze uruchomione."
+          ]
+        },
+        {
+          "title": "Family — dla rodziny",
+          "paragraphs": [
+            "Family obejmuje całą bibliotekę, także bajki sezonowe po ich dodaniu, animowane historyjki do jakości HD i audiobooki. Możesz utworzyć do 6 profili dzieci oraz ustawiać wykluczenia bajek i godziny dostępu.",
+            "Plan obejmuje również ebooki PDF i EPUB. Pobieranie konkretnego formatu będzie możliwe, gdy dodamy jego plik do bajki."
+          ]
+        },
+        {
+          "title": "Ultimate — więcej możliwości",
+          "paragraphs": [
+            "Ultimate obejmuje pełną bibliotekę, audiobooki, ebooki po dodaniu plików oraz nieograniczoną liczbę profili dzieci. Udostępnia wybór 2K, który do czasu przygotowania plików QHD odtwarza HD.",
+            "Ultimate jest idealny nie tylko dla rodzin, ale także dla szkół, przedszkoli, żłobków, centrów kultury i innych podmiotów, które chcą organizować pokazy publiczne lub seanse w zamkniętej grupie.",
+            "Licencja na pokazy publiczne oznacza pozwolenie na organizowanie pokazów poza gronem rodzinnym — również dla zamkniętej grupy, na przykład w placówce edukacyjnej. Jej dokładny zakres i prawa do poszczególnych materiałów wymagają potwierdzenia przed uruchomieniem tej możliwości."
+          ]
+        },
+        {
+          "title": "Zmiana planu podczas testów",
+          "paragraphs": [
+            "Wybór planu w obecnej wersji jest ustawieniem testowym, nie zakupem abonamentu. Płatności nie zostały uruchomione. Opcja niedostępna w danym planie może otworzyć informację z przyciskiem „Zobacz wszystkie plany”.",
+            "Przejście na niższy plan nie usuwa zapisanych profili dzieci. Free wyłącza ich używanie, a Family ogranicza dostęp do 6 profili; pozostałe dane pozostają zapisane."
+          ]
+        },
+        {
+          "title": "Chcesz usunąć konto?",
+          "paragraphs": [
+            "Automatyczne usuwanie konta jest jeszcze odłożone. Napisz na fabledose@gmail.com z adresu powiązanego z kontem. Nie wysyłaj nam hasła. Polityka prywatności opisuje zasady dotyczące danych."
+          ]
+        }
+      ]
+    },
+    "en": {
+      "title": "Accounts and plans",
+      "sections": [
+        {
+          "title": "One account, your own library",
+          "paragraphs": [
+            "A Fabledose account lets you return to favourites and save reading and listening progress. A parent or guardian manages the account; child profiles belong to it and are not separate sign-in accounts."
+          ]
+        },
+        {
+          "title": "Signing in",
+          "paragraphs": [
+            "Create an account with an email address and password, or sign in with Google. Choose the correct Google account in the sign-in window. Apple sign-in is planned and is not available yet.",
+            "For an email-and-password account, use password recovery on the sign-in screen if you forget your password. If you use Google sign-in, manage access to your Google account with Google."
+          ]
+        },
+        {
+          "title": "Changing account details",
+          "paragraphs": [
+            "Open Settings → Profile and account to change your display name or use the email and password change options. Sensitive changes may require you to verify your identity again. Email changes require completing the confirmation messages.",
+            "We do not need separate full-name or home-address fields. Your display name does not have to be your full legal name."
+          ]
+        },
+        {
+          "title": "Free — getting started",
+          "paragraphs": [
+            "Free includes a selection of animated stories and audiobooks. The selection currently includes every published story. AUTO and SD are available; child profiles and parental controls are disabled.",
+            "The plan is intended to be sponsored. Advertising has not launched yet."
+          ]
+        },
+        {
+          "title": "Family — for the family",
+          "paragraphs": [
+            "Family includes the full library, seasonal stories when added, animated stories up to HD and audiobooks. Create up to 6 child profiles and configure story exclusions and permitted hours.",
+            "PDF and EPUB ebooks are also included. A format becomes downloadable for a story once its file has been supplied."
+          ]
+        },
+        {
+          "title": "Ultimate — more possibilities",
+          "paragraphs": [
+            "Ultimate includes the full library, audiobooks, ebooks when files are available, and unlimited child profiles. It offers a 2K option, which currently plays HD until QHD files are prepared.",
+            "Ultimate is ideal not only for families, but also for schools, preschools, nurseries, cultural centres and other organisations wishing to arrange public screenings or screenings for a closed group.",
+            "The public-screening licence permits screenings outside the family circle, including for a closed group, such as in an educational setting. The exact scope and rights to individual materials must be confirmed before this becomes available."
+          ]
+        },
+        {
+          "title": "Changing plans during testing",
+          "paragraphs": [
+            "Choosing a plan currently changes a test setting, not a paid subscription. Payments have not launched. Selecting a feature outside your plan may open an explanation with a “See all plans” button.",
+            "Downgrading does not delete saved child profiles. Free disables their use, while Family allows access to 6 profiles; other profile data remains saved."
+          ]
+        },
+        {
+          "title": "Deleting your account",
+          "paragraphs": [
+            "Automatic account deletion is deferred. Email fabledose@gmail.com from the address associated with your account. Never send your password. The privacy policy explains how personal data is handled."
+          ]
+        }
+      ]
+    }
+  }
+}
