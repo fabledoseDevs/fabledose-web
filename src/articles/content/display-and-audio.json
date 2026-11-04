@@ -1,0 +1,83 @@
+{
+  "url": "display-and-audio",
+  "translations": {
+    "pl": {
+      "title": "Ekran i dźwięk",
+      "sections": [
+        {
+          "title": "Gdzie znajdziesz ustawienia?",
+          "paragraphs": [
+            "Otwórz Ustawienia → Ekran i dźwięk. Najważniejsze opcje czytania są także w menu ustawień otwieranym bezpośrednio z animowanej bajki. Zmiany zapisują się w ustawieniach konta."
+          ]
+        },
+        {
+          "title": "Tekst dopasowany do czytelnika",
+          "paragraphs": [
+            "Możesz zmienić rozmiar pisma oraz wybrać Sans, Serif albo Dyslexic. Wybierz krój, który jest wygodny dla Ciebie i dziecka. To opcja prezentacji tekstu, nie narzędzie diagnozy ani gwarancja rozwiązania trudności w czytaniu.",
+            "Tło tekstu może być wyłączone, jasne lub ciemne. Intensywność tła pozwala dostosować kontrast między tekstem a ilustracją."
+          ]
+        },
+        {
+          "title": "Animacje i jakość obrazu",
+          "paragraphs": [
+            "Wyłączenie animacji zastępuje ruchome ilustracje statycznymi obrazami. To może pomóc, gdy chcecie spokojniejszego czytania lub urządzenie ma problem z płynnym odtwarzaniem.",
+            "SD ładuje pliki 1280 × 720, a HD — 1920 × 1080. AUTO dopasowuje wybór do szerokości ekranu w granicach planu: Free korzysta z SD, a plany płatne z SD na węższych ekranach i HD na większych.",
+            "HD można wybrać w Family i Ultimate, a 2K w Ultimate. Plików QHD jeszcze nie ma, więc wybór 2K obecnie ładuje HD. 4K nie jest dostępne. Zmiana SD/HD podmienia plik animacji bez przechodzenia do innego slajdu."
+          ]
+        },
+        {
+          "title": "Dźwięk i głośność",
+          "paragraphs": [
+            "Audiobook uruchamiasz w osobnym odtwarzaczu. Do regulowania głośności użyj obecnie urządzenia lub przeglądarki. Sprawdź też, czy karta przeglądarki nie jest wyciszona. Suwaki głośności w ustawieniach nie są jeszcze podłączone do odtwarzacza.",
+            "Część ustawień dotyczących automatycznej narracji i muzyki w animowanym czytniku pozostaje przygotowaniem do dalszych funkcji. Same przełączniki nie oznaczają, że każda bajka ma już ścieżkę muzyczną lub zsynchronizowaną narrację."
+          ]
+        },
+        {
+          "title": "Gdy obraz się zacina",
+          "paragraphs": [
+            "Wybierz SD, zamknij zbędne karty albo wyłącz animacje. Wyższa rozdzielczość oznacza więcej danych do pobrania. Jeśli problem dotyczy jednego pliku, prześlij nam tytuł bajki i informację, na którym slajdzie występuje."
+          ]
+        }
+      ]
+    },
+    "en": {
+      "title": "Display and audio",
+      "sections": [
+        {
+          "title": "Where are the settings?",
+          "paragraphs": [
+            "Open Settings → Display and audio. Key reading options are also available in the settings menu inside an animated story. Changes are saved in your account settings."
+          ]
+        },
+        {
+          "title": "Comfortable text",
+          "paragraphs": [
+            "Change the font size and choose Sans, Serif or Dyslexic. Pick the option most comfortable for you and your child. This is a presentation preference, not a diagnostic tool or a guarantee of resolving reading difficulties.",
+            "Text background can be off, light or dark. Background intensity adjusts contrast between the text and illustration."
+          ]
+        },
+        {
+          "title": "Animation and picture quality",
+          "paragraphs": [
+            "Turning animation off replaces moving illustrations with static pictures. This can make reading calmer or help a device struggling with playback.",
+            "SD loads 1280 × 720 files and HD loads 1920 × 1080. AUTO follows screen width within your plan: Free uses SD; paid plans use SD on narrower screens and HD on larger ones.",
+            "HD is selectable in Family and Ultimate; 2K is selectable in Ultimate. QHD files are not available yet, so 2K currently loads HD. There is no 4K option. Switching SD/HD changes the animation file without changing the slide."
+          ]
+        },
+        {
+          "title": "Sound and volume",
+          "paragraphs": [
+            "Audiobooks play in a separate player. Use your device or browser to adjust volume for now, and check whether the browser tab is muted. The volume sliders in settings are not connected to the player yet.",
+            "Some automatic narration and music settings in the animated reader prepare for future features. A switch does not mean every story already has background music or synchronised narration."
+          ]
+        },
+        {
+          "title": "If playback stutters",
+          "paragraphs": [
+            "Choose SD, close unnecessary tabs or disable animation. Higher resolution needs more data. If one file appears faulty, tell us the story title and the slide where it happens."
+          ]
+        }
+      ]
+    }
+  }
+}

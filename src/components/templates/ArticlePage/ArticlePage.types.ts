@@ -40,8 +40,9 @@ export interface ArticlePageViewProps {
 export type ArticlePage = (props: ArticlePageProps) => ReactElement;
 
 /**
- * Component renders the client-side article page shell with Sidebar and
- * ArticlePage content.
+ * Component renders the public article shell with locale-aware home navigation,
+ * language links, article content and legal footer. No account is required;
+ * the same public content is available to signed-in and anonymous readers.
  *
  * @group Component
  *

@@ -1,0 +1,65 @@
+{
+  "url": "collaboration",
+  "translations": {
+    "pl": {
+      "title": "Współpraca",
+      "sections": [
+        {
+          "title": "Pomóż nam tworzyć świat bajek",
+          "paragraphs": [
+            "Szukamy osób, które chciałyby współtworzyć Fabledose. Szczególnie zapraszamy autorów opowieści dla dzieci i ilustratorów. Chętnie poznamy też lektorów, tłumaczy i osoby tworzące animacje."
+          ]
+        },
+        {
+          "title": "Co napisać?",
+          "paragraphs": [
+            "Napisz na fabledose@gmail.com kilka zdań o sobie, o tym, co tworzysz, i jak wyobrażasz sobie współpracę. Dodaj link do portfolio lub krótkiej próbki pracy. Na pierwszy kontakt nie potrzebujemy całego rękopisu ani dużej paczki plików."
+          ]
+        },
+        {
+          "title": "Prawa i warunki ustalamy wspólnie",
+          "paragraphs": [
+            "Wyślij materiały, do których masz prawo, i zaznacz, jeśli projekt ma współautorów. Zanim coś opublikujemy, ustalimy zakres wykorzystania, podpis autorstwa, ewentualne wynagrodzenie i pozostałe warunki.",
+            "Samo wysłanie wiadomości nie przekazuje nam praw do utworu i nie oznacza zgody na jego publikację. Nie obiecujemy przyjęcia każdej propozycji ani odpowiedzi w konkretnym terminie."
+          ]
+        },
+        {
+          "title": "Nie musisz mieć gotowej bajki",
+          "paragraphs": [
+            "Jeśli masz pomysł albo umiejętności, ale nie gotowy materiał, też możesz napisać. Najlepiej zacząć od krótkiej rozmowy o tym, co chcemy razem stworzyć."
+          ]
+        }
+      ]
+    },
+    "en": {
+      "title": "Collaborate with us",
+      "sections": [
+        {
+          "title": "Help us build a world of stories",
+          "paragraphs": [
+            "We welcome people who would like to contribute to Fabledose, especially children’s authors and illustrators. We would also love to hear from narrators, translators and animators."
+          ]
+        },
+        {
+          "title": "What should you send?",
+          "paragraphs": [
+            "Email fabledose@gmail.com with a short introduction, what you create and how you imagine working together. Include a portfolio link or a short sample. You do not need to send a complete manuscript or a large archive for an initial enquiry."
+          ]
+        },
+        {
+          "title": "Rights and arrangements are agreed together",
+          "paragraphs": [
+            "Only send material you are entitled to share, and mention any co-authors. Before publication, we will agree on permitted use, credits, any payment and other arrangements.",
+            "Sending a message does not transfer rights to us or authorise publication. We cannot promise to accept every proposal or respond within a fixed time."
+          ]
+        },
+        {
+          "title": "You do not need a finished story",
+          "paragraphs": [
+            "An idea or a skill is enough to start a conversation. Tell us what you would like to create together."
+          ]
+        }
+      ]
+    }
+  }
+}

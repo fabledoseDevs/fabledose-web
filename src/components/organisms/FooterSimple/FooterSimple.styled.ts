@@ -34,6 +34,8 @@ export const Legal = styled.div`
 export const LegalLinksContainer = styled.div`
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 1.6rem;
 `;
 

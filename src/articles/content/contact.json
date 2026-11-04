@@ -1,0 +1,65 @@
+{
+  "url": "contact",
+  "translations": {
+    "pl": {
+      "title": "Kontakt",
+      "sections": [
+        {
+          "title": "Napisz do Fabledose",
+          "paragraphs": [
+            "Nasz obecny adres kontaktowy to fabledose@gmail.com. Możesz napisać w sprawie działania portalu, konta, danych osobowych albo współpracy. Nie musisz zakładać konta ani wypełniać formularza."
+          ]
+        },
+        {
+          "title": "Zgłaszasz problem?",
+          "paragraphs": [
+            "Podaj tytuł bajki lub nazwę ekranu, język strony, przeglądarkę i urządzenie oraz krótki opis: co zrobiłeś i co się wydarzyło. Jeżeli sprawa dotyczy konta, napisz z przypisanego do niego adresu. Zrzut ekranu może pomóc, ale usuń z niego niepotrzebne dane osobowe."
+          ]
+        },
+        {
+          "title": "Czego nie wysyłać?",
+          "paragraphs": [
+            "Nie przesyłaj hasła, kodów logowania, pełnego numeru karty ani danych dziecka, które nie są potrzebne do rozwiązania problemu. W sprawie prywatności wystarczy opis żądania; jeśli potrzebujemy potwierdzenia tożsamości, wyjaśnimy kolejny krok."
+          ]
+        },
+        {
+          "title": "Współpraca i pomysły",
+          "paragraphs": [
+            "Jeżeli chcesz zaproponować bajkę, ilustracje lub inny wkład w projekt, napisz kilka słów o sobie i dodaj link do portfolio. Szczegóły znajdziesz w artykule „Współpraca”.",
+            "Nie prowadzimy obecnie infolinii ani czatu na żywo. Czytamy wiadomości i odpowiadamy w miarę możliwości; terminy wynikające z przepisów dotyczące formalnych żądań pozostają obowiązujące."
+          ]
+        }
+      ]
+    },
+    "en": {
+      "title": "Contact",
+      "sections": [
+        {
+          "title": "Write to Fabledose",
+          "paragraphs": [
+            "Our current contact address is fabledose@gmail.com. Write about the portal, your account, personal data or collaboration. No account or contact form is required."
+          ]
+        },
+        {
+          "title": "Reporting a problem?",
+          "paragraphs": [
+            "Include the story title or screen name, website language, browser and device, and a short description of what you did and what happened. For an account issue, write from its registered email address. Screenshots can help, but remove unnecessary personal information."
+          ]
+        },
+        {
+          "title": "What should you leave out?",
+          "paragraphs": [
+            "Never send passwords, sign-in codes, a full card number or unnecessary information about a child. For privacy requests, describe what you need; if identity verification is necessary, we will explain the next step."
+          ]
+        },
+        {
+          "title": "Ideas and collaboration",
+          "paragraphs": [
+            "To propose a story, illustrations or another contribution, introduce yourself briefly and add a portfolio link. The collaboration article explains more.",
+            "We do not currently offer a helpline or live chat. We read messages and respond as we can; statutory deadlines for formal requests still apply."
+          ]
+        }
+      ]
+    }
+  }
+}

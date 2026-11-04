@@ -1,0 +1,95 @@
+{
+  "url": "reading-and-listening",
+  "translations": {
+    "pl": {
+      "title": "Jak czytać i słuchać bajek?",
+      "sections": [
+        {
+          "title": "Zanim zaczniesz",
+          "paragraphs": [
+            "Wybierz bajkę w bibliotece lub wynikach wyszukiwania. „Więcej informacji” otwiera opis, oznaczenia treści, komentarz i pełne streszczenie ze spojlerami. To miejsce dla rodzica, który chce wcześniej ocenić opowieść."
+          ]
+        },
+        {
+          "title": "Czytanie animowanej historyjki",
+          "paragraphs": [
+            "Wybierz opcję czytania. Przechodź między slajdami za pomocą strzałek na ekranie; na komputerze możesz też użyć strzałek klawiatury lub Page Up i Page Down. Dotknięcie ekranu albo ruch myszy pokazuje przyciski sterowania.",
+            "W opcjach czytnika zmienisz rozmiar i krój pisma, tło tekstu, jego intensywność, animacje i jakość ilustracji. Wyłączenie animacji pokazuje ilustracje statyczne. Możesz również włączyć pełny ekran, jeśli przeglądarka udostępnia tę funkcję."
+          ]
+        },
+        {
+          "title": "Powrót do przerwanej bajki",
+          "paragraphs": [
+            "Przy zalogowanym koncie zapisujemy postęp dla wybranego profilu. Opcja kontynuowania wraca do zapamiętanego miejsca. Okrągły przycisk „Czytaj od nowa” pozwala zacząć od początku.",
+            "Zmiana profilu przełącza jego bibliotekę i postęp. Postęp czytania oraz słuchania jest zapisywany osobno; po zmianie języka audiobooka zapis dotyczy odpowiedniej wersji nagrania."
+          ]
+        },
+        {
+          "title": "Słuchanie audiobooka",
+          "paragraphs": [
+            "Wybierz „Audiobook”, a potem uruchom odtwarzanie. W odtwarzaczu możesz pauzować, przewijać o 10 sekund, wybrać miejsce na pasku postępu i zmieniać tempo odtwarzania. Przeglądarka może wymagać kliknięcia przed rozpoczęciem dźwięku.",
+            "Audiobook wymaga dodanego nagrania w wybranym języku. Jeżeli widzisz informację o braku pliku, dany audiobook nie jest jeszcze gotowy — sam wybór planu tego nie zmieni."
+          ]
+        },
+        {
+          "title": "Ulubione i połączenie z Internetem",
+          "paragraphs": [
+            "Przycisk ulubionych dodaje lub usuwa bajkę z biblioteki aktywnego profilu. Dane synchronizują się po zalogowaniu. Do odtwarzania animacji i audiobooków na stronie potrzebujesz Internetu; nie ma obecnie trybu pobierania audiobooków offline."
+          ]
+        },
+        {
+          "title": "Jeśli coś nie działa",
+          "paragraphs": [
+            "Sprawdź połączenie i spróbuj odświeżyć stronę. Przy problemach z płynnością wybierz SD lub wyłącz animacje. Jeśli bajka jest niedostępna dla profilu dziecka, rodzic powinien sprawdzić wykluczenia oraz godziny dostępu.",
+            "Jeśli problem pozostaje, napisz na fabledose@gmail.com. Podaj tytuł bajki, język, przeglądarkę i krótki opis sytuacji. Nie przesyłaj hasła ani danych dziecka, które nie są potrzebne do wyjaśnienia błędu."
+          ]
+        }
+      ]
+    },
+    "en": {
+      "title": "Reading and listening to stories",
+      "sections": [
+        {
+          "title": "Before you start",
+          "paragraphs": [
+            "Choose a story in the library or search results. “More info” opens content tags, a comment and a full summary with spoilers, helping parents decide whether the story is suitable."
+          ]
+        },
+        {
+          "title": "Reading an animated story",
+          "paragraphs": [
+            "Choose the reading option. Move between slides using the on-screen arrows; on a computer, you can also use the arrow keys or Page Up and Page Down. Moving the mouse or touching the screen reveals the controls.",
+            "Reader options let you change font size and family, text background and intensity, animation and illustration quality. Disabling animation shows static pictures. Fullscreen is available where supported by your browser."
+          ]
+        },
+        {
+          "title": "Returning to a story",
+          "paragraphs": [
+            "When signed in, progress is saved for the selected profile. Continue returns to the saved place. The round “Read from the beginning” control starts the story again.",
+            "Switching profiles switches the library and progress. Reading and listening progress are separate; audiobook progress is also stored for the relevant recording language."
+          ]
+        },
+        {
+          "title": "Listening to an audiobook",
+          "paragraphs": [
+            "Choose “Audiobook”, then start playback. The player supports pause, 10-second skips, seeking on the progress bar and playback-speed changes. Your browser may require a click before playing audio.",
+            "A recording must exist in the selected language. A missing-file notice means the audiobook is not ready yet; changing plans will not create the recording."
+          ]
+        },
+        {
+          "title": "Favourites and Internet access",
+          "paragraphs": [
+            "The favourites control adds or removes a story for the active profile. Data synchronises while signed in. Website animations and audiobooks require Internet access; offline audiobook downloads are not currently available."
+          ]
+        },
+        {
+          "title": "If something goes wrong",
+          "paragraphs": [
+            "Check your connection and try refreshing the page. For smoother playback, select SD or disable animation. If a child profile cannot open a story, the parent should check exclusions and permitted hours.",
+            "If the problem continues, email fabledose@gmail.com with the story title, language, browser and a short description. Do not send passwords or unnecessary information about a child."
+          ]
+        }
+      ]
+    }
+  }
+}

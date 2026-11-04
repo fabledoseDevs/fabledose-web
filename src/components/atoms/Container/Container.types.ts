@@ -1,4 +1,4 @@
-import type { ReactElement } from 'react';
+import type { ReactElement, ReactNode } from 'react';
 
 /**
  * @module
@@ -103,7 +103,18 @@ export type ContainerProps = {
   mobilePadding?: boolean;
   gap?: boolean;
   backgroundColor?: BACKGROUND_COLOR;
-  children: ReactElement | ReactElement[] | string;
+  /**
+   * Rounds the container corners using the portal's standard 16px panel radius.
+   * @remarks Optional and disabled by default, so existing full-width sections
+   * keep their square edges. Use on bounded panels such as the help FAQ.
+   */
+  rounded?: boolean;
+  /**
+   * Renderable content, including mapped groups mixed with headings.
+   * @remarks ReactNode permits nested arrays and conditional content supported
+   * by React, so callers can use the shared layout without extra wrapper nodes.
+   */
+  children: ReactNode;
 };
 
 /**

@@ -48,6 +48,8 @@ next-env.d.ts
 /docs/firebase/*
 !/docs/firebase/firestore-account-deletion.rules
 !/docs/firebase/child-profiles.md
+!/docs/legal/
+!/docs/legal/**
 # Firebase Functions
 /functions/node_modules/
 /.firebase/

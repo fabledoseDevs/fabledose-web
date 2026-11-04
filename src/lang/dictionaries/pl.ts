@@ -1,6 +1,65 @@
 import type { DictionaryType } from './lang.types';
 
 export const DictionaryPL: DictionaryType = {
+  helpCenter: {
+    title: 'Centrum pomocy',
+    intro:
+      'Jak możemy pomóc? Zacznij od krótkich odpowiedzi albo wybierz artykuł. Wszystkie poradniki i informacje prawne są dostępne bez logowania.',
+    home: 'Strona główna',
+    open: 'Otwórz centrum pomocy',
+    faqTitle: 'Najczęstsze pytania',
+    articlesTitle: 'Artykuły i poradniki',
+    guides: 'Konto i korzystanie z Fabledose',
+    project: 'O projekcie i kontakt',
+    legal: 'Prywatność i zasady',
+    other: 'Pozostałe artykuły',
+    contactTitle: 'Nie znalazłeś odpowiedzi?',
+    contactDescription:
+      'Opisz problem i napisz do nas. W artykule kontaktowym znajdziesz adres oraz wskazówki, co warto podać w zgłoszeniu.',
+    contactButton: 'Kontakt',
+    faq: [
+      {
+        question: 'Czy muszę płacić, żeby korzystać z Fabledose?',
+        answer:
+          'Nie. Free obejmuje selekcję bajek i audiobooków, obecnie wszystkie opublikowane tytuły. Płatności nie są jeszcze uruchomione; zmiana planu służy testowaniu funkcji.',
+      },
+      {
+        question: 'Jak mogę się zalogować?',
+        answer:
+          'Za pomocą adresu e-mail i hasła albo przez Google. Jeśli zapomnisz hasła do konta e-mail, użyj odzyskiwania na ekranie logowania. Apple Sign In jest planowane.',
+      },
+      {
+        question: 'Ile profili dzieci mogę utworzyć?',
+        answer:
+          'Family pozwala utworzyć do 6 profili dzieci, Ultimate nie ogranicza ich liczby. Free nie udostępnia profili dzieci ani kontroli rodzicielskiej. Obniżenie planu nie usuwa zapisanych profili.',
+      },
+      {
+        question: 'Czym różnią się SD, HD i 2K?',
+        answer:
+          'SD to 720p, HD to 1080p. HD jest dostępne od Family, a 2K w Ultimate. Do czasu dodania QHD opcja 2K odtwarza HD. AUTO dopasowuje obraz do ekranu w granicach planu.',
+      },
+      {
+        question: 'Jak wrócić do przerwanej bajki?',
+        answer:
+          'Po zalogowaniu wybierz właściwy profil i opcję kontynuowania. Czytanie i słuchanie mają osobne zapisy postępu. Okrągły przycisk „Czytaj od nowa” rozpoczyna czytanie od początku.',
+      },
+      {
+        question: 'Dlaczego bajka jest niedostępna dla dziecka?',
+        answer:
+          'Sprawdź wykluczenia tej bajki i harmonogram profilu, także strefę czasową. PIN rodzicielski nie jest jeszcze dostępny; te ustawienia nie zastępują nadzoru opiekuna.',
+      },
+      {
+        question: 'Czy mogę pobrać bajkę lub słuchać offline?',
+        answer:
+          'Ebooki PDF i EPUB są przewidziane w Family i Ultimate, ale wymagają dodania plików. Animacje i audiobooki na stronie potrzebują Internetu; pobieranie audiobooków offline nie jest dostępne.',
+      },
+      {
+        question: 'Jak zgłosić błąd lub poprosić o usunięcie konta?',
+        answer:
+          'Napisz na fabledose@gmail.com. Przy błędzie podaj bajkę lub ekran, język i przeglądarkę. W sprawie konta użyj przypisanego e-maila. Nie wysyłaj hasła; automatyczne usuwanie konta jest jeszcze odłożone.',
+      },
+    ],
+  },
   planAccess: {
     title: 'Ta opcja wymaga innego planu',
     allPlans: 'Zobacz wszystkie plany',
@@ -207,7 +266,7 @@ export const DictionaryPL: DictionaryType = {
     legalLinks: [
       { title: 'Polityka Prywatności' },
       { title: 'Warunki Korzystania' },
-      { title: 'Ustawienia Ciasteczek' },
+      { title: 'Informacje o ciasteczkach' },
     ],
   },
   tagIcon: {
@@ -720,24 +779,6 @@ export const DictionaryPL: DictionaryType = {
       headline: 'Prywatność i dane',
       description:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta semper venenatis. Pellentesque tempus mi in orci iaculis posuere. Nulla efficitur varius ex vel porttitor. Phasellus id magna non felis dignissim tristique et at orci. Proin mollis volutpat diam et varius. Nullam id scelerisque turpis, id ornare ipsum. Praesent ut aliquam tellus. Vivamus id arcu turpis.',
-      personalData: {
-        name: {
-          label: 'Imię i nazwisko:',
-          infoTitle: 'Imię i nazwisko',
-          infoDescription: 'Zmień swoje imię i nazwisko wyświetlane w profilu.',
-        },
-        email: {
-          label: 'Email/login:',
-          infoTitle: 'Email/login',
-          infoDescription:
-            'Twój adres email służący do logowania. Zablokowany ze względów bezpieczeństwa.',
-        },
-        address: {
-          label: 'Adres:',
-          infoTitle: 'Adres',
-          infoDescription: 'Twój adres zamieszkania do celów rozliczeniowych.',
-        },
-      },
       cookies: {
         label: 'Ciasteczka:',
         infoTitle: 'Zarządzanie ciasteczkami',
@@ -784,19 +825,17 @@ export const DictionaryPL: DictionaryType = {
     support_n_feedback: {
       headline: 'Pomoc i feedback',
       description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta semper venenatis. Pellentesque tempus mi in orci iaculis posuere. Nulla efficitur varius ex vel porttitor. Phasellus id magna non felis dignissim tristique et at orci. Proin mollis volutpat diam et varius. Nullam id scelerisque turpis, id ornare ipsum. Praesent ut aliquam tellus. Vivamus id arcu turpis.',
+        'Znajdziesz tu instrukcje korzystania z Fabledose, informacje o koncie i odpowiedzi dotyczące bajek. Jeśli nie znajdziesz rozwiązania, napisz do nas.',
       contactButton: 'Kontakt',
       helpArticles: {
         headline: 'Artykuły pomocy:',
         links: {
-          faq: 'FAQ',
           howToReadAnimated: 'Jak czytać bajki animowane? (tutorial)',
           displayAudioSettings: 'Ustawienia wyświetlania i audio',
-          account: 'Konta.',
+          account: 'Konto i plany',
           paymentsRefunds: 'Płatności i zwroty',
           techSupport: 'Kontakt ze wsparciem technicznym',
-          loremIpsum: 'Lorem ipsum',
-          sitAmet: 'Sit amet',
+          parentalControls: 'Kontrola rodzicielska',
         },
       },
       legalInfo: {
