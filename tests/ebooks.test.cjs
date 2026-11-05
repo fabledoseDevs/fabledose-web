@@ -309,3 +309,33 @@ test('decryption: correct key restores bytes; wrong/missing keys and tampering f
     setupFile(tampered, key.toString('hex')).readPrivateEbook(descriptor),
   );
 });
+
+test('home carousel: Goldilocks carries both localized protected download URLs; unpublished tales do not', () => {
+  const index = JSON.parse(
+    fs.readFileSync(
+      path.join(repo, 'public/fable-database/index.json'),
+      'utf8',
+    ),
+  );
+  const library = load('src/fables/fables.library.ts', {
+    '@/atoms/TagIcon/TagIcon.types': load(
+      'src/components/atoms/TagIcon/TagIcon.types.ts',
+    ),
+    '@/config/ebooks': ebooks,
+    '@/config/plans': load('src/config/plans.ts'),
+    '@/public/fable-database/index.json': index,
+    './fables.covers': load('src/fables/fables.covers.ts'),
+  });
+  for (const locale of ['pl', 'en']) {
+    for (const tale of index.tales) {
+      const card = library.toStoryCardData(tale.meta, locale);
+      for (const format of ['pdf', 'epub']) {
+        assert.equal(
+          card[format + 'Url'],
+          ebooks.getEbookDownload(tale.meta.id, locale, format)?.url,
+        );
+        if (tale.meta.id === 'goldilocks') assert.ok(card[format + 'Url']);
+      }
+    }
+  }
+});

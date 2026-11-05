@@ -1,4 +1,5 @@
 import { TAG_NAME } from '@/atoms/TagIcon/TagIcon.types';
+import { getEbookDownload } from '@/config/ebooks';
 import { normalizeStoryAvailability } from '@/config/plans';
 import type { FableTileProps } from '@/molecules/FableTile/FableTile.types';
 import type { StoryCardData } from '@/organisms/StoryCard/StoryCard.types';
@@ -95,7 +96,7 @@ export const toFableTile = (
 });
 
 /**
- * Maps shared metadata to a localized carousel card with warning tags and playback links.
+ * Maps shared metadata to a localized carousel card with warning tags, playback links and protected ebook downloads.
  */
 export const toStoryCardData = (
   meta: FableMeta,
@@ -116,4 +117,6 @@ export const toStoryCardData = (
   })),
   readUrl: `${getFableUrl(meta, locale)}?mode=slideshow`,
   audiobookUrl: `${getFableUrl(meta, locale)}?mode=audiobook`,
+  pdfUrl: getEbookDownload(meta.id, locale, 'pdf')?.url,
+  epubUrl: getEbookDownload(meta.id, locale, 'epub')?.url,
 });
