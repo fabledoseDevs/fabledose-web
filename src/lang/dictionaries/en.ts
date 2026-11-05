@@ -337,6 +337,14 @@ export const DictionaryEn: DictionaryType = {
     },
   },
   storyCard: {
+    freeEbooksNotice: {
+      intro: 'Enjoy animated stories and audiobooks at no additional cost.',
+      beforeFamily:
+        'If you would like to download our stories as ebooks, consider switching to the ',
+      betweenPlans: ' or ',
+      afterUltimate: ' plan.',
+      allPlans: 'See all plans',
+    },
     downloading: 'Downloading…',
     downloadFailed:
       'Could not download the ebook. Check that you are signed in and try again.',

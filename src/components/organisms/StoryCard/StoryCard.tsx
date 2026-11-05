@@ -1,3 +1,4 @@
+import { useParams } from 'next/navigation';
 import { useCallback, useState } from 'react';
 
 import { Button } from '@/atoms/Button/Button';
@@ -33,6 +34,7 @@ import {
   ButtonsBlock,
   ButtonsRow,
   ContentLayer,
+  EbookUpgradeNotice,
   GradientShade,
   LeftColumn,
   MediaLayer,
@@ -49,6 +51,7 @@ export const StoryCard: StoryCardType = ({
   onResetProgress,
 }) => {
   const { isVideoReady, handleVideoCanPlay } = useStoryCard();
+  const { lang } = useParams<{ lang: string }>();
   const { settings } = useSettings();
   const { requestUpgrade, showEbookUnavailable } = usePlanAccess();
   const entitlements = getPlanEntitlements(settings?.plan);
@@ -152,7 +155,27 @@ export const StoryCard: StoryCardType = ({
                     />
                   )}
                 </ButtonsRow>
-                {(data.audiobookUrl || data.pdfUrl || data.epubUrl) && (
+                {!entitlements.ebooks ? (
+                  <EbookUpgradeNotice>
+                    <Paragraph color={PAR_COLOR.PURPLE}>
+                      {storyCard.freeEbooksNotice.intro}
+                    </Paragraph>
+                    <Paragraph color={PAR_COLOR.PURPLE}>
+                      {storyCard.freeEbooksNotice.beforeFamily}
+                      <strong>Family</strong>
+                      {storyCard.freeEbooksNotice.betweenPlans}
+                      <strong>Ultimate</strong>
+                      {storyCard.freeEbooksNotice.afterUltimate}
+                    </Paragraph>
+                    <Button
+                      actionType={ACTION_TYPE.NAVIGATION}
+                      payload={`/${lang === 'pl' ? 'pl' : 'en'}/plan`}
+                      variant={BUTTON_VARIANT.RED}
+                      text={storyCard.freeEbooksNotice.allPlans}
+                      width={{ widthType: WIDTH_TYPE.PERCENT, widthValue: 100 }}
+                    />
+                  </EbookUpgradeNotice>
+                ) : data.audiobookUrl || data.pdfUrl || data.epubUrl ? (
                   <>
                     <Paragraph
                       color={PAR_COLOR.WHITE}
@@ -185,7 +208,7 @@ export const StoryCard: StoryCardType = ({
                       />
                     </SingleButtonRow>
                   </>
-                )}
+                ) : null}
               </ButtonsBlock>
             </TopSection>
 

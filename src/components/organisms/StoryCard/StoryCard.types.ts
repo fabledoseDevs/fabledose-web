@@ -138,7 +138,7 @@ export type UseStoryCard = (
  *
  * @remarks
  * Animation and audiobook actions share catalogue access in all plans. PDF/EPUB actions
- * require Family/Ultimate and open an explanatory modal when blocked or not supplied.
+ * require Family/Ultimate. Free accounts see an inline upgrade notice instead of download controls; paid accounts with missing files see an availability modal.
  * Action rows wrap on smaller screens. Restart uses a fixed circular control and does not expand neighboring buttons on hover.
  *
  * @param props - Layout, content, account access and an optional restart callback.

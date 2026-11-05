@@ -136,3 +136,31 @@ export const TagsRow = styled.div`
     max-width: 100%;
   }
 `;
+
+/** Bounded plan notice; text and CTA retain the shared Paragraph/Button styles. */
+export const EbookUpgradeNotice = styled.aside`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
+  padding: 16px;
+  border: 2px solid ${theme.palette.byColor.purple.regular};
+  border-radius: 16px;
+  background: ${theme.palette.byElement.background.white};
+
+  @media ${theme.media.tablet} {
+    width: 66.6667%;
+  }
+
+  > p {
+    font-size: 1.3rem;
+    line-height: 1.5;
+  }
+
+  > * {
+    max-width: 100%;
+  }
+`;

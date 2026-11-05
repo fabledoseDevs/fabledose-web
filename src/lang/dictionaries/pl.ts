@@ -342,6 +342,15 @@ export const DictionaryPL: DictionaryType = {
     },
   },
   storyCard: {
+    freeEbooksNotice: {
+      intro:
+        'Ciesz się animowanymi bajkami oraz audiobookami bez dodatkowych opłat.',
+      beforeFamily:
+        'Jeżeli myślisz o pobieraniu naszych bajek w formie ebooka rozważ przejście na plan ',
+      betweenPlans: ' bądź ',
+      afterUltimate: '.',
+      allPlans: 'Pokaż wszystkie plany',
+    },
     downloading: 'Pobieranie…',
     downloadFailed:
       'Nie udało się pobrać ebooka. Sprawdź, czy jesteś zalogowany, i spróbuj ponownie.',
