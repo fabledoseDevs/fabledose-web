@@ -261,7 +261,6 @@ export const SettingsProvider: SettingsProviderType = ({
     if (settingsRef.current.registrationCompleted !== false) return;
     const session = sessionRef.current;
     const patch: Partial<Settings> = {
-      plan: DEFAULT_PLAN,
       registrationCompleted: true,
     };
     await updateUserSettings(user.uid, patch);

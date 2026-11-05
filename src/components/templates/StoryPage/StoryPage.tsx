@@ -17,6 +17,7 @@ import {
   TEXT_ALIGNMENT,
 } from '@/atoms/Paragraph/Paragraph.types';
 import { Toast } from '@/atoms/Toast';
+import { getEbookDownload } from '@/config/ebooks';
 import { auth } from '@/config/firebase';
 import { canAccessStory } from '@/config/plans';
 import { useChildProfiles } from '@/contexts/ChildProfilesContext';
@@ -532,6 +533,8 @@ export const StoryPage: StoryPageType = ({
               name: tag,
               warning: toWarningTag(tag),
             })),
+            pdfUrl: getEbookDownload(fable.meta.id, lang, 'pdf')?.url,
+            epubUrl: getEbookDownload(fable.meta.id, lang, 'epub')?.url,
             readUrl: `/${lang}/fable/${localeSlug}?mode=slideshow`,
             audiobookUrl: `/${lang}/fable/${localeSlug}?mode=audiobook`,
           }}

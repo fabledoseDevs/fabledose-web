@@ -14,8 +14,16 @@ service cloud.firestore {
     }
 
     match /users/{userId} {
-      allow read: if isOwner(userId);
-      allow write: if isOwner(userId) && accountIsActive(userId);
+      function savedPlan(data) {
+        return data.get('settings', {}).get('plan', 'free');
+      }
+      allow read: if isOwner(userId) && accountIsActive(userId);
+      // Plans are assigned in Firebase Console/Admin, never by a client write.
+      allow create: if isOwner(userId) && accountIsActive(userId)
+        && savedPlan(request.resource.data) == 'free';
+      allow update: if isOwner(userId) && accountIsActive(userId)
+        && savedPlan(request.resource.data) == savedPlan(resource.data);
+      allow delete: if isOwner(userId) && accountIsActive(userId);
 
       // Child identities share the parent login; PIN authorization is not enabled yet.
       match /childProfiles/{profileId} {

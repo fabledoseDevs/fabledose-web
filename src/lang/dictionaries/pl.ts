@@ -335,6 +335,9 @@ export const DictionaryPL: DictionaryType = {
     },
   },
   storyCard: {
+    downloading: 'Pobieranie…',
+    downloadFailed:
+      'Nie udało się pobrać ebooka. Sprawdź, czy jesteś zalogowany, i spróbuj ponownie.',
     readButton: 'Czytaj',
     readButtonContinue: 'Czytaj dalej',
     audiobookButton: 'Audiobook',

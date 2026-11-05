@@ -265,3 +265,52 @@ verification is still deferred. Existing account data is not migrated or removed
 Run `npm run test:plans`, `npm run test:profiles`, `npm run test:library` and
 `npm run test:audio`. Browser checks use mocked Firebase, including downgrade and
 quota cases; they do not validate deployed production rules.
+
+
+### Protected ebook downloads (Goldilocks, PL/EN)
+
+PDF and EPUB files are stored as AES-256-GCM encrypted `.enc` files in
+`private/ebooks/`, **outside `public/`**. This repository is public: never commit
+plaintext ebooks or the encryption key. The route decrypts only after authorization. The existing
+story-intro buttons fetch `/api/ebooks/{id}/{locale}/{format}` with the signed-in
+Firebase ID token in the Authorization header. Every request validates that token
+with Firebase Auth and reads the owner's current `settings.plan` via Firestore REST.
+Only `family` and `ultimate` are allowed; browser state and URL parameters cannot
+supply a plan. No access tokens appear in URLs and responses are never cached.
+Next.js bundles the four encrypted files using `outputFileTracingIncludes`.
+`EBOOK_ENCRYPTION_KEY` is a 64-character hexadecimal (32-byte) server-only key;
+it is stored locally in ignored `.env.local` and must also be set in the Vercel
+environment. Never prefix it with `NEXT_PUBLIC_`, log it, or include it in a PR.
+Retain the key in a secure backup; changing it requires re-encrypting all assets.
+This uses the existing Next.js deployment and Firebase services, not Cloud
+Functions or Firebase Storage. It does not require enabling Blaze.
+
+**Required rollout order — downloads are disabled until completed:**
+
+1. In Firebase Console → Firestore Database → Rules, replace the entire rules text
+   with `docs/firebase/firestore-account-deletion.rules` and publish. This keeps
+   existing profile policies and locks `settings.plan`: new accounts are Free,
+   clients cannot change, delete or replace the plan on an existing account.
+   Reconcile any newer console-only changes before replacing the file.
+2. For a test user, open `users/{Firebase Auth UID}` → `settings` → `plan` and set
+   the string to `family` or `ultimate` **in Firebase Console**. Existing assigned
+   plans are preserved. Other preferences remain editable. No billing is started.
+3. Copy `EBOOK_ENCRYPTION_KEY` from local `.env.local` to Vercel → project →
+   Settings → Environment Variables, for each environment serving ebooks.
+   Set server-only `EBOOK_DOWNLOADS_ENABLED=true` in the deployment environment
+   (and `.env.local` for local testing), then redeploy/restart Next.js. Leave it
+   unset until the rules above have been published. Existing
+   `NEXT_PUBLIC_FIREBASE_API_KEY` and `NEXT_PUBLIC_FIREBASE_PROJECT_ID` must match
+   that Firebase project; no Admin private key is needed.
+4. Test both languages/formats in Family and Ultimate. Test Free, logout and
+   a pasted API URL: no file must be returned. Test a downgraded plan again;
+   the server reads its current value on every request.
+
+The gate is an operational rollout switch, not authorization. Future billing must
+assign the plan from trusted server code. A downloaded file can be copied by its
+recipient; this access check is not DRM. Do not move ebooks into `public/`, issue
+public storage tokens, or add a static-file fallback when authentication fails.
+
+Checks: `npm run test:ebooks`, `npm run test:plans`, `npm run types-check`,
+`npm run lint`, `npm run build`. Automated tests mock Firebase and never touch
+live accounts or publish rules.

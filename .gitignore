@@ -54,3 +54,7 @@ next-env.d.ts
 /functions/node_modules/
 /.firebase/
 *debug.log
+
+# Paid ebooks: only authenticated encrypted deployment assets may be committed.
+/private/ebooks/*.pdf
+/private/ebooks/*.epub

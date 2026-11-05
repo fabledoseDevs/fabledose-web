@@ -117,6 +117,10 @@ export type DictionaryType = {
     reparation: { title: string; description: string };
   };
   storyCard: {
+    /** Label displayed while a protected ebook attachment is being fetched. */
+    downloading: string;
+    /** Retryable session, network or private-file delivery failure. */
+    downloadFailed: string;
     readButton: string;
     readButtonContinue: string;
     audiobookButton: string;
