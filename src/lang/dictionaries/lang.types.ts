@@ -17,10 +17,16 @@ export type DictionaryType = {
     read: string;
     readFable: string;
   };
+  /** Pre-launch copy and shared test-access/plan-save feedback, in the interface locale. */
   maintenance: {
     headline: string;
     paragraph: string;
-    button: string;
+    accessTitle: string;
+    accessPassword: string;
+    accessSubmit: string;
+    accessError: string;
+    planFailed: string;
+    planSaved: string;
   };
   notFoundPage: {
     headline: string;

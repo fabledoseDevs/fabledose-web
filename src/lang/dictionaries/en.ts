@@ -142,9 +142,17 @@ export const DictionaryEn: DictionaryType = {
     readFable: 'Read fable',
   },
   maintenance: {
-    headline: 'Q2 2026 premier',
-    paragraph: `Our new website is currently under construction.<br />Until it's ready, we are looking forward to welcoming you<br />at our demo page.`,
-    button: 'See DEMO',
+    headline: 'Planned launch: Q1 2027',
+    paragraph:
+      'We are working on Fabledose. Our new website is currently under construction.',
+    accessTitle: 'Test access',
+    accessPassword: 'Access password',
+    accessSubmit: 'Unlock',
+    accessError:
+      'Incorrect password or connection unavailable. Please try again.',
+    planFailed:
+      'Could not change the plan. Your previous plan is still active. Please try again.',
+    planSaved: 'Test plan updated.',
   },
   notFoundPage: {
     headline: "It looks like you've lost your way.",

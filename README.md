@@ -289,12 +289,13 @@ Functions or Firebase Storage. It does not require enabling Blaze.
 
 1. In Firebase Console → Firestore Database → Rules, replace the entire rules text
    with `docs/firebase/firestore-account-deletion.rules` and publish. This keeps
-   existing profile policies and locks `settings.plan`: new accounts are Free,
-   clients cannot change, delete or replace the plan on an existing account.
+   existing profile policies. During the current test phase, `testPlansEnabled()`
+   is true: all signed-in users can freely switch Free/Family/Ultimate without
+   payments. Downloads still check the CURRENT saved plan on every request.
    Reconcile any newer console-only changes before replacing the file.
-2. For a test user, open `users/{Firebase Auth UID}` → `settings` → `plan` and set
-   the string to `family` or `ultimate` **in Firebase Console**. Existing assigned
-   plans are preserved. Other preferences remain editable. No billing is started.
+2. Sign in and use Settings → Profile and account → plan selection to switch
+   freely between Free, Family and Ultimate. The interface waits for the saved
+   plan before updating permissions. No payment is taken.
 3. Copy `EBOOK_ENCRYPTION_KEY` from local `.env.local` to Vercel → project →
    Settings → Environment Variables, for each environment serving ebooks.
    Set server-only `EBOOK_DOWNLOADS_ENABLED=true` in the deployment environment
@@ -306,11 +307,23 @@ Functions or Firebase Storage. It does not require enabling Blaze.
    a pasted API URL: no file must be returned. Test a downgraded plan again;
    the server reads its current value on every request.
 
-The gate is an operational rollout switch, not authorization. Future billing must
-assign the plan from trusted server code. A downloaded file can be copied by its
+The gate is an operational rollout switch, not authorization. Before enabling billing, set `testPlansEnabled()` to false in the rules and
+assign plans from trusted server code. The current test switch deliberately lets
+any logged-in tester enable paid-plan features without paying. A downloaded file can be copied by its
 recipient; this access check is not DRM. Do not move ebooks into `public/`, issue
 public storage tokens, or add a static-file fallback when authentication fails.
 
 Checks: `npm run test:ebooks`, `npm run test:plans`, `npm run types-check`,
 `npm run lint`, `npm run build`. Automated tests mock Firebase and never touch
 live accounts or publish rules.
+
+
+### Maintenance preview during testing
+
+The public homepage announces Q1 2027 and no longer links to a demo. The discreet
+bottom-left trigger opens a password dialog. Shared password: `TestAccess`.
+A successful server check sets an HttpOnly, SameSite=Lax cookie for 48 hours
+(Secure on HTTPS); the server verifies its signature and expiry on refresh.
+Signing uses the existing server-only `EBOOK_ENCRYPTION_KEY`; no additional
+Vercel variable is required. This is a shared preview convenience, not account
+authentication or a security boundary for the rest of the application.

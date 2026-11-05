@@ -18,11 +18,15 @@ service cloud.firestore {
         return data.get('settings', {}).get('plan', 'free');
       }
       allow read: if isOwner(userId) && accountIsActive(userId);
-      // Plans are assigned in Firebase Console/Admin, never by a client write.
+      // TEST PHASE: all signed-in users may switch plans; no billing is active.
+      // Set this to false before launching paid subscriptions.
+      function testPlansEnabled() { return true; }
       allow create: if isOwner(userId) && accountIsActive(userId)
         && savedPlan(request.resource.data) == 'free';
       allow update: if isOwner(userId) && accountIsActive(userId)
-        && savedPlan(request.resource.data) == savedPlan(resource.data);
+        && (savedPlan(request.resource.data) == savedPlan(resource.data)
+          || (testPlansEnabled()
+            && savedPlan(request.resource.data) in ['free', 'family', 'ultimate']));
       allow delete: if isOwner(userId) && accountIsActive(userId);
 
       // Child identities share the parent login; PIN authorization is not enabled yet.

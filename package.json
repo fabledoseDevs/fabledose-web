@@ -22,7 +22,8 @@
     "docs:watch": "typedoc --watch",
     "test:profiles": "node --test tests/profiles.test.cjs",
     "test:plans": "node --test tests/plans.test.cjs",
-    "test:ebooks": "node --test tests/ebooks.test.cjs"
+    "test:ebooks": "node --test tests/ebooks.test.cjs",
+    "test:testing-mode": "node --test tests/testing-mode.test.cjs"
   },
   "dependencies": {
     "@emotion/cache": "^11.14.0",

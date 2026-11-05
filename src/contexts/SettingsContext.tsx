@@ -271,17 +271,43 @@ export const SettingsProvider: SettingsProviderType = ({
   }, [user]);
 
   const updateSettings = useCallback(
-    (newSettings: Partial<Settings>): void => {
+    async (newSettings: Partial<Settings>): Promise<boolean> => {
       if (!user || !settingsRef.current || auth.currentUser?.uid !== user.uid)
-        return;
-      if (newSettings.plan && newSettings.plan !== settingsRef.current.plan)
+        return false;
+      const session = sessionRef.current;
+      const planChanged =
+        newSettings.plan && newSettings.plan !== settingsRef.current.plan;
+      if (planChanged) {
+        try {
+          await updateUserSettings(user.uid, newSettings);
+        } catch {
+          return false;
+        }
+        if (
+          session !== sessionRef.current ||
+          auth.currentUser?.uid !== user.uid
+        )
+          return false;
+        latestPlanRefreshRef.current = 0;
         window.dispatchEvent(new Event('fabledose:profile-changing'));
+        settingsRef.current = { ...settingsRef.current!, ...newSettings };
+        setSettings(previous =>
+          previous ? { ...previous, ...newSettings } : previous,
+        );
+        return true;
+      }
       setSettings(previous =>
         previous ? { ...previous, ...newSettings } : previous,
       );
-      void updateUserSettings(user.uid, newSettings).catch(error => {
+      try {
+        await updateUserSettings(user.uid, newSettings);
+        return (
+          session === sessionRef.current && auth.currentUser?.uid === user.uid
+        );
+      } catch (error) {
         console.error('Failed to save settings', error);
-      });
+        return false;
+      }
     },
     [user],
   );

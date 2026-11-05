@@ -13,7 +13,7 @@ import type { InfoCardSimpleProps } from '@/molecules/InfoCardSimple';
 /**
  * Props for the StandalonePlanSelector component.
  *
- * @property onPlanSelected - Optional callback fired after a plan is selected.
+ * @property onPlanSelected - Optional callback fired only after a plan change is persisted.
  * It can be used by a parent page to react to selection, for example by
  * redirecting the user.
  */
@@ -31,6 +31,10 @@ export interface StandalonePlanSelectorProps {
  * @property handleDetailViewToggle - Toggles extended comparison visibility.
  */
 export interface UseStandalonePlanSelectorReturnValues {
+  /** True only when Firestore rejected the plan change; the previous plan stays active. */
+  planError: boolean;
+  /** True after the chosen test plan was persisted successfully, without billing. */
+  planSaved: boolean;
   isDetailViewVisible: boolean;
   simpleCards: [InfoCardSimpleProps, InfoCardSimpleProps, InfoCardSimpleProps];
   extendedCards: [
@@ -44,7 +48,7 @@ export interface UseStandalonePlanSelectorReturnValues {
 /**
  * Options for the StandalonePlanSelector hook.
  *
- * @property onPlanSelected - Optional callback fired after selecting a plan.
+ * @property onPlanSelected - Optional callback fired after a confirmed plan save.
  */
 export interface UseStandalonePlanSelectorOptions {
   onPlanSelected?: (plan: UserPlan) => void;

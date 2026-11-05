@@ -27,7 +27,7 @@ export const GET = async (
       { error: 'unauthenticated' },
       { status: 401, headers },
     );
-  // Enable only after publishing immutable-plan rules; otherwise fail closed.
+  // Enable after publishing the current rules; plans remain freely switchable during tests.
   if (process.env.EBOOK_DOWNLOADS_ENABLED !== 'true')
     return Response.json({ error: 'unavailable' }, { status: 503, headers });
   try {

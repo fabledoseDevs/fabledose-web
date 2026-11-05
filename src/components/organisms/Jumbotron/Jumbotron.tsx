@@ -43,7 +43,7 @@ export const Jumbotron: JumbotronType = ({
       >
         {paragraph}
       </Paragraph>
-      <Button {...button} />
+      {button && <Button {...button} />}
     </JumbotronContent>
   </JumbotronBody>
 );

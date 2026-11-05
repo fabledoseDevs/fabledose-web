@@ -141,9 +141,16 @@ export const DictionaryPL: DictionaryType = {
     readFable: 'Czytaj bajkę',
   },
   maintenance: {
-    headline: 'Planowana premiera Q2 2026',
-    paragraph: `Nasza nowa strona jest obecnie w budowie.<br />Do czasu premiery zapraszamy do zapoznania się z naszymi baśniami<br />na stronie demonstracyjnej.`,
-    button: 'Zobacz DEMO',
+    headline: 'Planowana premiera: I kwartał 2027',
+    paragraph:
+      'Pracujemy nad Fabledose. Nasza nowa strona jest obecnie w budowie.',
+    accessTitle: 'Dostęp testowy',
+    accessPassword: 'Hasło dostępu',
+    accessSubmit: 'Odblokuj',
+    accessError: 'Nieprawidłowe hasło lub brak połączenia. Spróbuj ponownie.',
+    planFailed:
+      'Nie udało się zmienić planu. Poprzedni plan pozostaje aktywny. Spróbuj ponownie.',
+    planSaved: 'Plan testowy został zmieniony.',
   },
   notFoundPage: {
     headline: 'Wygląda na to, że zgubiłeś drogę.',
