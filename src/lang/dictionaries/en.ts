@@ -142,7 +142,7 @@ export const DictionaryEn: DictionaryType = {
     readFable: 'Read fable',
   },
   maintenance: {
-    headline: 'Planned launch: Q1 2027',
+    headline: `Planned launch:<br />Q1 2027`,
     paragraph:
       'We are working on Fabledose. Our new website is currently under construction.',
     accessTitle: 'Test access',

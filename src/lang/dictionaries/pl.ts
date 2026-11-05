@@ -141,7 +141,7 @@ export const DictionaryPL: DictionaryType = {
     readFable: 'Czytaj bajkę',
   },
   maintenance: {
-    headline: 'Planowana premiera: I kwartał 2027',
+    headline: `Planowana premiera:<br />I kwartał 2027`,
     paragraph:
       'Pracujemy nad Fabledose. Nasza nowa strona jest obecnie w budowie.',
     accessTitle: 'Dostęp testowy',
