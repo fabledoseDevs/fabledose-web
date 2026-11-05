@@ -14,6 +14,9 @@ export const useStandalonePlanSelector: UseStandalonePlanSelectorType =
     const { updateSettings } = useSettings();
     const { registerPage } = useDictionary();
     const onPlanSelected = options?.onPlanSelected;
+    const [pending, setPending] = useState(false);
+    const [planError, setPlanError] = useState(false);
+    const [planSaved, setPlanSaved] = useState(false);
     const [isDetailViewVisible, setIsDetailViewVisible] =
       useState<boolean>(false);
 
@@ -21,17 +24,31 @@ export const useStandalonePlanSelector: UseStandalonePlanSelectorType =
       setIsDetailViewVisible(!isDetailViewVisible);
 
     const handlePlanSelect = useCallback(
-      (plan: 'free' | 'family' | 'ultimate') => {
-        updateSettings({ plan });
-        onPlanSelected?.(plan);
+      async (plan: 'free' | 'family' | 'ultimate') => {
+        if (pending) return;
+        setPending(true);
+        setPlanError(false);
+        setPlanSaved(false);
+        const saved = await updateSettings({ plan });
+        setPending(false);
+        if (saved) {
+          setPlanSaved(true);
+          onPlanSelected?.(plan);
+        } else setPlanError(true);
       },
-      [onPlanSelected, updateSettings],
+      [onPlanSelected, updateSettings, pending],
     );
 
-    const simpleCards = useMemo(
-      () => createSimpleCards(registerPage.planSelector, handlePlanSelect),
-      [handlePlanSelect, registerPage.planSelector],
-    );
+    const simpleCards = useMemo(() => {
+      const cards = createSimpleCards(
+        registerPage.planSelector,
+        handlePlanSelect,
+      );
+      cards.forEach(card => {
+        card.buttonParams = { ...card.buttonParams, isDisabled: pending };
+      });
+      return cards;
+    }, [handlePlanSelect, registerPage.planSelector, pending]);
 
     const extendedCards = useMemo(
       () => createExtendedCards(registerPage.planSelector),
@@ -39,6 +56,8 @@ export const useStandalonePlanSelector: UseStandalonePlanSelectorType =
     );
 
     return {
+      planError,
+      planSaved,
       isDetailViewVisible,
       simpleCards,
       extendedCards,

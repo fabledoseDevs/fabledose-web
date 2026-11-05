@@ -16,13 +16,14 @@ import type { ButtonProps } from '@/atoms/Button/Button.types';
  * @property {boolean} [logo=false] - Whether to display the logo at the top of the jumbotron
  * @property {string} headline - The headline text to display
  * @property {string} paragraph - The paragraph text to display
- * @property {ButtonProps} button - Props for the call-to-action button
+ * @property {ButtonProps} [button] - Optional call-to-action button; omitted on maintenance
  */
 export interface JumbotronProps {
   logo?: boolean;
   headline: string;
   paragraph: ReactNode;
-  button: ButtonProps;
+  /** Optional call to action; omitted on the maintenance screen. */
+  button?: ButtonProps;
 }
 
 /**

@@ -79,7 +79,12 @@ export interface SettingsContextType {
   retrySettingsLoad: () => void;
   /** Persists free onboarding before updating state; rejects on failure or session change. */
   completeRegistration: () => Promise<void>;
-  updateSettings: (newSettings: Partial<Settings>) => void;
+  /**
+   * Persists a settings patch and reports success. Plan changes are committed
+   * before updating UI permissions; failed or stale writes return false.
+   * During testing, rules permit Free/Family/Ultimate switching without billing.
+   */
+  updateSettings: (newSettings: Partial<Settings>) => Promise<boolean>;
   refreshPlanFromFirebase: () => Promise<UserPlan>;
   /** Reloads Firebase Auth and persists only the currently confirmed email. */
   refreshAccountEmail: () => Promise<boolean>;

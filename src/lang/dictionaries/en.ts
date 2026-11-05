@@ -142,9 +142,17 @@ export const DictionaryEn: DictionaryType = {
     readFable: 'Read fable',
   },
   maintenance: {
-    headline: 'Q2 2026 premier',
-    paragraph: `Our new website is currently under construction.<br />Until it's ready, we are looking forward to welcoming you<br />at our demo page.`,
-    button: 'See DEMO',
+    headline: `Planned launch:<br />Q1 2027`,
+    paragraph:
+      'We are working on Fabledose. Our new website is currently under construction.',
+    accessTitle: 'Test access',
+    accessPassword: 'Access password',
+    accessSubmit: 'Unlock',
+    accessError:
+      'Incorrect password or connection unavailable. Please try again.',
+    planFailed:
+      'Could not change the plan. Your previous plan is still active. Please try again.',
+    planSaved: 'Test plan updated.',
   },
   notFoundPage: {
     headline: "It looks like you've lost your way.",
@@ -329,6 +337,17 @@ export const DictionaryEn: DictionaryType = {
     },
   },
   storyCard: {
+    freeEbooksNotice: {
+      intro: 'Enjoy animated stories and audiobooks at no additional cost.',
+      beforeFamily:
+        'If you would like to download our stories as ebooks, consider switching to the ',
+      betweenPlans: ' or ',
+      afterUltimate: ' plan.',
+      allPlans: 'See all plans',
+    },
+    downloading: 'Downloading…',
+    downloadFailed:
+      'Could not download the ebook. Check that you are signed in and try again.',
     readButton: 'Read',
     readButtonContinue: 'Continue reading',
     audiobookButton: 'Audiobook',

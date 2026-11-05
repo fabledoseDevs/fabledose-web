@@ -1,3 +1,4 @@
+import { useParams } from 'next/navigation';
 import { useCallback, useState } from 'react';
 
 import { Button } from '@/atoms/Button/Button';
@@ -18,6 +19,8 @@ import {
 } from '@/atoms/Paragraph/Paragraph.types';
 import { ResetButton } from '@/atoms/ResetButton';
 import { TagIcon } from '@/atoms/TagIcon/TagIcon';
+import { Toast } from '@/atoms/Toast';
+import { downloadEbook } from '@/config/ebookDownload';
 import { canAccessStory, getPlanEntitlements } from '@/config/plans';
 import { usePlanAccess } from '@/contexts/PlanAccessContext';
 import { useSettings } from '@/contexts/SettingsContext';
@@ -31,6 +34,7 @@ import {
   ButtonsBlock,
   ButtonsRow,
   ContentLayer,
+  EbookUpgradeNotice,
   GradientShade,
   LeftColumn,
   MediaLayer,
@@ -47,6 +51,7 @@ export const StoryCard: StoryCardType = ({
   onResetProgress,
 }) => {
   const { isVideoReady, handleVideoCanPlay } = useStoryCard();
+  const { lang } = useParams<{ lang: string }>();
   const { settings } = useSettings();
   const { requestUpgrade, showEbookUnavailable } = usePlanAccess();
   const entitlements = getPlanEntitlements(settings?.plan);
@@ -58,6 +63,22 @@ export const StoryCard: StoryCardType = ({
           actionType: ACTION_TYPE.FUNCTION_TRIGGER,
           payload: () => requestUpgrade('story'),
         };
+  const [downloading, setDownloading] = useState<string | null>(null);
+  const [downloadError, setDownloadError] = useState(false);
+  const handleDownload = async (url: string) => {
+    if (downloading) return;
+    setDownloading(url);
+    setDownloadError(false);
+    try {
+      await downloadEbook(url);
+    } catch (error) {
+      if (error instanceof Error && error.message === 'ebook/forbidden')
+        requestUpgrade('ebooks');
+      else setDownloadError(true);
+    } finally {
+      setDownloading(null);
+    }
+  };
   const ebookAction = (url?: string) =>
     !entitlements.ebooks
       ? {
@@ -69,7 +90,10 @@ export const StoryCard: StoryCardType = ({
           actionType: ACTION_TYPE.FUNCTION_TRIGGER,
           payload: showEbookUnavailable,
         }
-      : { actionType: ACTION_TYPE.NAVIGATION, payload: url };
+      : {
+          actionType: ACTION_TYPE.FUNCTION_TRIGGER,
+          payload: () => void handleDownload(url),
+        };
   const { storyCard, librarySync } = useDictionary();
   const [detailsOpen, setDetailsOpen] = useState(false);
   const closeDetails = useCallback(() => setDetailsOpen(false), []);
@@ -131,7 +155,27 @@ export const StoryCard: StoryCardType = ({
                     />
                   )}
                 </ButtonsRow>
-                {(data.audiobookUrl || data.pdfUrl || data.epubUrl) && (
+                {!entitlements.ebooks ? (
+                  <EbookUpgradeNotice>
+                    <Paragraph color={PAR_COLOR.PURPLE}>
+                      {storyCard.freeEbooksNotice.intro}
+                    </Paragraph>
+                    <Paragraph color={PAR_COLOR.PURPLE}>
+                      {storyCard.freeEbooksNotice.beforeFamily}
+                      <strong>Family</strong>
+                      {storyCard.freeEbooksNotice.betweenPlans}
+                      <strong>Ultimate</strong>
+                      {storyCard.freeEbooksNotice.afterUltimate}
+                    </Paragraph>
+                    <Button
+                      actionType={ACTION_TYPE.NAVIGATION}
+                      payload={`/${lang === 'pl' ? 'pl' : 'en'}/plan`}
+                      variant={BUTTON_VARIANT.RED}
+                      text={storyCard.freeEbooksNotice.allPlans}
+                      width={{ widthType: WIDTH_TYPE.PERCENT, widthValue: 100 }}
+                    />
+                  </EbookUpgradeNotice>
+                ) : data.audiobookUrl || data.pdfUrl || data.epubUrl ? (
                   <>
                     <Paragraph
                       color={PAR_COLOR.WHITE}
@@ -143,18 +187,28 @@ export const StoryCard: StoryCardType = ({
                       <Button
                         {...ebookAction(data.pdfUrl)}
                         variant={BUTTON_VARIANT.TRANSPARENT}
-                        text={storyCard.pdfButton}
+                        text={
+                          downloading === data.pdfUrl
+                            ? storyCard.downloading
+                            : storyCard.pdfButton
+                        }
+                        isDisabled={Boolean(downloading)}
                         width={{ widthType: WIDTH_TYPE.PX, widthValue: 200 }}
                       />
                       <Button
                         {...ebookAction(data.epubUrl)}
                         variant={BUTTON_VARIANT.TRANSPARENT}
-                        text={storyCard.epubButton}
+                        text={
+                          downloading === data.epubUrl
+                            ? storyCard.downloading
+                            : storyCard.epubButton
+                        }
+                        isDisabled={Boolean(downloading)}
                         width={{ widthType: WIDTH_TYPE.PX, widthValue: 200 }}
                       />
                     </SingleButtonRow>
                   </>
-                )}
+                ) : null}
               </ButtonsBlock>
             </TopSection>
 
@@ -186,6 +240,12 @@ export const StoryCard: StoryCardType = ({
           </LeftColumn>
         </ContentLayer>
       </StoryCardBody>
+      {downloadError && (
+        <Toast
+          message={storyCard.downloadFailed}
+          onClose={() => setDownloadError(false)}
+        />
+      )}
       {data.fullDescription && (
         <StoryDetailsModal
           isOpen={detailsOpen}

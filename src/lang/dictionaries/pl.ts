@@ -141,9 +141,16 @@ export const DictionaryPL: DictionaryType = {
     readFable: 'Czytaj bajkę',
   },
   maintenance: {
-    headline: 'Planowana premiera Q2 2026',
-    paragraph: `Nasza nowa strona jest obecnie w budowie.<br />Do czasu premiery zapraszamy do zapoznania się z naszymi baśniami<br />na stronie demonstracyjnej.`,
-    button: 'Zobacz DEMO',
+    headline: `Planowana premiera:<br />I kwartał 2027`,
+    paragraph:
+      'Pracujemy nad Fabledose. Nasza nowa strona jest obecnie w budowie.',
+    accessTitle: 'Dostęp testowy',
+    accessPassword: 'Hasło dostępu',
+    accessSubmit: 'Odblokuj',
+    accessError: 'Nieprawidłowe hasło lub brak połączenia. Spróbuj ponownie.',
+    planFailed:
+      'Nie udało się zmienić planu. Poprzedni plan pozostaje aktywny. Spróbuj ponownie.',
+    planSaved: 'Plan testowy został zmieniony.',
   },
   notFoundPage: {
     headline: 'Wygląda na to, że zgubiłeś drogę.',
@@ -335,6 +342,18 @@ export const DictionaryPL: DictionaryType = {
     },
   },
   storyCard: {
+    freeEbooksNotice: {
+      intro:
+        'Ciesz się animowanymi bajkami oraz audiobookami bez dodatkowych opłat.',
+      beforeFamily:
+        'Jeżeli myślisz o pobieraniu naszych bajek w formie ebooka rozważ przejście na plan ',
+      betweenPlans: ' bądź ',
+      afterUltimate: '.',
+      allPlans: 'Pokaż wszystkie plany',
+    },
+    downloading: 'Pobieranie…',
+    downloadFailed:
+      'Nie udało się pobrać ebooka. Sprawdź, czy jesteś zalogowany, i spróbuj ponownie.',
     readButton: 'Czytaj',
     readButtonContinue: 'Czytaj dalej',
     audiobookButton: 'Audiobook',

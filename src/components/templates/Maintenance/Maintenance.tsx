@@ -1,8 +1,3 @@
-import {
-  ACTION_TYPE,
-  BUTTON_VARIANT,
-  WIDTH_TYPE,
-} from '@/atoms/Button/Button.types';
 import Container from '@/atoms/Container';
 import {
   BACKGROUND_COLOR,
@@ -29,15 +24,6 @@ export const Maintenance: MaintenanceType = () => {
           paragraph={
             <span dangerouslySetInnerHTML={{ __html: maintenance.paragraph }} />
           }
-          button={{
-            actionType: ACTION_TYPE.NAVIGATION,
-            variant: BUTTON_VARIANT.RED,
-            width: {
-              widthType: WIDTH_TYPE.AUTO,
-            },
-            text: maintenance.button,
-            payload: 'https://demo.fabledose.com',
-          }}
         />
       </Container>
     </MaintenanceBody>

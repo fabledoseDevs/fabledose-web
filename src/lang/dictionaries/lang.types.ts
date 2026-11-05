@@ -17,10 +17,16 @@ export type DictionaryType = {
     read: string;
     readFable: string;
   };
+  /** Pre-launch copy and shared test-access/plan-save feedback, in the interface locale. */
   maintenance: {
     headline: string;
     paragraph: string;
-    button: string;
+    accessTitle: string;
+    accessPassword: string;
+    accessSubmit: string;
+    accessError: string;
+    planFailed: string;
+    planSaved: string;
   };
   notFoundPage: {
     headline: string;
@@ -117,6 +123,23 @@ export type DictionaryType = {
     reparation: { title: string; description: string };
   };
   storyCard: {
+    /**
+     * Inline alternative to ebook download controls for Free accounts.
+     * The same card renders it in the homepage carousel and story introduction.
+     * Family and Ultimate names are emphasized by the existing Paragraph markup;
+     * split copy preserves natural grammar and localized plan navigation.
+     */
+    freeEbooksNotice: {
+      intro: string;
+      beforeFamily: string;
+      betweenPlans: string;
+      afterUltimate: string;
+      allPlans: string;
+    };
+    /** Label displayed while a protected ebook attachment is being fetched. */
+    downloading: string;
+    /** Retryable session, network or private-file delivery failure. */
+    downloadFailed: string;
     readButton: string;
     readButtonContinue: string;
     audiobookButton: string;

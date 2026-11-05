@@ -6,6 +6,7 @@ import {
 } from '@/atoms/Button/Button.types';
 import Paragraph from '@/atoms/Paragraph';
 import { TEXT_ALIGNMENT } from '@/atoms/Paragraph/Paragraph.types';
+import { Toast } from '@/atoms/Toast';
 import { useDictionary } from '@/lang/DictionaryProvider';
 import PlanComparisonExtended from '@/organisms/PlanComparisonExtended';
 import PlanComparisonSimple from '@/organisms/PlanComparisonSimple';
@@ -21,8 +22,10 @@ import type { StandalonePlanSelector as StandalonePlanSelectorType } from './Sta
 export const StandalonePlanSelector: StandalonePlanSelectorType = ({
   onPlanSelected,
 }) => {
-  const { registerPage } = useDictionary();
+  const { registerPage, maintenance } = useDictionary();
   const {
+    planError,
+    planSaved,
     isDetailViewVisible,
     simpleCards,
     extendedCards,
@@ -32,6 +35,8 @@ export const StandalonePlanSelector: StandalonePlanSelectorType = ({
 
   return (
     <PlanSelectorBody id="page-top">
+      {planError && <Toast message={maintenance.planFailed} />}
+      {planSaved && <Toast message={maintenance.planSaved} />}
       <SelectorCard>
         <Paragraph alignment={TEXT_ALIGNMENT.CENTER}>
           {planSelector.standaloneDescription}

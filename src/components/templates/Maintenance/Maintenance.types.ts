@@ -1,26 +1,13 @@
 import type { ReactElement } from 'react';
 
 /**
- * @module
- * This file defines the types and interfaces for the RegisterPage component.
- */
-
-/**
- * Component renders a maintenance page for the application.
- * The maintenance page includes:
- * - Jumbotron with headline about planned release
- * - Informational paragraph about the site being under construction
- * - Button linking to a demo site
- *
- * @group Component
- *
+ * Public pre-launch screen with the planned Q1 2027 release and Fabledose logo.
+ * @remarks There is no demo invitation or public call to action. The homepage
+ * retains a discreet trigger that opens the shared-password preview dialog.
+ * The server validates preview access and remembers it for 48 hours.
  * @example
  * ```tsx
- * <RegisterPage />
+ * <Maintenance />
  * ```
- */
-
-/**
- * RegisterPage component type definition
  */
 export type Maintenance = () => ReactElement;

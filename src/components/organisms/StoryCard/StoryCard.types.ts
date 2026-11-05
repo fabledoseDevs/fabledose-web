@@ -56,8 +56,8 @@ export enum STORY_CARD_VARIANT {
  * @property unlockUrl - Optional target URL used by "Unlock" button.
  * @property fullDescription - Localized parent commentary and complete synopsis displayed by the More info dialog.
  * @property moreInfoUrl - Deprecated legacy field; details now open in a modal.
- * @property pdfUrl - Optional target URL used by "PDF" button.
- * @property epubUrl - Optional target URL used by "EPUB" button.
+ * @property pdfUrl - Protected same-origin download endpoint for the localized PDF. The button fetches it with a Firebase ID token; missing files open an availability dialog.
+ * @property epubUrl - Protected same-origin download endpoint for the localized EPUB. Requires Family or Ultimate; a copied URL never grants access by itself.
  */
 export interface StoryCardData {
   /** Catalogue membership used for matching animation/audio access; missing means selection. */
@@ -80,7 +80,9 @@ export interface StoryCardData {
   moreInfoUrl?: string;
   /** Localized parent commentary and full spoiler-inclusive synopsis used by the More information dialog. */
   fullDescription?: FableFullDescription;
+  /** Authenticated PDF endpoint, never a public asset URL. */
   pdfUrl?: string;
+  /** Authenticated EPUB endpoint, never a public asset URL. */
   epubUrl?: string;
 }
 
@@ -136,7 +138,7 @@ export type UseStoryCard = (
  *
  * @remarks
  * Animation and audiobook actions share catalogue access in all plans. PDF/EPUB actions
- * require Family/Ultimate and open an explanatory modal when blocked or not supplied.
+ * require Family/Ultimate. Free accounts see an inline upgrade notice instead of download controls; paid accounts with missing files see an availability modal.
  * Action rows wrap on smaller screens. Restart uses a fixed circular control and does not expand neighboring buttons on hover.
  *
  * @param props - Layout, content, account access and an optional restart callback.
