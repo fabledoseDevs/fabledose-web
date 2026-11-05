@@ -37,36 +37,32 @@ const load = (file, mocks = {}, env = {}) => {
   });
   return exports;
 };
-const access = load(
-  'src/server/maintenanceAccess.ts',
-  { 'node:crypto': require('node:crypto') },
-  { EBOOK_ENCRYPTION_KEY: 'ab'.repeat(32) },
-);
-test('preview cookie: valid for 48 hours, expired/tampered/unsigned cookies rejected', () => {
-  const now = Date.now(),
-    token = access.createMaintenanceToken(now),
-    cookie = `other=1; fabledose_preview=${token}`;
+const access = load('src/server/maintenanceAccess.ts');
+test('preview cookie: valid for 48 hours without any environment configuration', () => {
+  const now = Date.now();
+  const token = access.createMaintenanceToken(now);
+  const cookie = `other=1; fabledose_preview=${token}`;
   assert.equal(access.hasMaintenanceAccess(cookie, now), true);
   assert.equal(
     access.hasMaintenanceAccess(cookie, now + 48 * 3600000 - 1),
     true,
   );
   assert.equal(access.hasMaintenanceAccess(cookie, now + 48 * 3600000), false);
-  assert.equal(access.hasMaintenanceAccess('fabledose_preview=1', now), false);
-  assert.equal(
-    access.hasMaintenanceAccess(
-      'fabledose_preview=' +
-        token.slice(0, -1) +
-        (token.endsWith('0') ? '1' : '0'),
-      now,
-    ),
-    false,
+  for (const invalid of [
+    null,
+    'fabledose_preview=1',
+    'fabledose_preview=garbage',
+    `fabledose_preview=${now + 49 * 3600000}`,
+  ]) {
+    assert.equal(access.hasMaintenanceAccess(invalid, now), false);
+  }
+  const unrelatedKey = load(
+    'src/server/maintenanceAccess.ts',
+    {},
+    { EBOOK_ENCRYPTION_KEY: 'not-an-ebook-key' },
   );
-  assert.equal(access.hasMaintenanceAccess(null, now), false);
-  const missing = load('src/server/maintenanceAccess.ts', {
-    'node:crypto': require('node:crypto'),
-  });
-  assert.equal(missing.hasMaintenanceAccess(cookie, now), false);
+  assert.equal(unrelatedKey.hasMaintenanceAccess(cookie, now), true);
+  assert.equal(unrelatedKey.createMaintenanceToken(now), token);
 });
 test('password API: wrong password sets no cookie; correct password issues HttpOnly cookie and GET restores it', async () => {
   const api = load('src/app/api/maintenance-access/route.ts', {

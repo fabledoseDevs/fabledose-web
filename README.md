@@ -323,7 +323,8 @@ live accounts or publish rules.
 The public homepage announces Q1 2027 and no longer links to a demo. The discreet
 bottom-left trigger opens a password dialog. Shared password: `TestAccess`.
 A successful server check sets an HttpOnly, SameSite=Lax cookie for 48 hours
-(Secure on HTTPS); the server verifies its signature and expiry on refresh.
-Signing uses the existing server-only `EBOOK_ENCRYPTION_KEY`; no additional
-Vercel variable is required. This is a shared preview convenience, not account
-authentication or a security boundary for the rest of the application.
+(Secure on HTTPS); the server checks the cookie expiry on refresh.
+Preview access requires no environment variable and does not use
+`EBOOK_ENCRYPTION_KEY`. It stores only the expiry timestamp, not the password.
+This is a shared preview convenience, not account authentication or a security
+boundary for the rest of the application. Ebook authorization/encryption is unchanged.
