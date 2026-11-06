@@ -7,13 +7,28 @@ export const getEbookDownload = (
   format: string,
 ): EbookDownload | null => {
   if (
-    fableId !== 'goldilocks' ||
+    (fableId !== 'goldilocks' &&
+      fableId !== 'three-little-pigs' &&
+      fableId !== 'fisherman-and-his-wife' &&
+      fableId !== 'fifi-is-planting-a-garden') ||
     (locale !== 'pl' && locale !== 'en') ||
     (format !== 'pdf' && format !== 'epub')
   )
     return null;
   const title =
-    locale === 'pl'
+    fableId === 'fisherman-and-his-wife'
+      ? locale === 'pl'
+        ? 'o-rybaku-i-zlotej-rybce'
+        : 'the-fisherman-and-his-wife'
+      : fableId === 'fifi-is-planting-a-garden'
+      ? locale === 'pl'
+        ? 'fifi-zaklada-ogrodek'
+        : 'fifi-is-planting-a-garden'
+      : fableId === 'three-little-pigs'
+      ? locale === 'pl'
+        ? 'trzy-male-swinki'
+        : 'the-three-little-pigs'
+      : locale === 'pl'
       ? 'zlotowlosa-i-trzy-misie'
       : 'goldilocks-and-the-three-bears';
   return {

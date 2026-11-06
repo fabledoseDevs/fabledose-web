@@ -63,20 +63,26 @@ const setup = (plan = 'family', accountStatus = 200, documentStatus = 200) => {
   };
   return { api, calls, fakeFetch };
 };
-test('catalogue: four exact locale/format combinations; unknown and traversal paths rejected', () => {
-  for (const locale of ['pl', 'en'])
-    for (const format of ['pdf', 'epub']) {
-      const item = ebooks.getEbookDownload('goldilocks', locale, format);
-      assert.equal(item.url, `/api/ebooks/goldilocks/${locale}/${format}`);
-      assert.ok(
-        fs.statSync(path.join(repo, 'private/ebooks', item.filename + '.enc'))
-          .size > 0,
-      );
-      assert.equal(
-        fs.existsSync(path.join(repo, 'public', item.filename)),
-        false,
-      );
-    }
+test('catalogue: sixteen exact tale/locale/format combinations; unknown and traversal paths rejected', () => {
+  for (const fableId of [
+    'goldilocks',
+    'three-little-pigs',
+    'fisherman-and-his-wife',
+    'fifi-is-planting-a-garden',
+  ])
+    for (const locale of ['pl', 'en'])
+      for (const format of ['pdf', 'epub']) {
+        const item = ebooks.getEbookDownload(fableId, locale, format);
+        assert.equal(item.url, `/api/ebooks/${fableId}/${locale}/${format}`);
+        assert.ok(
+          fs.statSync(path.join(repo, 'private/ebooks', item.filename + '.enc'))
+            .size > 0,
+        );
+        assert.equal(
+          fs.existsSync(path.join(repo, 'public', item.filename)),
+          false,
+        );
+      }
   for (const id of [
     'unknown',
     '..',
@@ -228,34 +234,40 @@ test('API: pasted URL, disabled rollout, denied plan and failed authentication n
   );
   assert.equal(invalid.reads(), 0);
 });
-test('API: all four authorized attachments use the selected language/format and never cache', async () => {
+test('API: all sixteen authorized attachments use the selected language/format and never cache', async () => {
   const h = route();
-  for (const locale of ['pl', 'en'])
-    for (const format of ['pdf', 'epub']) {
-      const item = ebooks.getEbookDownload('goldilocks', locale, format);
-      const response = await h.get(locale, format);
-      assert.equal(response.status, 200);
-      assert.equal(response.headers.get('content-type'), item.contentType);
-      assert.equal(
-        response.headers.get('content-disposition'),
-        `attachment; filename="${item.filename}"`,
-      );
-      assert.ok(response.headers.get('cache-control').includes('no-store'));
-      assert.equal(response.headers.get('vary'), 'Authorization');
-      const bytes = Buffer.from(await response.arrayBuffer());
-      assert.deepEqual(bytes, Buffer.from('authorized attachment fixture'));
-      assert.equal(
-        Number(response.headers.get('content-length')),
-        bytes.length,
-      );
-    }
-  assert.equal(h.checks(), 4);
-  assert.equal(h.reads(), 4);
+  for (const fableId of [
+    'goldilocks',
+    'three-little-pigs',
+    'fisherman-and-his-wife',
+    'fifi-is-planting-a-garden',
+  ])
+    for (const locale of ['pl', 'en'])
+      for (const format of ['pdf', 'epub']) {
+        const item = ebooks.getEbookDownload(fableId, locale, format);
+        const response = await h.get(locale, format, 'Bearer token', fableId);
+        assert.equal(response.status, 200);
+        assert.equal(response.headers.get('content-type'), item.contentType);
+        assert.equal(
+          response.headers.get('content-disposition'),
+          `attachment; filename="${item.filename}"`,
+        );
+        assert.ok(response.headers.get('cache-control').includes('no-store'));
+        assert.equal(response.headers.get('vary'), 'Authorization');
+        const bytes = Buffer.from(await response.arrayBuffer());
+        assert.deepEqual(bytes, Buffer.from('authorized attachment fixture'));
+        assert.equal(
+          Number(response.headers.get('content-length')),
+          bytes.length,
+        );
+      }
+  assert.equal(h.checks(), 16);
+  assert.equal(h.reads(), 16);
 });
 
 test('encrypted assets: a public repository contains no plaintext ebooks', () => {
   const files = fs.readdirSync(path.join(repo, 'private/ebooks'));
-  assert.equal(files.length, 4);
+  assert.equal(files.length, 16);
   for (const file of files) {
     assert.ok(file.endsWith('.enc'));
     const bytes = fs.readFileSync(path.join(repo, 'private/ebooks', file));
@@ -310,7 +322,7 @@ test('decryption: correct key restores bytes; wrong/missing keys and tampering f
   );
 });
 
-test('home carousel: Goldilocks carries both localized protected download URLs; unpublished tales do not', () => {
+test('home carousel: published tales carry both localized protected download URLs; unpublished tales do not', () => {
   const index = JSON.parse(
     fs.readFileSync(
       path.join(repo, 'public/fable-database/index.json'),
@@ -334,7 +346,15 @@ test('home carousel: Goldilocks carries both localized protected download URLs; 
           card[format + 'Url'],
           ebooks.getEbookDownload(tale.meta.id, locale, format)?.url,
         );
-        if (tale.meta.id === 'goldilocks') assert.ok(card[format + 'Url']);
+        if (
+          [
+            'goldilocks',
+            'three-little-pigs',
+            'fisherman-and-his-wife',
+            'fifi-is-planting-a-garden',
+          ].includes(tale.meta.id)
+        )
+          assert.ok(card[format + 'Url']);
       }
     }
   }
